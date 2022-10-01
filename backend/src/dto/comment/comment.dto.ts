@@ -1,5 +1,5 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Pic } from 'src/schemas/pic.schema';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { PicCreateDto } from '../pic/pic.create.dto';
 import { UserDto } from '../user/user.dto';
 
 export class CommentDto {
@@ -7,7 +7,7 @@ export class CommentDto {
   author: UserDto;
 
   @IsNotEmpty()
-  destPic: Pic;
+  destPicture: PicCreateDto;
 
   @IsNotEmpty()
   @IsString()

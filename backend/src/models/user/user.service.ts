@@ -12,7 +12,7 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async create(userDto: UserDto): Promise<User> {
+  async createUser(userDto: UserDto): Promise<User> {
     return this.userModel.create(userDto);
   }
 }

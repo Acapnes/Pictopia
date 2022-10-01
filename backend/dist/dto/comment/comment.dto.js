@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentDto = void 0;
 const class_validator_1 = require("class-validator");
-const pic_schema_1 = require("../../schemas/pic.schema");
+const pic_create_dto_1 = require("../pic/pic.create.dto");
 const user_dto_1 = require("../user/user.dto");
 class CommentDto {
 }
@@ -21,8 +21,8 @@ __decorate([
 ], CommentDto.prototype, "author", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", pic_schema_1.Pic)
-], CommentDto.prototype, "destPic", void 0);
+    __metadata("design:type", pic_create_dto_1.PicCreateDto)
+], CommentDto.prototype, "destPicture", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),

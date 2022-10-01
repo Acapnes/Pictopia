@@ -11,7 +11,7 @@ export class Comment {
   author: User;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Pic' })
-  destPic: Pic;
+  destPicture: Pic;
 
   @Prop({ required: true })
   comment: string;

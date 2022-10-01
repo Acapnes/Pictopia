@@ -14,24 +14,27 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
-const comment_dto_1 = require("../../dto/comment/comment.dto");
-const pic_create_dto_1 = require("../../dto/pic/pic.create.dto");
+const platform_express_1 = require("@nestjs/platform-express");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
     constructor(picsService) {
         this.picsService = picsService;
     }
-    async getUsers() {
+    async getPics() {
         return this.picsService.findAll();
     }
-    async getOnePopulatedComment(_id) {
-        return this.picsService.findOneCommentAndPopulate(_id);
+    async getPicById(res, req, id) {
+        const picture = await this.picsService.getPicById(id);
+        res.setHeader('Content-type', picture.picture_file.contentType);
+        return res.send(picture.picture_file.data.buffer);
     }
-    async userRegister(picDto) {
-        return this.picsService.create(picDto);
-    }
-    async commentCreate(commentDto) {
-        return this.picsService.createComment(commentDto);
+    async uploadImage(file, res, req, body) {
+        const picture = await this.picsService.createPostWithImage(file, body);
+        const prettyResponse = picture.toObject();
+        const host = req.get('host');
+        prettyResponse.picture_file = undefined;
+        prettyResponse.url = `http://${host}/pics/${prettyResponse._id}`;
+        return res.send(prettyResponse);
     }
 };
 __decorate([
@@ -39,28 +42,27 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], PicController.prototype, "getUsers", null);
+], PicController.prototype, "getPics", null);
 __decorate([
-    (0, common_1.Get)('/comment/:_id'),
-    __param(0, (0, common_1.Param)('_id')),
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
-], PicController.prototype, "getOnePopulatedComment", null);
+], PicController.prototype, "getPicById", null);
 __decorate([
-    (0, common_1.Post)('/create'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)(''),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Res)()),
+    __param(2, (0, common_1.Req)()),
+    __param(3, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_create_dto_1.PicDto]),
+    __metadata("design:paramtypes", [Object, Object, Object, Object]),
     __metadata("design:returntype", Promise)
-], PicController.prototype, "userRegister", null);
-__decorate([
-    (0, common_1.Post)('/comment/create'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [comment_dto_1.CommentDto]),
-    __metadata("design:returntype", Promise)
-], PicController.prototype, "commentCreate", null);
+], PicController.prototype, "uploadImage", null);
 PicController = __decorate([
     (0, common_1.Controller)('/pics'),
     __metadata("design:paramtypes", [pic_service_1.PicService])

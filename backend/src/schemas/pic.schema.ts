@@ -1,11 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { Comment } from './comment.schema';
+import { Type } from 'class-transformer';
+import mongoose, { Document, Types } from 'mongoose';
+import { Comment, CommentSchema } from './comment.schema';
+import { User } from './user.schema';
 
 export type PicDocument = Pic & Document;
 
 @Schema()
 export class Pic {
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  authorPic: User;
+
   @Prop({ required: true })
   title: string;
 
@@ -18,8 +23,14 @@ export class Pic {
   @Prop({ required: false })
   disslike: number;
 
+  @Prop({ type: Object, default: { data: null, contentType: null } })
+  picture_file: {
+    data: Buffer;
+    contentType: string;
+  };
+
   @Prop({ required: false })
-  comments: [Comment];
+  url: string;
 }
 
 export const PicSchema = SchemaFactory.createForClass(Pic);

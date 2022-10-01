@@ -5,5 +5,5 @@ export declare class CommentService {
     private commentModel;
     constructor(commentModel: Model<CommentDocument>);
     findAll(): Promise<Comment[]>;
-    create(commentDto: CommentDto): Promise<Comment>;
+    signComment(commentDto: CommentDto): Promise<Comment>;
 }

@@ -24,7 +24,7 @@ let UserController = class UserController {
         return this.usersService.findAll();
     }
     async userRegister(userDto) {
-        return this.usersService.create(userDto);
+        return this.usersService.createUser(userDto);
     }
 };
 __decorate([
@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
-    (0, common_1.Post)('/create'),
+    (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_dto_1.UserDto]),

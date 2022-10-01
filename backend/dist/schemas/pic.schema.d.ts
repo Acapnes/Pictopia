@@ -1,35 +1,17 @@
-/// <reference types="mongoose/types/aggregate" />
-/// <reference types="mongoose/types/callback" />
-/// <reference types="mongoose/types/collection" />
-/// <reference types="mongoose/types/connection" />
-/// <reference types="mongoose/types/cursor" />
-/// <reference types="mongoose/types/document" />
-/// <reference types="mongoose/types/error" />
-/// <reference types="mongoose/types/expressions" />
-/// <reference types="mongoose/types/helpers" />
-/// <reference types="mongoose/types/middlewares" />
-/// <reference types="mongoose/types/indexes" />
-/// <reference types="mongoose/types/models" />
-/// <reference types="mongoose/types/mongooseoptions" />
-/// <reference types="mongoose/types/pipelinestage" />
-/// <reference types="mongoose/types/populate" />
-/// <reference types="mongoose/types/query" />
-/// <reference types="mongoose/types/schemaoptions" />
-/// <reference types="mongoose/types/schematypes" />
-/// <reference types="mongoose/types/session" />
-/// <reference types="mongoose/types/types" />
-/// <reference types="mongoose/types/utility" />
-/// <reference types="mongoose/types/validation" />
-/// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose/types/inferschematype" />
-import { Document } from 'mongoose';
-import { Comment } from './comment.schema';
+/// <reference types="node" />
+import mongoose, { Document } from 'mongoose';
+import { User } from './user.schema';
 export declare type PicDocument = Pic & Document;
 export declare class Pic {
+    authorPic: User;
     title: string;
     description: string;
     like: number;
     disslike: number;
-    comments: [Comment];
+    picture_file: {
+        data: Buffer;
+        contentType: string;
+    };
+    url: string;
 }
-export declare const PicSchema: import("mongoose").Schema<Pic, import("mongoose").Model<Pic, any, any, any, any>, {}, {}, {}, {}, "type", Pic>;
+export declare const PicSchema: mongoose.Schema<Pic, mongoose.Model<Pic, any, any, any, any>, {}, {}, {}, {}, "type", Pic>;

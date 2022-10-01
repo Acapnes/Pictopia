@@ -24,7 +24,7 @@ let UserService = class UserService {
     async findAll() {
         return this.userModel.find().exec();
     }
-    async create(userDto) {
+    async createUser(userDto) {
         return this.userModel.create(userDto);
     }
 };

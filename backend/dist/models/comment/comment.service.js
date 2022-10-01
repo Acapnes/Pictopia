@@ -22,9 +22,12 @@ let CommentService = class CommentService {
         this.commentModel = commentModel;
     }
     async findAll() {
-        return this.commentModel.find({}).populate("first.author");
+        return this.commentModel
+            .find({})
+            .populate('author')
+            .populate('destPicture');
     }
-    async create(commentDto) {
+    async signComment(commentDto) {
         return this.commentModel.create(commentDto);
     }
 };

@@ -23,7 +23,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Pic' }),
     __metadata("design:type", pic_schema_1.Pic)
-], Comment.prototype, "destPic", void 0);
+], Comment.prototype, "destPicture", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

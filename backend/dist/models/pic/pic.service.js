@@ -24,25 +24,14 @@ let PicService = class PicService {
     async findAll() {
         return this.picModel.find().exec();
     }
-    async findOneCommentAndPopulate(_id) {
-        return await this.picModel.findOne({ _id }).populate("comments.author");
+    async getPicById(id) {
+        return this.picModel.findOne({ _id: id });
     }
-    async findByMongoId(picId) {
-        return this.picModel.findOne({ _id: picId });
-    }
-    async create(picDto) {
-        return this.picModel.create(picDto);
-    }
-    async createComment(commentDto) {
-        return this.picModel.findOneAndUpdate({ _id: commentDto.destPic }, {
-            $push: {
-                comments: {
-                    author: new mongoose_1.default.Types.ObjectId(commentDto.author.toString()),
-                    comment: commentDto.comment,
-                    _id: new mongoose_1.default.Types.ObjectId(),
-                },
-            },
-        });
+    async createPostWithImage(file, picCreateDto) {
+        const newImage = await new this.picModel(picCreateDto);
+        newImage.picture_file.data = file.buffer;
+        newImage.picture_file.contentType = file.mimetype;
+        return newImage.save();
     }
 };
 PicService = __decorate([

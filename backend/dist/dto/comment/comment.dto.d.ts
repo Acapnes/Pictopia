@@ -1,7 +1,7 @@
-import { Pic } from 'src/schemas/pic.schema';
+import { PicCreateDto } from '../pic/pic.create.dto';
 import { UserDto } from '../user/user.dto';
 export declare class CommentDto {
     author: UserDto;
-    destPic: Pic;
+    destPicture: PicCreateDto;
     comment: string;
 }

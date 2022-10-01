@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PicDto = void 0;
+exports.PicCreateDto = void 0;
 const class_validator_1 = require("class-validator");
-class PicDto {
+const user_dto_1 = require("../user/user.dto");
+class PicCreateDto {
     constructor() {
         this.like = 0;
         this.disslike = 0;
@@ -19,20 +20,24 @@ class PicDto {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", user_dto_1.UserDto)
+], PicCreateDto.prototype, "authorPic", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], PicDto.prototype, "title", void 0);
+], PicCreateDto.prototype, "title", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], PicDto.prototype, "description", void 0);
+], PicCreateDto.prototype, "description", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], PicDto.prototype, "like", void 0);
+], PicCreateDto.prototype, "like", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], PicDto.prototype, "disslike", void 0);
-exports.PicDto = PicDto;
+], PicCreateDto.prototype, "disslike", void 0);
+exports.PicCreateDto = PicCreateDto;
 //# sourceMappingURL=pic.create.dto.js.map

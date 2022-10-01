@@ -1,6 +1,10 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { UserDto } from '../user/user.dto';
 
-export class PicDto {
+export class PicCreateDto {
+  @IsNotEmpty()
+  authorPic: UserDto;
+
   @IsNotEmpty()
   @IsString()
   title: string;

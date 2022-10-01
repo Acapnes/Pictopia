@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CommentDto } from 'src/dto/comment/comment.dto';
-import { PicDto } from 'src/dto/pic/pic.create.dto';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { Pic } from 'src/schemas/pic.schema';
 import { PicService } from './pic.service';
 
@@ -9,22 +9,28 @@ export class PicController {
   constructor(private readonly picsService: PicService) {}
 
   @Get()
-  async getUsers(): Promise<Pic[]> {
+  async getPics(): Promise<Pic[]> {
     return this.picsService.findAll();
   }
 
-  @Get('/comment/:_id')
-  async getOnePopulatedComment(@Param('_id') _id: string): Promise<Pic> {
-    return this.picsService.findOneCommentAndPopulate(_id);
+  @Get(':id')
+  async getPicById(@Res() res, @Req() req, @Param('id') id): Promise<Pic> {
+    const picture = await this.picsService.getPicById(id);
+    res.setHeader('Content-type', picture.picture_file.contentType);
+    return res.send(picture.picture_file.data.buffer)
   }
 
-  @Post('/create')
-  async userRegister(@Body() picDto: PicDto): Promise<Pic> {
-    return this.picsService.create(picDto);
+  @Post('')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(@UploadedFile() file, @Res() res, @Req() req, @Body() body): Promise<Pic>{
+    const picture  = await this.picsService.createPostWithImage(file,body)
+
+    const prettyResponse = picture.toObject();
+    const host = req.get('host');
+    prettyResponse.picture_file = undefined;
+    prettyResponse.url = `http://${host}/pics/${prettyResponse._id}`;
+    
+    return res.send(prettyResponse)
   }
 
-  @Post('/comment/create')
-  async commentCreate(@Body() commentDto: CommentDto): Promise<Pic> {
-    return this.picsService.createComment(commentDto);
-  }
 }

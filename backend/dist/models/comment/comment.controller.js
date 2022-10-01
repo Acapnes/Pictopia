@@ -20,11 +20,11 @@ let CommentController = class CommentController {
     constructor(commentsService) {
         this.commentsService = commentsService;
     }
-    async getUsers() {
+    async getComments() {
         return this.commentsService.findAll();
     }
-    async userRegister(commentDto) {
-        return this.commentsService.create(commentDto);
+    async commentCreate(commentDto) {
+        return this.commentsService.signComment(commentDto);
     }
 };
 __decorate([
@@ -32,14 +32,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], CommentController.prototype, "getUsers", null);
+], CommentController.prototype, "getComments", null);
 __decorate([
     (0, common_1.Post)('/create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [comment_dto_1.CommentDto]),
     __metadata("design:returntype", Promise)
-], CommentController.prototype, "userRegister", null);
+], CommentController.prototype, "commentCreate", null);
 CommentController = __decorate([
     (0, common_1.Controller)('/comments'),
     __metadata("design:paramtypes", [comment_service_1.CommentService])
