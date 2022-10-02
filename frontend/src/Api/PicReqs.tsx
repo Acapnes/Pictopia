@@ -1,4 +1,4 @@
-import { PicDto } from "../Dto/picDto";
+import { PicDto } from "./Dto/picDto";
 
 export class PicAPI {
   public static async getAllPics(): Promise<PicDto[]> {
