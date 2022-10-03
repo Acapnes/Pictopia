@@ -8,7 +8,7 @@ export type PicDocument = Pic & Document;
 
 @Schema()
 export class Pic {
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   authorPic: User;
 
   @Prop({ required: true })
@@ -23,7 +23,7 @@ export class Pic {
   @Prop({ required: false })
   disslike: number;
 
-  @Prop({ type: Object, default: { data: null, contentType: null } })
+  @Prop({ type: Object,  required: true, default: { data: null, contentType: null }  })
   picture_file: {
     data: Buffer;
     contentType: string;
