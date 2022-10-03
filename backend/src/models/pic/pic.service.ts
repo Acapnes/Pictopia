@@ -11,12 +11,12 @@ export class PicService {
   constructor(@InjectModel(Pic.name) private picModel: Model<PicDocument>) {}
 
   async findAll(): Promise<Pic[]> {
-    return this.picModel.find().exec();
-    
+    return this.picModel.find({}).limit(20).skip(Math.random()*10)
+    // return this.picModel.aggregate([{ $match: {} }]).limit(10);
   }
 
   async getPicById(id: any): Promise<Pic> {
-    return this.picModel.findOne({ _id: id });
+    return this.picModel.findOne({ _id: id }).populate("authorPic");
   }
 
   async createPostWithImage(file, picCreateDto: PicCreateDto) {
