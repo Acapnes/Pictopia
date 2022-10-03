@@ -23,10 +23,13 @@ let PicController = class PicController {
     async getPics() {
         return this.picsService.findAll();
     }
-    async getPicById(res, req, id) {
+    async getPrettyPicById(res, req, id) {
         const picture = await this.picsService.getPicById(id);
         res.setHeader('Content-type', picture.picture_file.contentType);
         return res.send(picture.picture_file.data.buffer);
+    }
+    async getPicById(id) {
+        return this.picsService.getPicById(id);
     }
     async uploadImage(file, res, req, body) {
         const picture = await this.picsService.createPostWithImage(file, body);
@@ -44,12 +47,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPics", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "getPrettyPicById", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicById", null);
 __decorate([

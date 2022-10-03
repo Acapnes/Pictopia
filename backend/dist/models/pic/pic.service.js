@@ -22,10 +22,10 @@ let PicService = class PicService {
         this.picModel = picModel;
     }
     async findAll() {
-        return this.picModel.find().exec();
+        return this.picModel.find({}).limit(20).skip(Math.random() * 10);
     }
     async getPicById(id) {
-        return this.picModel.findOne({ _id: id });
+        return this.picModel.findOne({ _id: id }).populate("authorPic");
     }
     async createPostWithImage(file, picCreateDto) {
         const newImage = await new this.picModel(picCreateDto);
