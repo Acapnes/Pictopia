@@ -13,11 +13,16 @@ export class PicController {
     return this.picsService.findAll();
   }
 
-  @Get(':id')
-  async getPicById(@Res() res, @Req() req, @Param('id') id): Promise<Pic> {
+  @Get('/pretty/:id')
+  async getPrettyPicById(@Res() res, @Req() req, @Param('id') id): Promise<Pic> {
     const picture = await this.picsService.getPicById(id);
     res.setHeader('Content-type', picture.picture_file.contentType);
     return res.send(picture.picture_file.data.buffer)
+  }
+
+  @Get(':id')
+  async getPicById( @Param('id') id): Promise<Pic> {
+    return this.picsService.getPicById(id);
   }
 
   @Post('')
