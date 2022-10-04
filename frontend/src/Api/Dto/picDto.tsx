@@ -5,6 +5,7 @@ export interface PicDto {
     avatar: string;
     __v: 0;
   };
+  _id:string,
   title: string;
   description: string;
   picture_file: {

@@ -1,6 +1,6 @@
-import Categories from "./Categories";
-import Grid from "./Grid";
-import Header from "./Header";
+import Categories from "./Categories/Categories";
+import Grid from "./Grids/Grid";
+import Header from "./Header/Header";
 
 function App() {
 
