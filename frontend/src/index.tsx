@@ -1,10 +1,12 @@
 import React from "react";
+import "./index.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
 import App from "./App";
 import Details from "./Details/Details";
 import Profile from "./User/Profile";
+import Login from "./User/Login";
+import Register from "./User/Register";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,6 +18,8 @@ root.render(
         <Route path="*" element={<App />} />
         <Route path="/detail/*" element={<Details />} />
         <Route path="/user/*" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
