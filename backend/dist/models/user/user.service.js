@@ -17,6 +17,7 @@ const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 const mongoose_2 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../schemas/user.schema");
+const bcrypt = require("bcrypt");
 let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -24,8 +25,17 @@ let UserService = class UserService {
     async findAll() {
         return this.userModel.find().exec();
     }
+    async findByEmail(validationUserDto) {
+        return this.userModel.findOne({ email: validationUserDto.email });
+    }
     async createUser(userDto) {
+        userDto.password = await bcrypt.hashSync(userDto.password, 10);
         return this.userModel.create(userDto);
+    }
+    async validateUser(validationUserDto) {
+        const hashedPassword = (await this.findByEmail(validationUserDto)).password.toString();
+        const rawPassword = validationUserDto.password.toString();
+        return await bcrypt.compareSync(rawPassword, hashedPassword, function (err, result) { });
     }
 };
 UserService = __decorate([

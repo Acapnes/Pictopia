@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_dto_1 = require("../../dto/user/user.dto");
+const validation_user_dto_1 = require("../../dto/user/validation.user.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(usersService) {
@@ -23,8 +24,14 @@ let UserController = class UserController {
     async getUsers() {
         return this.usersService.findAll();
     }
+    async getUserByEmail(validationUserDto) {
+        return this.usersService.findByEmail(validationUserDto);
+    }
     async userRegister(userDto) {
         return this.usersService.createUser(userDto);
+    }
+    async userLogin(validationUserDto) {
+        return this.usersService.validateUser(validationUserDto);
     }
 };
 __decorate([
@@ -34,12 +41,26 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
+    (0, common_1.Get)('/get'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [validation_user_dto_1.ValidationUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUserByEmail", null);
+__decorate([
     (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_dto_1.UserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userRegister", null);
+__decorate([
+    (0, common_1.Post)('/signin'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [validation_user_dto_1.ValidationUserDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userLogin", null);
 UserController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [user_service_1.UserService])

@@ -22,7 +22,10 @@ let PicService = class PicService {
         this.picModel = picModel;
     }
     async findAll() {
-        return this.picModel.find({}).limit(20).skip(Math.random() * 10);
+        return this.picModel.find({}).skip(Math.random() * 10).limit(30);
+    }
+    async findAllActionless() {
+        return this.picModel.find({}).limit(20).skip(Math.random() * 4);
     }
     async getPicById(id) {
         return this.picModel.findOne({ _id: id }).populate("authorPic");
