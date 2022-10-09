@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PicDto } from "../Api/Dto/picDto";
+import { PicDto } from "../Api/PicDtos/picDto";
 import { PicAPI } from "../Api/PicReqs";
 import GridMenu from "./GridMenu";
 

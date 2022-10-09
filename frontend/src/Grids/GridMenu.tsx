@@ -1,4 +1,4 @@
-import { PicDto } from "../Api/Dto/picDto";
+import { PicDto } from "../Api/PicDtos/picDto";
 
 const GridMenu = (props: PicDto | any) => {
   return (

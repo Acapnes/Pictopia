@@ -12,7 +12,7 @@ const PrettyShare = () => {
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
-          fill="currentColor"
+          fill="white"
           className="bi bi-share-fill"
           viewBox="0 0 16 16"
         >
@@ -35,7 +35,7 @@ const PrettySave = () => {
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
-          fill="currentColor"
+          fill="white"
           className="bi bi-bookmarks-fill"
           viewBox="0 0 16 16"
         >
@@ -56,7 +56,7 @@ const PrettyComments = () => {
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
-          fill="currentColor"
+          fill="white"
           className="bi bi-chat-right-fill"
           viewBox="0 0 16 16"
         >
@@ -76,7 +76,7 @@ const PrettyReport = () => {
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
-          fill="currentColor"
+          fill="white"
           className="bi bi-exclamation-octagon-fill"
           viewBox="0 0 16 16"
         >
@@ -98,4 +98,15 @@ const PrettyLogin = () => {
   );
 };
 
-export { PrettyShare, PrettySave, PrettyComments, PrettyReport, PrettyLogin };
+const PrettyRegister = () => {
+  return (
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+        <span className="text-white">Register</span>
+      </span>
+    </div>
+  );
+};
+
+export { PrettyShare, PrettySave, PrettyComments, PrettyReport, PrettyLogin, PrettyRegister };

@@ -2,32 +2,35 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="w-full h-[4rem] bg-soft-black text-white flex flex-row space-x-10 items-center px-8 sticky top-0 z-10">
+    <div className="w-full h-[4rem] bg-soft-black text-white flex flex-row justify-between space-x-10 items-center px-8 sticky top-0 z-10">
       <div className="w-[7rem] h-[7rem] items-center flex justify-center">
         <img src="/piclogo.png" className="w-fit h-fit" alt="" />
       </div>
-      <div className="w-full border-2 border-gray-500 px-2 py-1 flex flex-row items-center space-x-2">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="gray"
-            className="bi bi-search"
-            viewBox="0 0 16 16"
-          >
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-          </svg>
+      <div className="w-full hidden md:block lg:block">
+        <div className=" border-2 border-gray-500 px-2 py-1 flex flex-row items-center space-x-2">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="gray"
+              className="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            className="w-full outline-none bg-transparent text-sm"
+            placeholder="search"
+          />
         </div>
-        <input
-          type="text"
-          className="w-full outline-none bg-transparent text-sm"
-          placeholder="search"
-        />
       </div>
-      <div className="flex flex-row justify-between space-x-4 items-center">
+
+      <div className="flex flex-row space-x-2 items-center">
         <a
-          href="#_"
+          href="/login"
           className="w-[6rem] text-sm relative inline-flex items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-full group"
         >
           <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
