@@ -72,8 +72,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicById", null);
 __decorate([
-    (0, common_1.Post)(''),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    (0, common_1.Post)('/create'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('picture')),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Res)()),
     __param(2, (0, common_1.Req)()),

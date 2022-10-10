@@ -9,28 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
-const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-const app_service_1 = require("./app.service");
-let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
-    }
-    getHello() {
-        return this.appService.getHello();
-    }
+exports.CategorySchema = exports.Category = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let Category = class Category {
 };
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
-AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-exports.AppController = AppController;
-//# sourceMappingURL=app.controller.js.map
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Category.prototype, "title", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Object, required: true, default: { data: null, contentType: null } }),
+    __metadata("design:type", Object)
+], Category.prototype, "category_picture_file", void 0);
+Category = __decorate([
+    (0, mongoose_1.Schema)()
+], Category);
+exports.Category = Category;
+exports.CategorySchema = mongoose_1.SchemaFactory.createForClass(Category);
+//# sourceMappingURL=category.schema.js.map

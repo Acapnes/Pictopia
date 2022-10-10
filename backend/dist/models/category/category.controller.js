@@ -9,28 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppController = void 0;
+exports.CategoryController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-const app_service_1 = require("./app.service");
-let AppController = class AppController {
-    constructor(appService) {
-        this.appService = appService;
+const category_service_1 = require("./category.service");
+let CategoryController = class CategoryController {
+    constructor(categoryService) {
+        this.categoryService = categoryService;
     }
-    getHello() {
-        return this.appService.getHello();
+    async getCategories() {
+        return this.categoryService.findAll();
     }
 };
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "getHello", null);
-AppController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [app_service_1.AppService])
-], AppController);
-exports.AppController = AppController;
-//# sourceMappingURL=app.controller.js.map
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "getCategories", null);
+CategoryController = __decorate([
+    (0, common_1.Controller)('category'),
+    __metadata("design:paramtypes", [category_service_1.CategoryService])
+], CategoryController);
+exports.CategoryController = CategoryController;
+//# sourceMappingURL=category.controller.js.map

@@ -14,24 +14,23 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const user_dto_1 = require("../../dto/user/user.dto");
+const registration_user_dto_1 = require("../../dto/user/registration.user.dto");
 const validation_user_dto_1 = require("../../dto/user/validation.user.dto");
+const registration_service_1 = require("./registration.service");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
-    constructor(usersService) {
+    constructor(usersService, registrationService) {
         this.usersService = usersService;
+        this.registrationService = registrationService;
     }
     async getUsers() {
         return this.usersService.findAll();
     }
-    async getUserByEmail(validationUserDto) {
-        return this.usersService.findByEmail(validationUserDto);
-    }
-    async userRegister(userDto) {
-        return this.usersService.createUser(userDto);
+    async userRegister(registrationUserDto) {
+        return this.registrationService.createUser(registrationUserDto);
     }
     async userLogin(validationUserDto) {
-        return this.usersService.validateUser(validationUserDto);
+        return this.usersService.validateLoginUser(validationUserDto);
     }
 };
 __decorate([
@@ -41,17 +40,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
 __decorate([
-    (0, common_1.Get)('/get'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [validation_user_dto_1.ValidationUserDto]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "getUserByEmail", null);
-__decorate([
     (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.UserDto]),
+    __metadata("design:paramtypes", [registration_user_dto_1.RegistrationUserDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userRegister", null);
 __decorate([
@@ -62,8 +54,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userLogin", null);
 UserController = __decorate([
-    (0, common_1.Controller)('users'),
-    __metadata("design:paramtypes", [user_service_1.UserService])
+    (0, common_1.Controller)('user'),
+    __metadata("design:paramtypes", [user_service_1.UserService, registration_service_1.RegistrationService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

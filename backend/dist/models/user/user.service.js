@@ -18,30 +18,52 @@ const common_1 = require("@nestjs/common");
 const mongoose_2 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../schemas/user.schema");
 const bcrypt = require("bcrypt");
+const jwt_1 = require("@nestjs/jwt");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, jwtService) {
         this.userModel = userModel;
+        this.jwtService = jwtService;
     }
     async findAll() {
         return this.userModel.find().exec();
     }
-    async findByEmail(validationUserDto) {
-        return this.userModel.findOne({ email: validationUserDto.email });
+    async findByEmail(email) {
+        return this.userModel.findOne({ email: email });
     }
-    async createUser(userDto) {
-        userDto.password = await bcrypt.hashSync(userDto.password, 10);
-        return this.userModel.create(userDto);
+    async generateLoginToken(userDto) {
+        return await this.jwtService.sign({
+            name: userDto.name,
+            username: userDto.username,
+            email: userDto.email,
+            birthDate: userDto.birthDate,
+            avatar: userDto.avatar,
+            bio: userDto.bio,
+            confrimed: userDto.confrimed,
+        });
     }
-    async validateUser(validationUserDto) {
-        const hashedPassword = (await this.findByEmail(validationUserDto)).password.toString();
+    async validateLoginUser(validationUserDto) {
+        const selectedUser = await this.findByEmail(validationUserDto.email);
         const rawPassword = validationUserDto.password.toString();
-        return await bcrypt.compareSync(rawPassword, hashedPassword, function (err, result) { });
+        const loginResult = bcrypt.compareSync(rawPassword, selectedUser.password.toString());
+        if (loginResult) {
+            return {
+                access: true,
+                message: 'Access verification successful',
+                access_token: await this.generateLoginToken(selectedUser),
+            };
+        }
+        else {
+            return {
+                access: false,
+                message: 'Access verification failed',
+            };
+        }
     }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __metadata("design:paramtypes", [mongoose_1.Model, jwt_1.JwtService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

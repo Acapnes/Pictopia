@@ -8,17 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
+const jwt_strategy_1 = require("../../helpers/AuthGuards/jwt.strategy");
 const user_schema_1 = require("../../schemas/user.schema");
+const registration_service_1 = require("./registration.service");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }])],
+        imports: [
+            jwt_1.JwtModule.register({
+                secret: 'super-jwt-secret-key',
+            }),
+            mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
+        ],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService],
+        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, registration_service_1.RegistrationService],
     })
 ], UserModule);
 exports.UserModule = UserModule;
