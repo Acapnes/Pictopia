@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { Pic } from 'src/schemas/pic.schema';
@@ -8,8 +9,14 @@ import { PicService } from './pic.service';
 export class PicController {
   constructor(private readonly picsService: PicService) {}
 
+
   @Get()
   async getPics(): Promise<Pic[]> {
+    return this.picsService.findAll();
+  }
+
+  @Get()
+  async getPicsActionless(): Promise<Pic[]> {
     return this.picsService.findAll();
   }
 
@@ -25,8 +32,8 @@ export class PicController {
     return this.picsService.getPicById(id);
   }
 
-  @Post('')
-  @UseInterceptors(FileInterceptor('file'))
+  @Post('/create')
+  @UseInterceptors(FileInterceptor('picture'))
   async uploadImage(@UploadedFile() file, @Res() res, @Req() req, @Body() body): Promise<Pic>{
     const picture  = await this.picsService.createPostWithImage(file,body)
 
@@ -39,3 +46,5 @@ export class PicController {
   }
 
 }
+
+// @UseGuards(AuthGuard('jwt'))
