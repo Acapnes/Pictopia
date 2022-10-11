@@ -17,7 +17,6 @@ const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 const mongoose_2 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../schemas/user.schema");
-const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
 let UserService = class UserService {
     constructor(userModel, jwtService) {
@@ -30,38 +29,23 @@ let UserService = class UserService {
     async findByEmail(email) {
         return this.userModel.findOne({ email: email });
     }
-    async generateLoginToken(userDto) {
+    async findByMongooseId(_id) {
+        return this.userModel.findOne({ _id: _id });
+    }
+    async generateLoginToken(userJwtDto) {
         return await this.jwtService.sign({
-            _id: userDto._id,
-            name: userDto.name,
-            username: userDto.username,
-            email: userDto.email,
-            birthDate: userDto.birthDate,
-            avatar: userDto.avatar,
-            bio: userDto.bio,
-            confrimed: userDto.confrimed,
+            _id: userJwtDto._id,
+            name: userJwtDto.name,
+            username: userJwtDto.username,
+            email: userJwtDto.email,
+            birthDate: userJwtDto.birthDate,
+            avatar: {
+                data: userJwtDto.avatar.data,
+                contentType: userJwtDto.avatar.contentType,
+            },
+            bio: userJwtDto.bio,
+            confrimed: userJwtDto.confrimed,
         });
-    }
-    async validateLoginUser(validationUserDto) {
-        const selectedUser = await this.findByEmail(validationUserDto.email);
-        const rawPassword = validationUserDto.password.toString();
-        const loginResult = bcrypt.compareSync(rawPassword, selectedUser.password.toString());
-        if (loginResult) {
-            return {
-                access: true,
-                message: 'Access verification successful',
-                access_token: await this.generateLoginToken(selectedUser),
-            };
-        }
-        else {
-            return {
-                access: false,
-                message: 'Access verification failed',
-            };
-        }
-    }
-    async updateProfile(userDto) {
-        this.userModel.findOneAndUpdate({ email: userDto.email }, { name: userDto.name });
     }
 };
 UserService = __decorate([

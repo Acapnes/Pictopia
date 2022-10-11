@@ -1,11 +1,14 @@
+/// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
 export declare type UserDocument = User & Document;
 export declare class User {
-    _id: mongoose.Schema.Types.ObjectId;
     name: string;
     email: string;
     username: string;
-    avatar: string;
+    avatar: {
+        data: Buffer;
+        contentType: string;
+    };
     birthDate: string;
     confrimed: boolean;
     bio: string;

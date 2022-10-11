@@ -17,11 +17,11 @@ export class Pic {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ required: false })
-  like: number;
+  // @Prop({ required: false })
+  // like: number;
 
-  @Prop({ required: false })
-  disslike: number;
+  // @Prop({ required: false })
+  // disslike: number;
 
   @Prop({ type: Object,  required: true, default: { data: null, contentType: null }  })
   picture_file: {

@@ -1,6 +1,6 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
-export class RegistrationUserDto {
+export class UserRegistrationDto {
   @IsString()
   name?: string = "";
 
@@ -12,10 +12,12 @@ export class RegistrationUserDto {
   @IsNotEmpty()
   username!: string;
 
-  @IsString()
-  avatar?: string = "";
+  avatar?: {
+    data: Buffer;
+    contentType: string;
+  };
 
-  // @IsString()
+  // @IsDate()
   @IsNotEmpty()
   birthDate!: string;
 

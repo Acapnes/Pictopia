@@ -14,23 +14,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const registration_user_dto_1 = require("../../dto/user/registration.user.dto");
-const validation_user_dto_1 = require("../../dto/user/validation.user.dto");
-const registration_service_1 = require("./registration.service");
+const passport_1 = require("@nestjs/passport");
+const user_registration_dto_1 = require("../../dto/user/user.registration.dto");
+const user_validation_dto_1 = require("../../dto/user/user.validation.dto");
+const auth_service_1 = require("./auth.service");
+const moderation_service_1 = require("./moderation.service");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
-    constructor(usersService, registrationService) {
+    constructor(usersService, authService, moderationService) {
         this.usersService = usersService;
-        this.registrationService = registrationService;
+        this.authService = authService;
+        this.moderationService = moderationService;
     }
     async getUsers() {
         return this.usersService.findAll();
     }
-    async userRegister(registrationUserDto) {
-        return this.registrationService.createUser(registrationUserDto);
+    async userRegister(userRegistrationDto) {
+        return this.authService.createUser(userRegistrationDto);
     }
-    async userLogin(validationUserDto) {
-        return this.usersService.validateLoginUser(validationUserDto);
+    async userLogin(userValidationdto) {
+        return this.authService.validateLoginUser(userValidationdto);
+    }
+    async userProfileUpdate(req) {
+        return req.user;
     }
 };
 __decorate([
@@ -43,19 +49,27 @@ __decorate([
     (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [registration_user_dto_1.RegistrationUserDto]),
+    __metadata("design:paramtypes", [user_registration_dto_1.UserRegistrationDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userRegister", null);
 __decorate([
     (0, common_1.Post)('/signin'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [validation_user_dto_1.ValidationUserDto]),
+    __metadata("design:paramtypes", [user_validation_dto_1.UserValidationDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userLogin", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/profile/update'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userProfileUpdate", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
-    __metadata("design:paramtypes", [user_service_1.UserService, registration_service_1.RegistrationService])
+    __metadata("design:paramtypes", [user_service_1.UserService, auth_service_1.AuthService, moderation_service_1.ModerationService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

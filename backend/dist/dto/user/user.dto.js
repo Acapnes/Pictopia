@@ -29,9 +29,9 @@ __decorate([
     __metadata("design:type", String)
 ], UserDto.prototype, "username", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
 ], UserDto.prototype, "avatar", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),

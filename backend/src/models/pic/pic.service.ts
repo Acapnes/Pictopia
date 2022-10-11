@@ -3,17 +3,19 @@ import { Injectable, Req } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
-import { CommentDto } from 'src/dto/comment/comment.dto';
-import { Comment } from 'src/schemas/comment.schema';
 
 @Injectable()
 export class PicService {
   constructor(@InjectModel(Pic.name) private picModel: Model<PicDocument>) {}
 
   async findAll(): Promise<Pic[]> {
-    return this.picModel.find({}).limit(20).skip(Math.random()*10)
-    // return this.picModel.aggregate([{ $match: {} }]).limit(10);
+    return this.picModel.find({}).skip(Math.random()*10).limit(30).populate("authorPic")
   }
+
+  async findAllActionless(): Promise<Pic[]> {
+    return this.picModel.find({}).limit(20).skip(Math.random()*4)
+  }
+
 
   async getPicById(id: any): Promise<Pic> {
     return this.picModel.findOne({ _id: id }).populate("authorPic");

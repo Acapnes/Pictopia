@@ -1,30 +1,36 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { UserDto } from 'src/dto/user/user.dto';
-import { ValidationUserDto } from 'src/dto/user/validation.user.dto';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
+import {  UserUpdateDto } from 'src/dto/user/user.update.dto';
+import { UserValidationDto } from 'src/dto/user/user.validation.dto';
 import { User } from 'src/schemas/user.schema';
+import { AuthService } from './auth.service';
+import { ModerationService } from './moderation.service';
 import { UserService } from './user.service';
 
-@Controller('users')
+@Controller('user')
 export class UserController {
-  constructor(private readonly usersService: UserService) {}
+  constructor(private readonly usersService: UserService, private authService: AuthService,private moderationService: ModerationService ) {}
 
   @Get()
   async getUsers(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  @Get('/get')
-  async getUserByEmail(@Body() validationUserDto: ValidationUserDto): Promise<User> {
-    return this.usersService.findByEmail(validationUserDto);
-  }
-
   @Post('/signup')
-  async userRegister(@Body() userDto: UserDto): Promise<User> {
-    return this.usersService.createUser(userDto);
+  async userRegister(@Body() userRegistrationDto: UserRegistrationDto){
+    return this.authService.createUser(userRegistrationDto);
   }
 
   @Post('/signin')
-  async userLogin(@Body() validationUserDto: ValidationUserDto){
-    return this.usersService.validateUser(validationUserDto);
+  async userLogin(@Body() userValidationdto: UserValidationDto){
+    return this.authService.validateLoginUser(userValidationdto);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/profile/update')
+  async userProfileUpdate(@Body() userUpdateDto: UserUpdateDto){
+    return this.moderationService.updateProfile(userUpdateDto)
+  }
+
 }

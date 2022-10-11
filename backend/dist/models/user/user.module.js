@@ -12,7 +12,8 @@ const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const jwt_strategy_1 = require("../../helpers/AuthGuards/jwt.strategy");
 const user_schema_1 = require("../../schemas/user.schema");
-const registration_service_1 = require("./registration.service");
+const auth_service_1 = require("./auth.service");
+const moderation_service_1 = require("./moderation.service");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
@@ -26,7 +27,7 @@ UserModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
         ],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, registration_service_1.RegistrationService],
+        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService],
     })
 ], UserModule);
 exports.UserModule = UserModule;

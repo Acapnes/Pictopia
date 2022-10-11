@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
 export class UserDto {
   @IsString()
@@ -13,9 +13,12 @@ export class UserDto {
   @IsNotEmpty()
   username: string;
 
-  @IsString()
   @IsNotEmpty()
-  avatar: string;
+  @IsObject()
+  avatar: {
+    data: Buffer;
+    contentType: string;
+  };
 
   @IsString()
   @IsNotEmpty()
