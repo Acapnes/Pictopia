@@ -6,8 +6,6 @@ export declare class Pic {
     authorPic: User;
     title: string;
     description: string;
-    like: number;
-    disslike: number;
     picture_file: {
         data: Buffer;
         contentType: string;

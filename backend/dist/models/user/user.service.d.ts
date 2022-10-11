@@ -19,4 +19,5 @@ export declare class UserService {
         message: string;
         access_token?: undefined;
     }>;
+    updateProfile(userDto: UserDto): Promise<void>;
 }

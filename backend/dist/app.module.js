@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const category_module_1 = require("./models/category/category.module");
 const comment_module_1 = require("./models/comment/comment.module");
 const pic_module_1 = require("./models/pic/pic.module");
 const user_module_1 = require("./models/user/user.module");
@@ -18,7 +19,7 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/pictopia'), pic_module_1.PicModule, user_module_1.UserModule, comment_module_1.CommentModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/pictopia'), pic_module_1.PicModule, user_module_1.UserModule, comment_module_1.CommentModule, category_module_1.CategoryModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

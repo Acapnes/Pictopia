@@ -32,6 +32,7 @@ let UserService = class UserService {
     }
     async generateLoginToken(userDto) {
         return await this.jwtService.sign({
+            _id: userDto._id,
             name: userDto.name,
             username: userDto.username,
             email: userDto.email,
@@ -59,11 +60,15 @@ let UserService = class UserService {
             };
         }
     }
+    async updateProfile(userDto) {
+        this.userModel.findOneAndUpdate({ email: userDto.email }, { name: userDto.name });
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model, jwt_1.JwtService])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        jwt_1.JwtService])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map

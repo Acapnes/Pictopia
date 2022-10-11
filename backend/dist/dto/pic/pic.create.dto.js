@@ -13,10 +13,6 @@ exports.PicCreateDto = void 0;
 const class_validator_1 = require("class-validator");
 const user_dto_1 = require("../user/user.dto");
 class PicCreateDto {
-    constructor() {
-        this.like = 0;
-        this.disslike = 0;
-    }
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
@@ -32,12 +28,9 @@ __decorate([
     __metadata("design:type", String)
 ], PicCreateDto.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], PicCreateDto.prototype, "like", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], PicCreateDto.prototype, "disslike", void 0);
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", Object)
+], PicCreateDto.prototype, "picture_file", void 0);
 exports.PicCreateDto = PicCreateDto;
 //# sourceMappingURL=pic.create.dto.js.map

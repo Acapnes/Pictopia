@@ -1,8 +1,11 @@
+/// <reference types="node" />
 import { UserDto } from '../user/user.dto';
 export declare class PicCreateDto {
     authorPic: UserDto;
     title: string;
     description: string;
-    like?: number;
-    disslike?: number;
+    picture_file: {
+        data: Buffer;
+        contentType: string;
+    };
 }

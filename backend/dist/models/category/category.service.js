@@ -24,6 +24,12 @@ let CategoryService = class CategoryService {
     async findAll() {
         return this.categoryModel.find({});
     }
+    async createCategory(file, categoryCreationDto) {
+        const newCategory = await new this.categoryModel(categoryCreationDto);
+        newCategory.category_picture_file.data = file.buffer;
+        newCategory.category_picture_file.contentType = file.mimetype;
+        return newCategory.save();
+    }
 };
 CategoryService = __decorate([
     (0, common_1.Injectable)(),

@@ -4,4 +4,5 @@ export declare class CategoryController {
     private readonly categoryService;
     constructor(categoryService: CategoryService);
     getCategories(): Promise<Category[]>;
+    uploadImage(category_picture: any, res: any, req: any, body: any): Promise<Category>;
 }
