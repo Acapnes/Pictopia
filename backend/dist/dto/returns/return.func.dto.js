@@ -9,15 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserJwtDto = void 0;
+exports.ReturnFuncDto = void 0;
 const class_validator_1 = require("class-validator");
-const mongoose_1 = require("mongoose");
-class UserJwtDto {
+class ReturnFuncDto {
 }
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Boolean)
+], ReturnFuncDto.prototype, "success", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", mongoose_1.default.Types.ObjectId)
-], UserJwtDto.prototype, "_id", void 0);
-exports.UserJwtDto = UserJwtDto;
-//# sourceMappingURL=user.jwt.dto.js.map
+    __metadata("design:type", String)
+], ReturnFuncDto.prototype, "message", void 0);
+exports.ReturnFuncDto = ReturnFuncDto;
+//# sourceMappingURL=return.func.dto.js.map

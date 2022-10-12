@@ -42,7 +42,7 @@ let ModerationService = class ModerationService {
             return {
                 access: true,
                 message: 'Your profile has been changed!',
-                access_token: await this.userService.generateLoginToken(userUpdateDto),
+                access_token: await this.userService.generateLoginToken(userUpdateDto._id),
             };
         });
     }
@@ -50,8 +50,7 @@ let ModerationService = class ModerationService {
 ModerationService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model,
-        user_service_1.UserService])
+    __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
 ], ModerationService);
 exports.ModerationService = ModerationService;
 //# sourceMappingURL=moderation.service.js.map

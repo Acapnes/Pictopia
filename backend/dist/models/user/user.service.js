@@ -30,22 +30,18 @@ let UserService = class UserService {
         return this.userModel.findOne({ email: email });
     }
     async findByMongooseId(_id) {
-        return this.userModel.findOne({ _id: _id });
-    }
-    async generateLoginToken(userJwtDto) {
-        return await this.jwtService.sign({
-            _id: userJwtDto._id,
-            name: userJwtDto.name,
-            username: userJwtDto.username,
-            email: userJwtDto.email,
-            birthDate: userJwtDto.birthDate,
-            avatar: {
-                data: userJwtDto.avatar.data,
-                contentType: userJwtDto.avatar.contentType,
-            },
-            bio: userJwtDto.bio,
-            confrimed: userJwtDto.confrimed,
+        return this.userModel.findOne({ _id: _id }).then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'User cannot found by mongoose_id',
+                };
+            }
+            return result;
         });
+    }
+    async generateLoginToken(_id) {
+        return await this.jwtService.sign({ _id: _id });
     }
 };
 UserService = __decorate([

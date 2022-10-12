@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const user_registration_dto_1 = require("../../dto/user/user.registration.dto");
+const user_update_dto_1 = require("../../dto/user/user.update.dto");
 const user_validation_dto_1 = require("../../dto/user/user.validation.dto");
 const auth_service_1 = require("./auth.service");
 const moderation_service_1 = require("./moderation.service");
@@ -35,8 +36,11 @@ let UserController = class UserController {
     async userLogin(userValidationdto) {
         return this.authService.validateLoginUser(userValidationdto);
     }
-    async userProfileUpdate(req) {
-        return req.user;
+    async userProfileUpdate(userUpdateDto) {
+        return this.moderationService.updateProfile(userUpdateDto);
+    }
+    async fetchUserCredentials(req) {
+        return this.authService.fetchUserCredentialsWithToken(req.user);
     }
 };
 __decorate([
@@ -62,14 +66,24 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/profile/update'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_update_dto_1.UserUpdateDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userProfileUpdate", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Get)('/credentials'),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "userProfileUpdate", null);
+], UserController.prototype, "fetchUserCredentials", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
-    __metadata("design:paramtypes", [user_service_1.UserService, auth_service_1.AuthService, moderation_service_1.ModerationService])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        auth_service_1.AuthService,
+        moderation_service_1.ModerationService])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map

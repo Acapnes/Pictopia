@@ -29,14 +29,14 @@ let AuthService = class AuthService {
         if (checkEmail != null)
             return {
                 access: false,
-                access_token: "",
+                access_token: '',
                 message: 'This email already been used',
             };
         userRegistrationDto.password = await bcrypt.hashSync(userRegistrationDto.password, 10);
         this.userModel.create(userRegistrationDto);
         return {
             access: true,
-            access_token: "",
+            access_token: '',
             message: 'User has been registered',
         };
     }
@@ -48,7 +48,7 @@ let AuthService = class AuthService {
             return {
                 access: true,
                 message: 'Access verification successful',
-                access_token: await this.userService.generateLoginToken(selectedUser),
+                access_token: await this.userService.generateLoginToken(selectedUser._id),
             };
         }
         else {
@@ -59,11 +59,27 @@ let AuthService = class AuthService {
             };
         }
     }
+    async fetchUserCredentialsWithToken(_id) {
+        const findUser = (await this.userService.findByMongooseId(_id));
+        return {
+            name: findUser.name,
+            email: findUser.email,
+            username: findUser.username,
+            avatar: {
+                data: findUser.avatar.data,
+                contentType: findUser.avatar.contentType,
+            },
+            birthDate: findUser.birthDate,
+            confrimed: findUser.confrimed,
+            bio: findUser.bio,
+        };
+    }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        user_service_1.UserService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map
