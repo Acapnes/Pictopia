@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { UserDocument } from 'src/schemas/user.schema';
 import { UserService } from './user.service';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
@@ -7,5 +7,5 @@ export declare class ModerationService {
     private userModel;
     private userService;
     constructor(userModel: Model<UserDocument>, userService: UserService);
-    updateProfile(userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto>;
+    updateProfile(_id: mongoose.Types.ObjectId | any, avatar_file: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto>;
 }

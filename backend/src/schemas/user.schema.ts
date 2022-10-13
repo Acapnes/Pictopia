@@ -15,7 +15,7 @@ export class User {
   @Prop({ required: true })
   username: string;
 
-  @Prop({ type: Object,  required: true, default: { data: null, contentType: null }  })
+  @Prop({ type: Object,  required: true, default: { data: null, contentType: null }})
   avatar: {
     data: Buffer;
     contentType: string;

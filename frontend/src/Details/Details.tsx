@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PicDto } from "../Api/PicDtos/picDto";
-import { PicAPI } from "../Api/PicReqs";
+import { PicAPI } from "../Api/PicApi";
 import Grid from "../Grids/Grid";
-import Header from "../Header/Header";
 import Comments from "./Comments";
 import {
   PrettyComments,
@@ -28,7 +27,6 @@ const Details = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Header />
       <div className="flex flex-col px-5 py-10 lg:flex-row lg:px-40 lg:space-x-5">
         <img
           src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}

@@ -1,3 +1,4 @@
+import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
@@ -13,8 +14,8 @@ export declare class UserController {
     private moderationService;
     constructor(usersService: UserService, authService: AuthService, moderationService: ModerationService);
     getUsers(): Promise<User[]>;
-    userRegister(userRegistrationDto: UserRegistrationDto): Promise<import("../../dto/returns/return.auth.dto").ReturnAuthDto>;
-    userLogin(userValidationdto: UserValidationDto): Promise<import("../../dto/returns/return.auth.dto").ReturnAuthDto>;
-    userProfileUpdate(userUpdateDto: UserUpdateDto): Promise<import("../../dto/returns/return.auth.dto").ReturnAuthDto>;
+    userRegister(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto>;
+    userLogin(userValidationdto: UserValidationDto): Promise<ReturnAuthDto>;
+    userProfileUpdate(avatar_file: any, req: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto>;
     fetchUserCredentials(req: any): Promise<UserCredentialsDto | ReturnFuncDto>;
 }

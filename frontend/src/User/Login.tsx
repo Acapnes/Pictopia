@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserAPI } from "../Api/UserApi";
-import { UserValidationDto } from "../Api/UserDtos/userValidationDto";
 import { PrettyLogin } from "../components/PrettyButtons";
 import { PrettyEyeIcon } from "../components/PrettyIcons";
 import ActionlessGrid from "../Grids/ActionlessGrid";
@@ -15,7 +14,9 @@ const Login = () => {
     await UserAPI.userLogin({
       email: userEmail,
       password: userPassword,
-    }).then((resp) => (!resp.access ? setLoginResult(resp.message) : setLoginResult("")));
+    }).then((resp) =>
+      !resp.access ? setLoginResult(resp.message) : setLoginResult("")
+    );
   };
 
   return (
@@ -61,7 +62,10 @@ const Login = () => {
             </div>
 
             <div className="w-full flex items-center">
-              <a href="/register" className=" font-light text-pink-300 text-center">
+              <a
+                href="/register"
+                className=" font-light text-pink-300 text-center"
+              >
                 Don't have an account? Come on Join us now!
               </a>
             </div>

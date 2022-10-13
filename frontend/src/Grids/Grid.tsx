@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PicDto } from "../Api/PicDtos/picDto";
-import { PicAPI } from "../Api/PicReqs";
+import { PicAPI } from "../Api/PicApi";
 import GridMenu from "./GridMenu";
 
 const Grid = () => {
@@ -17,7 +17,7 @@ const Grid = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-4 3xl:columns-5 4xl:colmuns-6 gap-0 z-0 w-fit ">
+      <div className="columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-4 3xl:columns-5 4xl:colmuns-6 gap-5 space-y-5 z-0 w-fit ">
         {respPics.map((pic, picIndex) => (
           <Link
             to={`/detail/${pic._id}`}

@@ -1,5 +1,7 @@
 /// <reference types="node" />
+import mongoose from 'mongoose';
 export declare class UserDto {
+    _id: mongoose.Types.ObjectId;
     name: string;
     email: string;
     username: string;

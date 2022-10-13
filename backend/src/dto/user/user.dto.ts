@@ -1,6 +1,10 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsMongoId, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import mongoose from 'mongoose';
 
 export class UserDto {
+  @IsMongoId()
+  _id: mongoose.Types.ObjectId;
+
   @IsString()
   @IsNotEmpty()
   name: string;

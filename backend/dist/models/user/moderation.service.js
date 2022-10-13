@@ -23,27 +23,35 @@ let ModerationService = class ModerationService {
         this.userModel = userModel;
         this.userService = userService;
     }
-    async updateProfile(userUpdateDto) {
-        if (!(await this.userService.findByMongooseId(userUpdateDto._id)))
-            return {
-                access: false,
-                access_token: null,
-                message: 'User cannot found!',
-            };
-        return await this.userModel
-            .findOneAndUpdate({ _id: userUpdateDto._id }, {
-            name: userUpdateDto.name,
-            username: userUpdateDto.username,
-            avatar: userUpdateDto.avatar,
-            bio: userUpdateDto.bio,
-            birthdate: userUpdateDto.birthDate,
-        })
-            .then(async () => {
-            return {
-                access: true,
-                message: 'Your profile has been changed!',
-                access_token: await this.userService.generateLoginToken(userUpdateDto._id),
-            };
+    async updateProfile(_id, avatar_file, userUpdateDto) {
+        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
+            if (funcResult.success !== false) {
+                return await this.userModel.findOneAndUpdate({ _id: _id }, {
+                    name: userUpdateDto.name,
+                    username: userUpdateDto.username,
+                    avatar: {
+                        data: avatar_file.buffer,
+                        contentType: avatar_file.mimetype,
+                    },
+                    bio: userUpdateDto.bio,
+                    birthdate: userUpdateDto.birthDate,
+                })
+                    .then(async () => {
+                    return {
+                        access: true,
+                        message: 'Your profile has been changed!',
+                        access_token: await this.userService.generateLoginToken(_id),
+                    };
+                })
+                    .catch((err) => {
+                    return {
+                        access: false,
+                        message: 'Something went wrong! : ' + err,
+                        access_token: '',
+                    };
+                });
+            }
+            return funcResult;
         });
     }
 };

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
+const platform_express_1 = require("@nestjs/platform-express");
 const user_registration_dto_1 = require("../../dto/user/user.registration.dto");
 const user_update_dto_1 = require("../../dto/user/user.update.dto");
 const user_validation_dto_1 = require("../../dto/user/user.validation.dto");
@@ -36,8 +37,8 @@ let UserController = class UserController {
     async userLogin(userValidationdto) {
         return this.authService.validateLoginUser(userValidationdto);
     }
-    async userProfileUpdate(userUpdateDto) {
-        return this.moderationService.updateProfile(userUpdateDto);
+    async userProfileUpdate(avatar_file, req, userUpdateDto) {
+        return this.moderationService.updateProfile(req.user._id, avatar_file, userUpdateDto);
     }
     async fetchUserCredentials(req) {
         return this.authService.fetchUserCredentialsWithToken(req.user);
@@ -66,9 +67,12 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/profile/update'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_update_dto_1.UserUpdateDto]),
+    __metadata("design:paramtypes", [Object, Object, user_update_dto_1.UserUpdateDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userProfileUpdate", null);
 __decorate([

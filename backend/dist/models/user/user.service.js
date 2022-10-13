@@ -27,7 +27,15 @@ let UserService = class UserService {
         return this.userModel.find().exec();
     }
     async findByEmail(email) {
-        return this.userModel.findOne({ email: email });
+        return this.userModel.findOne({ email: email }).then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'User cannot found by email',
+                };
+            }
+            return result;
+        });
     }
     async findByMongooseId(_id) {
         return this.userModel.findOne({ _id: _id }).then((result) => {
@@ -41,7 +49,7 @@ let UserService = class UserService {
         });
     }
     async generateLoginToken(_id) {
-        return await this.jwtService.sign({ _id: _id });
+        return this.jwtService.sign({ _id: _id });
     }
 };
 UserService = __decorate([

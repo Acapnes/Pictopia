@@ -41,45 +41,53 @@ let AuthService = class AuthService {
         };
     }
     async validateLoginUser(userValidationDto) {
-        const selectedUser = await this.userService.findByEmail(userValidationDto.email);
-        const rawPassword = userValidationDto.password.toString();
-        const loginResult = bcrypt.compareSync(rawPassword, selectedUser.password.toString());
-        if (loginResult) {
-            return {
-                access: true,
-                message: 'Access verification successful',
-                access_token: await this.userService.generateLoginToken(selectedUser._id),
-            };
-        }
-        else {
-            return {
-                access: false,
-                message: 'Access verification failed',
-                access_token: '',
-            };
-        }
+        return await this.userService.findByEmail(userValidationDto.email).then(async (findReturn) => {
+            if (findReturn.success !== false) {
+                const selectedUser = findReturn;
+                const rawPassword = userValidationDto.password.toString();
+                const loginResult = bcrypt.compareSync(rawPassword, selectedUser.password.toString());
+                if (loginResult) {
+                    return {
+                        access: true,
+                        message: 'Access verification successful',
+                        access_token: await this.userService.generateLoginToken(selectedUser._id),
+                    };
+                }
+                else {
+                    return {
+                        access: false,
+                        message: 'Access verification failed',
+                        access_token: '',
+                    };
+                }
+            }
+            return findReturn;
+        });
     }
     async fetchUserCredentialsWithToken(_id) {
-        const findUser = (await this.userService.findByMongooseId(_id));
-        return {
-            name: findUser.name,
-            email: findUser.email,
-            username: findUser.username,
-            avatar: {
-                data: findUser.avatar.data,
-                contentType: findUser.avatar.contentType,
-            },
-            birthDate: findUser.birthDate,
-            confrimed: findUser.confrimed,
-            bio: findUser.bio,
-        };
+        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
+            if (funcResult.success !== false) {
+                return {
+                    name: funcResult.name,
+                    email: funcResult.email,
+                    username: funcResult.username,
+                    avatar: {
+                        data: funcResult.avatar.data,
+                        contentType: funcResult.avatar.contentType,
+                    },
+                    birthDate: funcResult.birthDate,
+                    confrimed: funcResult.confrimed,
+                    bio: funcResult.bio,
+                };
+            }
+            return funcResult;
+        });
     }
 };
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model,
-        user_service_1.UserService])
+    __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

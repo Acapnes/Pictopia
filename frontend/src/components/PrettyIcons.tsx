@@ -54,7 +54,7 @@ const PrettySearchIcon = (props: any) => {
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
-        fill="gray"
+        fill="white"
         className="bi bi-search"
         viewBox="0 0 16 16"
       >
@@ -64,4 +64,24 @@ const PrettySearchIcon = (props: any) => {
   );
 };
 
-export { PrettyEyeIcon, PrettyOptionsIcon, PrettySearchIcon };
+const PrettyProfileIcon = (props: any) => {
+  return (
+    <a
+      href="http://localhost:3001/user"
+      className="flex p-[0.1rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full"
+    >
+      <img
+        src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
+        alt=""
+        className="rounded-full w-full h-full p-[0.05rem]"
+      />
+    </a>
+  );
+};
+
+export {
+  PrettyEyeIcon,
+  PrettyOptionsIcon,
+  PrettySearchIcon,
+  PrettyProfileIcon,
+};

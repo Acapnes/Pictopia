@@ -11,52 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserUpdateDto = void 0;
 const class_validator_1 = require("class-validator");
-const mongoose_1 = require("mongoose");
 class UserUpdateDto {
 }
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", mongoose_1.default.Types.ObjectId)
-], UserUpdateDto.prototype, "_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UserUpdateDto.prototype, "name", void 0);
 __decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], UserUpdateDto.prototype, "email", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UserUpdateDto.prototype, "username", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsObject)(),
-    __metadata("design:type", Object)
-], UserUpdateDto.prototype, "avatar", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UserUpdateDto.prototype, "birthDate", void 0);
 __decorate([
-    (0, class_validator_1.IsBoolean)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Boolean)
-], UserUpdateDto.prototype, "confrimed", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UserUpdateDto.prototype, "bio", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], UserUpdateDto.prototype, "password", void 0);
 exports.UserUpdateDto = UserUpdateDto;
 //# sourceMappingURL=user.update.dto.js.map
