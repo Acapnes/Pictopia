@@ -66,4 +66,17 @@ export class UserAPI {
     }
     return data;
   }
+
+  public static async fetchUserCredentials(access_token: string) {
+    if (!localStorage.getItem("access_token")) return;
+    return await fetch("http://localhost:3000/user/credentials", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    }).then((resp) => resp.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
 }
