@@ -20,8 +20,11 @@ let CommentController = class CommentController {
     constructor(commentsService) {
         this.commentsService = commentsService;
     }
-    async getComments() {
+    async getAllComments() {
         return this.commentsService.findAll();
+    }
+    async getCommentsById(_id) {
+        return this.commentsService.findCommentByMongooseId(_id);
     }
     async commentCreate(commentDto) {
         return this.commentsService.signComment(commentDto);
@@ -32,7 +35,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], CommentController.prototype, "getComments", null);
+], CommentController.prototype, "getAllComments", null);
+__decorate([
+    (0, common_1.Get)(':_id'),
+    __param(0, (0, common_1.Param)('_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommentController.prototype, "getCommentsById", null);
 __decorate([
     (0, common_1.Post)('/create'),
     __param(0, (0, common_1.Body)()),

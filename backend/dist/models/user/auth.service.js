@@ -26,7 +26,7 @@ let AuthService = class AuthService {
     }
     async createUser(userRegistrationDto) {
         const checkEmail = await this.userService.findByEmail(userRegistrationDto.email);
-        if (checkEmail != null)
+        if (checkEmail.success != false)
             return {
                 access: false,
                 access_token: '',
@@ -44,6 +44,7 @@ let AuthService = class AuthService {
         return await this.userService.findByEmail(userValidationDto.email).then(async (findReturn) => {
             if (findReturn.success !== false) {
                 const selectedUser = findReturn;
+                console.log(selectedUser);
                 const rawPassword = userValidationDto.password.toString();
                 const loginResult = bcrypt.compareSync(rawPassword, selectedUser.password.toString());
                 if (loginResult) {
