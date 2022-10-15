@@ -4,9 +4,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Details from "./Details/Details";
-import Profile from "./User/Profile";
-import Login from "./User/Login";
-import Register from "./User/Register";
+import Profile from "./User/Moderation/Profile";
+import Login from "./User/Auth/Login";
+import Register from "./User/Auth/Register";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { PicDto } from "../Api/PicDtos/picDto";
 import { PicAPI } from "../Api/PicApi";
-import GridMenu from "./GridMenu";
+import GridMenu from "./components/GridMenu";
 
 const Grid = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
@@ -19,9 +18,7 @@ const Grid = () => {
     <div className="flex justify-center">
       <div className="columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-4 3xl:columns-5 4xl:colmuns-6 gap-5 space-y-5 z-0 w-fit ">
         {respPics.map((pic, picIndex) => (
-          <Link
-            to={`/detail/${pic._id}`}
-            state={{ pic }}
+          <div
             className="group relative h-fit w-full flex flex-col justify-center items-center-4 "
             key={picIndex}
           >
@@ -31,7 +28,7 @@ const Grid = () => {
               className="min-w-full"
             />
             <GridMenu pic={pic} />
-          </Link>
+          </div>
         ))}
       </div>
     </div>

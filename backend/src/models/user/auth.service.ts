@@ -15,8 +15,8 @@ import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 export class AuthService {constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService) {}
 
   async createUser(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto> {
-    const checkEmail = await this.userService.findByEmail(userRegistrationDto.email);
-    if (checkEmail != null)
+    const checkEmail = await this.userService.findByEmail(userRegistrationDto.email) as ReturnFuncDto;
+    if (checkEmail.success != false)
       return {
         access: false,
         access_token: '',
@@ -39,6 +39,7 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
     return await this.userService.findByEmail(userValidationDto.email).then(async (findReturn : any) => {
         if (findReturn.success !== false) {
           const selectedUser = findReturn as UserDto;
+          console.log(selectedUser)
           const rawPassword = userValidationDto.password.toString();
           const loginResult = bcrypt.compareSync(rawPassword,selectedUser.password.toString());
           if (loginResult) {

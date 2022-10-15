@@ -5,12 +5,14 @@ export interface UserDto {
 
   username: string;
 
-  avatar: string;
+  avatar: {
+    data: Buffer;
+    contentType: string;
+  };
 
   birthDate: string;
 
   confrimed: boolean;
 
   bio: string;
-
 }

@@ -10,6 +10,9 @@ import {
   PrettySave,
   PrettyShare,
 } from "../components/PrettyButtons";
+import Header from "../Menus/Header";
+import SignComment from "./components/SignComment";
+import HashTags from "./components/HashTags";
 
 const Details = () => {
   const urlParam =
@@ -27,11 +30,12 @@ const Details = () => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex flex-col px-5 py-10 lg:flex-row lg:px-40 lg:space-x-5">
+      <Header />
+      <div className="flex flex-col py-10 lg:flex-row lg:px-40 lg:space-x-5">
         <img
           src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
           alt=""
-          className="object-contain max-h-[70vh] mb-10 sticky top-28"
+          className="object-contain max-h-[70vh] mb-10 sticky top-0"
         />
         <div className="w-full px-10 mb-10 flex flex-col shadow-3xl">
           <div className="flex flex-row justify-between pt-5 items-center">
@@ -46,29 +50,17 @@ const Details = () => {
             <PrettySave />
           </div>
 
-          <div className="w-full text-center border-b-4 border-soft-black pb-4 pt-4">
+          <div className="w-full text-center  pb-4 pt-4">
             <p className="h-full font-bold text-4xl">{picture?.title}</p>
           </div>
 
           <div className="w-full h-full flex flex-col">
             <div className="max-h-[35vh] break-all overflow-y-auto my-5 px-5 indent-[4rem] ">
-              EROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPO
-              DJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAI
-              PODJMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLERO
-              MIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAW
-              JPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIP
-              ODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPS
-              DJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAI
-              PODJMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLERO
-              MIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAW
-              JPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIP
-              ODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPS
-              DJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAI
-              PODJMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLERO
-              MIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAW
-              JPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIP
-              ODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPSAAWJPIDWJAIPODJLEROMIPS
+              {picture.description}
             </div>
+          </div>
+          <div className="pb-2">
+            <HashTags />
           </div>
           <div className="flex flex-row justify-between py-5 items-center border-t-4 border-soft-black">
             <button>
@@ -78,6 +70,9 @@ const Details = () => {
             <button onClick={() => setCommentsStatus(!commentsStatus)}>
               <PrettyComments />
             </button>
+          </div>
+          <div className={`${commentsStatus ? "block" : "hidden"} pb-5`}>
+            <SignComment />
           </div>
           <div className={`${commentsStatus ? "block" : "hidden"} pb-5`}>
             <Comments />

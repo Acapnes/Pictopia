@@ -66,16 +66,21 @@ const PrettySearchIcon = (props: any) => {
 
 const PrettyProfileIcon = (props: any) => {
   return (
-    <a
-      href="http://localhost:3001/user"
-      className="flex p-[0.1rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full"
-    >
-      <img
-        src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
-        alt=""
-        className="rounded-full w-full h-full p-[0.05rem]"
-      />
-    </a>
+    <img
+      src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
+      alt=""
+      className="rounded-full w-full h-full object-cover p-[0.1rem]"
+    />
+  );
+};
+
+const PrettyPictopia = () => {
+  return (
+    <img
+      src={`/pictopia_trans.png`}
+      alt=""
+      className="rounded-md w-full h-full object-cover p-[0.1rem]"
+    />
   );
 };
 
@@ -84,4 +89,5 @@ export {
   PrettyOptionsIcon,
   PrettySearchIcon,
   PrettyProfileIcon,
+  PrettyPictopia
 };

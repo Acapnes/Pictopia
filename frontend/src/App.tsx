@@ -1,14 +1,11 @@
-import Categories from "./Categories/Categories";
 import Grid from "./Grids/Grid";
-import Header from "./Header/Header";
+import Header from "./Menus/Header";
 
 function App() {
 
-
   return (
-    <div>
+    <div className="min-h-screen bg-soft-black">
       <Header/>
-      <Categories/>
       <Grid/>
     </div>
   );
