@@ -3,7 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
-import { UserJwtDto } from 'src/dto/user/user.jwt.dto';
+import { UserDto } from 'src/dto/user/user.dto';
+import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 
 @Injectable()
 export class UserService {
@@ -16,27 +18,31 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-  async findByEmail(email: string) {
-    return this.userModel.findOne({ email: email });
-  }
-
-  async findByMongooseId(_id: mongoose.Types.ObjectId) {
-    return this.userModel.findOne({ _id: _id });
-  }
-
-  async generateLoginToken(userJwtDto: UserJwtDto) {
-    return await this.jwtService.sign({
-      _id: userJwtDto._id,
-      name: userJwtDto.name,
-      username: userJwtDto.username,
-      email: userJwtDto.email,
-      birthDate: userJwtDto.birthDate,
-      avatar: {
-        data: userJwtDto.avatar.data,
-        contentType: userJwtDto.avatar.contentType,
-      },
-      bio: userJwtDto.bio,
-      confrimed: userJwtDto.confrimed,
+  async findByEmail(email: string): Promise <UserDto | ReturnFuncDto> {
+    return this.userModel.findOne({ email: email }).then((result) => {
+      if (!result) {
+        return {
+          success: false,
+          message: 'User cannot found by email',
+        };
+      }
+      return result;
     });
+  }
+
+  async findByMongooseId(_id: mongoose.Types.ObjectId):Promise <ReturnFuncDto | UserDto | ReturnAuthDto> {
+    return this.userModel.findOne({ _id: _id }).then((result) => {
+      if (!result) {
+        return {
+          success: false,
+          message: 'User cannot found by mongoose_id',
+        };
+      }
+      return result;
+    });
+  }
+
+  async generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object> {
+    return this.jwtService.sign({ _id: _id });
   }
 }

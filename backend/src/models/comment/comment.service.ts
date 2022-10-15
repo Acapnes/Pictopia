@@ -11,10 +11,11 @@ export class CommentService {
   ) {}
 
   async findAll(): Promise<Comment[]> {
-    return this.commentModel
-      .find({})
-      .populate('author')
-      .populate('destPicture');
+    return this.commentModel.find({});
+  }
+
+  async findCommentByMongooseId(_id:mongoose.Types.ObjectId): Promise<Comment[]> {
+    return this.commentModel.find({destPicture: _id}).populate('author');
   }
 
   async signComment(commentDto: CommentDto): Promise<Comment> {
