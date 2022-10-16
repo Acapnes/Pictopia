@@ -35,9 +35,9 @@ const PrettyOptionsIcon = (props: any) => {
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
+        width="18"
+        height="18"
+        fill={props.fill}
         className="bi bi-three-dots-vertical"
         viewBox="0 0 16 16"
       >

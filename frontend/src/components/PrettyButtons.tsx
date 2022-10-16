@@ -1,5 +1,5 @@
 import React from "react";
-import { PrettySearchIcon } from "./PrettyIcons";
+import { PrettyOptionsIcon, PrettySearchIcon } from "./PrettyIcons";
 
 const PrettyShare = () => {
   return (
@@ -161,34 +161,67 @@ const PrettyHeaderSignIn = () => {
   return (
     <a
       href="/login"
-      className="w-[6rem] text-sm relative inline-flex items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-full group"
+      className=" whitespace-nowrap relative inline-flex items-center justify-start overflow-hidden font-bold group w-fit text-white"
     >
-      <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
-      <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
-      <span className="relative w-full text-white transition-colors duration-200 ease-in-out group-hover:text-gray-900 text-center">
-        SIGN IN
-      </span>
-      <span className="absolute inset-0 border-2 border-white rounded-full"></span>
+      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+        <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
+        <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 group-hover:text-black duration-400">
+          SIGN IN
+        </span>
+      </div>
     </a>
   );
 };
 
-const PrettyProfile = () => {
+const PrettyHeaderOptions = () => {
   return (
-    <a
-      href="/login"
-      className="w-[6rem] text-sm relative inline-flex bg-soft-black items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-full group"
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative p-0.5 py-2.5 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+        <PrettyOptionsIcon fill={"white"}/>
+      </span>
+    </div>
+  );
+};
+
+const PrettySimpleProfileButton = (props: any) => {
+  return (
+    <div
+      className={`w-[6rem] text-sm relative inline-flex ${
+        props.selectedTab === 0 ? "bg-white" : "bg-soft-black text-white"
+      } duration-150 hover:scale-110 items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-sm group`}
     >
       <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0  opacity-[3%]"></span>
       <span
         className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24
-       bg-white opacity-100 group-hover:-translate-x-8"
+        opacity-100 group-hover:-translate-x-8"
       ></span>
-      <span className="relative w-full text-white transition-colors duration-200 ease-in-out group-hover:text-gray-900 text-center">
-        Simple
+      <span className="relative w-full transition-colors duration-200 ease-in-out text-center">
+        {props.text}
       </span>
-      <span className="absolute inset-0 border-2 border-soft-black rounded-full"></span>
-    </a>
+      <span className="absolute inset-0 border-2 border-soft-black rounded-sm"></span>
+    </div>
+  );
+};
+
+const PrettyExtendedProfileButton = (props: any) => {
+  return (
+    <div
+      className={`w-[6rem] text-sm relative inline-flex ${
+        props.selectedTab === 1 ? "bg-white" : "bg-soft-black text-white"
+      } duration-150 hover:scale-110 items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-sm group`}
+    >
+      <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0  opacity-[3%]"></span>
+      <span
+        className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24
+        opacity-100 group-hover:-translate-x-8"
+      ></span>
+      <span className="relative w-full transition-colors duration-200 ease-in-out text-center">
+        {props.text}
+      </span>
+      <span className="absolute inset-0 border-2 border-soft-black rounded-sm"></span>
+    </div>
   );
 };
 
@@ -413,5 +446,7 @@ export {
   PrettyThumbsDown,
   PrettyReply,
   PrettySend,
-  PrettyProfile,
+  PrettySimpleProfileButton,
+  PrettyExtendedProfileButton,
+  PrettyHeaderOptions,
 };
