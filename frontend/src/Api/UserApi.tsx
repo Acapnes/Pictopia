@@ -1,3 +1,4 @@
+import { UserDto } from "./UserDtos/userDto";
 import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
 import { UserValidationDto } from "./UserDtos/userValidationDto";
 
@@ -75,8 +76,27 @@ export class UserAPI {
         "Content-Type": "application/json",
         Authorization: `Bearer ${access_token}`,
       },
-    }).then((resp) => resp.json())
+    })
+      .then((resp) => resp.json())
       .then((data) => data)
       .catch((err) => console.log(err));
+  }
+
+  public static async userEditProfile(access_token: string, userDto: UserDto) {
+    const resp = await fetch("http://localhost:3000/user/profile/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: JSON.stringify(userDto),
+    });
+
+    const data = await resp.json();
+
+    if (data.access === true)
+      window.localStorage.setItem("access_token", data.access_token);
+
+    return data;
   }
 }

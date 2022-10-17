@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const ExtendedChangeProfile = (props: any) => {
   useEffect(() => {
-    console.log(props.selectedTab)
+    console.log(props.selectedTab);
   }, []);
   return (
     <div className="h-full w-full space-y-4">

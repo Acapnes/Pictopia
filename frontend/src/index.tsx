@@ -7,6 +7,7 @@ import Details from "./Details/Details";
 import Profile from "./User/Moderation/Profile";
 import Login from "./User/Auth/Login";
 import Register from "./User/Auth/Register";
+import PostPic from "./Pics/PostPic";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,6 +21,7 @@ root.render(
         <Route path="/user/*" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/upload" element={<PostPic />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

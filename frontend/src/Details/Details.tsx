@@ -35,7 +35,7 @@ const Details = () => {
         <img
           src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
           alt=""
-          className="object-contain max-h-[70vh] mb-10 sticky top-0"
+          className="object-contain max-h-[70vh] mb-10 sticky top-10"
         />
         <div className="w-full px-10 mb-10 flex flex-col shadow-3xl">
           <div className="flex flex-row justify-between pt-5 items-center">
@@ -50,18 +50,18 @@ const Details = () => {
             <PrettySave />
           </div>
 
-          <div className="w-full text-center  pb-4 pt-4">
+          <div className="w-full text-center pb-4 pt-4">
             <p className="h-full font-bold text-4xl">{picture?.title}</p>
           </div>
 
-          <div className="w-full h-full flex flex-col">
+          <div className="w-full h-fit flex flex-col ">
             <div className="max-h-[35vh] break-all overflow-y-auto my-5 px-5 indent-[4rem] ">
               {picture.description}
             </div>
           </div>
-          <div className="pb-2">
+          {/* <div className="pb-2">
             <HashTags />
-          </div>
+          </div> */}
           <div className="flex flex-row justify-between py-5 items-center border-t-4 border-soft-black">
             <button>
               <PrettyReport />

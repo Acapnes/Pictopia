@@ -8,7 +8,6 @@ import SimpleProfile from "./SimpleProfile";
 
 const ProfileCredentials = (props: any) => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [inputType, setInputType] = useState(false);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 ">

@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { CategoryAPI } from "../../Api/CategoryApi";
 import { CategoryDto } from "../../Api/Utils/category.dto";
 import { PrettySearchCategories } from "../../components/PrettyButtons";
+import {
+  PrettyCheck,
+  PrettyCompass,
+  PrettyX,
+} from "../../components/PrettyIcons";
 
 const Categories = () => {
   const [categories, setCategories] = useState<CategoryDto[]>([]);
@@ -15,12 +20,12 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="fixed top-[4.8rem] left-5 z-20 rounded-md ">
+    <div className="fixed top-[5.5rem] left-5 z-20 rounded-md">
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-md">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-        <span className=" w-full relative  py-2 transition-all ease-out bg-gray-900 rounded-md duration-400">
+        <span className=" w-full relative bg-gray-900 rounded-md duration-400">
           <div className="flex flex-col  gap-4 py-2 px-5 w-[19rem]">
-            <div className="w-full flex flex-col h-[65vh] space-y-2">
+            <div className="w-full flex flex-col h-[70vh] space-y-3 pt-2">
               <div className="mb-2">
                 <PrettySearchCategories />
               </div>
@@ -32,31 +37,47 @@ const Categories = () => {
                 />
                 <div className="absolute top-0 w-full h-full text-start flex flex-row space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
                   <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="rgb(244,114,182)"
-                      className="bi bi-compass"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
-                      <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z" />
-                    </svg>
+                    <PrettyCompass />
                   </div>
                   <p className="my-2 text-gray-300 font-bold text-2xl">
                     Explore
                   </p>
                 </div>
               </button>
+              <div className=""></div>
+              <p className="text-gray-200 text-sm">Favorites</p>
 
-              <p className="text-gray-200 p t-2">Favorites</p>
-
-              <div className="h-full overflow-y-auto">
+              <div className="h-full overflow-y-auto scrollbar-hide">
                 {categories.map((category, categoryIndex) => (
                   <button
                     key={categoryIndex}
-                    className="relative w-full text-start font-semibold text-white rounded-md h-[3rem]"
+                    className="relative w-full text-start font-semibold text-white rounded-md h-[4rem]"
+                  >
+                    <img
+                      src={`data:${category.category_picture_file.contentType};base64,${category.category_picture_file.data}`}
+                      className="object-cover h-full w-full opacity-40 rounded-md border-2"
+                      alt=""
+                    />
+                    <div className="absolute top-0 w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-gray-400 hover:bg-opacity-30">
+                      <p className="my-2 text-gray-200 font-bold text-lg">
+                        {category.title}
+                      </p>
+                      <div>
+                        <PrettyCheck />
+                        {/* <PrettyX/> */}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              <div className=""></div>
+              <hr className="border-gray-600 border-2" />
+              <p className="text-gray-200 text-sm">You can Like</p>
+              <div className="h-full overflow-y-auto scrollbar-hide">
+                {categories.map((category, categoryIndex) => (
+                  <button
+                    key={categoryIndex}
+                    className="relative w-full text-start font-semibold text-white rounded-md h-[4rem]"
                   >
                     <img
                       src={`data:${category.category_picture_file.contentType};base64,${category.category_picture_file.data}`}
@@ -92,11 +113,6 @@ const Categories = () => {
                       </div>
                     </div>
                   </button>
-                ))}
-              </div>
-              <div className="h-full overflow-auto">
-                {categories.map((category, categoryIndex) => (
-                  <div key={categoryIndex}>asd</div>
                 ))}
               </div>
             </div>

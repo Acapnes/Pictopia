@@ -10,10 +10,15 @@ import {
   PrettySearch,
   PrettyUploadPicture,
 } from "../components/PrettyButtons";
-import { PrettyOptionsIcon, PrettyPictopia, PrettyProfileIcon } from "../components/PrettyIcons";
+import {
+  PrettyPictopia,
+  PrettyProfilePicture,
+} from "../components/PrettyIcons";
+import HeaderOptionsMenu from "./components/HeaderOptionsMenu";
 
 const Header = () => {
   const [showCategories, setShowCategories] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [showUploadMenu, setShowUploadMenu] = useState(false);
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
 
@@ -31,7 +36,7 @@ const Header = () => {
         <div className="flex flex-row space-x-2">
           <Link
             to={"/"}
-            className="h-full rounded-md my-[0.5rem] min-w-[10rem]"
+            className="h-full rounded-md my-[0.5rem] min-w-[10rem] hidden md:block"
           >
             <PrettyPictopia />
           </Link>
@@ -58,16 +63,21 @@ const Header = () => {
               href="http://localhost:3001/user"
               className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem]"
             >
-              <PrettyProfileIcon user={userCredentials} />
+              <PrettyProfilePicture user={userCredentials} />
             </a>
           ) : (
             <PrettyHeaderSignIn />
           )}
-          <button><PrettyHeaderOptions/></button>
+          <button onClick={() => setShowSettings(!showSettings)}>
+            <PrettyHeaderOptions />
+          </button>
         </div>
       </div>
       <div className={`${showCategories ? "block" : "hidden"}`}>
         <Categories />
+      </div>
+      <div className={`${showSettings ? "block" : "hidden"}`}>
+        <HeaderOptionsMenu />
       </div>
     </div>
   );

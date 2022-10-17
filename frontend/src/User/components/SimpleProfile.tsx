@@ -1,9 +1,22 @@
-import React, { useEffect } from "react";
-import { PrettyChangeProfileAvatar, PrettySaveChanges } from "../../components/PrettyButtons";
+import React, { useEffect, useState } from "react";
+import { UserAPI } from "../../Api/UserApi";
+import { UserDto } from "../../Api/UserDtos/userDto";
+import {
+  PrettyChangeProfileAvatar,
+  PrettySaveChanges,
+} from "../../components/PrettyButtons";
 
 const SimpleProfile = (props: any) => {
+  const [postUserCredentials, setPostUserCredentials] = useState<UserDto>(Object);
+
+  const UpdateProfile = async () => {
+
+  };
+
   return (
-    <div className={`h-full w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-16 gap-y-10`}>
+    <div
+      className={`h-full w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-16 gap-y-10`}
+    >
       <div className="space-y-2">
         <div className="text-center flex items-center">
           <p className="font-semibold">Email</p>
@@ -33,6 +46,7 @@ const SimpleProfile = (props: any) => {
           type="text"
           className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
           placeholder={props?.user?.name}
+          // onChange={(e)=> setPostUserCredentials(e.target.value)}
         />
       </div>
       <div className="space-y-2">
@@ -57,6 +71,7 @@ const SimpleProfile = (props: any) => {
       <div className="col-span-2 lg:col-span-4 w-full flex justify-between mt-5 ">
         <button>
           <PrettyChangeProfileAvatar />
+          <input type="file" />
         </button>
         <button>
           <PrettySaveChanges />
