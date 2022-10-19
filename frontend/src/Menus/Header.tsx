@@ -68,7 +68,7 @@ const Header = () => {
           ) : (
             <PrettyHeaderSignIn />
           )}
-          <button onClick={() => setShowSettings(!showSettings)}>
+          <button onClick={() => setShowSettings(!showSettings)} className="flex items-center">
             <PrettyHeaderOptions />
           </button>
         </div>
