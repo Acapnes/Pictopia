@@ -39,12 +39,18 @@ const HeaderOptionsMenu = () => {
                     <PrettyProfileIcon />
                   </div>
                 </div>
-                <div className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+                <button
+                  onClick={() => {
+                    window.localStorage.removeItem("access_token");
+                    window.location.reload();
+                  }}
+                  className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30"
+                >
                   <p className="my-2 text-gray-300 font-bold">Sign out</p>
                   <div>
                     <PrettyLogOut />
                   </div>
-                </div>
+                </button>
               </button>
             </div>
           </div>
