@@ -35,7 +35,7 @@ const Details = () => {
         <img
           src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
           alt=""
-          className="object-contain max-h-[70vh] mb-10 sticky top-10"
+          className="object-contain max-h-[70vh] mb-10"
         />
         <div className="w-full px-10 mb-10 flex flex-col shadow-3xl">
           <div className="flex flex-row justify-between pt-5 items-center">
