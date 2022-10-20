@@ -17,6 +17,7 @@ const Comments = () => {
         window.location.href.split("/").length - 1
       ];
     setComments(await PicAPI.getCommentsOfPicture(urlParam));
+    console.log(comments);
   };
 
   useEffect(() => {
