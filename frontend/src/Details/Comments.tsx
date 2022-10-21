@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { PicAPI } from "../Api/PicApi";
 import { CommentDto } from "../Api/PicDtos/commentDto";
+
 import {
   PrettyReply,
   PrettyThumbsDown,
   PrettyThumbsUp,
 } from "../components/PrettyButtons";
-import SignComment from "./components/SignComment";
+
 
 const Comments = () => {
   const [comments, setComments] = useState<CommentDto[]>([]);

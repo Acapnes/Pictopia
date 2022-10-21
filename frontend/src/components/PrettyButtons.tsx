@@ -179,7 +179,7 @@ const PrettyHeaderOptions = () => {
     <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative p-0.5 py-2.5 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <PrettyOptionsIcon fill={"white"}/>
+        <PrettyOptionsIcon fill={"white"} />
       </span>
     </div>
   );
@@ -230,14 +230,14 @@ const PrettyCategories = (props: any) => {
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <div className="flex flex-row space-x-1">
-          <span className="text-white">Categories</span>
-          <div className="mt-[0.19rem]">
+        <div className="flex flex-row">
+          <span className="text-white hidden md:block pr-1">Categories</span>
+          <div className="flex items-center ">
             {!props.showCategories ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 fill="white"
                 className="bi bi-caret-down-fill"
                 viewBox="0 0 16 16"
@@ -247,8 +247,8 @@ const PrettyCategories = (props: any) => {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="16"
+                height="16"
                 fill="white"
                 className="bi bi-caret-up-fill"
                 viewBox="0 0 16 16"
@@ -263,37 +263,27 @@ const PrettyCategories = (props: any) => {
   );
 };
 
-const PrettyUploadPicture = (props: any) => {
+const PrettyUploadPicture = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <div className="flex flex-row space-x-1">
-          <span className="text-white">Upload</span>
-          <div className="mt-[0.19rem]">
-            {!props.showUploadMenu ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="white"
-                className="bi bi-caret-down-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                fill="white"
-                className="bi bi-caret-up-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-              </svg>
-            )}
+        <div className="flex flex-row">
+          <span className="text-white hidden md:block pr-1.5">Upload</span>
+          <div className="flex items-end">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="white"
+              className="bi bi-cloud-upload-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.5 14.5V11h1v3.5a.5.5 0 0 1-1 0z"
+              />
+            </svg>
           </div>
         </div>
       </span>
