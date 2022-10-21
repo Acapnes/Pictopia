@@ -19,7 +19,6 @@ import HeaderOptionsMenu from "./components/HeaderOptionsMenu";
 const Header = () => {
   const [showCategories, setShowCategories] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [showUploadMenu, setShowUploadMenu] = useState(false);
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
 
   const initFetchCredentials = async () => {
@@ -52,15 +51,15 @@ const Header = () => {
           <PrettySearch />
         </div>
         <div className="flex flex-row space-x-2">
-          <button
-            onClick={() => setShowUploadMenu(!showUploadMenu)}
+          <a
+            href="/upload"
             className="flex items-center"
           >
-            <PrettyUploadPicture showUploadMenu={showUploadMenu} />
-          </button>
+            <PrettyUploadPicture />
+          </a>
           {window.localStorage.getItem("access_token") ? (
             <a
-              href="http://localhost:3001/user"
+              href="http://localhost:80/user"
               className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem]"
             >
               <PrettyProfilePicture user={userCredentials} />
