@@ -12,7 +12,7 @@ const ProfileCredentials = (props: any) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 ">
       <div className="flex justify-center items-center h-fit lg:sticky lg:top-10 relative">
-        <div className="bg-[#fafafa] rounded-full shadow-lg p-[0.8rem] relative">
+        <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full shadow-lg p-[0.3rem] relative">
           <img
             src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
             alt=""
