@@ -32,10 +32,11 @@ export class PicController {
     return this.picsService.getPicById(id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('/create')
   @UseInterceptors(FileInterceptor('picture'))
   async uploadImage(@UploadedFile() file, @Res() res, @Req() req, @Body() body): Promise<Pic>{
-    const picture  = await this.picsService.createPostWithImage(file,body)
+    const picture  = await this.picsService.createPostWithImage(req.user,file,body)
 
     const prettyResponse = picture.toObject();
     const host = req.get('host');

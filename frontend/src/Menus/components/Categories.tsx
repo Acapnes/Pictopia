@@ -3,9 +3,9 @@ import { CategoryAPI } from "../../Api/CategoryApi";
 import { CategoryDto } from "../../Api/Utils/category.dto";
 import { PrettySearchCategories } from "../../components/PrettyButtons";
 import {
-  PrettyCheck,
-  PrettyCompass,
-  PrettyX,
+  PrettyCheckIcon,
+  PrettyCompassIcon,
+  PrettyXIcon,
 } from "../../components/PrettyIcons";
 
 const Categories = () => {
@@ -37,7 +37,7 @@ const Categories = () => {
                 />
                 <div className="absolute top-0 w-full h-full text-start flex flex-row space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
                   <div>
-                    <PrettyCompass />
+                    <PrettyCompassIcon />
                   </div>
                   <p className="my-2 text-gray-300 font-bold text-2xl">
                     Explore
@@ -63,8 +63,8 @@ const Categories = () => {
                         {category.title}
                       </p>
                       <div>
-                        <PrettyCheck />
-                        {/* <PrettyX/> */}
+                        <PrettyCheckIcon />
+                        {/* <PrettyXIcon/> */}
                       </div>
                     </div>
                   </button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { PrettyOptionsIcon, PrettySearchIcon } from "./PrettyIcons";
+import { PrettyOptionsIcon, PrettySearchIcon, PrettyTrashIcon } from "./PrettyIcons";
 
 const PrettyShare = () => {
   return (
@@ -163,10 +163,10 @@ const PrettyHeaderSignIn = () => {
       href="/login"
       className=" whitespace-nowrap relative inline-flex items-center justify-start overflow-hidden font-bold group w-fit text-white"
     >
-      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
         <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
-        <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 group-hover:text-black duration-400">
+        <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 group-hover:text-black duration-400">
           SIGN IN
         </span>
       </div>
@@ -176,10 +176,21 @@ const PrettyHeaderSignIn = () => {
 
 const PrettyHeaderOptions = () => {
   return (
-    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative p-0.5 py-2.5 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative p-0.5 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <PrettyOptionsIcon fill={"white"} />
+      </span>
+    </div>
+  );
+};
+
+const PrettyTrashButton = () => {
+  return (
+    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative p-1 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <PrettyTrashIcon/>
       </span>
     </div>
   );
@@ -227,9 +238,9 @@ const PrettyExtendedProfileButton = (props: any) => {
 
 const PrettyCategories = (props: any) => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <div className="flex flex-row">
           <span className="text-white hidden md:block pr-1">Categories</span>
           <div className="flex items-center ">
@@ -265,9 +276,9 @@ const PrettyCategories = (props: any) => {
 
 const PrettyUploadPicture = () => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <div className="flex flex-row">
           <span className="text-white hidden md:block pr-1.5">Upload</span>
           <div className="flex items-end">
@@ -293,9 +304,9 @@ const PrettyUploadPicture = () => {
 
 const PrettySearch = () => {
   return (
-    <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-md">
+    <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-      <span className=" w-full relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md duration-400">
+      <span className=" w-full relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm duration-400">
         <div className="flex flex-row space-x-2">
           <div className="h-full flex items-center mt-[0.25rem]">
             <PrettySearchIcon />
@@ -439,4 +450,5 @@ export {
   PrettySimpleProfileButton,
   PrettyExtendedProfileButton,
   PrettyHeaderOptions,
+  PrettyTrashButton,
 };

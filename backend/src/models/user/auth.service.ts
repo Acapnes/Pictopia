@@ -39,7 +39,6 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
     return await this.userService.findByEmail(userValidationDto.email).then(async (findReturn : any) => {
         if (findReturn.success !== false) {
           const selectedUser = findReturn as UserDto;
-          console.log(selectedUser)
           const rawPassword = userValidationDto.password.toString();
           const loginResult = bcrypt.compareSync(rawPassword,selectedUser.password.toString());
           if (loginResult) {

@@ -21,8 +21,10 @@ export class PicService {
     return this.picModel.findOne({ _id: id }).populate("authorPic");
   }
 
-  async createPostWithImage(file, picCreateDto: PicCreateDto) {
+  async createPostWithImage(authorPicId:mongoose.Types.ObjectId | any ,file, picCreateDto: PicCreateDto) {
     const newImage = await new this.picModel(picCreateDto);
+
+    newImage.authorPic = authorPicId._id;
     newImage.picture_file.data = file.buffer;
     newImage.picture_file.contentType = file.mimetype;
 

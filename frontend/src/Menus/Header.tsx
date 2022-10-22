@@ -30,7 +30,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="w-full mb-3 z-10 space-y-3 sticky top-0">
+    <div className="w-full z-10 space-y-3 sticky top-0">
       <div className="w-full h-[5.2rem] flex flex-row justify-between space-x-4 px-5 bg-soft-black bg-opacity-90 py-2">
         <div className="flex flex-row space-x-2">
           <Link

@@ -19,7 +19,7 @@ const SimpleProfile = (props: any) => {
     >
       <div className="space-y-2">
         <div className="text-center flex items-center">
-          <p className="font-semibold">Email</p>
+          <p className="font-semibold text-gray-200">Email</p>
         </div>
         <input
           type="text"
@@ -30,7 +30,7 @@ const SimpleProfile = (props: any) => {
       </div>
       <div className="space-y-2">
         <div className="text-center flex items-center">
-          <p className="font-semibold">Username</p>
+          <p className="font-semibold text-gray-200">Username</p>
         </div>
         <input
           type="text"
@@ -40,7 +40,7 @@ const SimpleProfile = (props: any) => {
       </div>
       <div className="space-y-2">
         <div className="text-center flex items-center">
-          <p className="font-semibold">Name</p>
+          <p className="font-semibold text-gray-200">Name</p>
         </div>
         <input
           type="text"
@@ -51,7 +51,7 @@ const SimpleProfile = (props: any) => {
       </div>
       <div className="space-y-2">
         <div className="text-center flex items-center">
-          <p className="font-semibold">BirthDate</p>
+          <p className="font-semibold text-gray-200">BirthDate</p>
         </div>
         <input
           type="text"
@@ -61,17 +61,16 @@ const SimpleProfile = (props: any) => {
       </div>
       <div className="col-span-1 md:col-span-2 lg:col-span-4 space-y-2 h-full">
         <div className="text-center flex items-center">
-          <p className="font-semibold">Bio</p>
+          <p className="font-semibold text-gray-200">Bio</p>
         </div>
         <textarea
           className="w-full h-full break-words px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800 resize-none"
           placeholder={props?.user?.bio}
         />
       </div>
-      <div className="col-span-2 lg:col-span-4 w-full flex justify-between mt-5 ">
+      <div className="md:col-span-2 lg:col-span-4 w-full flex justify-between mt-5 ">
         <button>
           <PrettyChangeProfileAvatar />
-          <input type="file" />
         </button>
         <button>
           <PrettySaveChanges />
