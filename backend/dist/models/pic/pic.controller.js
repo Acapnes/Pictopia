@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
@@ -35,7 +36,7 @@ let PicController = class PicController {
         return this.picsService.getPicById(id);
     }
     async uploadImage(file, res, req, body) {
-        const picture = await this.picsService.createPostWithImage(file, body);
+        const picture = await this.picsService.createPostWithImage(req.user, file, body);
         const prettyResponse = picture.toObject();
         const host = req.get('host');
         prettyResponse.picture_file = undefined;
@@ -72,6 +73,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicById", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/create'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('picture')),
     __param(0, (0, common_1.UploadedFile)()),

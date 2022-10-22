@@ -30,8 +30,9 @@ let PicService = class PicService {
     async getPicById(id) {
         return this.picModel.findOne({ _id: id }).populate("authorPic");
     }
-    async createPostWithImage(file, picCreateDto) {
+    async createPostWithImage(authorPicId, file, picCreateDto) {
         const newImage = await new this.picModel(picCreateDto);
+        newImage.authorPic = authorPicId._id;
         newImage.picture_file.data = file.buffer;
         newImage.picture_file.contentType = file.mimetype;
         return newImage.save();
