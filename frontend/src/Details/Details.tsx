@@ -29,7 +29,7 @@ const Details = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col bg-soft-black">
       <Header />
       <div className="flex flex-col py-10 lg:flex-row lg:px-40 lg:space-x-5">
         <img
@@ -37,7 +37,7 @@ const Details = () => {
           alt=""
           className="object-contain max-h-[70vh] mb-10"
         />
-        <div className="w-full px-10 mb-10 flex flex-col shadow-3xl">
+        <div className="w-full px-10 mb-10 flex flex-col shadow-3xl bg-gray-100 bg-opacity-90">
           <div className="flex flex-row justify-between pt-5 items-center">
             <PrettyShare />
             <Link to={"/user/"}>

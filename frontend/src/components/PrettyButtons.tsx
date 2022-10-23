@@ -1,5 +1,11 @@
 import React from "react";
-import { PrettyOptionsIcon, PrettySearchIcon, PrettyTrashIcon } from "./PrettyIcons";
+import {
+  PrettyCameraIcon,
+  PrettyOptionsIcon,
+  PrettySearchIcon,
+  PrettySettingSlidersIcon,
+  PrettyTrashIcon,
+} from "./PrettyIcons";
 
 const PrettyShare = () => {
   return (
@@ -110,17 +116,7 @@ const PrettyChangeProfileAvatar = () => {
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <span className="text-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            fill="currentColor"
-            className="bi bi-camera-fill"
-            viewBox="0 0 16 16"
-          >
-            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
-          </svg>
+          <PrettyCameraIcon fill={"white"}/>
         </span>
       </span>
     </div>
@@ -190,7 +186,7 @@ const PrettyTrashButton = () => {
     <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative p-1 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-        <PrettyTrashIcon/>
+        <PrettyTrashIcon fill={"white"} size={18}/>
       </span>
     </div>
   );
@@ -429,6 +425,17 @@ const PrettySend = () => {
   );
 };
 
+const PrettyPictureOptions = () => {
+  return (
+    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative p-0.5 px-2 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <PrettySettingSlidersIcon fill={"white"}/>
+      </span>
+    </div>
+  );
+};
+
 export {
   PrettyShare,
   PrettySave,
@@ -451,4 +458,5 @@ export {
   PrettyExtendedProfileButton,
   PrettyHeaderOptions,
   PrettyTrashButton,
+  PrettyPictureOptions,
 };

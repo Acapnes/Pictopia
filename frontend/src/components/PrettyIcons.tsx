@@ -74,6 +74,40 @@ const PrettyProfilePicture = (props: any) => {
   );
 };
 
+const PrettyCameraIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      fill={props.fill}
+      className="bi bi-camera-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+      <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+    </svg>
+  );
+};
+
+const PrettySettingSlidersIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill={props.fill}
+      className="bi bi-sliders"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z"
+      />
+    </svg>
+  );
+};
+
 const PrettyPictopia = () => {
   return (
     <img
@@ -216,13 +250,13 @@ const PrettySquareAddIcon = () => {
   );
 };
 
-const PrettyTrashIcon = () => {
+const PrettyTrashIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="18"
-      height="18"
-      fill="white"
+      width={props.size}
+      height={props.size}
+      fill={props.fill}
       className="bi bi-trash-fill"
       viewBox="0 0 16 16"
     >
@@ -246,4 +280,6 @@ export {
   PrettyHelpIcon,
   PrettySquareAddIcon,
   PrettyTrashIcon,
+  PrettyCameraIcon,
+  PrettySettingSlidersIcon,
 };
