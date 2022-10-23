@@ -45,7 +45,7 @@ const UploadPic = () => {
   };
 
   return (
-    <div className="min-h-screen w-full h-full bg-soft-black bg-opacity-90">
+    <div className="min-h-screen w-full h-full bg-soft-black">
       <Header />
       <div className="fle flex-col md:pb-5">
         <div className="w-full flex max-h-[100vh] justify-center items-center pt-3 mt-3 pb-6 px-2">

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const ExtendedChangeProfile = (props: any) => {
   return (
-    <div className="h-full w-full space-y-4">
+    <div className="h-full w-full space-y-4 text-gray-200 ">
       <div className={``}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2">
           <div>

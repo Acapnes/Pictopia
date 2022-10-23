@@ -20,7 +20,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="fixed top-[5.5rem] left-5 z-20 rounded-md">
+    <div className="fixed left-9 z-20 rounded-md">
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-md">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
         <span className=" w-full relative bg-gray-900 rounded-md duration-400">
