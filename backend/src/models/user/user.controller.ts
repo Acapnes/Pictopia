@@ -47,10 +47,16 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Post('/profile/update')
+  @Post('/profile/update/simple')
+  async userProfileUpdate(@Request() req, @Body() userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.moderationService.updateProfile(req.user._id ,userUpdateDto)
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/profile/update/avatar')
   @UseInterceptors(FileInterceptor('avatar'))
-  async userProfileUpdate(@UploadedFile() avatar_file, @Request() req, @Body() userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.updateProfile(req.user._id, avatar_file ,userUpdateDto)
+  async userChangeAvatar(@UploadedFile() avatar_file, @Request() req): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.moderationService.changeAvatar(req.user._id, avatar_file)
   }
 
   @UseGuards(AuthGuard('jwt'))
