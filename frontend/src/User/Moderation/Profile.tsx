@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
 import { UserDto } from "../../Api/UserDtos/userDto";
+import Grid from "../../Grids/Grid";
 import Header from "../../Menus/Header";
 import ProfileCredentials from "../components/ProfileCredentials";
 import UsersAlbum from "../components/UsersAlbum";
@@ -19,9 +20,10 @@ const Profile = () => {
   return (
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
-      <div className=" w-full h-full p-5 lg:p-10">
+      <div className=" w-full h-full mt-3 space-y-10">
         <ProfileCredentials user={userCredentials} />
-        <UsersAlbum />
+        <Grid/>
+        {/* <UsersAlbum /> */}
       </div>
     </div>
   );

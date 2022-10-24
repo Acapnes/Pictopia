@@ -1,10 +1,12 @@
 import React from "react";
-import { PrettySave, PrettySend } from "../../components/PrettyButtons";
-
+import { PrettySend } from "../../components/PrettyButtons";
 const SignComment = () => {
   return (
-    <div className="flex flex-row space-x-2 pr-5">
-      <a href="#_" className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] max-h-[5rem]">
+    <div className="flex flex-row space-x-2">
+      <a
+        href="#_"
+        className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] max-h-[5rem]"
+      >
         <img
           src={`https://avatars.githubusercontent.com/u/61701011?s=96&v=4`}
           alt=""
