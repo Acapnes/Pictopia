@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
 import { UserDto } from "../../Api/UserDtos/userDto";
-import {
-  PrettyChangeProfileAvatar,
-  PrettySaveChanges,
-} from "../../components/PrettyButtons";
+import { PrettySaveChanges } from "../../components/PrettyButtons";
 
 const SimpleProfile = (props: any) => {
-  const [postUserCredentials, setPostUserCredentials] = useState<UserDto>(Object);
+  const [postUserCredentials, setPostUserCredentials] =
+    useState<UserDto>(Object);
 
-  const UpdateProfile = async () => {
+  const [inputUsername, setInputUsername] = useState("");
+  const [inputName, setInputName] = useState("");
+  const [inputBirthDate, setInputBirthDate] = useState("");
+  const [inputBio, setInputBio] = useState("");
 
+  const simpleUpdateProfile = async () => {
+    if (window.localStorage.getItem("access_token")) {
+      await UserAPI.userEditProfile(
+        window.localStorage.getItem("access_token")!,
+        {
+          username: inputUsername,
+          name: inputName,
+          birthDate: inputBirthDate,
+          bio: inputBio,
+        }
+      );
+    }
   };
 
   return (
@@ -23,7 +36,7 @@ const SimpleProfile = (props: any) => {
         </div>
         <input
           type="text"
-          className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
+          className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800 cursor-no-drop"
           placeholder={props?.user?.email}
           readOnly
         />
@@ -36,6 +49,7 @@ const SimpleProfile = (props: any) => {
           type="text"
           className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
           placeholder={props?.user?.username}
+          onChange={(e) => setInputUsername(e.target.value)}
         />
       </div>
       <div className="space-y-2">
@@ -46,7 +60,7 @@ const SimpleProfile = (props: any) => {
           type="text"
           className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
           placeholder={props?.user?.name}
-          // onChange={(e)=> setPostUserCredentials(e.target.value)}
+          onChange={(e) => setInputName(e.target.value)}
         />
       </div>
       <div className="space-y-2">
@@ -57,6 +71,7 @@ const SimpleProfile = (props: any) => {
           type="text"
           className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
           placeholder={props?.user?.birthDate}
+          onChange={(e) => setInputBirthDate(e.target.value)}
         />
       </div>
       <div className="col-span-1 md:col-span-2 lg:col-span-4 space-y-2 h-full">
@@ -66,13 +81,11 @@ const SimpleProfile = (props: any) => {
         <textarea
           className="w-full h-full break-words px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800 resize-none"
           placeholder={props?.user?.bio}
+          onChange={(e) => setInputBio(e.target.value)}
         />
       </div>
-      <div className="md:col-span-2 lg:col-span-4 w-full flex justify-between mt-5 ">
-        <button>
-          <PrettyChangeProfileAvatar />
-        </button>
-        <button>
+      <div className="md:col-span-2 lg:col-span-4 w-full flex justify-end mt-5 ">
+        <button onClick={() => simpleUpdateProfile()}>
           <PrettySaveChanges />
         </button>
       </div>

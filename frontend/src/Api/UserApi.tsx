@@ -1,5 +1,7 @@
+import axios from "axios";
 import { UserDto } from "./UserDtos/userDto";
 import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
+import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
 import { UserValidationDto } from "./UserDtos/userValidationDto";
 
 export class UserAPI {
@@ -51,13 +53,13 @@ export class UserAPI {
       body: JSON.stringify(userRegistrationDto),
     });
 
+    const data = await resp.json();
+
     if (resp.status === (400 || 404 || 500))
       return {
         access: false,
-        message: "User registration failed",
+        message: data.message[0],
       };
-
-    const data = await resp.json();
 
     if (data.access === true) {
       window.localStorage.setItem("access_token", data.access_token);
@@ -65,6 +67,7 @@ export class UserAPI {
         window.location.href = "/login";
       }, 2000);
     }
+
     return data;
   }
 
@@ -82,15 +85,18 @@ export class UserAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async userEditProfile(access_token: string, userDto: UserDto) {
-    const resp = await fetch("http://localhost:3000/user/profile/update", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${access_token}`,
-      },
-      body: JSON.stringify(userDto),
-    });
+  public static async userEditProfile(access_token: string,userSimpleUpdateDto: UserSimpleUpdateDto) {
+    const resp = await fetch(
+      "http://localhost:3000/user/profile/update/simple",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify(userSimpleUpdateDto),
+      }
+    );
 
     const data = await resp.json();
 
@@ -98,5 +104,14 @@ export class UserAPI {
       window.localStorage.setItem("access_token", data.access_token);
 
     return data;
+  }
+
+  public static async changeUserAvatar(avatar: any, access_token: string) {
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    await axios.post(`http://localhost:3000/user/profile/update/avatar/`, formData)
+      .then((resp) => console.log(resp));
   }
 }

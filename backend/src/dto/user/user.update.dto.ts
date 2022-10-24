@@ -10,15 +10,11 @@ export class UserUpdateDto {
   @IsNotEmpty()
   username: string;
 
-  avatar: {
-    data: Buffer;
-    contentType: string;
-  };
-
   @IsString()
   @IsNotEmpty()
   birthDate: string;
 
   @IsString()
+  @IsNotEmpty()
   bio: string;
 }
