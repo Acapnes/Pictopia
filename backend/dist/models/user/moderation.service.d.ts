@@ -7,5 +7,6 @@ export declare class ModerationService {
     private userModel;
     private userService;
     constructor(userModel: Model<UserDocument>, userService: UserService);
-    updateProfile(_id: mongoose.Types.ObjectId | any, avatar_file: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto>;
+    updateProfile(_id: mongoose.Types.ObjectId | any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto>;
+    changeAvatar(_id: mongoose.Types.ObjectId | any, avatar_file: any): Promise<ReturnAuthDto>;
 }

@@ -16,6 +16,7 @@ export declare class UserController {
     getUsers(): Promise<User[]>;
     userRegister(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto>;
     userLogin(userValidationdto: UserValidationDto): Promise<ReturnAuthDto>;
-    userProfileUpdate(avatar_file: any, req: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto>;
+    userProfileUpdate(req: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto>;
+    userChangeAvatar(avatar_file: any, req: any): Promise<ReturnAuthDto | ReturnFuncDto>;
     fetchUserCredentials(req: any): Promise<UserCredentialsDto | ReturnFuncDto>;
 }

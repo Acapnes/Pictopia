@@ -23,23 +23,46 @@ let ModerationService = class ModerationService {
         this.userModel = userModel;
         this.userService = userService;
     }
-    async updateProfile(_id, avatar_file, userUpdateDto) {
+    async updateProfile(_id, userUpdateDto) {
         return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
             if (funcResult.success !== false) {
                 return await this.userModel.findOneAndUpdate({ _id: _id }, {
                     name: userUpdateDto.name,
                     username: userUpdateDto.username,
-                    avatar: {
-                        data: avatar_file.buffer,
-                        contentType: avatar_file.mimetype,
-                    },
                     bio: userUpdateDto.bio,
-                    birthdate: userUpdateDto.birthDate,
+                    birthDate: userUpdateDto.birthDate,
                 })
                     .then(async () => {
                     return {
                         access: true,
-                        message: 'Your profile has been changed!',
+                        message: 'Your profile has been updated!',
+                        access_token: await this.userService.generateLoginToken(_id),
+                    };
+                })
+                    .catch((err) => {
+                    return {
+                        access: false,
+                        message: 'Something went wrong! : ' + err,
+                        access_token: '',
+                    };
+                });
+            }
+            return funcResult;
+        });
+    }
+    async changeAvatar(_id, avatar_file) {
+        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
+            if (funcResult.success !== false) {
+                return await this.userModel.findOneAndUpdate({ _id: _id }, {
+                    avatar: {
+                        data: avatar_file.buffer,
+                        contentType: avatar_file.mimetype,
+                    },
+                })
+                    .then(async () => {
+                    return {
+                        access: true,
+                        message: 'Your avatar has been changed!',
                         access_token: await this.userService.generateLoginToken(_id),
                     };
                 })

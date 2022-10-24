@@ -37,8 +37,11 @@ let UserController = class UserController {
     async userLogin(userValidationdto) {
         return this.authService.validateLoginUser(userValidationdto);
     }
-    async userProfileUpdate(avatar_file, req, userUpdateDto) {
-        return this.moderationService.updateProfile(req.user._id, avatar_file, userUpdateDto);
+    async userProfileUpdate(req, userUpdateDto) {
+        return this.moderationService.updateProfile(req.user._id, userUpdateDto);
+    }
+    async userChangeAvatar(avatar_file, req) {
+        return this.moderationService.changeAvatar(req.user._id, avatar_file);
     }
     async fetchUserCredentials(req) {
         return this.authService.fetchUserCredentialsWithToken(req.user);
@@ -66,15 +69,23 @@ __decorate([
 ], UserController.prototype, "userLogin", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Post)('/profile/update'),
+    (0, common_1.Post)('/profile/update/simple'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_update_dto_1.UserUpdateDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userProfileUpdate", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/profile/update/avatar'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('avatar')),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Request)()),
-    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, user_update_dto_1.UserUpdateDto]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "userProfileUpdate", null);
+], UserController.prototype, "userChangeAvatar", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)('/credentials'),
