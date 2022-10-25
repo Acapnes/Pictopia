@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
-import { UserDto } from "../../Api/UserDtos/userDto";
+import CustomAlert from "../../components/CustomAlert";
 import { PrettySaveChanges } from "../../components/PrettyButtons";
 
 const SimpleProfile = (props: any) => {
-  const [postUserCredentials, setPostUserCredentials] =
-    useState<UserDto>(Object);
-
   const [inputUsername, setInputUsername] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputBirthDate, setInputBirthDate] = useState("");
   const [inputBio, setInputBio] = useState("");
+  const [simpleUpdateResult, setSimpleUpdateResult] = useState(Object);
 
   const simpleUpdateProfile = async () => {
     if (window.localStorage.getItem("access_token")) {
@@ -22,7 +20,7 @@ const SimpleProfile = (props: any) => {
           birthDate: inputBirthDate,
           bio: inputBio,
         }
-      );
+      ).then((resp) => setSimpleUpdateResult(resp));
     }
   };
 
@@ -84,10 +82,13 @@ const SimpleProfile = (props: any) => {
           onChange={(e) => setInputBio(e.target.value)}
         />
       </div>
-      <div className="md:col-span-2 lg:col-span-4 w-full flex justify-end mt-5 ">
-        <button onClick={() => simpleUpdateProfile()}>
-          <PrettySaveChanges />
-        </button>
+      <div className={`md:col-span-2 lg:col-span-4 w-full flex ${simpleUpdateResult?.message ? "justify-between":"justify-end"} mt-5 `}>
+        <CustomAlert result={simpleUpdateResult} />
+        <div>
+          <button onClick={() => simpleUpdateProfile()}>
+            <PrettySaveChanges />
+          </button>
+        </div>
       </div>
     </div>
   );

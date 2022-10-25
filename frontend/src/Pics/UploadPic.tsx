@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { PicAPI } from "../Api/PicApi";
 import { UploadPicDto } from "../Api/PicDtos/uploadPicDto";
+import CustomAlert from "../components/CustomAlert";
 import {
   PrettyTrashButton,
   PrettyUploadPicture,
@@ -18,6 +19,8 @@ const UploadPic = () => {
   const [inputHashtag, setInputHashtag] = useState("");
 
   const [imageURL, setImageURL] = useState<any>("null");
+
+  const [picUploadResult, setPicUploadResult] = useState(Object);
 
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -40,7 +43,10 @@ const UploadPic = () => {
         description: inputDescription,
       } as UploadPicDto,
       window.localStorage.getItem("access_token")!
-    );
+    ).then(resp => {
+      setPicUploadResult(resp)
+      console.log(resp);
+    })
   };
 
   return (
@@ -55,7 +61,7 @@ const UploadPic = () => {
             {imageURL === "null" ? (
               <button
                 onClick={handleClick}
-                className="bg-white rounded-sm object-contain flex items-center justify-center text-3xl font-semibold p-10 "
+                className="bg-gray-900 text-gray-200 rounded-sm object-contain flex items-center justify-center text-3xl font-semibold p-10 "
               >
                 <span>Choose a file</span>
               </button>
@@ -138,7 +144,8 @@ const UploadPic = () => {
                 ></textarea>
               </div>
 
-              <div className="w-full flex justify-end items-center">
+              <div className={`w-full flex ${picUploadResult.message ? "justify-between":"justify-end" } flex-row space-x-4 items-center`}>
+                <CustomAlert result={picUploadResult}/>
                 <button onClick={() => uploadPicture()}>
                   <PrettyUploadPicture />
                 </button>

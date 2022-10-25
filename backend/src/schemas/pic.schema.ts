@@ -14,14 +14,8 @@ export class Pic {
   @Prop({ required: true })
   title: string;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   description: string;
-
-  // @Prop({ required: false })
-  // like: number;
-
-  // @Prop({ required: false })
-  // disslike: number;
 
   @Prop({ type: Object,  required: true, default: { data: null, contentType: null }  })
   picture_file: {

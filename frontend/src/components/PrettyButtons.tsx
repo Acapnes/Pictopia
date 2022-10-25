@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { PrettyRotatingArrow } from "./PrettyComponents";
 import {
+  PrettyAlertIcon,
+  PrettyBookMarksIcon,
   PrettyCameraIcon,
   PrettyOptionsIcon,
   PrettySearchIcon,
   PrettySettingSlidersIcon,
+  PrettyThumbsDownIcon,
+  PrettyThumbsUpIcon,
   PrettyTrashIcon,
+  PrettyUploadIcon,
 } from "./PrettyIcons";
 
 const PrettyShare = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           fill="white"
           className="bi bi-share-fill"
           viewBox="0 0 16 16"
@@ -27,62 +33,39 @@ const PrettyShare = () => {
   );
 };
 
-const PrettySave = () => {
+const PrettySavePicture = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="white"
-          className="bi bi-bookmarks-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z" />
-          <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z" />
-        </svg>
+      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+        <PrettyBookMarksIcon />
       </span>
     </div>
   );
 };
 
-const PrettyComments = () => {
+const PrettyCommentsButton = (props: any) => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="white"
-          className="bi bi-chat-right-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M14 0a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z" />
-        </svg>
+      <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+        <div className="flex flex-row justify-center items-center space-x-2">
+          <span className="text-gray-200">
+            {props.length ? props.length : "0"} Comments
+          </span>
+          <PrettyRotatingArrow state={props.state} />
+        </div>
       </span>
     </div>
   );
 };
 
-const PrettyReport = () => {
+const PrettyReportButton = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="white"
-          className="bi bi-exclamation-octagon-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-        </svg>
+      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+        <PrettyAlertIcon size={16} />
       </span>
     </div>
   );
@@ -116,7 +99,7 @@ const PrettyChangeProfileAvatar = () => {
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <span className="text-white">
-          <PrettyCameraIcon fill={"white"}/>
+          <PrettyCameraIcon fill={"white"} />
         </span>
       </span>
     </div>
@@ -162,8 +145,27 @@ const PrettyHeaderSignIn = () => {
       <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
         <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
-        <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 group-hover:text-black duration-400">
-          SIGN IN
+        <span className="relative pl-1 pr-2 py-1.5 md:px-4 md:py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 group-hover:text-black duration-400">
+          <span className="hidden md:block">SIGN IN</span>
+          <div className="block md:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              className="bi bi-box-arrow-in-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
+              />
+              <path
+                fillRule="evenodd"
+                d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+              />
+            </svg>
+          </div>
         </span>
       </div>
     </a>
@@ -174,7 +176,7 @@ const PrettyHeaderOptions = () => {
   return (
     <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative p-0.5 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+      <span className="relative p-0.5 py-2 md:py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <PrettyOptionsIcon fill={"white"} />
       </span>
     </div>
@@ -186,7 +188,7 @@ const PrettyTrashButton = () => {
     <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative p-1 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-        <PrettyTrashIcon fill={"white"} size={18}/>
+        <PrettyTrashIcon fill={"white"} size={18} />
       </span>
     </div>
   );
@@ -239,31 +241,7 @@ const PrettyCategories = (props: any) => {
       <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <div className="flex flex-row">
           <span className="text-white hidden md:block pr-1">Categories</span>
-          <div className="flex items-center ">
-            {!props.showCategories ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="white"
-                className="bi bi-caret-down-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="white"
-                className="bi bi-caret-up-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-              </svg>
-            )}
-          </div>
+          <PrettyRotatingArrow state={props.showCategories} />
         </div>
       </span>
     </div>
@@ -278,19 +256,7 @@ const PrettyUploadPicture = () => {
         <div className="flex flex-row">
           <span className="text-white hidden md:block pr-1.5">Upload</span>
           <div className="flex items-end">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="white"
-              className="bi bi-cloud-upload-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0zm-.5 14.5V11h1v3.5a.5.5 0 0 1-1 0z"
-              />
-            </svg>
+            <PrettyUploadIcon />
           </div>
         </div>
       </span>
@@ -342,42 +308,24 @@ const PrettySearchCategories = () => {
   );
 };
 
-const PrettyThumbsUp = () => {
+const PrettyThumbsUpButton = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative flex flex-row items-center space-x-1 px-3 py-[0.45rem] transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"
-          fill="white"
-          className="bi bi-hand-thumbs-up-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
-        </svg>
+        <PrettyThumbsUpIcon />
         <p className="font-semibold text-sm text-gray-200">1754</p>
       </span>
     </div>
   );
 };
 
-const PrettyThumbsDown = () => {
+const PrettyThumbsDownButton = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative flex flex-row items-center space-x-1 px-3 py-[0.45rem] transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"
-          fill="white"
-          className="bi bi-hand-thumbs-down-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
-        </svg>
+        <PrettyThumbsDownIcon />
         <p className="font-semibold text-sm text-gray-200">13</p>
       </span>
     </div>
@@ -430,7 +378,21 @@ const PrettyPictureOptions = () => {
     <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative p-0.5 px-2 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-        <PrettySettingSlidersIcon fill={"white"}/>
+        <PrettySettingSlidersIcon fill={"white"} />
+      </span>
+    </div>
+  );
+};
+
+const PrettyAddAvatar = () => {
+  return (
+    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative p-10 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <div className="flex flex-col space-y-1 items-center">
+          <span className="text-2xl font-semibold text-gray-200">Add an Avatar</span>
+          <PrettyCameraIcon size={30} fill={"white"}/>
+        </div>
       </span>
     </div>
   );
@@ -438,9 +400,9 @@ const PrettyPictureOptions = () => {
 
 export {
   PrettyShare,
-  PrettySave,
-  PrettyComments,
-  PrettyReport,
+  PrettySavePicture,
+  PrettyCommentsButton,
+  PrettyReportButton,
   PrettyAuthButton,
   PrettySaveChanges,
   PrettyChangeProfileAvatar,
@@ -450,8 +412,8 @@ export {
   PrettySearch,
   PrettyUploadPicture,
   PrettySearchCategories,
-  PrettyThumbsUp,
-  PrettyThumbsDown,
+  PrettyThumbsUpButton,
+  PrettyThumbsDownButton,
   PrettyReply,
   PrettySend,
   PrettySimpleProfileButton,
@@ -459,4 +421,5 @@ export {
   PrettyHeaderOptions,
   PrettyTrashButton,
   PrettyPictureOptions,
+  PrettyAddAvatar,
 };

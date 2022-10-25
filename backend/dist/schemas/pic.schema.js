@@ -24,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], Pic.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Pic.prototype, "description", void 0);
 __decorate([

@@ -31,11 +31,33 @@ let PicService = class PicService {
         return this.picModel.findOne({ _id: id }).populate("authorPic");
     }
     async createPostWithImage(authorPicId, file, picCreateDto) {
+        if (!picCreateDto.title) {
+            return {
+                success: false,
+                message: "Title cannot be empty"
+            };
+        }
+        if (!file) {
+            return {
+                success: false,
+                message: "Picture cannot be empty"
+            };
+        }
         const newImage = await new this.picModel(picCreateDto);
         newImage.authorPic = authorPicId._id;
         newImage.picture_file.data = file.buffer;
         newImage.picture_file.contentType = file.mimetype;
-        return newImage.save();
+        await newImage.save();
+        if (!await this.getPicById(newImage._id)) {
+            return {
+                success: false,
+                message: "Something went wrong!"
+            };
+        }
+        return {
+            success: true,
+            message: "Picture has been created"
+        };
     }
 };
 PicService = __decorate([

@@ -14,9 +14,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter >
       <Routes>
         <Route path="*" element={<App />} />
+        <Route path="/explore" element={<App />} />
         <Route path="/detail/*" element={<Details />} />
         <Route path="/user/*" element={<Profile />} />
         <Route path="/login" element={<Login />} />

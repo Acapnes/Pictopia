@@ -9,15 +9,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [loginResult, setLoginResult] = useState("");
+  const [loginResult, setLoginResult] = useState(Object);
 
   const userLogin = async () => {
     await UserAPI.userLogin({
       email: userEmail,
       password: userPassword,
-    }).then((resp) =>
-      !resp.access ? setLoginResult(resp.message) : setLoginResult("")
-    );
+    }).then((resp) => setLoginResult(resp));
   };
 
   return (
@@ -70,10 +68,7 @@ const Login = () => {
               >
                 Don't have an account? Come on Join us now!
               </a>
-              <a
-                href="/"
-                className=" font-light text-pink-500 text-center"
-              >
+              <a href="/" className=" font-light text-pink-500 text-center">
                 I will just look...
               </a>
             </div>

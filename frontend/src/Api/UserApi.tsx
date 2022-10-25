@@ -85,7 +85,10 @@ export class UserAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async userEditProfile(access_token: string,userSimpleUpdateDto: UserSimpleUpdateDto) {
+  public static async userEditProfile(
+    access_token: string,
+    userSimpleUpdateDto: UserSimpleUpdateDto
+  ) {
     const resp = await fetch(
       "http://localhost:3000/user/profile/update/simple",
       {
@@ -111,7 +114,8 @@ export class UserAPI {
     formData.append("avatar", avatar);
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    await axios.post(`http://localhost:3000/user/profile/update/avatar/`, formData)
-      .then((resp) => console.log(resp));
+    return await axios
+      .post(`http://localhost:3000/user/profile/update/avatar/`, formData)
+      .then((resp) => resp.data);
   }
 }

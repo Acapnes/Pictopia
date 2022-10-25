@@ -20,19 +20,19 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="fixed left-9 z-20 rounded-md">
-      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-md">
+    <div className="fixed top-[5.5rem] left-7 z-20 rounded-sm">
+      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-        <span className=" w-full relative bg-gray-900 rounded-md duration-400">
-          <div className="flex flex-col  gap-4 py-2 px-5 w-[19rem]">
+        <span className=" w-full relative bg-soft-black rounded-sm duration-400">
+          <div className="flex flex-col  gap-4 py-2 px-5 w-[17.8rem]">
             <div className="w-full flex flex-col h-[70vh] space-y-3 pt-2">
               <div className="mb-2">
                 <PrettySearchCategories />
               </div>
-              <button className="relative w-full text-start font-semibold text-white rounded-md h-[4rem]">
+              <a href="/explore" className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem]">
                 <img
                   src="/explore.jpg"
-                  className=" object-none h-full w-full opacity-70 rounded-md border-2"
+                  className=" object-none h-full w-full opacity-70 rounded-sm border-2"
                   alt=""
                 />
                 <div className="absolute top-0 w-full h-full text-start flex flex-row space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
@@ -43,7 +43,7 @@ const Categories = () => {
                     Explore
                   </p>
                 </div>
-              </button>
+              </a>
               <div className=""></div>
               <p className="text-gray-200 text-sm">Favorites</p>
 
@@ -51,11 +51,11 @@ const Categories = () => {
                 {categories.map((category, categoryIndex) => (
                   <button
                     key={categoryIndex}
-                    className="relative w-full text-start font-semibold text-white rounded-md h-[4rem]"
+                    className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem]"
                   >
                     <img
                       src={`data:${category.category_picture_file.contentType};base64,${category.category_picture_file.data}`}
-                      className="object-cover h-full w-full opacity-40 rounded-md border-2"
+                      className="object-cover h-full w-full opacity-40 rounded-sm border-2"
                       alt=""
                     />
                     <div className="absolute top-0 w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-gray-400 hover:bg-opacity-30">
@@ -77,11 +77,11 @@ const Categories = () => {
                 {categories.map((category, categoryIndex) => (
                   <button
                     key={categoryIndex}
-                    className="relative w-full text-start font-semibold text-white rounded-md h-[4rem]"
+                    className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem]"
                   >
                     <img
                       src={`data:${category.category_picture_file.contentType};base64,${category.category_picture_file.data}`}
-                      className="object-cover h-full w-full opacity-40 rounded-md border-2"
+                      className="object-cover h-full w-full opacity-40 rounded-sm border-2"
                       alt=""
                     />
                     <div className="absolute top-0 w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-gray-400 hover:bg-opacity-30">

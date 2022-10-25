@@ -1,34 +1,16 @@
-import { useEffect, useState } from "react";
-import { PicAPI } from "../Api/PicApi";
 import { CommentDto } from "../Api/PicDtos/commentDto";
-
 import {
   PrettyReply,
-  PrettyThumbsDown,
-  PrettyThumbsUp,
+  PrettyThumbsDownButton,
+  PrettyThumbsUpButton,
 } from "../components/PrettyButtons";
 
-
-const Comments = () => {
-  const [comments, setComments] = useState<CommentDto[]>([]);
-
-  const getCommentsById = async () => {
-    const urlParam =
-      window.location.href.split("/")[
-        window.location.href.split("/").length - 1
-      ];
-    setComments(await PicAPI.getCommentsOfPicture(urlParam));
-  };
-
-  useEffect(() => {
-    getCommentsById();
-  }, []);
-
+const Comments = (props: any) => {
   return (
-    <div className="w-full min-h-24 max-h-[24rem] overflow-auto py-2">
-      {comments.length ? (
-        <div className="w-full flex flex-col space-y-5 text-black ">
-          {comments.map((_comment, _commentIndex) => (
+    <div className="w-full min-h-24 max-h-[24rem] overflow-auto py-2 scrollbar-hide text-gray-200">
+      {props?.comments.length ? (
+        <div className="w-full flex flex-col space-y-5 ">
+          {props?.comments?.map((_comment: any, _commentIndex: any) => (
             <div
               key={_commentIndex}
               className="w-full h-full flex flex-row space-x-3 pr-2"
@@ -56,10 +38,10 @@ const Comments = () => {
                 <div className="w-full flex justify-between ">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                     <button>
-                      <PrettyThumbsUp />
+                      <PrettyThumbsUpButton />
                     </button>
                     <button>
-                      <PrettyThumbsDown />
+                      <PrettyThumbsDownButton />
                     </button>
                   </div>
                   <button className="flex items-start">

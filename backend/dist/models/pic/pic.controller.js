@@ -35,13 +35,8 @@ let PicController = class PicController {
     async getPicById(id) {
         return this.picsService.getPicById(id);
     }
-    async uploadImage(file, res, req, body) {
-        const picture = await this.picsService.createPostWithImage(req.user, file, body);
-        const prettyResponse = picture.toObject();
-        const host = req.get('host');
-        prettyResponse.picture_file = undefined;
-        prettyResponse.url = `http://${host}/pics/${prettyResponse._id}`;
-        return res.send(prettyResponse);
+    async uploadImage(file, req, body) {
+        return await this.picsService.createPostWithImage(req.user, file, body);
     }
 };
 __decorate([
@@ -77,11 +72,10 @@ __decorate([
     (0, common_1.Post)('/create'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('picture')),
     __param(0, (0, common_1.UploadedFile)()),
-    __param(1, (0, common_1.Res)()),
-    __param(2, (0, common_1.Req)()),
-    __param(3, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "uploadImage", null);
 PicController = __decorate([

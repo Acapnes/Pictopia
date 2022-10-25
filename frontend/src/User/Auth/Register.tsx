@@ -41,7 +41,7 @@ const Register = () => {
 
         <div className="fixed z-20 mt-14 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-soft-black drop-shadow-xl p-12 shadow-3xl rounded-sm">
           <div className="relative space-y-5 flex flex-col ">
-            <CustomAlert result={registerResult.message} />
+            <CustomAlert result={registerResult} />
             <p className="text-4xl text-center text-gray-200 mt-3">
               User Register
             </p>

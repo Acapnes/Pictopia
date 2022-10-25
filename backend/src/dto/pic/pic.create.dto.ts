@@ -9,7 +9,6 @@ export class PicCreateDto {
   @IsString()
   title: string;
 
-  @IsString()
   description: string;
 
   @IsNotEmpty()
@@ -18,10 +17,4 @@ export class PicCreateDto {
     data: Buffer;
     contentType: string;
   };
-
-  // @IsNumber()
-  // like?: number = 0;
-
-  // @IsNumber()
-  // disslike?: number = 0;
 }
