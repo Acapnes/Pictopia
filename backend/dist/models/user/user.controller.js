@@ -43,6 +43,9 @@ let UserController = class UserController {
     async userChangeAvatar(avatar_file, req) {
         return this.moderationService.changeAvatar(req.user._id, avatar_file);
     }
+    async userRemoveAvatar(req) {
+        return this.moderationService.removeAvatar(req.user._id);
+    }
     async fetchUserCredentials(req) {
         return this.authService.fetchUserCredentialsWithToken(req.user);
     }
@@ -86,6 +89,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userChangeAvatar", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/profile/update/avatar/remove'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userRemoveAvatar", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Get)('/credentials'),

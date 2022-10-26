@@ -18,5 +18,6 @@ export declare class UserController {
     userLogin(userValidationdto: UserValidationDto): Promise<ReturnAuthDto>;
     userProfileUpdate(req: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto>;
     userChangeAvatar(avatar_file: any, req: any): Promise<ReturnAuthDto | ReturnFuncDto>;
+    userRemoveAvatar(req: any): Promise<ReturnAuthDto | ReturnFuncDto>;
     fetchUserCredentials(req: any): Promise<UserCredentialsDto | ReturnFuncDto>;
 }

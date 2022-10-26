@@ -17,24 +17,56 @@ const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 const mongoose_2 = require("@nestjs/mongoose");
 const comment_schema_1 = require("../../schemas/comment.schema");
+const pic_service_1 = require("../pic/pic.service");
 let CommentService = class CommentService {
-    constructor(commentModel) {
+    constructor(commentModel, picService) {
         this.commentModel = commentModel;
+        this.picService = picService;
     }
     async findAll() {
         return this.commentModel.find({});
     }
     async findCommentByMongooseId(_id) {
-        return this.commentModel.find({ destPicture: _id }).populate('author');
+        return (await this.commentModel.find({ destPicture: _id }).populate('author')).reverse();
     }
-    async signComment(commentDto) {
-        return this.commentModel.create(commentDto);
+    async signComment(_id, commentCreateDto) {
+        if (!commentCreateDto.comment || !commentCreateDto.destPicture) {
+            return {
+                success: false,
+                message: 'Comment or Destination Picture cannot be empty',
+            };
+        }
+        return await this.picService.getPicById(commentCreateDto.destPicture)
+            .then(async (resp) => {
+            if (!resp) {
+                return {
+                    success: false,
+                    message: 'Destination Picture cannot found.',
+                };
+            }
+            const newComment = await this.commentModel.create({
+                author: _id,
+                destPicture: commentCreateDto.destPicture,
+                comment: commentCreateDto.comment,
+            });
+            if (!this.findCommentByMongooseId(newComment._id)) {
+                return {
+                    success: false,
+                    message: 'Something went wrong, could not add comment.',
+                };
+            }
+            return {
+                success: true,
+                message: 'New comment has been added.',
+            };
+        });
     }
 };
 CommentService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(comment_schema_1.Comment.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        pic_service_1.PicService])
 ], CommentService);
 exports.CommentService = CommentService;
 //# sourceMappingURL=comment.service.js.map

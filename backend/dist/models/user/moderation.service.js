@@ -77,6 +77,33 @@ let ModerationService = class ModerationService {
             return funcResult;
         });
     }
+    async removeAvatar(_id) {
+        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
+            if (funcResult.success !== false) {
+                return await this.userModel.findOneAndUpdate({ _id: _id }, {
+                    avatar: {
+                        data: null,
+                        contentType: null,
+                    },
+                })
+                    .then(async () => {
+                    return {
+                        access: true,
+                        message: 'Your avatar has been removed!',
+                        access_token: await this.userService.generateLoginToken(_id),
+                    };
+                })
+                    .catch((err) => {
+                    return {
+                        access: false,
+                        message: 'Something went wrong! : ' + err,
+                        access_token: '',
+                    };
+                });
+            }
+            return funcResult;
+        });
+    }
 };
 ModerationService = __decorate([
     (0, common_1.Injectable)(),
