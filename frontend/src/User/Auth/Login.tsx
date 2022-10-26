@@ -73,8 +73,8 @@ const Login = () => {
               </a>
             </div>
 
-            <div className="absolute -top-[4rem] md:-top-[5rem] lg:-top-[6rem] xl:-top-[5.8rem] 2xl:-top-[5rem] left-1/2  -translate-x-1/2 -translate-y-1/2 w-full flex items-center justify-center">
-              <img src="/pictopia_trans.png" alt="" className="rounded-sm" />
+            <div className="absolute -top-[6rem] md:-top-[6rem] lg:-top-[6rem] xl:-top-[6rem] 2xl:-top-[6rem] left-1/2  -translate-x-1/2 -translate-y-1/2 w-full flex items-center justify-center">
+              <img src="/pictopia_trans.png" alt="" className="rounded-sm h-fit" />
             </div>
           </div>
         </div>

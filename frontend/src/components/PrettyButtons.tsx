@@ -336,11 +336,11 @@ const PrettyReply = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-3 py-[0.55rem] transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-2 py-1.5 first-letter:transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
+          width="16"
+          height="16"
           fill="white"
           className="bi bi-reply-fill"
           viewBox="0 0 16 16"
@@ -356,7 +356,7 @@ const PrettySend = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
