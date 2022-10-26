@@ -73,4 +73,35 @@ export class ModerationService {
       return funcResult;
     });
   }
+
+  async removeAvatar(_id: mongoose.Types.ObjectId | any): Promise<ReturnAuthDto>{
+    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
+      if (funcResult.success !== false) {
+        return await this.userModel.findOneAndUpdate(
+            { _id: _id },
+            {
+              avatar: {
+                data: null,
+                contentType: null,
+              },
+            },
+          )
+          .then(async () => {
+            return {
+              access: true,
+              message: 'Your avatar has been removed!',
+              access_token: await this.userService.generateLoginToken(_id),
+            };
+          })
+          .catch((err) => {
+            return {
+              access: false,
+              message: 'Something went wrong! : ' + err,
+              access_token: '',
+            };
+          });
+      }
+      return funcResult;
+    });
+  }
 }

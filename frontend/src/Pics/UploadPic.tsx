@@ -43,10 +43,9 @@ const UploadPic = () => {
         description: inputDescription,
       } as UploadPicDto,
       window.localStorage.getItem("access_token")!
-    ).then(resp => {
-      setPicUploadResult(resp)
-      console.log(resp);
-    })
+    ).then((resp) => {
+      setPicUploadResult(resp);
+    });
   };
 
   return (
@@ -144,8 +143,12 @@ const UploadPic = () => {
                 ></textarea>
               </div>
 
-              <div className={`w-full flex ${picUploadResult.message ? "justify-between":"justify-end" } flex-row space-x-4 items-center`}>
-                <CustomAlert result={picUploadResult}/>
+              <div
+                className={`w-full flex ${
+                  picUploadResult.message ? "justify-between" : "justify-end"
+                } flex-row space-x-4 items-center`}
+              >
+                <CustomAlert result={picUploadResult} />
                 <button onClick={() => uploadPicture()}>
                   <PrettyUploadPicture />
                 </button>

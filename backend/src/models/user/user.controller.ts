@@ -60,6 +60,12 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Post('/profile/update/avatar/remove')
+  async userRemoveAvatar(@Request() req): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.moderationService.removeAvatar(req.user._id)
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('/credentials')
   async fetchUserCredentials(@Request() req): Promise<UserCredentialsDto | ReturnFuncDto> {
     return this.authService.fetchUserCredentialsWithToken(req.user);

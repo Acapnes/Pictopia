@@ -118,4 +118,21 @@ export class UserAPI {
       .post(`http://localhost:3000/user/profile/update/avatar/`, formData)
       .then((resp) => resp.data);
   }
+
+  public static async removeUserAvatar(access_token: string) {
+    if (!localStorage.getItem("access_token")) return;
+    return await fetch(
+      "http://localhost:3000/user/profile/update/avatar/remove",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
 }
