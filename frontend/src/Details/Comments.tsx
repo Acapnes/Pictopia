@@ -1,13 +1,9 @@
-import { CommentDto } from "../Api/PicDtos/commentDto";
-import {
-  PrettyReply,
-  PrettyThumbsDownButton,
-  PrettyThumbsUpButton,
-} from "../components/PrettyButtons";
+import { PrettyReply } from "../components/PrettyButtons";
+import { PrettyProfileIcon } from "../components/PrettyIcons";
 
 const Comments = (props: any) => {
   return (
-    <div className="w-full min-h-24 max-h-[24rem] overflow-auto py-2 scrollbar-hide text-gray-200">
+    <div className="w-full min-h-24 max-h-[22rem] overflow-auto py-2 scrollbar-hide text-gray-200">
       {props?.comments.length ? (
         <div className="w-full flex flex-col space-y-5 ">
           {props?.comments?.map((_comment: any, _commentIndex: any) => (
@@ -15,18 +11,30 @@ const Comments = (props: any) => {
               key={_commentIndex}
               className="w-full h-full flex flex-row space-x-3 pr-2"
             >
-              <div className="flex flex-col">
+              {_comment?.author?.avatar?.contentType ||
+              _comment?.author?.avatar?.data ? (
+                <div className="flex flex-col">
+                  <a
+                    href="#_"
+                    className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] max-h-[4rem]"
+                  >
+                    <img
+                      src={`data:${_comment?.author?.avatar?.contentType};base64,${_comment?.author?.avatar?.data}`}
+                      alt=""
+                      className="rounded-full w-full h-full object-cover p-[0.2rem] min-w-[4rem]"
+                    />
+                  </a>
+                </div>
+              ) : (
                 <a
                   href="#_"
-                  className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] max-h-[5rem]"
+                  className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] relative p-[0.2rem]"
                 >
-                  <img
-                    src={`data:${_comment?.author?.avatar?.contentType};base64,${_comment?.author?.avatar?.data}`}
-                    alt=""
-                    className="rounded-full w-full h-full object-cover p-[0.2rem] min-w-[5rem]"
-                  />
+                  <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
+                    <PrettyProfileIcon size={32} fill={"white"} />
+                  </div>
                 </a>
-              </div>
+              )}
 
               <div className="w-full h-full flex flex-col space-y-2">
                 <div className="w-full flex items-center">
@@ -37,12 +45,12 @@ const Comments = (props: any) => {
                 </div>
                 <div className="w-full flex justify-between ">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-                    <button>
+                    {/* <button>
                       <PrettyThumbsUpButton />
                     </button>
                     <button>
                       <PrettyThumbsDownButton />
-                    </button>
+                    </button> */}
                   </div>
                   <button className="flex items-start">
                     <PrettyReply />

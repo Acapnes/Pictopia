@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import mongoose from 'mongoose';
-import { CommentDto } from 'src/dto/comment/comment.dto';
+import { Body, Controller, Get, Param, Post, UseGuards, Request } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { CommentCreateDto } from 'src/dto/comment/comment.create.dto';
+import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { Comment } from 'src/schemas/comment.schema';
 import { CommentService } from './comment.service';
 
@@ -18,8 +19,9 @@ export class CommentController {
     return this.commentsService.findCommentByMongooseId(_id);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('/create')
-  async commentCreate(@Body() commentDto: CommentDto): Promise<Comment> {
-    return this.commentsService.signComment(commentDto);
+  async commentCreate(@Request() req,@Body() commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
+    return this.commentsService.signComment(req.user,commentCreateDto);
   }
 }
