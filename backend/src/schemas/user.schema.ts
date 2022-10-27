@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { Pic } from './pic.schema';
 
 export type UserDocument = User & Document;
 
@@ -20,6 +21,9 @@ export class User {
     data: Buffer;
     contentType: string;
   };
+
+  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Pic', required: true })
+  // savedPictures: Pic[];
 
   @Prop({ required: true })
   birthDate: string;

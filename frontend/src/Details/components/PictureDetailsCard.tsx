@@ -108,9 +108,15 @@ const PictureDetailsCard = (props: any) => {
         </div>
 
         <div className="h-full flex flex-col justify-between items-end space-y-3">
-          <PrettyShare />
-          <PrettySavePicture />
-          <PrettyReportButton />
+          <button className="rounded-md flex items-center">
+            <PrettyShare />
+          </button>
+          <button className="rounded-md flex items-center">
+            <PrettySavePicture />
+          </button>
+          <button className="rounded-md flex items-center">
+            <PrettyReportButton />
+          </button>
         </div>
       </div>
 

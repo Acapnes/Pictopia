@@ -17,6 +17,8 @@ export class UserRegistrationDto {
     contentType: string;
   };
 
+  // savedPictures: PicDto[];
+
   // @IsDate()
   @IsNotEmpty()
   birthDate!: string;
