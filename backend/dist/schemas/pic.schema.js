@@ -31,10 +31,6 @@ __decorate([
     (0, mongoose_1.Prop)({ type: Object, required: true, default: { data: null, contentType: null } }),
     __metadata("design:type", Object)
 ], Pic.prototype, "picture_file", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Pic.prototype, "url", void 0);
 Pic = __decorate([
     (0, mongoose_1.Schema)()
 ], Pic);

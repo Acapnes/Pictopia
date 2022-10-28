@@ -50,6 +50,32 @@ let ModerationService = class ModerationService {
             return funcResult;
         });
     }
+    async savePicture(_id, userSavedPictureDto) {
+        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
+            if (funcResult.success !== false) {
+                return await this.userModel.findOneAndUpdate({ _id: _id }, {
+                    $push: {
+                        savedPictures: userSavedPictureDto.picture_id,
+                    }
+                })
+                    .then(async () => {
+                    return {
+                        access: true,
+                        message: 'Picture saved!',
+                        access_token: await this.userService.generateLoginToken(_id),
+                    };
+                })
+                    .catch((err) => {
+                    return {
+                        access: false,
+                        message: 'Something went wrong! : ' + err,
+                        access_token: '',
+                    };
+                });
+            }
+            return funcResult;
+        });
+    }
     async changeAvatar(_id, avatar_file) {
         return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
             if (funcResult.success !== false) {

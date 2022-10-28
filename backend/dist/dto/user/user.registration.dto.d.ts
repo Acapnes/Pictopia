@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { PicDto } from '../pic/pic.dto';
 export declare class UserRegistrationDto {
     name?: string;
     email: string;
@@ -7,6 +8,7 @@ export declare class UserRegistrationDto {
         data: Buffer;
         contentType: string;
     };
+    savedPictures: PicDto[];
     birthDate: string;
     confrimed?: boolean;
     bio?: string;

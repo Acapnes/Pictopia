@@ -26,6 +26,20 @@ let UserService = class UserService {
     async findAll() {
         return this.userModel.find().exec();
     }
+    async findOne() {
+        return this.userModel.findOne({});
+    }
+    async findUserAndPopulateSavedPics(_id) {
+        return this.userModel.findOne({ _id: _id }).then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'User cannot found by id',
+                };
+            }
+            return result;
+        });
+    }
     async findByEmail(email) {
         return this.userModel.findOne({ email: email }).then((result) => {
             if (!result) {
@@ -42,7 +56,7 @@ let UserService = class UserService {
             if (!result) {
                 return {
                     success: false,
-                    message: 'User cannot found by mongoose_id',
+                    message: 'User cannot found by id',
                 };
             }
             return result;

@@ -16,7 +16,9 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
+const mongoose_1 = require("mongoose");
 const user_registration_dto_1 = require("../../dto/user/user.registration.dto");
+const user_saved_update_dto_1 = require("../../dto/user/user.saved.update.dto");
 const user_update_dto_1 = require("../../dto/user/user.update.dto");
 const user_validation_dto_1 = require("../../dto/user/user.validation.dto");
 const auth_service_1 = require("./auth.service");
@@ -31,6 +33,9 @@ let UserController = class UserController {
     async getUsers() {
         return this.usersService.findAll();
     }
+    async getOneUser(id) {
+        return this.usersService.findUserAndPopulateSavedPics(id);
+    }
     async userRegister(userRegistrationDto) {
         return this.authService.createUser(userRegistrationDto);
     }
@@ -39,6 +44,9 @@ let UserController = class UserController {
     }
     async userProfileUpdate(req, userUpdateDto) {
         return this.moderationService.updateProfile(req.user._id, userUpdateDto);
+    }
+    async userSavePicture(req, userSavedPictureDto) {
+        return this.moderationService.savePicture(req.user._id, userSavedPictureDto);
     }
     async userChangeAvatar(avatar_file, req) {
         return this.moderationService.changeAvatar(req.user._id, avatar_file);
@@ -56,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsers", null);
+__decorate([
+    (0, common_1.Get)('/profile/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [mongoose_1.default.Types.ObjectId]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getOneUser", null);
 __decorate([
     (0, common_1.Post)('/signup'),
     __param(0, (0, common_1.Body)()),
@@ -79,6 +94,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, user_update_dto_1.UserUpdateDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userProfileUpdate", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/profile/saved'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_saved_update_dto_1.UserSavedPictureDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userSavePicture", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/profile/update/avatar'),

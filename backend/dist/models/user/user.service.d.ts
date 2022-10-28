@@ -9,6 +9,8 @@ export declare class UserService {
     private jwtService;
     constructor(userModel: Model<UserDocument>, jwtService: JwtService);
     findAll(): Promise<User[]>;
+    findOne(): Promise<User>;
+    findUserAndPopulateSavedPics(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | UserDto | ReturnAuthDto>;
     findByEmail(email: string): Promise<UserDto | ReturnFuncDto>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | UserDto | ReturnAuthDto>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object>;

@@ -10,6 +10,5 @@ export declare class Pic {
         data: Buffer;
         contentType: string;
     };
-    url: string;
 }
 export declare const PicSchema: mongoose.Schema<Pic, mongoose.Model<Pic, any, any, any, any>, {}, {}, {}, {}, "type", Pic>;
