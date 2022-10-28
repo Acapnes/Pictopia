@@ -22,8 +22,8 @@ export class User {
     contentType: string;
   };
 
-  // @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Pic', required: true })
-  // savedPictures: Pic[];
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Pic', required: true })
+  savedPictures: Pic[];
 
   @Prop({ required: true })
   birthDate: string;

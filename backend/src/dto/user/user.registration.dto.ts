@@ -1,4 +1,5 @@
-import { IsBoolean, IsDate, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import { PicDto } from '../pic/pic.dto';
 
 export class UserRegistrationDto {
   @IsString()
@@ -17,7 +18,8 @@ export class UserRegistrationDto {
     contentType: string;
   };
 
-  // savedPictures: PicDto[];
+  @IsArray()
+  savedPictures: PicDto[];
 
   // @IsDate()
   @IsNotEmpty()

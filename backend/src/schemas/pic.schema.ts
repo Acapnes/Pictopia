@@ -22,9 +22,6 @@ export class Pic {
     data: Buffer;
     contentType: string;
   };
-
-  @Prop({ required: false })
-  url: string;
 }
 
 export const PicSchema = SchemaFactory.createForClass(Pic);

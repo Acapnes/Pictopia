@@ -27,6 +27,7 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
       userRegistrationDto.password,
       10,
     );
+    
     this.userModel.create(userRegistrationDto);
     return {
       access: true,
