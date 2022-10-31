@@ -61,6 +61,16 @@ const PictureDetailsCard = (props: any) => {
       );
   };
 
+  const savePictureToAlbum = async () => {
+    if (window.localStorage.getItem("access_token"))
+      setNewCommentAuthorCredentials(
+        await UserAPI.savedPicturesToUserAlbum(
+          window.localStorage.getItem("access_token")!,
+          props.picture
+        )
+      );
+  };
+
   useEffect(() => {
     getCommentsById();
     fetchUserCredentialsForNewComment();
@@ -71,7 +81,7 @@ const PictureDetailsCard = (props: any) => {
       <div className="h-full flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
         <div className="flex flex-col space-y-2 w-full h-full">
           {props?.picture?.authorPic?.avatar?.data ? (
-            <Link to={"/user/"}>
+            <Link to={"/user/"} className="rounded-full w-fit">
               <PrettyPictureAuthorAvatar
                 picture={props.picture}
                 size={"6rem"}
@@ -92,7 +102,6 @@ const PictureDetailsCard = (props: any) => {
           </div>
 
           <div className="w-full h-fit flex flex-col py-3">
-            {/* border-b-[1px] border-[#fc1bcb] */}
             <div className="max-h-[35vh] break-all overflow-y-auto scrollbar-hide">
               {props.picture.description}
             </div>
@@ -108,11 +117,14 @@ const PictureDetailsCard = (props: any) => {
         </div>
 
         <div className="h-full flex flex-col justify-between items-end space-y-3">
-          <button className="rounded-md flex items-center">
-            <PrettyShare />
+          <button
+            onClick={() => savePictureToAlbum()}
+            className="rounded-md flex items-center"
+          >
+            <PrettySavePicture />
           </button>
           <button className="rounded-md flex items-center">
-            <PrettySavePicture />
+            <PrettyShare />
           </button>
           <button className="rounded-md flex items-center">
             <PrettyReportButton />

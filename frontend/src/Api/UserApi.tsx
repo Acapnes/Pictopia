@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PicDto } from "./PicDtos/picDto";
 import { UserDto } from "./UserDtos/userDto";
 import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
 import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
@@ -134,5 +135,27 @@ export class UserAPI {
       .then((resp) => resp.json())
       .then((data) => data)
       .catch((err) => console.log(err));
+  }
+
+  public static async getSavedPicturesOfUser(access_token: string) {
+    if (!localStorage.getItem("access_token")) return;
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .get("http://localhost:3000/user/profile/saved")
+      .then((resp) => resp.data);
+  }
+
+  public static async savedPicturesToUserAlbum(access_token: string, picDto: PicDto) {
+    if (!localStorage.getItem("access_token")) return;
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios.post("http://localhost:3000/user/profile/saved/add", {
+        picture_id: picDto._id,
+      }).then((resp) => resp.data);
+  }
+
+  public static async getAllUsers() {
+    return await axios.get("http://localhost:3000/user/").then((resp) => resp.data);
   }
 }
