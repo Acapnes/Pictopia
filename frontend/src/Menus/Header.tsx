@@ -38,7 +38,7 @@ const Header = () => {
         <div className="flex flex-row">
           <Link
             to={"/"}
-            className="h-full rounded-md my-[0.5rem] min-w-[10rem] hidden md:block"
+            className="h-full items-center rounded-md my-[0.5rem] min-w-[10rem] hidden lg:block"
           >
             <PrettyPictopia />
           </Link>
@@ -53,13 +53,13 @@ const Header = () => {
         <div
           id="PrettySearchBar"
           onFocus={() => setShowSearchMenu(true)}
-          className="w-full hidden lg:flex lg:items-center relative"
+          className="w-full hidden sm:flex sm:items-center relative"
         >
           <PrettySearch />
           <div
             className={`${
               showSearchMenu ? "block" : "hidden"
-            } absolute -bottom-6 w-full `}
+            } absolute top-[4rem] w-full `}
           >
             <SearchMenu />
           </div>
