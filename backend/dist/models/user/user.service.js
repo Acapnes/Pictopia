@@ -29,17 +29,6 @@ let UserService = class UserService {
     async findOne() {
         return this.userModel.findOne({});
     }
-    async findUserAndPopulateSavedPics(_id) {
-        return this.userModel.findOne({ _id: _id }).then((result) => {
-            if (!result) {
-                return {
-                    success: false,
-                    message: 'User cannot found by id',
-                };
-            }
-            return result;
-        });
-    }
     async findByEmail(email) {
         return this.userModel.findOne({ email: email }).then((result) => {
             if (!result) {

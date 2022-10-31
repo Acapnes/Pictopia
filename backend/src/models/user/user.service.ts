@@ -18,6 +18,10 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
+  async findOne(): Promise<User> {
+    return this.userModel.findOne({})
+  }
+
   async findByEmail(email: string): Promise <UserDto | ReturnFuncDto> {
     return this.userModel.findOne({ email: email }).then((result) => {
       if (!result) {
@@ -35,7 +39,7 @@ export class UserService {
       if (!result) {
         return {
           success: false,
-          message: 'User cannot found by mongoose_id',
+          message: 'User cannot found by id',
         };
       }
       return result;

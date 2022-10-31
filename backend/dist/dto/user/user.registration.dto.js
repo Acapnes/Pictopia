@@ -33,10 +33,6 @@ __decorate([
     __metadata("design:type", String)
 ], UserRegistrationDto.prototype, "username", void 0);
 __decorate([
-    (0, class_validator_1.IsArray)(),
-    __metadata("design:type", Array)
-], UserRegistrationDto.prototype, "savedPictures", void 0);
-__decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UserRegistrationDto.prototype, "birthDate", void 0);

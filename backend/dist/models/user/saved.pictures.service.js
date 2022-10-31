@@ -12,92 +12,70 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModerationService = void 0;
+exports.SavedPicturesService = void 0;
 const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 const mongoose_2 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../schemas/user.schema");
 const user_service_1 = require("./user.service");
-let ModerationService = class ModerationService {
+let SavedPicturesService = class SavedPicturesService {
     constructor(userModel, userService) {
         this.userModel = userModel;
         this.userService = userService;
     }
-    async updateProfile(_id, userUpdateDto) {
+    async findUserAndPopulateSavedPics(_id) {
+        return this.userModel.findOne({ _id: _id }).populate('savedPictures').then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'User cannot found by id',
+                };
+            }
+            return result.savedPictures;
+        });
+    }
+    async savePicture(_id, userSavedPictureDto) {
         return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
             if (funcResult.success !== false) {
                 return await this.userModel.findOneAndUpdate({ _id: _id }, {
-                    name: userUpdateDto.name,
-                    username: userUpdateDto.username,
-                    bio: userUpdateDto.bio,
-                    birthDate: userUpdateDto.birthDate,
+                    $push: {
+                        savedPictures: userSavedPictureDto.picture_id,
+                    }
                 })
                     .then(async () => {
                     return {
-                        access: true,
-                        message: 'Your profile has been updated!',
-                        access_token: await this.userService.generateLoginToken(_id),
+                        success: true,
+                        message: 'Picture saved',
                     };
                 })
                     .catch((err) => {
                     return {
-                        access: false,
+                        success: false,
                         message: 'Something went wrong! : ' + err,
-                        access_token: '',
                     };
                 });
             }
             return funcResult;
         });
     }
-    async changeAvatar(_id, avatar_file) {
+    async removeSavedPicture(_id, userSavedPictureDto) {
         return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
             if (funcResult.success !== false) {
                 return await this.userModel.findOneAndUpdate({ _id: _id }, {
-                    avatar: {
-                        data: avatar_file.buffer,
-                        contentType: avatar_file.mimetype,
-                    },
+                    $pull: {
+                        savedPictures: userSavedPictureDto.picture_id,
+                    }
                 })
                     .then(async () => {
                     return {
-                        access: true,
-                        message: 'Your avatar has been changed!',
-                        access_token: await this.userService.generateLoginToken(_id),
+                        success: true,
+                        message: 'Picture removed',
                     };
                 })
                     .catch((err) => {
                     return {
-                        access: false,
+                        success: false,
                         message: 'Something went wrong! : ' + err,
-                        access_token: '',
-                    };
-                });
-            }
-            return funcResult;
-        });
-    }
-    async removeAvatar(_id) {
-        return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
-            if (funcResult.success !== false) {
-                return await this.userModel.findOneAndUpdate({ _id: _id }, {
-                    avatar: {
-                        data: null,
-                        contentType: null,
-                    },
-                })
-                    .then(async () => {
-                    return {
-                        access: true,
-                        message: 'Your avatar has been removed!',
-                        access_token: await this.userService.generateLoginToken(_id),
-                    };
-                })
-                    .catch((err) => {
-                    return {
-                        access: false,
-                        message: 'Something went wrong! : ' + err,
-                        access_token: '',
                     };
                 });
             }
@@ -105,10 +83,10 @@ let ModerationService = class ModerationService {
         });
     }
 };
-ModerationService = __decorate([
+SavedPicturesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
-], ModerationService);
-exports.ModerationService = ModerationService;
-//# sourceMappingURL=moderation.service.js.map
+], SavedPicturesService);
+exports.SavedPicturesService = SavedPicturesService;
+//# sourceMappingURL=saved.pictures.service.js.map

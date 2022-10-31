@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         "soft-black": "#171717",
+        "pretty-pink":"#f472b6"
       },
       screens: {
         "3xl": "1920px",

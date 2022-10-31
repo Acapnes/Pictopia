@@ -7,6 +7,7 @@ import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserDto } from 'src/dto/user/user.dto';
+import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 
 @Injectable()
 export class ModerationService {

@@ -7,10 +7,12 @@ import {
   PrettyOptionsIcon,
   PrettySearchIcon,
   PrettySettingSlidersIcon,
+  PrettySignIcon,
   PrettyThumbsDownIcon,
   PrettyThumbsUpIcon,
   PrettyTrashIcon,
   PrettyUploadIcon,
+  PrettyXIcon,
 } from "./PrettyIcons";
 
 const PrettyShare = () => {
@@ -39,6 +41,17 @@ const PrettySavePicture = () => {
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
         <PrettyBookMarksIcon />
+      </span>
+    </div>
+  );
+};
+
+const PrettyXButton = () => {
+  return (
+    <div className="relative h-fit w-fit p-[0.05rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative px-1 py-1 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <PrettyXIcon fill={"white"} size={14} />
       </span>
     </div>
   );
@@ -148,23 +161,7 @@ const PrettyHeaderSignIn = () => {
         <span className="relative pl-1 pr-2 py-1.5 md:px-4 md:py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 group-hover:text-black duration-400">
           <span className="hidden md:block">SIGN IN</span>
           <div className="block md:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              className="bi bi-box-arrow-in-right"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fillRule="evenodd"
-                d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"
-              />
-              <path
-                fillRule="evenodd"
-                d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-              />
-            </svg>
+            <PrettySignIcon size={20} />
           </div>
         </span>
       </div>
@@ -266,9 +263,9 @@ const PrettyUploadPicture = () => {
 
 const PrettySearch = () => {
   return (
-    <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-sm">
+    <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-semibold overflow-hidden rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-      <span className=" w-full relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm duration-400">
+      <span className=" w-full relative px-4 md:py-2 sm:py-1 transition-all ease-out bg-gray-900 rounded-sm duration-400">
         <div className="flex flex-row space-x-2">
           <div className="h-full flex items-center mt-[0.25rem]">
             <PrettySearchIcon />
@@ -278,9 +275,20 @@ const PrettySearch = () => {
             placeholder="search"
             name=""
             id=""
-            className="outline-none bg-transparent text-white w-full"
+            className="outline-none bg-transparent text-gray-100 w-full placeholder:font-semibold"
           />
         </div>
+      </span>
+    </div>
+  );
+};
+
+const PrettySearchMenuButton = (props: any) => {
+  return (
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span className="relative px-3.5 py-1.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <span className="text-gray-200">{props.text}</span>
       </span>
     </div>
   );
@@ -390,8 +398,10 @@ const PrettyAddAvatar = () => {
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span className="relative p-10 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <div className="flex flex-col space-y-1 items-center">
-          <span className="text-2xl font-semibold text-gray-200">Add an Avatar</span>
-          <PrettyCameraIcon size={30} fill={"white"}/>
+          <span className="text-2xl font-semibold text-gray-200">
+            Add an Avatar
+          </span>
+          <PrettyCameraIcon size={30} fill={"white"} />
         </div>
       </span>
     </div>
@@ -422,4 +432,6 @@ export {
   PrettyTrashButton,
   PrettyPictureOptions,
   PrettyAddAvatar,
+  PrettySearchMenuButton,
+  PrettyXButton,
 };

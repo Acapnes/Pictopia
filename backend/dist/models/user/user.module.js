@@ -14,6 +14,7 @@ const jwt_strategy_1 = require("../../helpers/AuthGuards/jwt.strategy");
 const user_schema_1 = require("../../schemas/user.schema");
 const auth_service_1 = require("./auth.service");
 const moderation_service_1 = require("./moderation.service");
+const saved_pictures_service_1 = require("./saved.pictures.service");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
@@ -27,7 +28,7 @@ UserModule = __decorate([
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
         ],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService],
+        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService, saved_pictures_service_1.SavedPicturesService],
     })
 ], UserModule);
 exports.UserModule = UserModule;
