@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Request,
   Res,
@@ -15,12 +16,16 @@ import mongoose from 'mongoose';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
+import { UserDto } from 'src/dto/user/user.dto';
 import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
+import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { UserValidationDto } from 'src/dto/user/user.validation.dto';
+import { Pic } from 'src/schemas/pic.schema';
 import { User } from 'src/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { ModerationService } from './moderation.service';
+import { SavedPicturesService } from './saved.pictures.service';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -29,6 +34,7 @@ export class UserController {
     private readonly usersService: UserService,
     private authService: AuthService,
     private moderationService: ModerationService,
+    private savedPicturesService:SavedPicturesService
   ) {}
 
   @Get()
@@ -50,6 +56,24 @@ export class UserController {
   @Post('/profile/update/simple')
   async userProfileUpdate(@Request() req, @Body() userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.moderationService.updateProfile(req.user._id ,userUpdateDto)
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/profile/saved')
+  async getOneUser(@Request() req): Promise<ReturnFuncDto | Pic[] | Pic> {
+    return this.savedPicturesService.findUserAndPopulateSavedPics(req.user._id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/profile/saved/add')
+  async userSavePicture(@Request() req, @Body() userSavedPictureDto: UserSavedPictureDto): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.savedPicturesService.savePicture(req.user._id ,userSavedPictureDto)
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/profile/saved/remove')
+  async userRemoveSavedPicture(@Request() req, @Body() userSavedPictureDto: UserSavedPictureDto): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.savedPicturesService.removeSavedPicture(req.user._id ,userSavedPictureDto)
   }
 
   @UseGuards(AuthGuard('jwt'))

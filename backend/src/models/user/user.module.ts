@@ -5,6 +5,7 @@ import { JwtStrategy } from 'src/helpers/AuthGuards/jwt.strategy';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { ModerationService } from './moderation.service';
+import { SavedPicturesService } from './saved.pictures.service';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -17,6 +18,6 @@ import { UserService } from './user.service';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [UserController],
-  providers: [UserService, JwtStrategy, AuthService, ModerationService],
+  providers: [UserService, JwtStrategy, AuthService, ModerationService,SavedPicturesService],
 })
 export class UserModule {}
