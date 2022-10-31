@@ -15,10 +15,10 @@ const SimpleProfile = (props: any) => {
       await UserAPI.userEditProfile(
         window.localStorage.getItem("access_token")!,
         {
-          username: inputUsername,
-          name: inputName,
-          birthDate: inputBirthDate,
-          bio: inputBio,
+          username: inputUsername || props?.user?.username,
+          name: inputName || props?.user?.name,
+          birthDate: inputBirthDate || props?.user?.birthDate,
+          bio: inputBio || props?.user?.bio,
         }
       ).then((resp) => setSimpleUpdateResult(resp));
     }
@@ -45,6 +45,7 @@ const SimpleProfile = (props: any) => {
         </div>
         <input
           type="text"
+          id="inputUsername"
           className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
           placeholder={props?.user?.username}
           onChange={(e) => setInputUsername(e.target.value)}

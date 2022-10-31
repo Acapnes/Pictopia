@@ -20,12 +20,12 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="fixed top-[5.5rem] left-7 z-20 rounded-sm">
+    <div className="fixed top-[4.5rem] left-7 z-20 rounded-sm">
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-        <span className=" w-full relative bg-soft-black rounded-sm duration-400">
+        <span className=" w-full relative bg-soft-black bg-opacity-95 rounded-sm duration-400">
           <div className="flex flex-col  gap-4 py-2 px-5 w-[17.8rem]">
-            <div className="w-full flex flex-col h-[70vh] space-y-3 pt-2">
+            <div className="w-full flex flex-col h-[67.7vh] space-y-3 pt-2">
               <div className="mb-2">
                 <PrettySearchCategories />
               </div>
