@@ -146,16 +146,27 @@ export class UserAPI {
       .then((resp) => resp.data);
   }
 
-  public static async savedPicturesToUserAlbum(access_token: string, picDto: PicDto) {
+  public static async savedPicturesToUserAlbum(access_token: string,picDto: PicDto) {
     if (!localStorage.getItem("access_token")) return;
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios.post("http://localhost:3000/user/profile/saved/add", {
         picture_id: picDto._id,
-      }).then((resp) => resp.data);
+      })
+      .then((resp) => resp.data);
   }
 
   public static async getAllUsers() {
-    return await axios.get("http://localhost:3000/user/").then((resp) => resp.data);
+    return await axios
+      .get("http://localhost:3000/user/")
+      .then((resp) => resp.data);
+  }
+
+  public static async findUserByUsername(username: string) {
+    return await axios
+      .post("http://localhost:3000/user/find/", {
+        username: username,
+      })
+      .then((resp) => resp.data);
   }
 }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
-import CustomAlert from "../../components/CustomAlert";
-import { PrettySaveChanges } from "../../components/PrettyButtons";
+import CustomAlert from "../../components/Views/CustomAlert";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
+import { PrettySaveChanges } from "../../components/Prettys/PrettyButtons";
 
 const SimpleProfile = (props: any) => {
   const [inputUsername, setInputUsername] = useState("");
@@ -20,7 +21,9 @@ const SimpleProfile = (props: any) => {
           birthDate: inputBirthDate || props?.user?.birthDate,
           bio: inputBio || props?.user?.bio,
         }
-      ).then((resp) => setSimpleUpdateResult(resp));
+      )
+        .then((resp) => setSimpleUpdateResult(resp))
+        .then(() => MultiFuncs.AlertTimer("CustomProfileAlert"));
     }
   };
 
@@ -83,8 +86,14 @@ const SimpleProfile = (props: any) => {
           onChange={(e) => setInputBio(e.target.value)}
         />
       </div>
-      <div className={`md:col-span-2 lg:col-span-4 w-full flex ${simpleUpdateResult?.message ? "justify-between":"justify-end"} mt-5 `}>
-        <CustomAlert result={simpleUpdateResult} />
+      <div
+        className={`md:col-span-2 lg:col-span-4 w-full items-center flex ${
+          simpleUpdateResult?.message ? "justify-between" : "justify-end"
+        } mt-5 `}
+      >
+        <div id="CustomProfileAlert">
+          <CustomAlert result={simpleUpdateResult} />
+        </div>
         <div>
           <button onClick={() => simpleUpdateProfile()}>
             <PrettySaveChanges />
