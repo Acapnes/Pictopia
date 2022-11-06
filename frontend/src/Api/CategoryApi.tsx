@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CategoryDto } from "./Utils/category.dto";
+import { CategoryDto } from "./UtilsDtos/category.dto";
 
 export class CategoryAPI {
   public static async getAllCategories(): Promise<CategoryDto[]> {

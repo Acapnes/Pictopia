@@ -1,20 +1,21 @@
 import React from "react";
 import { useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
-import CustomAlert from "../../components/CustomAlert";
+import CustomAlert from "../../components/Views/CustomAlert";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import {
   PrettyAddAvatar,
   PrettyExtendedProfileButton,
   PrettyPictureOptions,
   PrettySimpleProfileButton,
-} from "../../components/PrettyButtons";
+} from "../../components/Prettys/PrettyButtons";
 import {
   PrettyCameraIcon,
   PrettyCheckIcon,
   PrettyProfileIcon,
   PrettyTrashIcon,
   PrettyXIcon,
-} from "../../components/PrettyIcons";
+} from "../../components/Prettys/PrettyIcons";
 import ExtendedChangeProfile from "./ExtendedChangeProfile";
 import SimpleProfile from "./SimpleProfile";
 
@@ -39,7 +40,7 @@ const ProfileCredentials = (props: any) => {
     const fileUploaded = await e.target.files[0];
     setChangeAvatar(fileUploaded);
     setImageURL(URL.createObjectURL(fileUploaded));
-    setChangeAvatarOptions(true)
+    setChangeAvatarOptions(true);
   };
 
   const changeAvatarFunc = async () => {
@@ -47,7 +48,9 @@ const ProfileCredentials = (props: any) => {
       await UserAPI.changeUserAvatar(
         changeAvatar,
         window.localStorage.getItem("access_token")!
-      ).then((resp) => setUpdateResult(resp));
+      )
+        .then((resp) => setUpdateResult(resp))
+        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert",true));
     }
   };
 
@@ -55,13 +58,15 @@ const ProfileCredentials = (props: any) => {
     if (window.localStorage.getItem("access_token")) {
       await UserAPI.removeUserAvatar(
         window.localStorage.getItem("access_token")!
-      ).then((resp) => setUpdateResult(resp));
+      )
+        .then((resp) => setUpdateResult(resp))
+        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert",true));
     }
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 p-5 lg:p-10">
-      <div className="flex h-full max-h-[60vh] justify-center flex-col space-y-5 items-center lg:sticky lg:top-10 relative">
+    <div className="grid grid-cols-1 2xl:grid-cols-4 gap-10 p-5 lg:p-10">
+      <div className="flex h-full max-h-[60vh] justify-center flex-col space-y-5 items-center relative">
         {props?.user?.avatar?.data || props?.user?.avatar?.contentType ? (
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full shadow-lg p-[0.3rem] relative">
             {changeAvatar ? (
@@ -126,7 +131,10 @@ const ProfileCredentials = (props: any) => {
                     <hr className="border-[0.05rem] border-[#F472B6]" />
                   </div>
 
-                  <button onClick={()=> removeAvatarFunc()} className="px-4 py-2 flex flex-row space-x-8 justify-between">
+                  <button
+                    onClick={() => removeAvatarFunc()}
+                    className="px-4 py-2 flex flex-row space-x-8 justify-between"
+                  >
                     <span className="text-gray-200 font-semibold text-md">
                       Remove Photo
                     </span>
@@ -146,8 +154,8 @@ const ProfileCredentials = (props: any) => {
               <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
               <button
                 onClick={() => {
-                  setChangeAvatar("")
-                  setChangeAvatarOptions(false)
+                  setChangeAvatar("");
+                  setChangeAvatarOptions(false);
                 }}
                 className="relative flex flex-col space-y-2 py-1.5 px-1 transition-all ease-out bg-gray-900 bg-opacity-95 rounded-sm"
               >
@@ -163,8 +171,8 @@ const ProfileCredentials = (props: any) => {
               <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
               <button
                 onClick={() => {
-                  changeAvatarFunc()
-                  setChangeAvatarOptions(false)
+                  changeAvatarFunc();
+                  setChangeAvatarOptions(false);
                 }}
                 className="relative flex flex-col space-y-2 py-1.5 px-1 transition-all ease-out bg-gray-900 bg-opacity-95 rounded-sm"
               >
@@ -174,7 +182,7 @@ const ProfileCredentials = (props: any) => {
           </div>
         )}
 
-        <div className="">
+        <div id="CustomAvatarAlert">
           <CustomAlert result={updateResult} />
         </div>
       </div>
