@@ -17,6 +17,7 @@ import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 import { UserDto } from 'src/dto/user/user.dto';
+import { UserFindDto } from 'src/dto/user/user.find.dto';
 import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
 import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
@@ -50,6 +51,11 @@ export class UserController {
   @Post('/signin')
   async userLogin(@Body() userValidationdto: UserValidationDto) {
     return this.authService.validateLoginUser(userValidationdto);
+  }
+
+  @Post('/find')
+  async userFindByUsername(@Body() UserFindDto: UserFindDto) {
+    return this.usersService.findByUsername(UserFindDto.username);
   }
 
   @UseGuards(AuthGuard('jwt'))

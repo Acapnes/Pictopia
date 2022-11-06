@@ -34,6 +34,18 @@ export class UserService {
     });
   }
 
+  async findByUsername(username: string): Promise <UserDto[] | ReturnFuncDto> {
+    return this.userModel.find({ username: { $regex: '.*' + username + '.*',$options:'i'} }).then((result) => {
+      if (!result) {
+        return {
+          success: false,
+          message: 'User cannot found by username',
+        };
+      }
+      return result;
+    });
+  }
+
   async findByMongooseId(_id: mongoose.Types.ObjectId):Promise <ReturnFuncDto | UserDto | ReturnAuthDto> {
     return this.userModel.findOne({ _id: _id }).then((result) => {
       if (!result) {
