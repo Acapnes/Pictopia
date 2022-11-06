@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CommentAPI } from "../../Api/CommentApi";
-import { CommentCreateDto } from "../../Api/PicDtos/commentCreateDto";
 import { CommentDto } from "../../Api/PicDtos/commentDto";
 import { UserAPI } from "../../Api/UserApi";
 import { UserDto } from "../../Api/UserDtos/userDto";
-import CustomAlert from "../../components/CustomAlert";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import {
   PrettyCommentsButton,
   PrettyReportButton,
   PrettySavePicture,
   PrettySend,
   PrettyShare,
-} from "../../components/PrettyButtons";
-import { PrettyPictureAuthorAvatar } from "../../components/PrettyComponents";
+} from "../../components/Prettys/PrettyButtons";
+import { PrettyPictureAuthorAvatar } from "../../components/Prettys/PrettyComponents";
 import {
   PrettyProfileIcon,
   PrettyProfilePicture,
-} from "../../components/PrettyIcons";
+} from "../../components/Prettys/PrettyIcons";
+import CustomToast from "../../components/Views/CustomToast";
 import Comments from "../Comments";
 
 const PictureDetailsCard = (props: any) => {
@@ -25,7 +25,7 @@ const PictureDetailsCard = (props: any) => {
   const [comments, setComments] = useState<CommentDto[]>([]);
 
   const [newCommentsComment, setNewCommentsComment] = useState(String);
-  const [newCommentsResult, setNewCommentsResult] = useState(Object);
+  const [customToastResult, setCustomToastResult] = useState<Object>();
   const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] =
     useState<UserDto>(Object);
 
@@ -45,10 +45,7 @@ const PictureDetailsCard = (props: any) => {
           comment: newCommentsComment,
           destPicture: props?.picture?._id,
         }
-      ).then(async (resp) => {
-        if (resp.success) await getCommentsById();
-        setNewCommentsResult(resp);
-      });
+      );
     }
   };
 
@@ -62,13 +59,15 @@ const PictureDetailsCard = (props: any) => {
   };
 
   const savePictureToAlbum = async () => {
-    if (window.localStorage.getItem("access_token"))
-      setNewCommentAuthorCredentials(
-        await UserAPI.savedPicturesToUserAlbum(
-          window.localStorage.getItem("access_token")!,
-          props.picture
-        )
-      );
+    if (window.localStorage.getItem("access_token")) {
+      await UserAPI.savedPicturesToUserAlbum(
+        window.localStorage.getItem("access_token")!,
+        props.picture
+      ).then((resp) => {
+        setCustomToastResult(resp);
+        MultiFuncs.AlertTimer("DetailsCustomToast", true);
+      });
+    }
   };
 
   useEffect(() => {
@@ -78,6 +77,10 @@ const PictureDetailsCard = (props: any) => {
 
   return (
     <div className="w-full 3xl:max-w-[40vw] p-[0.2rem] mb-10 flex flex-col bg-red-500 shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+      <div id="DetailsCustomToast">
+        {customToastResult && <CustomToast toastResult={customToastResult} />}
+      </div>
+
       <div className="h-full flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
         <div className="flex flex-col space-y-2 w-full h-full">
           {props?.picture?.authorPic?.avatar?.data ? (
@@ -158,23 +161,7 @@ const PictureDetailsCard = (props: any) => {
                 />
               </div>
 
-              <div
-                className={`h-full flex ${
-                  newCommentsResult?.access ||
-                  (newCommentsResult?.statusCode === 400) === true
-                    ? "justify-between"
-                    : "justify-end"
-                }`}
-              >
-                <div className="hidden md:block">
-                  {newCommentsResult?.access === false ||
-                    (newCommentsResult?.statusCode === 400 && (
-                      <CustomAlert
-                        result={newCommentsResult}
-                        background={false}
-                      />
-                    ))}
-                </div>
+              <div className="h-full flex justify-end">
                 <button onClick={() => postComment()}>
                   <PrettySend />
                 </button>
@@ -191,3 +178,10 @@ const PictureDetailsCard = (props: any) => {
 };
 
 export default PictureDetailsCard;
+
+{
+  /* <CustomAlert
+result={newCommentsResult}
+background={false}
+/> */
+}

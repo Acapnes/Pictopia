@@ -1,10 +1,10 @@
 import { PicDto } from "../../Api/PicDtos/picDto";
-import { PrettyBookMarksIcon } from "../../components/PrettyIcons";
+import { PrettyBookMarksIcon } from "../../components/Prettys/PrettyIcons";
 
 const GridMenu = (props: PicDto | any) => {
   return (
     <a href={`/detail/${props.pic._id}`}>
-      <div className="absolute bottom-0 w-full h-full transition-all duration-300 ease-in-out border-[3px] border-[#e011b4] border-opacity-95 bg-soft-black text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-70 group-hover:opacity-90 rounded-sm">
+      <div className="absolute bottom-0 w-full h-full transition-all duration-300 ease-in-out border-[3px] border-pretty-rough-pink border-opacity-95 bg-soft-black text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-70 group-hover:opacity-90 rounded-sm">
         <div className="w-full h-full flex flex-col  ">
           <div className="absolute bottom-0 w-full h-fit flex flex-col py-2 px-4 space-y-1">
             <div className="flex flex-col space-y-[0.35rem] w-fit h-fit ">
@@ -24,7 +24,7 @@ const GridMenu = (props: PicDto | any) => {
             </div>
           </div>
 
-          <div className="absolute top-3 right-3 flex flex-col items-center space-y-2 ">
+          {/* <div className="absolute top-3 right-3 flex flex-col items-center space-y-2 ">
             <button
               className="inline-flex h-fit w-fit items-center justify-center p-3 text-xl font-semibold text-center text-gray-200 no-underline align-middle
            transition-all duration-500 ease-in-out bg-transparent bg-gray-700 bg-opacity-0 hover:bg-opacity-75 border-[#e011b4] border-[2px] border-solid rounded-full
@@ -49,7 +49,7 @@ const GridMenu = (props: PicDto | any) => {
               </svg>
             </button>
             <div className="relative"></div>
-          </div>
+          </div> */}
         </div>
       </div>
     </a>

@@ -23,6 +23,21 @@ let SavedPicturesService = class SavedPicturesService {
         this.userModel = userModel;
         this.userService = userService;
     }
+    async findUsersSavedPicture(_id, userSavedPictureDto) {
+        return this.userModel.findOne({ _id: _id, savedPictures: userSavedPictureDto.picture_id })
+            .then((result) => {
+            if (result) {
+                return {
+                    success: false,
+                    message: 'Picture already saved',
+                };
+            }
+            return {
+                success: true,
+                message: 'Picture to save not found, can be saved',
+            };
+        });
+    }
     async findUserAndPopulateSavedPics(_id) {
         return this.userModel.findOne({ _id: _id }).populate('savedPictures').then((result) => {
             if (!result) {
@@ -37,22 +52,27 @@ let SavedPicturesService = class SavedPicturesService {
     async savePicture(_id, userSavedPictureDto) {
         return await this.userService.findByMongooseId(_id).then(async (funcResult) => {
             if (funcResult.success !== false) {
-                return await this.userModel.findOneAndUpdate({ _id: _id }, {
-                    $push: {
-                        savedPictures: userSavedPictureDto.picture_id,
+                return await this.findUsersSavedPicture(_id, userSavedPictureDto).then(async (pictureFindResult) => {
+                    if (pictureFindResult.success) {
+                        return await this.userModel.findOneAndUpdate({ _id: _id }, {
+                            $push: {
+                                savedPictures: userSavedPictureDto.picture_id,
+                            },
+                        })
+                            .then(async () => {
+                            return {
+                                success: true,
+                                message: 'Picture saved',
+                            };
+                        })
+                            .catch((err) => {
+                            return {
+                                success: false,
+                                message: 'Something went wrong! : ' + err,
+                            };
+                        });
                     }
-                })
-                    .then(async () => {
-                    return {
-                        success: true,
-                        message: 'Picture saved',
-                    };
-                })
-                    .catch((err) => {
-                    return {
-                        success: false,
-                        message: 'Something went wrong! : ' + err,
-                    };
+                    return pictureFindResult;
                 });
             }
             return funcResult;
@@ -64,7 +84,7 @@ let SavedPicturesService = class SavedPicturesService {
                 return await this.userModel.findOneAndUpdate({ _id: _id }, {
                     $pull: {
                         savedPictures: userSavedPictureDto.picture_id,
-                    }
+                    },
                 })
                     .then(async () => {
                     return {
@@ -86,7 +106,8 @@ let SavedPicturesService = class SavedPicturesService {
 SavedPicturesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
+    __metadata("design:paramtypes", [mongoose_1.Model,
+        user_service_1.UserService])
 ], SavedPicturesService);
 exports.SavedPicturesService = SavedPicturesService;
 //# sourceMappingURL=saved.pictures.service.js.map

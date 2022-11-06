@@ -11,58 +11,83 @@ import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 
 @Injectable()
 export class SavedPicturesService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private userService: UserService,
+  ) {}
 
-  async findUserAndPopulateSavedPics(_id: mongoose.Types.ObjectId): Promise <ReturnFuncDto | Pic[] | Pic> {
-    return this.userModel.findOne({ _id: _id }).populate('savedPictures').then((result) => {
-      if (!result) {
+  async findUsersSavedPicture(_id: mongoose.Types.ObjectId,userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
+    return this.userModel.findOne({ _id: _id, savedPictures: userSavedPictureDto.picture_id })
+      .then((result) => {
+        if (result) {
+          return {
+            success: false,
+            message: 'Picture already saved',
+          };
+        }
         return {
-          success: false,
-          message: 'User cannot found by id',
+          success: true,
+          message: 'Picture to save not found, can be saved',
         };
-      }
-      return result.savedPictures;
-    });
+      });
   }
 
-  async savePicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
+  async findUserAndPopulateSavedPics(_id: mongoose.Types.ObjectId,): Promise<ReturnFuncDto | Pic[] | Pic> {
+    return this.userModel.findOne({ _id: _id }).populate('savedPictures').then((result) => {
+        if (!result) {
+          return {
+            success: false,
+            message: 'User cannot found by id',
+          };
+        }
+        return result.savedPictures;
+      });
+  }
+
+  async savePicture(_id: mongoose.Types.ObjectId,userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
     return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
         if (funcResult.success !== false) {
-          return await this.userModel.findOneAndUpdate(
-              { _id: _id },
-              {
-                $push:{
-                  savedPictures: userSavedPictureDto.picture_id,
-                }
-              }
-            )
-            .then(async () => {
-              return {
-                success: true,
-                message: 'Picture saved',
-              };
-            })
-            .catch((err) => {
-              return {
-                success: false,
-                message: 'Something went wrong! : ' + err,
-              };
-            });
+          return await this.findUsersSavedPicture(_id,userSavedPictureDto,).then(async (pictureFindResult) => {
+            if (pictureFindResult.success) {
+              return await this.userModel.findOneAndUpdate(
+                  { _id: _id },
+                  {
+                    $push: {
+                      savedPictures: userSavedPictureDto.picture_id,
+                    },
+                  },
+                )
+                .then(async () => {
+                  return {
+                    success: true,
+                    message: 'Picture saved',
+                  };
+                })
+                .catch((err) => {
+                  return {
+                    success: false,
+                    message: 'Something went wrong! : ' + err,
+                  };
+                });
+            }
+            return pictureFindResult;
+          });
         }
+
         return funcResult;
       });
   }
 
-  async removeSavedPicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
+  async removeSavedPicture(_id: mongoose.Types.ObjectId,userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
     return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
         if (funcResult.success !== false) {
           return await this.userModel.findOneAndUpdate(
               { _id: _id },
               {
-                $pull:{
+                $pull: {
                   savedPictures: userSavedPictureDto.picture_id,
-                }
-              }
+                },
+              },
             )
             .then(async () => {
               return {

@@ -8,6 +8,7 @@ export declare class SavedPicturesService {
     private userModel;
     private userService;
     constructor(userModel: Model<UserDocument>, userService: UserService);
+    findUsersSavedPicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto>;
     findUserAndPopulateSavedPics(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | Pic[] | Pic>;
     savePicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto>;
     removeSavedPicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto>;

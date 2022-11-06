@@ -1,5 +1,5 @@
-import { PrettyReply } from "../components/PrettyButtons";
-import { PrettyProfileIcon } from "../components/PrettyIcons";
+import { PrettyReply } from "../components/Prettys/PrettyButtons";
+import { PrettyProfileIcon } from "../components/Prettys/PrettyIcons";
 
 const Comments = (props: any) => {
   return (

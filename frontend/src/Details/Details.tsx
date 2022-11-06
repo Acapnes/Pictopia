@@ -4,7 +4,7 @@ import { PicAPI } from "../Api/PicApi";
 import Grid from "../Grids/Grid";
 import Header from "../Menus/Header";
 import PictureDetailsCard from "./components/PictureDetailsCard";
-import { PrettyErrorIcon } from "../components/PrettyIcons";
+import { PrettyErrorIcon } from "../components/Prettys/PrettyIcons";
 
 const Details = () => {
   const urlParam =

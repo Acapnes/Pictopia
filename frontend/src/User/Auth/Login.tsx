@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { UserAPI } from "../../Api/UserApi";
-import CustomAlert from "../../components/CustomAlert";
-import { PrettyAuthButton } from "../../components/PrettyButtons";
-import { PrettyEyeIcon } from "../../components/PrettyIcons";
+import CustomAlert from "../../components/Views/CustomAlert";
+import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
+import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Grids/ActionlessGrid";
 
 const Login = () => {

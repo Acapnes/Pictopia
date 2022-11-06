@@ -4,7 +4,7 @@ import {
   PrettyLogOut,
   PrettyProfileIcon,
   PrettyWorldIcon,
-} from "../../components/PrettyIcons";
+} from "../../components/Prettys/PrettyIcons";
 
 const HeaderOptionsMenu = () => {
   return (

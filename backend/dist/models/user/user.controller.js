@@ -44,6 +44,9 @@ let UserController = class UserController {
     async userFindBuUsername(UserFindDto) {
         return this.usersService.findByUsername(UserFindDto.username);
     }
+    async test(req, userSavedPictureDto) {
+        return this.savedPicturesService.findUsersSavedPicture(req.user._id, userSavedPictureDto);
+    }
     async userProfileUpdate(req, userUpdateDto) {
         return this.moderationService.updateProfile(req.user._id, userUpdateDto);
     }
@@ -93,6 +96,15 @@ __decorate([
     __metadata("design:paramtypes", [user_find_dto_1.UserFindDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userFindBuUsername", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/test'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, user_saved_update_dto_1.UserSavedPictureDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "test", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/profile/update/simple'),
