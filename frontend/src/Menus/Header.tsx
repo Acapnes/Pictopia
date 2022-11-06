@@ -7,20 +7,17 @@ import {
   PrettyCategories,
   PrettyHeaderOptions,
   PrettyHeaderSignIn,
-  PrettySearch,
   PrettyUploadPicture,
-} from "../components/PrettyButtons";
+} from "../components/Prettys/PrettyButtons";
 import {
   PrettyPictopia,
   PrettyProfileIcon,
   PrettyProfilePicture,
-} from "../components/PrettyIcons";
+} from "../components/Prettys/PrettyIcons";
 import HeaderOptionsMenu from "./components/HeaderOptionsMenu";
-import SearchMenu from "./components/SearchMenu";
+import SearchBar from "./Search/SearchBar";
 
 const Header = () => {
-  const [showCategories, setShowCategories] = useState(false);
-  const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
 
@@ -42,28 +39,10 @@ const Header = () => {
           >
             <PrettyPictopia />
           </Link>
-          <button
-            onClick={() => setShowCategories(!showCategories)}
-            className="flex items-center"
-          >
-            <PrettyCategories showCategories={showCategories} />
-          </button>
         </div>
 
-        <div
-          id="PrettySearchBar"
-          onFocus={() => setShowSearchMenu(true)}
-          className="w-full hidden sm:flex sm:items-center relative"
-        >
-          <PrettySearch />
-          <div
-            className={`${
-              showSearchMenu ? "block" : "hidden"
-            } absolute top-[4rem] w-full `}
-          >
-            <SearchMenu />
-          </div>
-        </div>
+        <SearchBar />
+
         <div className="flex flex-row space-x-3">
           {window.localStorage.getItem("access_token") && (
             <a href="/upload" className={`flex items-center`}>
@@ -100,9 +79,6 @@ const Header = () => {
             <PrettyHeaderOptions />
           </button>
         </div>
-      </div>
-      <div className={`${showCategories ? "block" : "hidden"}`}>
-        <Categories />
       </div>
       <div className={`${showSettings ? "block" : "hidden"}`}>
         <HeaderOptionsMenu />
