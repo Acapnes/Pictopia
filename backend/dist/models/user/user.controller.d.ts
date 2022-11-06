@@ -1,6 +1,8 @@
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
+import { UserDto } from 'src/dto/user/user.dto';
+import { UserFindDto } from 'src/dto/user/user.find.dto';
 import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
 import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
@@ -20,6 +22,7 @@ export declare class UserController {
     getUsers(): Promise<User[]>;
     userRegister(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto>;
     userLogin(userValidationdto: UserValidationDto): Promise<ReturnAuthDto>;
+    userFindBuUsername(UserFindDto: UserFindDto): Promise<UserDto[] | ReturnFuncDto>;
     userProfileUpdate(req: any, userUpdateDto: UserUpdateDto): Promise<ReturnAuthDto | ReturnFuncDto>;
     getOneUser(req: any): Promise<ReturnFuncDto | Pic[] | Pic>;
     userSavePicture(req: any, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnAuthDto | ReturnFuncDto>;

@@ -11,6 +11,7 @@ export declare class UserService {
     findAll(): Promise<User[]>;
     findOne(): Promise<User>;
     findByEmail(email: string): Promise<UserDto | ReturnFuncDto>;
+    findByUsername(username: string): Promise<UserDto[] | ReturnFuncDto>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | UserDto | ReturnAuthDto>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object>;
 }

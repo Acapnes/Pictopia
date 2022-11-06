@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
+const user_find_dto_1 = require("../../dto/user/user.find.dto");
 const user_registration_dto_1 = require("../../dto/user/user.registration.dto");
 const user_saved_update_dto_1 = require("../../dto/user/user.saved.update.dto");
 const user_update_dto_1 = require("../../dto/user/user.update.dto");
@@ -39,6 +40,9 @@ let UserController = class UserController {
     }
     async userLogin(userValidationdto) {
         return this.authService.validateLoginUser(userValidationdto);
+    }
+    async userFindBuUsername(UserFindDto) {
+        return this.usersService.findByUsername(UserFindDto.username);
     }
     async userProfileUpdate(req, userUpdateDto) {
         return this.moderationService.updateProfile(req.user._id, userUpdateDto);
@@ -82,6 +86,13 @@ __decorate([
     __metadata("design:paramtypes", [user_validation_dto_1.UserValidationDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userLogin", null);
+__decorate([
+    (0, common_1.Post)('/find'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_find_dto_1.UserFindDto]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "userFindBuUsername", null);
 __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/profile/update/simple'),
