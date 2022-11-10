@@ -1,4 +1,4 @@
-import { PrettySmallArrowDown } from "./PrettyIcons";
+import { PrettyProfileIcon, PrettySmallArrowDown } from "./PrettyIcons";
 
 const PrettyPictureAuthorAvatar = (props: any) => {
   return (
@@ -26,4 +26,14 @@ const PrettyRotatingArrow = (props: any) => {
   );
 };
 
-export { PrettyPictureAuthorAvatar, PrettyRotatingArrow };
+const PrettyHeaderNullAvatar = (props: any) => {
+  return (
+    <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[4rem] relative p-[0.12rem]">
+      <div className="w-full h-full flex items-center justify-center bg-soft-black py-1 rounded-sm">
+        <PrettyProfileIcon size={props.nullAvatarSize} fill={"white"} />
+      </div>
+    </div>
+  );
+};
+
+export { PrettyPictureAuthorAvatar, PrettyRotatingArrow, PrettyHeaderNullAvatar };

@@ -1,6 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 
 export type UserDocument = User & Document;
@@ -13,17 +13,24 @@ export class User {
   @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   username: string;
 
-  @Prop({ type: Object,  required: true, default: { data: null, contentType: null }})
+  @Prop({
+    type: Object,
+    required: true,
+    default: { data: null, contentType: null },
+  })
   avatar: {
     data: Buffer;
     contentType: string;
   };
 
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Pic', required: true })
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Pic', required: false })
   savedPictures: Pic[];
+
+  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Category', required: false })
+  favCategories: Category[];
 
   @Prop({ required: true })
   birthDate: string;

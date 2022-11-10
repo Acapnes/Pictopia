@@ -2,7 +2,7 @@ import mongoose, { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserDto } from 'src/dto/user/user.dto';
 import { PicDto } from 'src/dto/pic/pic.dto';
@@ -12,8 +12,7 @@ import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
 @Injectable()
 export class SavedPicturesService {
   constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private userService: UserService,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService,
   ) {}
 
   async findUsersSavedPicture(_id: mongoose.Types.ObjectId,userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {

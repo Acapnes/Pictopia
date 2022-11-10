@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CommentCreateDto } from "./PicDtos/commentCreateDto";
 import { CommentDto } from "./PicDtos/commentDto";
-import { BackendReturnFuncDto } from "./UtilsDtos/backend.return.func.dto";
+import { BackendReturnFuncDto } from "../UtilsDtos/backend.return.func.dto";
 
 export class CommentAPI {
   public static async getCommentsOfPicture(_id: string): Promise<CommentDto[]> {

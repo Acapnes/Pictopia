@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
+import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 export declare type UserDocument = User & Document;
 export declare class User {
@@ -11,6 +12,7 @@ export declare class User {
         contentType: string;
     };
     savedPictures: Pic[];
+    favCategories: Category[];
     birthDate: string;
     confrimed: boolean;
     bio: string;

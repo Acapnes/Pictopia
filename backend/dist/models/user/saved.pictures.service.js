@@ -106,8 +106,7 @@ let SavedPicturesService = class SavedPicturesService {
 SavedPicturesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_2.InjectModel)(user_schema_1.User.name)),
-    __metadata("design:paramtypes", [mongoose_1.Model,
-        user_service_1.UserService])
+    __metadata("design:paramtypes", [mongoose_1.Model, user_service_1.UserService])
 ], SavedPicturesService);
 exports.SavedPicturesService = SavedPicturesService;
 //# sourceMappingURL=saved.pictures.service.js.map

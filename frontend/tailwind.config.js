@@ -2,6 +2,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      height: {
+        header_height: "5.2rem",
+      },
       colors: {
         "soft-black": "#171717",
         "pretty-pink": "#f472b6",

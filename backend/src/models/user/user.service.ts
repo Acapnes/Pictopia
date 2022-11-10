@@ -5,7 +5,6 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/dto/user/user.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 
 @Injectable()
 export class UserService {
@@ -34,7 +33,7 @@ export class UserService {
     });
   }
 
-  async findByUsername(username: string): Promise <UserDto[] | ReturnFuncDto> {
+  async findByLikeUsername(username: string): Promise <User[] | ReturnFuncDto | User> {
     return this.userModel.find({ username: { $regex: '.*' + username + '.*',$options:'i'} }).then((result) => {
       if (!result) {
         return {
@@ -46,7 +45,19 @@ export class UserService {
     });
   }
 
-  async findByMongooseId(_id: mongoose.Types.ObjectId):Promise <ReturnFuncDto | UserDto | ReturnAuthDto> {
+  async findOneByUsername(username: string): Promise <ReturnFuncDto | User> {
+    return this.userModel.findOne({ username: username }).then((result) => {
+      if (!result) {
+        return {
+          success: false,
+          message: 'User cannot found by username',
+        };
+      }
+      return result;
+    });
+  }
+
+  async findByMongooseId(_id: mongoose.Types.ObjectId):Promise <ReturnFuncDto | User> {
     return this.userModel.findOne({ _id: _id }).then((result) => {
       if (!result) {
         return {

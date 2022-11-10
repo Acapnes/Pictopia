@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserAPI } from "../../Api/UserApi";
+import { UserAPI } from "../../Api/User/UserApi";
 import CustomAlert from "../../components/Views/CustomAlert";
 import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";

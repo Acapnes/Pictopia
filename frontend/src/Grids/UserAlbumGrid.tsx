@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../Api/PicDtos/picDto";
-import { PicAPI } from "../Api/PicApi";
-import { UserAPI } from "../Api/UserApi";
+import { PicDto } from "../Api/Pic/PicDtos/picDto";
+import { PicAPI } from "../Api/Pic/PicApi";
+import { UserAPI } from "../Api/User/UserApi";
 
 const UserAlbumGrid = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);

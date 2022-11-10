@@ -12,9 +12,12 @@ const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const jwt_strategy_1 = require("../../helpers/AuthGuards/jwt.strategy");
 const user_schema_1 = require("../../schemas/user.schema");
-const auth_service_1 = require("./auth.service");
-const moderation_service_1 = require("./moderation.service");
-const saved_pictures_service_1 = require("./saved.pictures.service");
+const auth_service_1 = require("./auth/auth.service");
+const user_auth_controller_1 = require("./auth/user.auth.controller");
+const moderation_service_1 = require("./moderation/moderation.service");
+const saved_pictures_service_1 = require("./moderation/saved.pictures.service");
+const user_category_service_1 = require("./moderation/user.category.service");
+const user_moderation_controller_1 = require("./moderation/user.moderation.controller");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
@@ -27,8 +30,8 @@ UserModule = __decorate([
             }),
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
         ],
-        controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService, saved_pictures_service_1.SavedPicturesService],
+        controllers: [user_controller_1.UserController, user_auth_controller_1.UserAuthController, user_moderation_controller_1.UserModerationController],
+        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService, saved_pictures_service_1.SavedPicturesService, user_category_service_1.UserCategoryService],
     })
 ], UserModule);
 exports.UserModule = UserModule;

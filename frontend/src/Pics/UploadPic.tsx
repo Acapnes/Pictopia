@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { PicAPI } from "../Api/PicApi";
-import { UploadPicDto } from "../Api/PicDtos/uploadPicDto";
+import { PicAPI } from "../Api/Pic/PicApi";
+import { UploadPicDto } from "../Api/Pic/PicDtos/uploadPicDto";
 import CustomAlert from "../components/Views/CustomAlert";
 import { MultiFuncs } from "../components/Functions/MultipleFuncs";
 import {
@@ -60,11 +60,11 @@ const UploadPic = () => {
 
         <div className=" h-full flex flex-col  items-center justify-center px-1 md:px-5">
           <div className="w-full flex justify-center items-center pt-3 mt-3 pb-6 px-2">
-            <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.2rem] relative">
+            <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.2rem] relative group ">
               {imageURL === "null" ? (
                 <button
                   onClick={handleClick}
-                  className="bg-gray-900 text-gray-200 rounded-sm object-contain flex items-center justify-center text-3xl font-semibold p-10"
+                  className="bg-gray-900 text-gray-200 rounded-sm object-contain flex items-center justify-center text-3xl font-semibold p-10 "
                 >
                   <span>Choose a file</span>
                 </button>

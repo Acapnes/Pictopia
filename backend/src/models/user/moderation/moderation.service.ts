@@ -2,16 +2,34 @@ import mongoose, { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
-import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserDto } from 'src/dto/user/user.dto';
-import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
+import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 
 @Injectable()
 export class ModerationService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService) {}
+
+  async fetchUserCredentialsWithToken(_id: mongoose.Types.ObjectId,): Promise<UserCredentialsDto>{
+    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
+        if (funcResult.success !== false) {
+          return {
+            name: funcResult.name,
+            email: funcResult.email,
+            username: funcResult.username,
+            avatar: {
+              data: funcResult.avatar.data,
+              contentType: funcResult.avatar.contentType,
+            },
+            birthDate: funcResult.birthDate,
+            confrimed: funcResult.confrimed,
+            bio: funcResult.bio,
+          };
+        }
+        return funcResult;
+      });
+  }
 
   async updateProfile(_id: mongoose.Types.ObjectId | any,userUpdateDto: UserUpdateDto,): Promise<ReturnAuthDto> {
     return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {

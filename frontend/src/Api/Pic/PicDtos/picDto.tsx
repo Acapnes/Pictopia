@@ -1,4 +1,4 @@
-import { UserDto } from "../UserDtos/userDto";
+import { UserDto } from "../../User/UserDtos/userDto";
 
 export interface PicDto {
   authorPic: UserDto;

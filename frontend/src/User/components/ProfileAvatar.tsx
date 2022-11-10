@@ -1,14 +1,7 @@
-import React from "react";
-import { useState } from "react";
-import { UserAPI } from "../../Api/UserApi";
-import CustomAlert from "../../components/Views/CustomAlert";
+import React, { useState } from "react";
+import { UserAPI } from "../../Api/User/UserApi";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
-import {
-  PrettyAddAvatar,
-  PrettyExtendedProfileButton,
-  PrettyPictureOptions,
-  PrettySimpleProfileButton,
-} from "../../components/Prettys/PrettyButtons";
+import { PrettyPictureOptions } from "../../components/Prettys/PrettyButtons";
 import {
   PrettyCameraIcon,
   PrettyCheckIcon,
@@ -16,31 +9,21 @@ import {
   PrettyTrashIcon,
   PrettyXIcon,
 } from "../../components/Prettys/PrettyIcons";
-import ExtendedChangeProfile from "./ExtendedChangeProfile";
-import SimpleProfile from "./SimpleProfile";
+import CustomAlert from "../../components/Views/CustomAlert";
 
-const ProfileCredentials = (props: any) => {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [showAvatarSettings, setShowAvatarSettings] = useState(false);
-  const [changeAvatar, setChangeAvatar] = useState<any>();
-  const [changeAvatarOptions, setChangeAvatarOptions] = useState(false);
-
+const ProfileAvatar = (props: any) => {
   const [imageURL, setImageURL] = useState<any>("null");
-
-  const [updateResult, setUpdateResult] = useState(Object);
-
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const [changeAvatar, setChangeAvatar] = useState<any>();
+  const [updateResult, setUpdateResult] = useState(Object);
+
+  const [showAvatarSettings, setShowAvatarSettings] = useState(false);
+
+  const [changeAvatarOptions, setChangeAvatarOptions] = useState(false);
 
   const handleClick = () => {
     hiddenFileInput.current ? hiddenFileInput.current.click() : alert("Error!");
-  };
-
-  const handleChange = async (e: any) => {
-    const fileUploaded = await e.target.files[0];
-    setChangeAvatar(fileUploaded);
-    setImageURL(URL.createObjectURL(fileUploaded));
-    setChangeAvatarOptions(true);
   };
 
   const changeAvatarFunc = async () => {
@@ -50,7 +33,7 @@ const ProfileCredentials = (props: any) => {
         window.localStorage.getItem("access_token")!
       )
         .then((resp) => setUpdateResult(resp))
-        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert",true));
+        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert", true));
     }
   };
 
@@ -60,26 +43,33 @@ const ProfileCredentials = (props: any) => {
         window.localStorage.getItem("access_token")!
       )
         .then((resp) => setUpdateResult(resp))
-        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert",true));
+        .then(() => MultiFuncs.AlertTimer("CustomAvatarAlert", true));
     }
   };
 
+  const handleChange = async (e: any) => {
+    const fileUploaded = await e.target.files[0];
+    setChangeAvatar(fileUploaded);
+    setImageURL(URL.createObjectURL(fileUploaded));
+    setChangeAvatarOptions(true);
+  };
+
   return (
-    <div className="grid grid-cols-1 2xl:grid-cols-4 gap-10 p-5 lg:p-10">
-      <div className="flex h-full max-h-[60vh] justify-center flex-col space-y-5 items-center relative">
+    <div className="h-full max-h-[60vh] flex flex-col justify-center items-center space-y-5 relative">
+      <div className="px-16 relative">
         {props?.user?.avatar?.data || props?.user?.avatar?.contentType ? (
-          <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full shadow-lg p-[0.3rem] relative">
+          <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.15rem] relative">
             {changeAvatar ? (
               <img
                 src={`${imageURL}`}
                 alt=""
-                className="object-contain rounded-full max-h-[30rem]"
+                className="object-contain rounded-sm max-h-[30rem]"
               />
             ) : (
               <img
                 src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
                 alt=""
-                className="object-contain rounded-full max-h-[30rem]"
+                className="object-contain rounded-sm max-h-[30rem]"
               />
             )}
           </div>
@@ -94,8 +84,8 @@ const ProfileCredentials = (props: any) => {
                 />
               </div>
             ) : (
-              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[12rem] h-[12rem] relative p-[0.2rem]">
-                <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
+              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[12rem] h-[12rem] relative p-[0.2rem]">
+                <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-sm">
                   <PrettyProfileIcon size={70} fill={"white"} />
                 </div>
               </div>
@@ -185,80 +175,15 @@ const ProfileCredentials = (props: any) => {
         <div id="CustomAvatarAlert">
           <CustomAlert result={updateResult} />
         </div>
-      </div>
-      <div className="w-full h-fit lg:col-span-3 bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.2rem]">
-        <div className="w-full h-full bg-soft-black bg-opacity-95 space-y-4 rounded-sm px-8 py-5">
-          <div className="w-full h-[3rem] flex flex-row justify-around">
-            <div className="h-full flex items-center">
-              <button
-                onClick={() => {
-                  if (selectedTab === 1) {
-                    document.getElementById("ExtandedTab")!.className =
-                      "transform -translate-x-8 transition opacity-0 duration-300 ease-in-out";
-                    setTimeout(() => {
-                      document.getElementById("SimpleTab")!.className = "block";
-                      document.getElementById("ExtandedTab")!.className =
-                        "hidden";
-                    }, 300);
-                  }
-                  setSelectedTab(0);
-                }}
-                className="rounded-sm"
-              >
-                <PrettySimpleProfileButton
-                  text={"Simple"}
-                  selectedTab={selectedTab}
-                />
-              </button>
-            </div>
-
-            <div className="h-full flex items-center">
-              <button
-                onClick={() => {
-                  if (selectedTab === 0) {
-                    document.getElementById("SimpleTab")!.className =
-                      "transform translate-x-8 transition duration-300 opacity-0 ease-in-out";
-                    setTimeout(() => {
-                      document.getElementById("SimpleTab")!.className =
-                        "hidden";
-                      document.getElementById("ExtandedTab")!.className =
-                        "block";
-                    }, 300);
-                  }
-                  setSelectedTab(1);
-                }}
-                className="rounded-lg w-fit h-fit"
-              >
-                <PrettyExtendedProfileButton
-                  text={"Extended"}
-                  selectedTab={selectedTab}
-                />
-              </button>
-            </div>
-          </div>
-          <hr className="border-gray-200" />
-          <div>
-            <div id="SimpleTab" className={``}>
-              <SimpleProfile
-                user={props?.user}
-                selectedTab={selectedTab}
-                updateResult={updateResult}
-              />
-            </div>
-            <div id="ExtandedTab" className={`hidden`}>
-              <ExtendedChangeProfile selectedTab={selectedTab} />
-            </div>
-          </div>
-          <input
-            type="file"
-            style={{ display: "none" }}
-            ref={hiddenFileInput}
-            onChange={handleChange}
-          />
-        </div>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          ref={hiddenFileInput}
+          onChange={handleChange}
+        />
       </div>
     </div>
   );
 };
 
-export default ProfileCredentials;
+export default ProfileAvatar;

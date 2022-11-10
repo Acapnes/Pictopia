@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../Api/PicDtos/picDto";
-import { PicAPI } from "../Api/PicApi";
+import { PicDto } from "../Api/Pic/PicDtos/picDto";
+import { PicAPI } from "../Api/Pic/PicApi";
 
 const ActionlessGrid = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);

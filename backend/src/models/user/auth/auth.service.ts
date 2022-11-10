@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import * as bcrypt from 'bcrypt';
 import { UserRegistrationDto } from 'src/dto/user/user.registration.dto';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 import { UserValidationDto } from 'src/dto/user/user.validation.dto';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { UserDto } from 'src/dto/user/user.dto';
@@ -57,26 +57,6 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
           }
         }
         return findReturn;
-      });
-  }
-
-  async fetchUserCredentialsWithToken(_id: mongoose.Types.ObjectId,): Promise<UserCredentialsDto>{
-    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
-        if (funcResult.success !== false) {
-          return {
-            name: funcResult.name,
-            email: funcResult.email,
-            username: funcResult.username,
-            avatar: {
-              data: funcResult.avatar.data,
-              contentType: funcResult.avatar.contentType,
-            },
-            birthDate: funcResult.birthDate,
-            confrimed: funcResult.confrimed,
-            bio: funcResult.bio,
-          };
-        }
-        return funcResult;
       });
   }
 }

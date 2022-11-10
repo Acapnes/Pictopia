@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserAPI } from "../../Api/UserApi";
+import { UserAPI } from "../../Api/User/UserApi";
 import CustomAlert from "../../components/Views/CustomAlert";
 import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
@@ -29,9 +29,7 @@ const Register = () => {
 
   return (
     <div
-      className={`w-full h-full ${
-        registerResult?.access ? "cursor-wait" : "cursor-auto"
-      }`}
+      className={`w-full h-full`}
     >
       <div className="flex justify-center relative">
         <div className="absolute top-0 w-full h-full z-10 bg-gray-900 bg-opacity-70"></div>

@@ -5,7 +5,7 @@ const Comments = (props: any) => {
   return (
     <div className="w-full min-h-24 max-h-[22rem] overflow-auto py-2 scrollbar-hide text-gray-200">
       {props?.comments.length ? (
-        <div className="w-full flex flex-col space-y-5 ">
+        <div className="w-full flex flex-col space-y-5">
           {props?.comments?.map((_comment: any, _commentIndex: any) => (
             <div
               key={_commentIndex}

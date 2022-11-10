@@ -40,8 +40,19 @@ let UserService = class UserService {
             return result;
         });
     }
-    async findByUsername(username) {
+    async findByLikeUsername(username) {
         return this.userModel.find({ username: { $regex: '.*' + username + '.*', $options: 'i' } }).then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'User cannot found by username',
+                };
+            }
+            return result;
+        });
+    }
+    async findOneByUsername(username) {
+        return this.userModel.findOne({ username: username }).then((result) => {
             if (!result) {
                 return {
                     success: false,

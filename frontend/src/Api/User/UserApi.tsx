@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PicDto } from "./PicDtos/picDto";
+import { PicDto } from "../Pic/PicDtos/picDto";
 import { UserDto } from "./UserDtos/userDto";
 import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
 import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
@@ -66,7 +66,7 @@ export class UserAPI {
       window.localStorage.setItem("access_token", data.access_token);
       setTimeout(() => {
         window.location.href = "/login";
-      }, 2000);
+      }, 1000);
     }
 
     return data;
@@ -74,7 +74,7 @@ export class UserAPI {
 
   public static async fetchUserCredentials(access_token: string) {
     if (!localStorage.getItem("access_token")) return;
-    return await fetch("http://localhost:3000/user/credentials", {
+    return await fetch("http://localhost:3000/user/profile/credentials", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -146,11 +146,15 @@ export class UserAPI {
       .then((resp) => resp.data);
   }
 
-  public static async savedPicturesToUserAlbum(access_token: string,picDto: PicDto) {
+  public static async savedPicturesToUserAlbum(
+    access_token: string,
+    picDto: PicDto
+  ) {
     if (!localStorage.getItem("access_token")) return;
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios.post("http://localhost:3000/user/profile/saved/add", {
+    return await axios
+      .post("http://localhost:3000/user/profile/saved/add", {
         picture_id: picDto._id,
       })
       .then((resp) => resp.data);
@@ -167,6 +171,12 @@ export class UserAPI {
       .post("http://localhost:3000/user/find/", {
         username: username,
       })
+      .then((resp) => resp.data);
+  }
+
+  public static async VisitProfileFetchUser(username: string) {
+    return await axios
+      .get(`http://localhost:3000/user/${username}`)
       .then((resp) => resp.data);
   }
 }

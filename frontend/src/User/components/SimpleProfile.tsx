@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserAPI } from "../../Api/UserApi";
+import { UserAPI } from "../../Api/User/UserApi";
 import CustomAlert from "../../components/Views/CustomAlert";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { PrettySaveChanges } from "../../components/Prettys/PrettyButtons";

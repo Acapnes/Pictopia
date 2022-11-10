@@ -23,17 +23,25 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: true, unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: Object, required: true, default: { data: null, contentType: null } }),
+    (0, mongoose_1.Prop)({
+        type: Object,
+        required: true,
+        default: { data: null, contentType: null },
+    }),
     __metadata("design:type", Object)
 ], User.prototype, "avatar", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Pic', required: true }),
+    (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Pic', required: false }),
     __metadata("design:type", Array)
 ], User.prototype, "savedPictures", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Category', required: false }),
+    __metadata("design:type", Array)
+], User.prototype, "favCategories", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

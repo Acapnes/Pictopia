@@ -35,8 +35,8 @@ const PrettyOptionsIcon = (props: any) => {
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
+        width={props.size || 16}
+        height={props.size || 16}
         fill={props.fill}
         className="bi bi-three-dots-vertical"
         viewBox="0 0 16 16"
@@ -52,9 +52,9 @@ const PrettySearchIcon = (props: any) => {
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="white"
+        width={props.size || 16}
+        height={props.size || 16}
+        fill={props.fill || "currentColor"}
         className="bi bi-search"
         viewBox="0 0 16 16"
       >
@@ -69,8 +69,23 @@ const PrettyProfilePicture = (props: any) => {
     <img
       src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
       alt=""
-      className="rounded-full w-full h-full object-cover p-[0.15rem]"
+      className="rounded-sm w-full object-cover p-[0.15rem]"
     />
+  );
+};
+
+const PrettyHomeIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.size || 16}
+      height={props.size || 16}
+      fill={props.fill || "currentColor"}
+      className="bi bi-house-door-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z" />
+    </svg>
   );
 };
 
@@ -78,9 +93,9 @@ const PrettyCameraIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={props.size | 16}
-      height={props.size | 16}
-      fill={props.fill}
+      width={props.size || 16}
+      height={props.size || 16}
+      fill={props.fill || "currentColor"}
       className="bi bi-camera-fill"
       viewBox="0 0 16 16"
     >
@@ -135,7 +150,7 @@ const PrettyPictopia = () => {
     <img
       src={`/pictopia_trans.png`}
       alt=""
-      className="rounded-md w-full h-full object-cover p-[0.1rem]"
+      className="w-[8rem] h-[4rem] object-cover"
     />
   );
 };
@@ -303,6 +318,21 @@ const PrettyTrashIcon = (props: any) => {
   );
 };
 
+const PrettyShareIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.size || 16}
+      height={props.size || 16}
+      fill={props.fill || "currentColor"}
+      className="bi bi-share-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z" />
+    </svg>
+  );
+};
+
 const PrettySmallArrowDown = (props: any) => {
   return (
     <svg
@@ -427,6 +457,22 @@ const PrettyErrorIcon = (props: any) => {
   );
 };
 
+const PrettyBugIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.size || 16}
+      height={props.size || 16}
+      fill={props.fill || "currentColor"}
+      className="bi bi-bug-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956z" />
+      <path d="M13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z" />
+    </svg>
+  );
+};
+
 export {
   PrettyEyeIcon,
   PrettyOptionsIcon,
@@ -448,10 +494,13 @@ export {
   PrettySmallArrowUpIcon,
   PrettyUploadIcon,
   PrettyThumbsUpIcon,
+  PrettyHomeIcon,
   PrettyThumbsDownIcon,
   PrettyBookMarksIcon,
+  PrettyBugIcon,
   PrettyAlertIcon,
   PrettyErrorIcon,
   PrettySignIcon,
   PrettyCircleCheckIcon,
+  PrettyShareIcon,
 };
