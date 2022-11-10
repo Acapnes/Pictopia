@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CommentAPI } from "../../Api/CommentApi";
-import { CommentDto } from "../../Api/PicDtos/commentDto";
-import { UserAPI } from "../../Api/UserApi";
-import { UserDto } from "../../Api/UserDtos/userDto";
+import { CommentAPI } from "../../Api/Pic/CommentApi";
+import { CommentDto } from "../../Api/Pic/PicDtos/commentDto";
+import { UserAPI } from "../../Api/User/UserApi";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import {
   PrettyCommentsButton,
@@ -45,7 +45,7 @@ const PictureDetailsCard = (props: any) => {
           comment: newCommentsComment,
           destPicture: props?.picture?._id,
         }
-      );
+      ).then(() => {});
     }
   };
 
@@ -70,13 +70,22 @@ const PictureDetailsCard = (props: any) => {
     }
   };
 
+  const sharePicture = async () => {
+    if (navigator.share) {
+      navigator.share({
+        text: `Hey look at this! \n ${props?.picture?.title}`,
+        url: "",
+      });
+    }
+  };
+
   useEffect(() => {
     getCommentsById();
     fetchUserCredentialsForNewComment();
   }, []);
 
   return (
-    <div className="w-full 3xl:max-w-[40vw] p-[0.2rem] mb-10 flex flex-col bg-red-500 shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+    <div className="w-full 3xl:max-w-[40vw] p-[0.2rem] mb-10 flex flex-col shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
       <div id="DetailsCustomToast">
         {customToastResult && <CustomToast toastResult={customToastResult} />}
       </div>
@@ -126,7 +135,10 @@ const PictureDetailsCard = (props: any) => {
           >
             <PrettySavePicture />
           </button>
-          <button className="rounded-md flex items-center">
+          <button
+            onClick={() => sharePicture()}
+            className="rounded-md flex items-center"
+          >
             <PrettyShare />
           </button>
           <button className="rounded-md flex items-center">
@@ -140,8 +152,12 @@ const PictureDetailsCard = (props: any) => {
           <div className="flex flex-row space-x-2">
             {newCommentAuthorCredentials?.avatar?.data ||
             newCommentAuthorCredentials?.avatar?.contentType ? (
-              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] max-h-[5rem]">
-                <PrettyProfilePicture user={newCommentAuthorCredentials} />
+              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4.5rem] h-[4.5rem]">
+                <img
+                  src={`data:${newCommentAuthorCredentials.avatar?.contentType};base64,${newCommentAuthorCredentials.avatar?.data}`}
+                  alt=""
+                  className="rounded-full h-[4.5rem] w-full object-cover p-[0.15rem]"
+                />
               </div>
             ) : (
               <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] relative p-[0.2rem]">
@@ -178,10 +194,3 @@ const PictureDetailsCard = (props: any) => {
 };
 
 export default PictureDetailsCard;
-
-{
-  /* <CustomAlert
-result={newCommentsResult}
-background={false}
-/> */
-}
