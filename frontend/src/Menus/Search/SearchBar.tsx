@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import { PicAPI } from "../../Api/PicApi";
-import { PicDto } from "../../Api/PicDtos/picDto";
-import { UserAPI } from "../../Api/UserApi";
-import { UserDto } from "../../Api/UserDtos/userDto";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettySearchIcon,
   PrettySmallArrowUpIcon,
 } from "../../components/Prettys/PrettyIcons";
 import SearchedCategories from "./SearchedCategories";
-import Categories from "../components/Categories";
-import { CategoryAPI } from "../../Api/CategoryApi";
 import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
 import SearchMenuUsersGrid from "./SearchedUsers";
+import { CategoryAPI } from "../../Api/User/CategoryApi";
+import { UserAPI } from "../../Api/User/UserApi";
+import FavoriteCategories from "../Categories/FavoriteCategories";
 
 const SearchBar = (props: any) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -20,7 +18,6 @@ const SearchBar = (props: any) => {
     useState<CategoryDto[]>([]);
 
   const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
-  const [searchfetchedPics, setSearchFetchedPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPicsAndUsers = async () => {
     setInitFetchedSearchedCategories(await CategoryAPI.getAllCategories());
@@ -44,7 +41,7 @@ const SearchBar = (props: any) => {
             className="flex flex-row justify-between space-x-2"
           >
             <div className="h-full flex items-center mt-[0.25rem]">
-              <PrettySearchIcon />
+              <PrettySearchIcon fill={"white"} />
             </div>
             <input
               autoComplete="off"
@@ -65,19 +62,19 @@ const SearchBar = (props: any) => {
               onClick={() => setShowSearchMenu(false)}
               className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
             >
-              <PrettySmallArrowUpIcon size={18}/>
+              <PrettySmallArrowUpIcon size={18} />
             </div>
           )}
         </span>
       </div>
+
       {showSearchMenu && (
-        <div className={`absolute top-[4rem] w-full`}>
+        <div className="absolute md:bottom-[4rem] lg:top-[4rem] w-full shadow-lg">
           <div className="w-full h-full">
             <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
               <div className=" w-full p-5 bg-soft-black bg-opacity-95 rounded-sm relative">
                 <div className="w-full flex flex-row max-h-[60vh] space-x-5">
-                  <Categories />
-
+                  <FavoriteCategories />
                   <div className="w-full flex flex-col space-y-2">
                     <div className="w-full flex flex-row space-x-2 border-b-2 pb-3 border-pretty-pink">
                       <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">

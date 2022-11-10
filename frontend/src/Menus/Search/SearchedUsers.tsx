@@ -1,4 +1,4 @@
-import { UserDto } from "../../Api/UserDtos/userDto";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettyProfileIcon,
   PrettySignIcon,
@@ -9,21 +9,18 @@ const SearchMenuUsersGrid = (props: any) => {
     <div className="flex justify-center max-h-[60vh] overflow-y-auto scrollbar-hide">
       <div className="grid grid-cols-1 gap-4 py-4 px-1 w-full">
         {props?.searchedUsers?.map((user: UserDto, userIndex: number) => (
-          <div
+          <a href={`/user/${user._id}`}
             className="flex flex-row space-x-3 items-center group bg-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
             key={userIndex}
           >
             {user?.avatar?.contentType && user?.avatar?.data ? (
-              <a
-                href="#_"
-                className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative"
-              >
+              <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative">
                 <img
                   src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
                   alt=""
                   className="rounded-full w-full h-full object-cover p-[0.18rem]"
                 />
-              </a>
+              </div>
             ) : (
               <a
                 href="#_"
@@ -46,7 +43,7 @@ const SearchMenuUsersGrid = (props: any) => {
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
