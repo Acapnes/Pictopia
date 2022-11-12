@@ -28,4 +28,8 @@ export class MultiFuncs {
       return window.localStorage.getItem("access_token");
     }
   }
+
+  public static async UrlParam() {
+    return await window.location.href.split("/")[window.location.href.split("/").length - 1];
+  }
 }

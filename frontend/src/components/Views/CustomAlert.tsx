@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { PrettyAlertIcon } from "../Prettys/PrettyIcons";
 
 const CustomAlert = (props: any) => {

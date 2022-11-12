@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CommentAPI } from "../../Api/Pic/CommentApi";
-import { CommentDto } from "../../Api/Pic/PicDtos/commentDto";
-import { UserAPI } from "../../Api/User/UserApi";
-import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
+import { CommentAPI } from "../../../Api/Pic/CommentApi";
+import { CommentDto } from "../../../Api/Pic/PicDtos/commentDto";
+import { UserAPI } from "../../../Api/User/UserApi";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
 import {
   PrettyCommentsButton,
   PrettyReportButton,
   PrettySavePicture,
   PrettySend,
   PrettyShare,
-} from "../../components/Prettys/PrettyButtons";
-import { PrettyPictureAuthorAvatar } from "../../components/Prettys/PrettyComponents";
+} from "../../../components/Prettys/PrettyButtons";
+import { PrettyPictureAuthorAvatar } from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyProfileIcon,
   PrettyProfilePicture,
-} from "../../components/Prettys/PrettyIcons";
-import CustomToast from "../../components/Views/CustomToast";
-import Comments from "../Comments";
+} from "../../../components/Prettys/PrettyIcons";
+import CustomToast from "../../../components/Views/CustomToast";
+import Comments from "../../Comments/Comments";
 
 const PictureDetailsCard = (props: any) => {
   const [commentsStatus, setCommentsStatus] = useState(false);
@@ -85,7 +85,7 @@ const PictureDetailsCard = (props: any) => {
   }, []);
 
   return (
-    <div className="w-full 3xl:max-w-[40vw] p-[0.2rem] mb-10 flex flex-col shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+    <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] p-[0.2rem] mb-10 flex flex-col shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
       <div id="DetailsCustomToast">
         {customToastResult && <CustomToast toastResult={customToastResult} />}
       </div>

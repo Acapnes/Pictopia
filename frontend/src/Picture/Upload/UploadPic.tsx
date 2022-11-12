@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { PicAPI } from "../Api/Pic/PicApi";
-import { UploadPicDto } from "../Api/Pic/PicDtos/uploadPicDto";
-import CustomAlert from "../components/Views/CustomAlert";
-import { MultiFuncs } from "../components/Functions/MultipleFuncs";
+import { PicAPI } from "../../Api/Pic/PicApi";
+import { UploadPicDto } from "../../Api/Pic/PicDtos/uploadPicDto";
+import CustomAlert from "../../components/Views/CustomAlert";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import {
   PrettyTrashButton,
   PrettyUploadPicture,
-} from "../components/Prettys/PrettyButtons";
-import { PrettySquareAddIcon } from "../components/Prettys/PrettyIcons";
-import Header from "../Menus/Header";
+} from "../../components/Prettys/PrettyButtons";
+import { PrettySquareAddIcon } from "../../components/Prettys/PrettyIcons";
+import Header from "../../Menus/Header";
 
 const UploadPic = () => {
   const [hashtagArray, setHashtagArray] = useState<string[]>([]);

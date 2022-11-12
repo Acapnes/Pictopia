@@ -5,7 +5,7 @@ const CurrentCategory = () => {
   return (
     <a
       href="/explore"
-      className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem]"
+      className="relative min-w-[25vw] 2xl:min-w-[15vw] text-start font-semibold text-white rounded-sm h-[4rem]"
     >
       <img
         src="/explore.jpg"

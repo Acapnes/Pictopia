@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../Api/Pic/PicDtos/picDto";
-import { PicAPI } from "../Api/Pic/PicApi";
+import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { PicAPI } from "../../Api/Pic/PicApi";
 import GridMenu from "./components/GridMenu";
-import Notfound from "../components/Views/NotFound";
+import Notfound from "../../components/Views/NotFound";
 
 const Grid = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);

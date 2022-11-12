@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { UserAPI } from "../../Api/User/UserApi";
-import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
-import { PrettyPictureOptions } from "../../components/Prettys/PrettyButtons";
+import { UserAPI } from "../../../Api/User/UserApi";
+import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
+import { PrettyPictureOptions } from "../../../components/Prettys/PrettyButtons";
 import {
   PrettyCameraIcon,
   PrettyCheckIcon,
   PrettyProfileIcon,
   PrettyTrashIcon,
   PrettyXIcon,
-} from "../../components/Prettys/PrettyIcons";
-import CustomAlert from "../../components/Views/CustomAlert";
+} from "../../../components/Prettys/PrettyIcons";
+import CustomAlert from "../../../components/Views/CustomAlert";
 
 const ProfileAvatar = (props: any) => {
   const [imageURL, setImageURL] = useState<any>("null");
@@ -56,7 +56,7 @@ const ProfileAvatar = (props: any) => {
 
   return (
     <div className="h-full max-h-[60vh] flex flex-col justify-center items-center space-y-5 relative">
-      <div className="px-16 relative">
+      <div className=" relative">
         {props?.user?.avatar?.data || props?.user?.avatar?.contentType ? (
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.15rem] relative">
             {changeAvatar ? (
@@ -171,16 +171,15 @@ const ProfileAvatar = (props: any) => {
             </div>
           </div>
         )}
-
-        <div id="CustomAvatarAlert">
-          <CustomAlert result={updateResult} />
-        </div>
         <input
           type="file"
           style={{ display: "none" }}
           ref={hiddenFileInput}
           onChange={handleChange}
         />
+      </div>
+      <div id="CustomAvatarAlert">
+        <CustomAlert result={updateResult} />
       </div>
     </div>
   );

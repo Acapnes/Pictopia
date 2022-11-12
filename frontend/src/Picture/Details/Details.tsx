@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../Api/Pic/PicDtos/picDto";
-import { PicAPI } from "../Api/Pic/PicApi";
+import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { PicAPI } from "../../Api/Pic/PicApi";
 import Grid from "../Grids/Grid";
-import Header from "../Menus/Header";
+import Header from "../../Menus/Header";
 import PictureDetailsCard from "./components/PictureDetailsCard";
-import { PrettyErrorIcon } from "../components/Prettys/PrettyIcons";
+import { PrettyErrorIcon } from "../../components/Prettys/PrettyIcons";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 
 const Details = () => {
-  const urlParam = window.location.href.split("/")[window.location.href.split("/").length - 1];
   const [picture, setPicture] = useState<PicDto>(Object);
 
   const setFetchedPicture = async () => {
-    setPicture(await PicAPI.getDetailPic(urlParam));
+    setPicture(await PicAPI.getDetailPic(await MultiFuncs.UrlParam()));
   };
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Details = () => {
   return (
     <div className="w-full h-full flex flex-col bg-soft-black">
       <Header />
-      <div className="min-h-[70vh] flex flex-col justify-center items-center px-2 py-10 3xl:flex-row 3xl:px-10 3xl:space-x-5 lg:px-3w">
+      <div className="min-h-[70vh] flex flex-col justify-center items-center px-2 py-10 lg:px-3">
         {picture?.picture_file?.data || picture?.picture_file?.contentType ? (
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.2rem] w-fit h-fit mb-10 bg-red-500 relative">
             <img

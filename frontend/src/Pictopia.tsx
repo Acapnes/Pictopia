@@ -1,4 +1,4 @@
-import Grid from "./Grids/Grid";
+import Grid from "./Picture/Grids/Grid";
 import Header from "./Menus/Header";
 
 function App() {

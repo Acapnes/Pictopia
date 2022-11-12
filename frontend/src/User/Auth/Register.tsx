@@ -3,7 +3,7 @@ import { UserAPI } from "../../Api/User/UserApi";
 import CustomAlert from "../../components/Views/CustomAlert";
 import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
-import ActionlessGrid from "../../Grids/ActionlessGrid";
+import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);

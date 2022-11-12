@@ -36,12 +36,12 @@ const HeaderOptionsMenu = (props: any) => {
             <div className="my-3 px-4">
               <hr className="border-white" />
             </div>
-            <button className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+            <a href="/profile/edit" className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
               <p className="my-2 text-gray-300 font-bold">Profile</p>
               <div>
                 <PrettyProfileIcon size={22} fill={"rgb(244,114,182)"} />
               </div>
-            </button>
+            </a>
             <button
               onClick={() => {
                 window.localStorage.removeItem("access_token");

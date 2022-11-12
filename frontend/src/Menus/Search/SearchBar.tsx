@@ -4,23 +4,21 @@ import {
   PrettySearchIcon,
   PrettySmallArrowUpIcon,
 } from "../../components/Prettys/PrettyIcons";
-import SearchedCategories from "./SearchedCategories";
 import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
-import SearchMenuUsersGrid from "./SearchedUsers";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import FavoriteCategories from "../Categories/FavoriteCategories";
+import LastSearchs from "./LastSearchs";
+import CategoriesMenu from "../Categories/CategoriesMenu";
+import CurrentCategory from "../Categories/CurrentCategory";
 
 const SearchBar = (props: any) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
-  const [initfetchedSearchCategories, setInitFetchedSearchedCategories] =
-    useState<CategoryDto[]>([]);
-
+  const [searchedCategories, setFetchedSearchedCategories] = useState<CategoryDto[]>([]);
   const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
 
   const fetchAndSetPicsAndUsers = async () => {
-    setInitFetchedSearchedCategories(await CategoryAPI.getAllCategories());
+    setFetchedSearchedCategories(await CategoryAPI.getAllCategories());
   };
 
   const searchUsers = async (username: string) => {
@@ -32,7 +30,7 @@ const SearchBar = (props: any) => {
   }, []);
 
   return (
-    <div className="w-full hidden sm:flex sm:items-center relative">
+    <div className="w-full hidden md:flex md:items-center relative">
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-semibold overflow-hidden rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
         <span className=" w-full px-4 md:py-2 sm:py-1 transition-all ease-out bg-gray-900 rounded-sm duration-400 relative">
@@ -69,40 +67,21 @@ const SearchBar = (props: any) => {
       </div>
 
       {showSearchMenu && (
-        <div className="absolute md:bottom-[4rem] lg:top-[4rem] w-full shadow-lg">
-          <div className="w-full h-full">
-            <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-              <div className=" w-full p-5 bg-soft-black bg-opacity-95 rounded-sm relative">
-                <div className="w-full flex flex-row max-h-[60vh] space-x-5">
-                  <FavoriteCategories />
-                  <div className="w-full flex flex-col space-y-2">
-                    <div className="w-full flex flex-row space-x-2 border-b-2 pb-3 border-pretty-pink">
-                      <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">
-                        <div className="px-2.5 py-1">
-                          <span>Vikings</span>
-                        </div>
-                      </button>
-                      <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">
-                        <div className="px-2.5 py-1">
-                          <span>Movies</span>
-                        </div>
-                      </button>
-                      <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">
-                        <div className="px-2.5 py-1">
-                          <span>Daily</span>
-                        </div>
-                      </button>
-                    </div>
-                    {searchInputvalue && searchedUsers.length > 0 ? (
-                      <SearchMenuUsersGrid searchedUsers={searchedUsers} />
-                    ) : (
-                      <SearchedCategories
-                        initFetchedSearchCategories={
-                          initfetchedSearchCategories
-                        }
-                      />
-                    )}
-                  </div>
+        <div className="absolute top-[4rem] w-full shadow-lg">
+          <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+            <div className=" w-full p-5 bg-soft-black bg-opacity-95 rounded-sm relative">
+              <div className="w-full flex flex-col space-y-3">
+                <div className="w-full flex flex-row justify-between space-x-5">
+                  <CurrentCategory />
+                  <LastSearchs />
+                </div>
+                <div className="w-full h-full">
+                  <CategoriesMenu
+                    showSearchMenu={showSearchMenu}
+                    searchedUsers={searchedUsers}
+                    searchInputvalue={searchInputvalue}
+                    searchedCategories={searchedCategories}
+                  />
                 </div>
               </div>
             </div>

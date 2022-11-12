@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../Api/Pic/PicDtos/picDto";
-import { PicAPI } from "../Api/Pic/PicApi";
-import { UserAPI } from "../Api/User/UserApi";
+import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
+import { UserAPI } from "../../../Api/User/UserApi";
 
-const UserAlbumGrid = () => {
+const VisitUserAlbumGrid = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPics = async () => {
@@ -40,4 +39,4 @@ const UserAlbumGrid = () => {
   );
 };
 
-export default UserAlbumGrid;
+export default VisitUserAlbumGrid;

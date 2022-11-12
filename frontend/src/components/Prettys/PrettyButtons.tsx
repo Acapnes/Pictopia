@@ -88,9 +88,9 @@ const PrettyAuthButton = (props: any) => {
 
 const PrettySaveChanges = () => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <span className="text-white">Save</span>
       </span>
     </div>
@@ -171,22 +171,20 @@ const PrettyTrashButton = () => {
   );
 };
 
-const PrettySimpleProfileButton = (props: any) => {
+const PrettyProfileSelectionButton = (props: any) => {
+  // console.log(props.text,props.selectedTab);
   return (
     <div
-      className={`w-[6rem] text-sm relative inline-flex ${
-        props.selectedTab === 0 ? "bg-white" : "bg-soft-black text-white"
-      } duration-150 hover:scale-110 items-center justify-start px-2 py-2 overflow-hidden font-bold rounded-sm group`}
+      className={`relative min-w-[10rem] w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm`}
     >
-      <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0  opacity-[3%]"></span>
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
       <span
-        className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24
-        opacity-100 group-hover:-translate-x-8"
-      ></span>
-      <span className="relative w-full transition-colors duration-200 ease-in-out text-center">
-        {props.text}
+        className={`w-full relative px-4 py-2 transition-all ease-out rounded-sm group-hover:bg-opacity-0 duration-400 ${
+          props.text === props.selectedTab ? "bg-transparent" : "bg-gray-900"
+        }`}
+      >
+        <span className="text-white">{props.text}</span>
       </span>
-      <span className="absolute inset-0 border-2 border-soft-black rounded-sm"></span>
     </div>
   );
 };
@@ -230,9 +228,9 @@ const PrettyUploadPicture = () => {
     <div className="h-full flex items-center">
       <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-        <span className="relative px-4 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+        <span className="relative px-4 py-2 md:py-3 lg:py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
           <div className="flex flex-row">
-            <span className="text-white hidden md:block pr-1.5">Upload</span>
+            <span className="text-white hidden lg:block pr-1.5">Upload</span>
             <div className="flex items-end">
               <PrettyUploadIcon />
             </div>
@@ -240,6 +238,24 @@ const PrettyUploadPicture = () => {
         </span>
       </div>
     </div>
+  );
+};
+
+const PrettyHeaderUploadPicture = () => {
+  return (
+    <a href="/upload" className="h-full flex items-center">
+      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
+        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+        <span className="relative px-4 py-2 md:py-3 lg:py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+          <div className="flex flex-row">
+            <span className="text-white hidden lg:block pr-1.5">Upload</span>
+            <div className="flex items-end">
+              <PrettyUploadIcon />
+            </div>
+          </div>
+        </span>
+      </div>
+    </a>
   );
 };
 
@@ -440,7 +456,7 @@ export {
   PrettyThumbsDownButton,
   PrettyReply,
   PrettySend,
-  PrettySimpleProfileButton,
+  PrettyProfileSelectionButton,
   PrettyExtendedProfileButton,
   PrettyTrashButton,
   PrettyPictureOptions,
@@ -449,4 +465,5 @@ export {
   PrettySearchMenuButton,
   PrettyXButton,
   PrettySearchMobileHeaderButton,
+  PrettyHeaderUploadPicture,
 };

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { PicDto } from "../Pic/PicDtos/picDto";
-import { UserDto } from "./UserDtos/userDto";
 import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
 import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
 import { UserValidationDto } from "./UserDtos/userValidationDto";
@@ -14,7 +13,7 @@ export class UserAPI {
       };
     }
 
-    const resp = await fetch("http://localhost:3000/user/signin", {
+    const resp = await fetch("http://localhost:3000/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userValidationDto),
@@ -48,7 +47,7 @@ export class UserAPI {
       };
     }
 
-    const resp = await fetch("http://localhost:3000/user/signup", {
+    const resp = await fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userRegistrationDto),

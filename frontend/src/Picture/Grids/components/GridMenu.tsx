@@ -1,12 +1,11 @@
-import { PicDto } from "../../Api/Pic/PicDtos/picDto";
-import { PrettyBookMarksIcon } from "../../components/Prettys/PrettyIcons";
+import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 
 const GridMenu = (props: PicDto | any) => {
   return (
     <a href={`/detail/${props.pic._id}`}>
       <div
         className="absolute bottom-0 w-full h-full transition-all duration-300 ease-in-out border-[3px]
-       border-pretty-rough-pink border-opacity-95 bg-soft-black text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-70
+       border-pretty-rough-pink border-opacity-95 bg-soft-black text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-50
         group-hover:opacity-90 group-hover:shadow-lg rounded-sm"
       >
         <div className="w-full h-full flex flex-col  ">
