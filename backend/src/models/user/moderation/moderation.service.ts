@@ -6,6 +6,9 @@ import { UserService } from '../user.service';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
+import { UserSocialsDto } from 'src/dto/user/utils/user.socials.dto';
+import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { UserDto } from 'src/dto/user/user.dto';
 
 @Injectable()
 export class ModerationService {
@@ -25,6 +28,8 @@ export class ModerationService {
             birthDate: funcResult.birthDate,
             confrimed: funcResult.confrimed,
             bio: funcResult.bio,
+            savedPictures:funcResult.savedPictures,
+            userSocials:funcResult.userSocials,
           };
         }
         return funcResult;
@@ -115,8 +120,52 @@ export class ModerationService {
           .catch((err) => {
             return {
               access: false,
-              message: 'Something went wrong! : ' + err,
+              message: 'Something went wrong!',
               access_token: '',
+            };
+          });
+      }
+      return funcResult;
+    });
+  }
+
+  async userUpdateSocials(_id: mongoose.Types.ObjectId, userSocialsDto: UserSocialsDto): Promise<ReturnFuncDto>{
+    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
+      if (funcResult.success !== false) {
+        return await this.userModel.findOneAndUpdate(
+            { _id: _id },
+            {
+              userSocials: userSocialsDto,
+            },
+          )
+          .then(async () => {
+            return {
+              success: true,
+              message: 'Your socials has been updated',
+            };
+          })
+          .catch((err) => {
+            return {
+              success: false,
+              message: 'Something went wrong!',
+            };
+          });
+      }
+      return funcResult;
+    });
+  }
+
+  async userFetchSocials(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User>{
+    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
+      if (funcResult.success !== false) {
+        return await this.userModel.findOne({ _id: _id })
+          .then( (user: User) => {
+            return user.userSocials
+          })
+          .catch((err) => {
+            return {
+              success: false,
+              message: 'Something went wrong!',
             };
           });
       }

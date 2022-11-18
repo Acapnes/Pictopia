@@ -7,7 +7,8 @@ import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserDto } from 'src/dto/user/user.dto';
 import { PicDto } from 'src/dto/pic/pic.dto';
 import { Pic } from 'src/schemas/pic.schema';
-import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
+import { UserSavedPictureDto } from 'src/dto/user/saved/user.saved.pictures.dto';
+import { UserFindDto } from 'src/dto/user/user.find.dto';
 
 @Injectable()
 export class SavedPicturesService {
@@ -31,12 +32,12 @@ export class SavedPicturesService {
       });
   }
 
-  async findUserAndPopulateSavedPics(_id: mongoose.Types.ObjectId,): Promise<ReturnFuncDto | Pic[] | Pic> {
-    return this.userModel.findOne({ _id: _id }).populate('savedPictures').then((result) => {
+  async findUserAndPopulateSavedPics( userFindDto: UserFindDto): Promise<ReturnFuncDto | Pic[] | Pic> {
+    return this.userModel.findOne({ username: userFindDto.username }).populate('savedPictures').then((result) => {
         if (!result) {
           return {
             success: false,
-            message: 'User cannot found by id',
+            message: 'User cannot found by name',
           };
         }
         return result.savedPictures;

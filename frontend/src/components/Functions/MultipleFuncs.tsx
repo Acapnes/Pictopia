@@ -11,7 +11,11 @@ export class MultiFuncs {
     }
   }
 
-  public static async TabChange(currentTabId: string,targetTabId: string,direction: boolean) {
+  public static async TabChange(
+    currentTabId: string,
+    targetTabId: string,
+    direction: boolean
+  ) {
     direction
       ? (document.getElementById(currentTabId)!.className =
           "transform -translate-x-8 transition opacity-0 duration-300 ease-in-out")
@@ -30,6 +34,16 @@ export class MultiFuncs {
   }
 
   public static async UrlParam() {
-    return await window.location.href.split("/")[window.location.href.split("/").length - 1];
+    return await window.location.href.split("/")[
+      window.location.href.split("/").length - 1
+    ];
+  }
+
+  public static ParamController(params: any[]) {
+    for (let i = 0; i < params.length; i++) {
+      if (params[i] === null || params[i] === "" || params[i] === " ")
+        return false;
+    }
+    return true;
   }
 }
