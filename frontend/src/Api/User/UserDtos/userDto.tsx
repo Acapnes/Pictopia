@@ -12,6 +12,18 @@ export interface UserDto {
     contentType: string;
   };
 
+  userSocials: {
+    instagram?: string;
+
+    github?: string;
+
+    steam?: string;
+
+    discord?: string;
+
+    linkedin?: string;
+  };
+
   birthDate: string;
 
   confrimed: boolean;

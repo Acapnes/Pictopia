@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { UserSocials } from './altSchemas/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 
@@ -31,6 +32,9 @@ export class User {
 
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Category', required: false })
   favCategories: Category[];
+  
+  @Prop({ type: Object, required: false })
+  userSocials: UserSocials;
 
   @Prop({ required: true })
   birthDate: string;

@@ -1,15 +1,36 @@
+import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { MultiFuncs } from "../Functions/MultipleFuncs";
 import { PrettyProfileIcon, PrettySmallArrowDown } from "./PrettyIcons";
 
-const PrettyPictureAuthorAvatar = (props: any) => {
+const PrettyPictureAuthorAvatar: React.FC<{ picture: PicDto }> = ({
+  picture,
+}) => {
   return (
-    <div
-      className={`w-[${props.size}] h-full flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[${props.size}]`}
-    >
-      <img
-        src={`data:${props?.picture?.authorPic?.avatar?.contentType};base64,${props?.picture?.authorPic?.avatar?.data}`}
-        alt=""
-        className={`rounded-full w-full h-full p-[0.12rem] min-w-[${props.size}]`}
-      />
+    <div>
+      {MultiFuncs.ParamController([
+        picture?.authorPic?.avatar?.contentType,
+        picture?.authorPic?.avatar?.data,
+      ]) ? (
+        <a href={"/user/"} className="rounded-full w-fit">
+          <div
+            className={`h-full w-[6rem] flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm`}
+          >
+            <img
+              src={`data:${picture?.authorPic?.avatar?.contentType};base64,${picture?.authorPic?.avatar?.data}`}
+              alt=""
+              className={`rounded-sm w-full h-full p-[0.12rem] max-w-[6rem]`}
+            />
+          </div>
+        </a>
+      ) : (
+        <a href={"/user/"} className="w-fit rounded-full">
+          <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] w-fit relative p-[0.2rem]">
+            <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
+              <PrettyProfileIcon size={32} fill={"white"} />
+            </div>
+          </div>
+        </a>
+      )}
     </div>
   );
 };

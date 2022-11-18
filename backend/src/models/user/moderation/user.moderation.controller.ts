@@ -13,14 +13,16 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
-import { UserSavedPictureDto } from 'src/dto/user/user.saved.update.dto';
+import { UserSavedPictureDto } from 'src/dto/user/saved/user.saved.pictures.dto';
 import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { UserCategoryDto } from 'src/dto/user/utils/user.category.dto';
+import { UserSocialsDto } from 'src/dto/user/utils/user.socials.dto';
 import { Category } from 'src/schemas/category.schema';
 import { Pic } from 'src/schemas/pic.schema';
 import { ModerationService } from './moderation.service';
 import { SavedPicturesService } from './saved.pictures.service';
 import { UserCategoryService } from './user.category.service';
+import { UserFindDto } from 'src/dto/user/user.find.dto';
 
 @Controller('user/profile')
 export class UserModerationController {
@@ -93,18 +95,14 @@ export class UserModerationController {
     return this.moderationService.fetchUserCredentialsWithToken(req.user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('/saved')
-  async getOneUser(@Request() req): Promise<ReturnFuncDto | Pic[] | Pic> {
-    return this.savedPicturesService.findUserAndPopulateSavedPics(req.user._id);
+  @Post('/saved')
+  async getOneUser(@Body() userFindDto: UserFindDto): Promise<ReturnFuncDto | Pic[] | Pic> {
+    return this.savedPicturesService.findUserAndPopulateSavedPics(userFindDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/saved/add')
-  async userSavePicture(
-    @Request() req,
-    @Body() userSavedPictureDto: UserSavedPictureDto,
-  ): Promise<ReturnAuthDto | ReturnFuncDto> {
+  async userSavePicture(@Request() req,@Body() userSavedPictureDto: UserSavedPictureDto): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.savedPicturesService.savePicture(
       req.user._id,
       userSavedPictureDto,
@@ -113,13 +111,19 @@ export class UserModerationController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/saved/remove')
-  async userRemoveSavedPicture(
-    @Request() req,
-    @Body() userSavedPictureDto: UserSavedPictureDto,
-  ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.savedPicturesService.removeSavedPicture(
-      req.user._id,
-      userSavedPictureDto,
-    );
+  async userRemoveSavedPicture(@Request() req,@Body() userSavedPictureDto: UserSavedPictureDto): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.savedPicturesService.removeSavedPicture(req.user._id,userSavedPictureDto);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/socials/update')
+  async userSocialsUpdate(@Request() req,@Body() userSocialsDto: UserSocialsDto): Promise<ReturnFuncDto> {
+    return this.moderationService.userUpdateSocials(req.user._id,userSocialsDto);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/socials')
+  async userFetchSocials(@Request() req): Promise<ReturnFuncDto | any> {
+    return this.moderationService.userFetchSocials(req.user._id);
   }
 }

@@ -262,9 +262,9 @@ const PrettyCheckIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={props.size}
-      height={props.size}
-      fill={props.fill}
+      width={props.size || 16}
+      height={props.size || 16}
+      fill={props.fill || "currentColor"}
       className="bi bi-check-lg"
       viewBox="0 0 16 16"
     >
@@ -288,17 +288,32 @@ const PrettyXIcon = (props: any) => {
   );
 };
 
-const PrettySquareAddIcon = () => {
+const PrettySquareFilledAddIcon = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      fill="rgb(71, 149, 255)"
+      width={props.size || 20}
+      height={props.size || 20}
+      fill={props.fill || "rgb(71, 149, 255)"}
       className="bi bi-plus-square-fill"
       viewBox="0 0 16 16"
     >
       <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+    </svg>
+  );
+};
+
+const PrettySquareAddIcon = (props: any) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.size || 20}
+      height={props.size || 20}
+      fill={props.fill || "rgb(71, 149, 255)"}
+      className={`bi bi-plus ${props.state && "rotate-45"}`}
+      viewBox="0 0 16 16"
+    >
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
     </svg>
   );
 };
@@ -337,8 +352,8 @@ const PrettySmallArrowDown = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
+      width={props.size || 16}
+      height={props.size || 16}
       fill="white"
       className="bi bi-caret-down-fill"
       viewBox="0 0 16 16"
@@ -502,5 +517,6 @@ export {
   PrettyErrorIcon,
   PrettySignIcon,
   PrettyCircleCheckIcon,
+  PrettySquareFilledAddIcon,
   PrettyShareIcon,
 };

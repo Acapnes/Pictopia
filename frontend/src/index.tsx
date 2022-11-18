@@ -9,7 +9,7 @@ import Register from "./User/Auth/Register";
 import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/Visit/User";
 import Profile from "./User/Moderation/Profile";
-import ProfileEdit from "./User/Moderation/ProfileMenus/ProfileEdit";
+import ProfileEdit from "./User/Moderation/ProfileMenus/Edit/ProfileEdit";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

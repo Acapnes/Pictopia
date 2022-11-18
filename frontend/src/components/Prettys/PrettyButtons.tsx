@@ -1,3 +1,4 @@
+import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { PrettyRotatingArrow } from "./PrettyComponents";
 import {
   PrettyAlertIcon,
@@ -15,14 +16,27 @@ import {
   PrettyXIcon,
 } from "./PrettyIcons";
 
-const PrettyShare = () => {
+const PrettyShare: React.FC<{ picture: PicDto }> = ({ picture }) => {
+  const sharePicture = async () => {
+    if (navigator.share) {
+      navigator.share({
+        text: `Hey look at this! \n ${picture?.title}`,
+        url: "",
+      });
+    }
+  };
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <PrettyShareIcon />
-      </span>
-    </div>
+    <button
+      onClick={() => sharePicture()}
+      className="rounded-md flex items-center"
+    >
+      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+        <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+          <PrettyShareIcon />
+        </span>
+      </div>
+    </button>
   );
 };
 
@@ -66,12 +80,14 @@ const PrettyCommentsButton = (props: any) => {
 
 const PrettyReportButton = () => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <PrettyAlertIcon size={16} />
-      </span>
-    </div>
+    <button className="rounded-md flex items-center">
+      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+        <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+          <PrettyAlertIcon size={16} />
+        </span>
+      </div>
+    </button>
   );
 };
 
@@ -90,7 +106,7 @@ const PrettySaveChanges = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
       <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-5 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
         <span className="text-white">Save</span>
       </span>
     </div>
@@ -172,7 +188,6 @@ const PrettyTrashButton = () => {
 };
 
 const PrettyProfileSelectionButton = (props: any) => {
-  // console.log(props.text,props.selectedTab);
   return (
     <div
       className={`relative min-w-[10rem] w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm`}

@@ -4,8 +4,8 @@ import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import Header from "../../Menus/Header";
 import ProfileSelections from "./components/ProfileSelections";
-import ProfileEdit from "./ProfileMenus/ProfileEdit";
-import ProfilePrivacy from "./ProfileMenus/ProfilePrivacy";
+import ProfileEdit from "./ProfileMenus/Edit/ProfileEdit";
+import ProfileSocial from "./ProfileMenus/Social/ProfileSocial";
 
 const Profile = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -20,17 +20,17 @@ const Profile = () => {
   useEffect(() => {
     initFetchCredentials();
   }, []);
-
+  
   return (
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
       {/* <ProfileAvatar user={userCredentials} /> */}
-      <div className="w-full h-full flex justify-center p-10">
-        <div className="w-[70rem] h-full flex flex-col lg:flex-row lg:space-x-5">
-        <ProfileSelections user={userCredentials} />
+      <div className="w-full h-full flex justify-center p-3">
+        <div className="w-[70rem] h-full flex flex-col">
+          <ProfileSelections user={userCredentials} />
           <div className="w-full h-full">
             {urlParam === "edit" && <ProfileEdit user={userCredentials} />}
-            {urlParam === "privacy" && <ProfilePrivacy />}
+            {urlParam === "privacy" && <ProfileSocial user={userCredentials}/>}
           </div>
         </div>
       </div>

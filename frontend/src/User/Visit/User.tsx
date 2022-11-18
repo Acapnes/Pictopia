@@ -4,17 +4,15 @@ import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import Header from "../../Menus/Header";
 import VisitUserAlbumGrid from "./components/VisitUserAlbumGrid";
-import VisitProfileAvatar from "./components/VisitProfileAvatar";
+import ProfileAvatar from "./components/VisitProfileAvatar";
 import VisitUserInfo from "./components/VisitUserInfo";
-import VisitUserLinks from "./components/VisitUserLinks";
+import UserSocials from "../components/UserSocialList";
 
 const User = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
 
   const setUserCredentials = async () => {
-    setUserVisitCredentials(
-      await UserAPI.VisitProfileFetchUser(await MultiFuncs.UrlParam())
-    );
+    setUserVisitCredentials(await UserAPI.VisitProfileFetchUser(await MultiFuncs.UrlParam()));
   };
   useEffect(() => {
     setUserCredentials();
@@ -23,16 +21,15 @@ const User = () => {
   return (
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
-      <div className="w-full h-full flex flex-col space-y-20">
-        {userVisitCredentials && (
+      {userVisitCredentials && (
+        <div className="w-full h-full flex flex-col space-y-20">
           <div className="w-full h-full flex flex-col space-y-3 items-center">
-            <VisitProfileAvatar userAvatar={userVisitCredentials} />
+            <ProfileAvatar userAvatar={userVisitCredentials} />
             <VisitUserInfo user={userVisitCredentials!} />
-            <VisitUserLinks user={userVisitCredentials!} />
           </div>
-        )}
-        <VisitUserAlbumGrid />
-      </div>
+          <VisitUserAlbumGrid user={userVisitCredentials!} />
+        </div>
+      )}
     </div>
   );
 };

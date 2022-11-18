@@ -136,12 +136,11 @@ export class UserAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async getSavedPicturesOfUser(access_token: string) {
-    if (!localStorage.getItem("access_token")) return;
-
-    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+  public static async getSavedPicturesOfUser(username: string) {
     return await axios
-      .get("http://localhost:3000/user/profile/saved")
+      .post("http://localhost:3000/user/profile/saved", {
+        username: username,
+      })
       .then((resp) => resp.data);
   }
 
