@@ -1,5 +1,5 @@
 import React from "react";
-import { PrettyCompassIcon } from "../../components/Prettys/PrettyIcons";
+import { PrettyCompassIcon } from "../../../../components/Prettys/PrettyIcons";
 
 const CurrentCategory = () => {
   return (

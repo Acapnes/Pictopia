@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { UserAPI } from "../../../Api/User/UserApi";
-import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
-import { PrettyPictureOptions } from "../../../components/Prettys/PrettyButtons";
+import { UserAPI } from "../../../../Api/User/UserApi";
+import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
+import { PrettyPictureOptions } from "../../../../components/Prettys/PrettyButtons";
 import {
   PrettyCameraIcon,
   PrettyCheckIcon,
   PrettyProfileIcon,
   PrettyTrashIcon,
   PrettyXIcon,
-} from "../../../components/Prettys/PrettyIcons";
-import CustomAlert from "../../../components/Views/CustomAlert";
+} from "../../../../components/Prettys/PrettyIcons";
+import CustomAlert from "../../../../components/Views/CustomAlert";
 
 const ProfileAvatar = (props: any) => {
   const [imageURL, setImageURL] = useState<any>("null");
@@ -76,15 +76,15 @@ const ProfileAvatar = (props: any) => {
         ) : (
           <div className="h-full flex justify-center items-center ">
             {changeAvatar ? (
-              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full shadow-lg p-[0.3rem] relative">
+              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.3rem] relative">
                 <img
                   src={`${imageURL}`}
                   alt=""
-                  className="object-contain rounded-full max-h-[30rem]"
+                  className="object-contain rounded-sm max-h-[30rem]"
                 />
               </div>
             ) : (
-              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[12rem] h-[12rem] relative p-[0.2rem]">
+              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[18rem] h-[18rem] relative p-[0.2rem]">
                 <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-sm">
                   <PrettyProfileIcon size={70} fill={"white"} />
                 </div>

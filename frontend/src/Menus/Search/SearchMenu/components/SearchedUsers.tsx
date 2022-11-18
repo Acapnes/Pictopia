@@ -1,15 +1,15 @@
-import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import {
   PrettyProfileIcon,
   PrettySignIcon,
-} from "../../components/Prettys/PrettyIcons";
+} from "../../../../components/Prettys/PrettyIcons";
 
 const SearchMenuUsersGrid = (props: any) => {
   return (
     <div className="flex justify-center max-h-[60vh] overflow-y-auto scrollbar-hide">
       <div className="grid grid-cols-1 gap-4 py-4 px-1 w-full">
         {props?.searchedUsers?.map((user: UserDto, userIndex: number) => (
-          <a href={`/user/${user._id}`}
+          <a href={`/user/${user.username}`}
             className="flex flex-row space-x-3 items-center group bg-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
             key={userIndex}
           >

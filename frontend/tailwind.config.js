@@ -9,6 +9,7 @@ module.exports = {
         "soft-black": "#171717",
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
+        "pretty-yellow":"#FCBA28"
       },
       screens: {
         "3xl": "1920px",

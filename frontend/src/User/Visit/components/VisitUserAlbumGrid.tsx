@@ -2,17 +2,11 @@ import { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 
-const VisitUserAlbumGrid = () => {
+const VisitUserAlbumGrid = (props: any) => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPics = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      setRespPics(
-        await UserAPI.getSavedPicturesOfUser(
-          window.localStorage.getItem("access_token")!
-        )
-      );
-    }
+    setRespPics(await UserAPI.getSavedPicturesOfUser(props?.user?.username));
   };
 
   useEffect(() => {

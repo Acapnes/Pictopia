@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { UserAPI } from "../../../Api/User/UserApi";
-import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
-import { PrettySaveChanges } from "../../../components/Prettys/PrettyButtons";
-import CustomToast from "../../../components/Views/CustomToast";
-import ProfileAvatar from "../components/ProfileAvatar";
+import { UserAPI } from "../../../../Api/User/UserApi";
+import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
+import { PrettySaveChanges } from "../../../../components/Prettys/PrettyButtons";
+import CustomToast from "../../../../components/Views/CustomToast";
+import ProfileAvatar from "./ProfileAvatar";
 
 const ProfileEdit = (props: any) => {
   const [inputUsername, setInputUsername] = useState("");

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { CommentAPI } from "../../../Api/Pic/CommentApi";
 import { CommentDto } from "../../../Api/Pic/PicDtos/commentDto";
+import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
@@ -13,14 +13,11 @@ import {
   PrettyShare,
 } from "../../../components/Prettys/PrettyButtons";
 import { PrettyPictureAuthorAvatar } from "../../../components/Prettys/PrettyComponents";
-import {
-  PrettyProfileIcon,
-  PrettyProfilePicture,
-} from "../../../components/Prettys/PrettyIcons";
+import { PrettyProfileIcon } from "../../../components/Prettys/PrettyIcons";
 import CustomToast from "../../../components/Views/CustomToast";
 import Comments from "../../Comments/Comments";
 
-const PictureDetailsCard = (props: any) => {
+const PictureDetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const [commentsStatus, setCommentsStatus] = useState(false);
   const [comments, setComments] = useState<CommentDto[]>([]);
 
@@ -30,11 +27,9 @@ const PictureDetailsCard = (props: any) => {
     useState<UserDto>(Object);
 
   const getCommentsById = async () => {
-    const urlParam =
-      window.location.href.split("/")[
-        window.location.href.split("/").length - 1
-      ];
-    setComments(await CommentAPI.getCommentsOfPicture(urlParam));
+    setComments(
+      await CommentAPI.getCommentsOfPicture(await MultiFuncs.UrlParam())
+    );
   };
 
   const postComment = async () => {
@@ -43,9 +38,9 @@ const PictureDetailsCard = (props: any) => {
         window.localStorage.getItem("access_token")!,
         {
           comment: newCommentsComment,
-          destPicture: props?.picture?._id,
+          destPicture: picture?._id,
         }
-      ).then(() => {});
+      ).then(() => getCommentsById());
     }
   };
 
@@ -62,19 +57,10 @@ const PictureDetailsCard = (props: any) => {
     if (window.localStorage.getItem("access_token")) {
       await UserAPI.savedPicturesToUserAlbum(
         window.localStorage.getItem("access_token")!,
-        props.picture
+        picture
       ).then((resp) => {
         setCustomToastResult(resp);
         MultiFuncs.AlertTimer("DetailsCustomToast", true);
-      });
-    }
-  };
-
-  const sharePicture = async () => {
-    if (navigator.share) {
-      navigator.share({
-        text: `Hey look at this! \n ${props?.picture?.title}`,
-        url: "",
       });
     }
   };
@@ -92,31 +78,10 @@ const PictureDetailsCard = (props: any) => {
 
       <div className="h-full flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
         <div className="flex flex-col space-y-2 w-full h-full">
-          {props?.picture?.authorPic?.avatar?.data ? (
-            <Link to={"/user/"} className="rounded-full w-fit">
-              <PrettyPictureAuthorAvatar
-                picture={props.picture}
-                size={"6rem"}
-              />
-            </Link>
-          ) : (
-            <Link to={"/user/"} className="w-fit rounded-full">
-              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] w-fit relative p-[0.2rem]">
-                <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
-                  <PrettyProfileIcon size={32} fill={"white"} />
-                </div>
-              </div>
-            </Link>
-          )}
-
-          <div className="w-full">
-            <p className="h-full font-bold text-2xl">{props.picture?.title}</p>
-          </div>
-
-          <div className="w-full h-fit flex flex-col py-3">
-            <div className="max-h-[35vh] break-all overflow-y-auto scrollbar-hide">
-              {props.picture.description}
-            </div>
+          <PrettyPictureAuthorAvatar picture={picture} />
+          <p className="w-fullh-full font-bold text-2xl">{picture?.title}</p>
+          <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide">
+            {picture.description}
           </div>
           <div className="h-fit w-full items-start ">
             <button onClick={() => setCommentsStatus(!commentsStatus)}>
@@ -127,7 +92,6 @@ const PictureDetailsCard = (props: any) => {
             </button>
           </div>
         </div>
-
         <div className="h-full flex flex-col justify-between items-end space-y-3">
           <button
             onClick={() => savePictureToAlbum()}
@@ -135,23 +99,18 @@ const PictureDetailsCard = (props: any) => {
           >
             <PrettySavePicture />
           </button>
-          <button
-            onClick={() => sharePicture()}
-            className="rounded-md flex items-center"
-          >
-            <PrettyShare />
-          </button>
-          <button className="rounded-md flex items-center">
-            <PrettyReportButton />
-          </button>
+          <PrettyShare picture={picture} />
+          <PrettyReportButton />
         </div>
       </div>
 
       <div className="bg-soft-black bg-opacity-95 px-5">
         <div className={`${commentsStatus ? "block" : "hidden"} `}>
           <div className="flex flex-row space-x-2">
-            {newCommentAuthorCredentials?.avatar?.data ||
-            newCommentAuthorCredentials?.avatar?.contentType ? (
+            {MultiFuncs.ParamController([
+              newCommentAuthorCredentials?.avatar?.data,
+              newCommentAuthorCredentials?.avatar?.contentType,
+            ]) ? (
               <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4.5rem] h-[4.5rem]">
                 <img
                   src={`data:${newCommentAuthorCredentials.avatar?.contentType};base64,${newCommentAuthorCredentials.avatar?.data}`}

@@ -3,7 +3,7 @@ import {
   PrettyProfilePicture,
 } from "../../../components/Prettys/PrettyIcons";
 
-const VisitProfileAvatar = (props: any) => {
+const ProfileAvatar = (props: any) => {
   return (
     <div className="w-full h-full flex justify-center">
       {props?.userAvatar?.avatar?.data ||
@@ -22,4 +22,4 @@ const VisitProfileAvatar = (props: any) => {
   );
 };
 
-export default VisitProfileAvatar;
+export default ProfileAvatar;

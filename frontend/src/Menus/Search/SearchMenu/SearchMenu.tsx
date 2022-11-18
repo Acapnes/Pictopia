@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { CategoryAPI } from "../../Api/User/CategoryApi";
-import { BackendReturnFuncDto } from "../../Api/UtilsDtos/backend.return.func.dto";
-import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
-import { Dndfuncs } from "../../components/Functions/Dndfuncs";
-import { PrettyHeaderExtendCategory } from "../../components/Prettys/PrettyComponents";
-import { HeaderCategoryAlert } from "../../components/Views/Alerts";
-import SearchMenuUsersGrid from "../Search/SearchedUsers";
+import { CategoryAPI } from "../../../Api/User/CategoryApi";
+import { BackendReturnFuncDto } from "../../../Api/UtilsDtos/backend.return.func.dto";
+import { CategoryDto } from "../../../Api/UtilsDtos/category.dto";
+import { Dndfuncs } from "../../../components/Functions/Dndfuncs";
+import { PrettyHeaderExtendCategory } from "../../../components/Prettys/PrettyComponents";
+import { HeaderCategoryAlert } from "../../../components/Views/Alerts";
+import SearchMenuUsersGrid from "./components/SearchedUsers";
 
-const CategoriesMenu = (props: any) => {
+const SearchMenu = (props: any) => {
   const [defaultSearchCategories, setDefaultSearchCategories] = useState<
     CategoryDto[]
   >([]);
@@ -115,4 +115,4 @@ const CategoriesMenu = (props: any) => {
   );
 };
 
-export default CategoriesMenu;
+export default SearchMenu;

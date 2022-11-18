@@ -8,7 +8,7 @@ import {
 const HeaderOptionsMenu = (props: any) => {
   return (
     <div
-      className={`absolute bottom-[3rem] lg:top-[2.5rem] -right-5 lg:right-0 z-20 rounded-sm`}
+      className={`absolute top-[2.5rem] -right-5 lg:right-0 z-20 rounded-sm `}
     >
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
@@ -36,7 +36,10 @@ const HeaderOptionsMenu = (props: any) => {
             <div className="my-3 px-4">
               <hr className="border-white" />
             </div>
-            <a href="/profile/edit" className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+            <a
+              href="/profile/edit"
+              className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-6 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30"
+            >
               <p className="my-2 text-gray-300 font-bold">Profile</p>
               <div>
                 <PrettyProfileIcon size={22} fill={"rgb(244,114,182)"} />

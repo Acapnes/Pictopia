@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  PrettyHelpIcon,
-  PrettyLogOut,
-  PrettyOptionsIcon,
-  PrettyProfileIcon,
-  PrettyWorldIcon,
-} from "../../components/Prettys/PrettyIcons";
+import { PrettyOptionsIcon } from "../../components/Prettys/PrettyIcons";
 import HeaderOptionsMenu from "./HeaderOptionsMenu";
 
 const HeaderOptions = (props: any) => {

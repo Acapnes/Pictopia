@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const user_socials_schema_1 = require("./altSchemas/user.socials.schema");
 let User = class User {
 };
 __decorate([
@@ -42,6 +43,10 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Category', required: false }),
     __metadata("design:type", Array)
 ], User.prototype, "favCategories", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    __metadata("design:type", user_socials_schema_1.UserSocials)
+], User.prototype, "userSocials", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)

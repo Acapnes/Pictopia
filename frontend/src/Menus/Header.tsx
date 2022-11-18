@@ -26,7 +26,7 @@ const Header = () => {
             <PrettyPictopia />
           </a>
           <SearchBar />
-          <div className="flex flex-row space-x-3">
+          <div className="flex flex-row space-x-3 ">
             <PrettyHeaderUploadPicture />
             <HeaderAccount userCredentials={userCredentials} />
             <HeaderOptions />

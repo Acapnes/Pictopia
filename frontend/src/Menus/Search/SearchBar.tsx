@@ -7,14 +7,16 @@ import {
 import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import LastSearchs from "./LastSearchs";
-import CategoriesMenu from "../Categories/CategoriesMenu";
-import CurrentCategory from "../Categories/CurrentCategory";
+import LastSearchs from "./SearchMenu/components/LastSearchs";
+import SearchMenu from "./SearchMenu/SearchMenu";
+import CurrentCategory from "./SearchMenu/components/CurrentCategory";
 
 const SearchBar = (props: any) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
-  const [searchedCategories, setFetchedSearchedCategories] = useState<CategoryDto[]>([]);
+  const [searchedCategories, setFetchedSearchedCategories] = useState<
+    CategoryDto[]
+  >([]);
   const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
 
   const fetchAndSetPicsAndUsers = async () => {
@@ -76,7 +78,7 @@ const SearchBar = (props: any) => {
                   <LastSearchs />
                 </div>
                 <div className="w-full h-full">
-                  <CategoriesMenu
+                  <SearchMenu
                     showSearchMenu={showSearchMenu}
                     searchedUsers={searchedUsers}
                     searchInputvalue={searchInputvalue}

@@ -44,14 +44,7 @@ const Comments = (props: any) => {
                   <span className="font-normal">{_comment?.comment}</span>
                 </div>
                 <div className="w-full flex justify-between ">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-                    {/* <button>
-                      <PrettyThumbsUpButton />
-                    </button>
-                    <button>
-                      <PrettyThumbsDownButton />
-                    </button> */}
-                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1"></div>
                   <button className="flex items-start">
                     <PrettyReply />
                   </button>

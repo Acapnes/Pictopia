@@ -8,7 +8,7 @@ import {
   PrettyTrashButton,
   PrettyUploadPicture,
 } from "../../components/Prettys/PrettyButtons";
-import { PrettySquareAddIcon } from "../../components/Prettys/PrettyIcons";
+import { PrettySquareFilledAddIcon } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 
 const UploadPic = () => {
@@ -115,7 +115,7 @@ const UploadPic = () => {
                             setHashtagArray([...hashtagArray, inputHashtag]);
                         }}
                       >
-                        <PrettySquareAddIcon />
+                        <PrettySquareFilledAddIcon />
                       </button>
                     </div>
                   </div>
