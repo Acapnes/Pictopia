@@ -22,25 +22,32 @@ let PicService = class PicService {
         this.picModel = picModel;
     }
     async findAll() {
-        return this.picModel.find({}).skip(Math.random() * 10).limit(30).populate("authorPic");
+        return this.picModel
+            .find({})
+            .skip(Math.random() * 10)
+            .limit(30)
+            .populate('authorPic');
     }
     async findAllActionless() {
-        return this.picModel.find({}).limit(20).skip(Math.random() * 4);
+        return this.picModel
+            .find({})
+            .limit(20)
+            .skip(Math.random() * 4);
     }
     async getPicById(id) {
-        return this.picModel.findOne({ _id: id }).populate("authorPic");
+        return this.picModel.findOne({ _id: id }).populate('authorPic');
     }
     async createPostWithImage(authorPicId, file, picCreateDto) {
         if (!picCreateDto.title) {
             return {
                 success: false,
-                message: "Title cannot be empty"
+                message: 'Title cannot be empty',
             };
         }
         if (!file) {
             return {
                 success: false,
-                message: "Picture cannot be empty"
+                message: 'Picture cannot be empty',
             };
         }
         const newImage = await new this.picModel(picCreateDto);
@@ -48,15 +55,15 @@ let PicService = class PicService {
         newImage.picture_file.data = file.buffer;
         newImage.picture_file.contentType = file.mimetype;
         await newImage.save();
-        if (!await this.getPicById(newImage._id)) {
+        if (!(await this.getPicById(newImage._id))) {
             return {
                 success: false,
-                message: "Something went wrong!"
+                message: 'Something went wrong!',
             };
         }
         return {
             success: true,
-            message: "Picture has been created"
+            message: 'Picture has been created',
         };
     }
 };

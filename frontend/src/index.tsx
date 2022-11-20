@@ -10,6 +10,7 @@ import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/Visit/User";
 import Profile from "./User/Moderation/Profile";
 import ProfileEdit from "./User/Moderation/ProfileMenus/Edit/ProfileEdit";
+import Test from "./Test";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -25,6 +26,7 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upload" element={<UploadPic />} />
+        <Route path="/test" element={<Test />} />
 
         <Route path="/profile/edit" element={<Profile />} />
         <Route path="/profile/privacy" element={<Profile />} />

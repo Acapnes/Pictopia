@@ -38,6 +38,6 @@ export class PicController {
   @UseInterceptors(FileInterceptor('picture'))
   async uploadImage(@UploadedFile() file, @Req() req, @Body() body): Promise<ReturnFuncDto>{
     return await this.picsService.createPostWithImage(req.user,file,body)
-  }
-  
+  }  
 }
+  

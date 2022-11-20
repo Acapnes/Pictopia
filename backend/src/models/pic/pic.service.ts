@@ -10,31 +10,41 @@ export class PicService {
   constructor(@InjectModel(Pic.name) private picModel: Model<PicDocument>) {}
 
   async findAll(): Promise<Pic[]> {
-    return this.picModel.find({}).skip(Math.random()*10).limit(30).populate("authorPic")
+    return this.picModel
+      .find({})
+      .skip(Math.random() * 10)
+      .limit(30)
+      .populate('authorPic');
   }
 
   async findAllActionless(): Promise<Pic[]> {
-    return this.picModel.find({}).limit(20).skip(Math.random()*4)
+    return this.picModel
+      .find({})
+      .limit(20)
+      .skip(Math.random() * 4);
   }
-
 
   async getPicById(id: any): Promise<Pic> {
-    return this.picModel.findOne({ _id: id }).populate("authorPic");
+    return this.picModel.findOne({ _id: id }).populate('authorPic');
   }
 
-  async createPostWithImage(authorPicId:mongoose.Types.ObjectId | any ,file : any, picCreateDto: PicCreateDto):Promise<ReturnFuncDto> {
-    if(!picCreateDto.title){
-      return{
-        success:false,
-        message:"Title cannot be empty"
-      }
+  async createPostWithImage(
+    authorPicId: mongoose.Types.ObjectId | any,
+    file: any,
+    picCreateDto: PicCreateDto,
+  ): Promise<ReturnFuncDto> {
+    if (!picCreateDto.title) {
+      return {
+        success: false,
+        message: 'Title cannot be empty',
+      };
     }
 
-    if(!file){
-      return{
-        success:false,
-        message:"Picture cannot be empty"
-      }
+    if (!file) {
+      return {
+        success: false,
+        message: 'Picture cannot be empty',
+      };
     }
 
     const newImage = await new this.picModel(picCreateDto);
@@ -42,19 +52,19 @@ export class PicService {
     newImage.authorPic = authorPicId._id;
     newImage.picture_file.data = file.buffer;
     newImage.picture_file.contentType = file.mimetype;
-    
-    await newImage.save()
 
-    if(!await this.getPicById(newImage._id)){
+    await newImage.save();
+
+    if (!(await this.getPicById(newImage._id))) {
       return {
-        success:false,
-        message:"Something went wrong!"
-      }
+        success: false,
+        message: 'Something went wrong!',
+      };
     }
 
     return {
-      success:true,
-      message:"Picture has been created"
-    }
+      success: true,
+      message: 'Picture has been created',
+    };
   }
 }
