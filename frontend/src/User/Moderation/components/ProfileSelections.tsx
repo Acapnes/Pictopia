@@ -1,6 +1,6 @@
 import { PrettyProfileSelectionButton } from "../../../components/Prettys/PrettyButtons";
 
-const ProfileSelections = (props: any) => {
+const ProfileSelections: React.FC<{}> = () => {
   return (
     <div className="h-full min-w-[15rem] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 pb-3">
       <a href="/profile/edit" className="rounded-sm">

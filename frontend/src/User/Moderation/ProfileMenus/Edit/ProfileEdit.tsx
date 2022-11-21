@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { UserAPI } from "../../../../Api/User/UserApi";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
 import { PrettySaveChanges } from "../../../../components/Prettys/PrettyButtons";
 import CustomToast from "../../../../components/Views/CustomToast";
 import ProfileAvatar from "./ProfileAvatar";
 
-const ProfileEdit = (props: any) => {
+const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputBirthDate, setInputBirthDate] = useState("");
@@ -17,10 +18,10 @@ const ProfileEdit = (props: any) => {
       await UserAPI.userEditProfile(
         window.localStorage.getItem("access_token")!,
         {
-          username: inputUsername || props?.user?.username,
-          name: inputName || props?.user?.name,
-          birthDate: inputBirthDate || props?.user?.birthDate,
-          bio: inputBio || props?.user?.bio,
+          username: inputUsername || user?.username,
+          name: inputName || user?.name,
+          birthDate: inputBirthDate || user?.birthDate,
+          bio: inputBio || user?.bio,
         }
       )
         .then((resp) => setSimpleUpdateResult(resp))
@@ -33,7 +34,7 @@ const ProfileEdit = (props: any) => {
       <div
         className={` grid grid-cols-1 gap-y-5 px-5 pb-[1rem] pt-[2rem] rounded-sm bg-soft-black`}
       >
-        <ProfileAvatar user={props?.user} />
+        <ProfileAvatar user={user} />
         <div className="space-y-2">
           <div className="text-center flex items-center">
             <p className="font-semibold text-gray-200">Username</p>
@@ -42,7 +43,7 @@ const ProfileEdit = (props: any) => {
             type="text"
             id="inputUsername"
             className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
-            placeholder={props?.user?.username}
+            placeholder={user?.username}
             onChange={(e) => setInputUsername(e.target.value)}
           />
         </div>
@@ -54,7 +55,7 @@ const ProfileEdit = (props: any) => {
             type="text"
             id="inputName"
             className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
-            placeholder={props?.user?.name}
+            placeholder={user?.name}
             onChange={(e) => setInputName(e.target.value)}
           />
         </div>
@@ -65,7 +66,7 @@ const ProfileEdit = (props: any) => {
           <input
             type="text"
             className="w-full px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800"
-            placeholder={props?.user?.birthDate}
+            placeholder={user?.birthDate}
             onChange={(e) => setInputBirthDate(e.target.value)}
           />
         </div>
@@ -75,7 +76,7 @@ const ProfileEdit = (props: any) => {
           </div>
           <textarea
             className="w-full h-full break-words px-5 py-4 outline-none bg-white shadow-xl rounded-sm text-gray-800 resize-none"
-            placeholder={props?.user?.bio}
+            placeholder={user?.bio}
             onChange={(e) => setInputBio(e.target.value)}
           />
         </div>

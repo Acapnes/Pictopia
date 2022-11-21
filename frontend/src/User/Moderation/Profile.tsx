@@ -7,7 +7,7 @@ import ProfileSelections from "./components/ProfileSelections";
 import ProfileEdit from "./ProfileMenus/Edit/ProfileEdit";
 import ProfileSocial from "./ProfileMenus/Social/ProfileSocial";
 
-const Profile = () => {
+const Profile: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
   const [urlParam, setUrlParam] = useState<string>();
 
@@ -20,17 +20,16 @@ const Profile = () => {
   useEffect(() => {
     initFetchCredentials();
   }, []);
-  
+
   return (
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
-      {/* <ProfileAvatar user={userCredentials} /> */}
       <div className="w-full h-full flex justify-center p-3">
         <div className="w-[70rem] h-full flex flex-col">
-          <ProfileSelections user={userCredentials} />
+          <ProfileSelections />
           <div className="w-full h-full">
             {urlParam === "edit" && <ProfileEdit user={userCredentials} />}
-            {urlParam === "privacy" && <ProfileSocial user={userCredentials}/>}
+            {urlParam === "privacy" && <ProfileSocial user={userCredentials} />}
           </div>
         </div>
       </div>

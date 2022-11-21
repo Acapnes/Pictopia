@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { UserAPI } from "../../../../Api/User/UserApi";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
 import { PrettyPictureOptions } from "../../../../components/Prettys/PrettyButtons";
 import {
@@ -11,7 +12,7 @@ import {
 } from "../../../../components/Prettys/PrettyIcons";
 import CustomAlert from "../../../../components/Views/CustomAlert";
 
-const ProfileAvatar = (props: any) => {
+const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [imageURL, setImageURL] = useState<any>("null");
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -57,7 +58,7 @@ const ProfileAvatar = (props: any) => {
   return (
     <div className="h-full max-h-[60vh] flex flex-col justify-center items-center space-y-5 relative">
       <div className=" relative">
-        {props?.user?.avatar?.data || props?.user?.avatar?.contentType ? (
+        {user?.avatar?.data || user?.avatar?.contentType ? (
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.15rem] relative">
             {changeAvatar ? (
               <img
@@ -67,7 +68,7 @@ const ProfileAvatar = (props: any) => {
               />
             ) : (
               <img
-                src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
+                src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
                 alt=""
                 className="object-contain rounded-sm max-h-[30rem]"
               />

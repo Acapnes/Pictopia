@@ -1,3 +1,5 @@
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+
 const PrettyEyeIcon = (props: any) => {
   return (
     <div className="flex items-center px-2">
@@ -64,10 +66,12 @@ const PrettySearchIcon = (props: any) => {
   );
 };
 
-const PrettyProfilePicture = (props: any) => {
+const PrettyProfilePicture: React.FC<{ userAvatar: UserDto["avatar"] }> = ({
+  userAvatar,
+}) => {
   return (
     <img
-      src={`data:${props?.user?.avatar?.contentType};base64,${props?.user?.avatar?.data}`}
+      src={`data:${userAvatar?.contentType};base64,${userAvatar?.data}`}
       alt=""
       className="rounded-sm w-full object-cover p-[0.15rem]"
     />

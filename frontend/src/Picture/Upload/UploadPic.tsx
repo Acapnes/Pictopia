@@ -11,7 +11,7 @@ import {
 import { PrettySquareFilledAddIcon } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 
-const UploadPic = () => {
+const UploadPic: React.FC<{}> = () => {
   const [hashtagArray, setHashtagArray] = useState<string[]>([]);
 
   const [inputTitle, setInputTitle] = useState("");

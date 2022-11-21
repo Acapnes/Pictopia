@@ -1,12 +1,13 @@
+import { CommentDto } from "../../Api/Pic/PicDtos/commentDto";
 import { PrettyReply } from "../../components/Prettys/PrettyButtons";
 import { PrettyProfileIcon } from "../../components/Prettys/PrettyIcons";
 
-const Comments = (props: any) => {
+const Comments: React.FC<{ comments: CommentDto[] }> = ({ comments }) => {
   return (
     <div className="w-full min-h-24 max-h-[22rem] overflow-auto py-2 scrollbar-hide text-gray-200">
-      {props?.comments.length ? (
+      {comments.length ? (
         <div className="w-full flex flex-col space-y-5">
-          {props?.comments?.map((_comment: any, _commentIndex: any) => (
+          {comments?.map((_comment: CommentDto, _commentIndex: any) => (
             <div
               key={_commentIndex}
               className="w-full h-full flex flex-row space-x-3 pr-2"

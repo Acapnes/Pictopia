@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import { CategoryAPI } from "../../../Api/User/CategoryApi";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { BackendReturnFuncDto } from "../../../Api/UtilsDtos/backend.return.func.dto";
 import { CategoryDto } from "../../../Api/UtilsDtos/category.dto";
 import { Dndfuncs } from "../../../components/Functions/Dndfuncs";
 import { PrettyHeaderExtendCategory } from "../../../components/Prettys/PrettyComponents";
 import { HeaderCategoryAlert } from "../../../components/Views/Alerts";
-import SearchMenuUsersGrid from "./components/SearchedUsers";
+import SearchMenuUsersGrid from "./Users/SearchedUsers";
 
-const SearchMenu = (props: any) => {
+const SearchMenu: React.FC<{
+  showSearchMenu: Boolean;
+  searchedUsers: UserDto[];
+  searchInputvalue: string | undefined;
+  searchedCategories: CategoryDto[];
+}> = ({
+  showSearchMenu,
+  searchedUsers,
+  searchInputvalue,
+  searchedCategories,
+}) => {
   const [defaultSearchCategories, setDefaultSearchCategories] = useState<
     CategoryDto[]
   >([]);
@@ -85,10 +96,10 @@ const SearchMenu = (props: any) => {
       </div>
 
       <div className="w-full">
-        {props?.searchInputvalue &&
-        props?.searchInputvalue.length > 0 &&
-        props?.searchedUsers.length > 0 ? (
-          <SearchMenuUsersGrid searchedUsers={props?.searchedUsers} />
+        {searchInputvalue &&
+        searchInputvalue.length > 0 &&
+        searchedUsers.length > 0 ? (
+          <SearchMenuUsersGrid searchedUsers={searchedUsers} />
         ) : (
           <div className="w-full max-h-[60vh] overflow-y-auto scrollbar-hide">
             <div className="flex justify-center">

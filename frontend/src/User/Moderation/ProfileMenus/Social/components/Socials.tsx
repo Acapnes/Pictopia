@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { UserDto } from "../../../../../Api/User/UserDtos/userDto";
 import {
   PrettySmallArrowDown,
   PrettySquareAddIcon,
 } from "../../../../../components/Prettys/PrettyIcons";
 import UserSocialList from "../../../../components/UserSocialList";
 
-const Socials = (props: any) => {
+const Socials: React.FC<{ user: UserDto }> = ({ user }) => {
   const [socialAddView, setSocialAddView] = useState(false);
   return (
     <div className="flex flex-col space-y-3">
@@ -39,19 +40,19 @@ const Socials = (props: any) => {
                 <p className="hover:bg-pretty-pink bg-opacity-0 duration-200 hover:bg-opacity-70">
                   Choose one
                 </p>
-                {!props?.user?.userSocials?.instagram && (
+                {!user?.userSocials?.instagram && (
                   <p className="hover:bg-pretty-pink bg-opacity-0 duration-200 hover:bg-opacity-70">
                     Instagram
                   </p>
                 )}
 
-                {!props?.user?.userSocials?.github && (
+                {!user?.userSocials?.github && (
                   <p className="hover:bg-pretty-pink bg-opacity-0 duration-200 hover:bg-opacity-70">
                     Github
                   </p>
                 )}
 
-                {!props?.user?.userSocials?.linkedin && (
+                {!user?.userSocials?.linkedin && (
                   <p className="hover:bg-pretty-pink bg-opacity-0 duration-200 hover:bg-opacity-70">
                     LinkedIn
                   </p>
@@ -61,7 +62,7 @@ const Socials = (props: any) => {
           </button>
         </div>
       )}
-      <UserSocialList user={props?.user} />
+      <UserSocialList user={user} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import Grid from "../Grids/Grid";
@@ -7,7 +7,7 @@ import PictureDetailsCard from "./Card/PictureDetailsCard";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import DetailPicture from "./Card/DetailPicture";
 
-const Details = () => {
+const Details: React.FC<{}> = () => {
   const [picture, setPicture] = useState<PicDto>(Object);
 
   const setFetchedPicture = async () => {

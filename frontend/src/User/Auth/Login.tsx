@@ -1,11 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import CustomAlert from "../../components/Views/CustomAlert";
 import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
 
-const Login = () => {
+const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -74,7 +74,11 @@ const Login = () => {
             </div>
 
             <div className="absolute -top-[6rem] md:-top-[6rem] lg:-top-[6rem] xl:-top-[6rem] 2xl:-top-[6rem] left-1/2  -translate-x-1/2 -translate-y-1/2 w-full flex items-center justify-center">
-              <img src="/pictopia_trans.png" alt="" className="rounded-sm h-fit" />
+              <img
+                src="/pictopia_trans.png"
+                alt=""
+                className="rounded-sm h-fit"
+              />
             </div>
           </div>
         </div>

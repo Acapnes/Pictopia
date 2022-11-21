@@ -7,7 +7,7 @@ import SearchBar from "./Search/SearchBar";
 import HeaderOptions from "./Options/HeaderOptions";
 import HeaderAccount from "./Account/HeaderAccount";
 
-const Header = () => {
+const Header: React.FC = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
 
   const initFetchCredentials = async () => {
@@ -28,7 +28,7 @@ const Header = () => {
           <SearchBar />
           <div className="flex flex-row space-x-3 ">
             <PrettyHeaderUploadPicture />
-            <HeaderAccount userCredentials={userCredentials} />
+            <HeaderAccount user={userCredentials} />
             <HeaderOptions />
           </div>
         </div>

@@ -5,7 +5,7 @@ import {
   PrettyWorldIcon,
 } from "../../components/Prettys/PrettyIcons";
 
-const HeaderOptionsMenu = (props: any) => {
+const HeaderOptionsMenu: React.FC<{}> = () => {
   return (
     <div
       className={`absolute top-[2.5rem] -right-5 lg:right-0 z-20 rounded-sm `}

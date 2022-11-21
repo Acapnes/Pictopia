@@ -5,7 +5,7 @@ import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
 
-const Register = () => {
+const Register: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");

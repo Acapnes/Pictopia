@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
 
-const VisitUserAlbumGrid = (props: any) => {
+const VisitUserAlbumGrid: React.FC<{ user: UserDto }> = ({ user }) => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPics = async () => {
-    setRespPics(await UserAPI.getSavedPicturesOfUser(props?.user?.username));
+    setRespPics(await UserAPI.getSavedPicturesOfUser(user?.username));
   };
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
 
-const ActionlessGrid = () => {
+const ActionlessGrid: React.FC<{}> = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPics = async () => {

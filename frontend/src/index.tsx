@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./index.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,8 +9,7 @@ import Register from "./User/Auth/Register";
 import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/Visit/User";
 import Profile from "./User/Moderation/Profile";
-import ProfileEdit from "./User/Moderation/ProfileMenus/Edit/ProfileEdit";
-import Test from "./Test";
+import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,20 +17,20 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="*" element={<App />} />
-        <Route path="/explore" element={<App />} />
-        <Route path="/detail/*" element={<Details />} />
-        <Route path="/user/*" element={<User />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/upload" element={<UploadPic />} />
-        <Route path="/test" element={<Test />} />
+      <Suspense fallback={<SuspenseVeiw />}>
+        <Routes>
+          <Route path="*" element={<App />} />
+          <Route path="/explore" element={<App />} />
+          <Route path="/detail/*" element={<Details />} />
+          <Route path="/user/*" element={<User />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/upload" element={<UploadPic />} />
 
-        <Route path="/profile/edit" element={<Profile />} />
-        <Route path="/profile/privacy" element={<Profile />} />
-
-      </Routes>
+          <Route path="/profile/edit" element={<Profile />} />
+          <Route path="/profile/privacy" element={<Profile />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   </React.StrictMode>
 );

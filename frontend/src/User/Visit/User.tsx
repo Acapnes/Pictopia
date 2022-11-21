@@ -6,13 +6,14 @@ import Header from "../../Menus/Header";
 import VisitUserAlbumGrid from "./components/VisitUserAlbumGrid";
 import ProfileAvatar from "./components/VisitProfileAvatar";
 import VisitUserInfo from "./components/VisitUserInfo";
-import UserSocials from "../components/UserSocialList";
 
-const User = () => {
+const User: React.FC<{}> = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
 
   const setUserCredentials = async () => {
-    setUserVisitCredentials(await UserAPI.VisitProfileFetchUser(await MultiFuncs.UrlParam()));
+    setUserVisitCredentials(
+      await UserAPI.VisitProfileFetchUser(await MultiFuncs.UrlParam())
+    );
   };
   useEffect(() => {
     setUserCredentials();
@@ -24,7 +25,7 @@ const User = () => {
       {userVisitCredentials && (
         <div className="w-full h-full flex flex-col space-y-20">
           <div className="w-full h-full flex flex-col space-y-3 items-center">
-            <ProfileAvatar userAvatar={userVisitCredentials} />
+            <ProfileAvatar userAvatar={userVisitCredentials["avatar"]} />
             <VisitUserInfo user={userVisitCredentials!} />
           </div>
           <VisitUserAlbumGrid user={userVisitCredentials!} />

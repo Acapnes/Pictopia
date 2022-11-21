@@ -24,6 +24,8 @@ export interface UserDto {
     linkedin?: string;
   };
 
+  savedPictures: string[];
+
   birthDate: string;
 
   confrimed: boolean;

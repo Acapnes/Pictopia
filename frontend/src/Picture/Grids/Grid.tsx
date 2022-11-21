@@ -4,7 +4,7 @@ import { PicAPI } from "../../Api/Pic/PicApi";
 import GridMenu from "./components/GridMenu";
 import Notfound from "../../components/Views/NotFound";
 
-const Grid = () => {
+const Grid: React.FC<{}> = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
   const fetchAndSetPics = async () => {
@@ -34,7 +34,7 @@ const Grid = () => {
           ))}
         </div>
       ) : (
-        <Notfound/>
+        <Notfound />
       )}
     </div>
   );

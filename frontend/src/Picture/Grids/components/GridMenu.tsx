@@ -1,8 +1,8 @@
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 
-const GridMenu = (props: PicDto | any) => {
+const GridMenu: React.FC<{ pic: PicDto }> = ({ pic }) => {
   return (
-    <a href={`/detail/${props.pic._id}`}>
+    <a href={`/detail/${pic?._id}`}>
       <div
         className="absolute bottom-0 w-full h-full transition-all duration-300 ease-in-out border-[3px]
        border-pretty-rough-pink border-opacity-95 bg-soft-black text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-50
@@ -13,7 +13,7 @@ const GridMenu = (props: PicDto | any) => {
             <div className="flex flex-col space-y-[0.35rem] w-fit h-fit ">
               <div className="w-[3rem] h-full flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full">
                 <img
-                  src={`data:${props.pic.authorPic.avatar.contentType};base64,${props.pic.authorPic.avatar.data}`}
+                  src={`data:${pic?.authorPic.avatar.contentType};base64,${pic?.authorPic.avatar.data}`}
                   alt=""
                   className="rounded-full w-full h-full p-[0.15rem]"
                 />
@@ -22,7 +22,7 @@ const GridMenu = (props: PicDto | any) => {
 
             <div className="w-full ml-[0.15rem]">
               <p className="truncate break-all font-bold text-white">
-                {props.pic.title}
+                {pic?.title}
               </p>
             </div>
           </div>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PrettyOptionsIcon } from "../../components/Prettys/PrettyIcons";
 import HeaderOptionsMenu from "./HeaderOptionsMenu";
 
-const HeaderOptions = (props: any) => {
+const HeaderOptions: React.FC<{}> = () => {
   const [showSettings, setShowSettings] = useState(false);
 
   return (

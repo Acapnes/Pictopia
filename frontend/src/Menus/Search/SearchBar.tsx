@@ -9,9 +9,9 @@ import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
 import LastSearchs from "./SearchMenu/components/LastSearchs";
 import SearchMenu from "./SearchMenu/SearchMenu";
-import CurrentCategory from "./SearchMenu/components/CurrentCategory";
+import CurrentCategory from "./SearchMenu/Category/CurrentCategory";
 
-const SearchBar = (props: any) => {
+const SearchBar: React.FC<{}> = () => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
   const [searchedCategories, setFetchedSearchedCategories] = useState<
