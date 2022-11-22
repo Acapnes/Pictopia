@@ -6,6 +6,7 @@ import Header from "../../Menus/Header";
 import VisitUserAlbumGrid from "./components/VisitUserAlbumGrid";
 import ProfileAvatar from "./components/VisitProfileAvatar";
 import VisitUserInfo from "./components/VisitUserInfo";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
 
 const User: React.FC<{}> = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();

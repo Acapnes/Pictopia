@@ -85,10 +85,7 @@ export class UserAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async userEditProfile(
-    access_token: string,
-    userSimpleUpdateDto: UserSimpleUpdateDto
-  ) {
+  public static async userEditProfile(access_token: string, userSimpleUpdateDto: UserSimpleUpdateDto) {
     const resp = await fetch(
       "http://localhost:3000/user/profile/update/simple",
       {

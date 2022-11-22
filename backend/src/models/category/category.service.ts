@@ -6,19 +6,19 @@ import { Category, CategoryDocument } from 'src/schemas/category.schema';
 
 @Injectable()
 export class CategoryService {
+  constructor(
+    @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>,
+  ) {}
 
-  constructor(@InjectModel(Category.name) private categoryModel: Model<CategoryDocument>) {}
-
-  async findAll():Promise<Category[]>{
+  async findAll(): Promise<Category[]> {
     return this.categoryModel.find({});
   }
 
-  async createCategory(file, categoryCreationDto: CategoryCreationDto) {
+  async createCategory(file: any, categoryCreationDto: CategoryCreationDto) {
     const newCategory = await new this.categoryModel(categoryCreationDto);
     newCategory.category_picture_file.data = file.buffer;
     newCategory.category_picture_file.contentType = file.mimetype;
 
     return newCategory.save();
   }
-
 }

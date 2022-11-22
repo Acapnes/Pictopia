@@ -12,7 +12,8 @@ import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 
 @Injectable()
-export class AuthService {constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService) {}
+export class AuthService {constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,
+  private userService: UserService) {}
 
   async createUser(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto> {
     const checkEmail = await this.userService.findByEmail(userRegistrationDto.email) as ReturnFuncDto;

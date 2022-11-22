@@ -70,6 +70,12 @@ export class UserModerationController {
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Get('/category/devided')
+  async getAllCategoriesByDevidedUserFavorites(@Request() req): Promise<ReturnFuncDto | Category[] | Category> {
+    return this.userCategoryService.getAllCategoriesByDevidedUserFavorites(req.user._id);
+  }
+  
+  @UseGuards(AuthGuard('jwt'))
   @Post('/category/add')
   async setFavoriteCategory(
     @Request() req,

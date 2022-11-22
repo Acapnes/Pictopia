@@ -28,12 +28,6 @@ let PicService = class PicService {
             .limit(30)
             .populate('authorPic');
     }
-    async findAllActionless() {
-        return this.picModel
-            .find({})
-            .limit(20)
-            .skip(Math.random() * 4);
-    }
     async getPicById(id) {
         return this.picModel.findOne({ _id: id }).populate('authorPic');
     }

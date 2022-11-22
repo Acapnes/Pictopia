@@ -4,15 +4,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserService } from '../user.service';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { Category } from 'src/schemas/category.schema';
+import { Category, CategoryDocument } from 'src/schemas/category.schema';
 import { UserCategoryDto } from 'src/dto/user/utils/user.category.dto';
+import { CategoryService } from 'src/models/category/category.service';
 
 @Injectable()
 export class UserCategoryService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private userService: UserService,
-  ) {}
+    private categoryService: CategoryService
+    ) {}
 
   async findUsersFavoritedCategory(_id: mongoose.Types.ObjectId,userCategoryDto: UserCategoryDto): Promise<ReturnFuncDto> {
     return this.userModel.findOne({ _id: _id, favCategories: userCategoryDto.category_id })
@@ -40,6 +42,13 @@ export class UserCategoryService {
         }
         return result.favCategories;
       });
+  }
+
+  async getAllCategoriesByDevidedUserFavorites(_id: mongoose.Types.ObjectId) {
+    let allCategories = await this.categoryService.findAll();
+    return await this.findUserAndPopulateFavCategories(_id).then((favoriteCategories: Category[]) => {
+      return allCategories.filter((allCategory) => !favoriteCategories.some((favoriteCategory) => favoriteCategory.title === allCategory.title));
+    })
   }
 
   async setFavorieCategory(_id: mongoose.Types.ObjectId,userCategoryDto: UserCategoryDto): Promise<ReturnFuncDto> {

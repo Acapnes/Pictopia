@@ -7,7 +7,7 @@ import {
 const ProfileAvatar: React.FC<{ userAvatar: UserDto["avatar"] }> = ({
   userAvatar,
 }) => {
-  console.log(userAvatar);
+
   return (
     <div className="w-full h-full flex justify-center">
       {userAvatar?.data || userAvatar?.contentType ? (

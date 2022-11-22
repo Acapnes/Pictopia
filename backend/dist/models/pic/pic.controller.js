@@ -24,9 +24,6 @@ let PicController = class PicController {
     async getPics() {
         return this.picsService.findAll();
     }
-    async getPicsActionless() {
-        return this.picsService.findAll();
-    }
     async getPrettyPicById(res, req, id) {
         const picture = await this.picsService.getPicById(id);
         res.setHeader('Content-type', picture.picture_file.contentType);
@@ -45,12 +42,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPics", null);
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], PicController.prototype, "getPicsActionless", null);
 __decorate([
     (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),

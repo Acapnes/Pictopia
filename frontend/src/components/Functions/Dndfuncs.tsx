@@ -1,5 +1,5 @@
 import { CategoryAPI } from "../../Api/User/CategoryApi";
-import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
+import { CategoryDto } from "../../Api/Pic/PicDtos/category.dto";
 import { MultiFuncs } from "./MultipleFuncs";
 
 export class Dndfuncs {
@@ -16,14 +16,7 @@ export class Dndfuncs {
     e.preventDefault();
   }
 
-  public static async OnCaregoryDrop(
-    e: any,
-    setFavoriteCategories: any,
-    favoriteCategories: any,
-    defaultSearchCategories: any,
-    setCategoryAlertStatus: any,
-    categoryAlertDivId: any
-  ) {
+  public static async OnCaregoryDrop(e: any,setFavoriteCategories: any,favoriteCategories: any,defaultSearchCategories: any,setCategoryAlertStatus: any,categoryAlertDivId: any) {
     const category = JSON.parse(
       await e.dataTransfer.getData("category")
     ) as CategoryDto;
@@ -37,7 +30,7 @@ export class Dndfuncs {
         return;
       }
       setCategoryAlertStatus(resp);
-      return MultiFuncs.AlertTimer(categoryAlertDivId,true);
+      return MultiFuncs.AlertTimer(categoryAlertDivId, true);
     });
   }
 }

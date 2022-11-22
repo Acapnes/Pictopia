@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { CategoryAPI } from "../../../Api/User/CategoryApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { BackendReturnFuncDto } from "../../../Api/UtilsDtos/backend.return.func.dto";
-import { CategoryDto } from "../../../Api/UtilsDtos/category.dto";
+import { ReturnFuncDto } from "../../../Api/UtilsDtos/ReturnFuncDto";
+import { CategoryDto } from "../../../Api/Pic/PicDtos/category.dto";
 import { Dndfuncs } from "../../../components/Functions/Dndfuncs";
 import { PrettyHeaderExtendCategory } from "../../../components/Prettys/PrettyComponents";
 import { HeaderCategoryAlert } from "../../../components/Views/Alerts";
@@ -19,24 +19,18 @@ const SearchMenu: React.FC<{
   searchInputvalue,
   searchedCategories,
 }) => {
-  const [defaultSearchCategories, setDefaultSearchCategories] = useState<
-    CategoryDto[]
-  >([]);
-  const [favoriteCategories, setFavoriteCategories] = useState<CategoryDto[]>(
-    []
-  );
-  const [categoryAlert, setCategoryAlert] =
-    useState<BackendReturnFuncDto>(Object);
+  const [defaultSearchCategories, setDefaultSearchCategories] = useState<CategoryDto[]>([]);
+  const [favoriteCategories, setFavoriteCategories] = useState<CategoryDto[]>([]);
+  const [categoryAlert, setCategoryAlert] = useState<ReturnFuncDto>(Object);
 
   const FetchCategories = async () => {
+    window.localStorage.getItem("access_token");
     if (window.localStorage.getItem("access_token")) {
-      setFavoriteCategories(
-        await CategoryAPI.getUserFavoriteCategories(
-          window.localStorage.getItem("access_token")!
-        )
-      );
+      setFavoriteCategories(await CategoryAPI.getUserFavoriteCategories(window.localStorage.getItem("access_token")!));
+      setDefaultSearchCategories(await CategoryAPI.getAllCategoriesByDevidedUserFavorites(window.localStorage.getItem("access_token")!));
+    } else {
+      setDefaultSearchCategories(await CategoryAPI.getAllCategories());
     }
-    setDefaultSearchCategories(await CategoryAPI.getAllCategories());
   };
 
   useEffect(() => {

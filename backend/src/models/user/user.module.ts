@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtStrategy } from 'src/helpers/AuthGuards/jwt.strategy';
+import { Category, CategorySchema } from 'src/schemas/category.schema';
 import { User, UserSchema } from 'src/schemas/user.schema';
+import { CategoryService } from '../category/category.service';
 import { AuthService } from './auth/auth.service';
 import { UserAuthController } from './auth/user.auth.controller';
 import { ModerationService } from './moderation/moderation.service';
@@ -18,8 +20,9 @@ import { UserService } from './user.service';
       secret: 'super-jwt-secret-key',
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
   ],
   controllers: [UserController,UserAuthController,UserModerationController],
-  providers: [UserService, JwtStrategy, AuthService, ModerationService,SavedPicturesService,UserCategoryService],
+  providers: [UserService, JwtStrategy, AuthService, ModerationService,SavedPicturesService,UserCategoryService,CategoryService],
 })
 export class UserModule {}

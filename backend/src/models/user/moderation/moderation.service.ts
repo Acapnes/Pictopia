@@ -134,9 +134,7 @@ export class ModerationService {
       if (funcResult.success !== false) {
         return await this.userModel.findOneAndUpdate(
             { _id: _id },
-            {
-              userSocials: userSocialsDto,
-            },
+            {$set: {userSocials: userSocialsDto}}
           )
           .then(async () => {
             return {

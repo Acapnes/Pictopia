@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
 import { PicDto } from "./PicDtos/picDto";
 import { UploadPicDto } from "./PicDtos/uploadPicDto";
 
@@ -13,7 +14,7 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async uploadPicture(uploadPicDto: UploadPicDto, access_token: string) {
+  public static async uploadPicture(uploadPicDto: UploadPicDto, access_token: string):Promise<ReturnFuncDto> {
     if (!uploadPicDto.title) {
       return {
         success: false,

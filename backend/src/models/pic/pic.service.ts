@@ -17,22 +17,11 @@ export class PicService {
       .populate('authorPic');
   }
 
-  async findAllActionless(): Promise<Pic[]> {
-    return this.picModel
-      .find({})
-      .limit(20)
-      .skip(Math.random() * 4);
-  }
-
   async getPicById(id: any): Promise<Pic> {
     return this.picModel.findOne({ _id: id }).populate('authorPic');
   }
 
-  async createPostWithImage(
-    authorPicId: mongoose.Types.ObjectId | any,
-    file: any,
-    picCreateDto: PicCreateDto,
-  ): Promise<ReturnFuncDto> {
+  async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any,file: any,picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
     if (!picCreateDto.title) {
       return {
         success: false,

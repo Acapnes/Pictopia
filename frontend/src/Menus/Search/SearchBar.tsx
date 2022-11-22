@@ -4,7 +4,7 @@ import {
   PrettySearchIcon,
   PrettySmallArrowUpIcon,
 } from "../../components/Prettys/PrettyIcons";
-import { CategoryDto } from "../../Api/UtilsDtos/category.dto";
+import { CategoryDto } from "../../Api/Pic/PicDtos/category.dto";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
 import LastSearchs from "./SearchMenu/components/LastSearchs";

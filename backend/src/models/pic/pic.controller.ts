@@ -10,14 +10,8 @@ import { PicService } from './pic.service';
 export class PicController {
   constructor(private readonly picsService: PicService) {}
 
-
   @Get()
   async getPics(): Promise<Pic[]> {
-    return this.picsService.findAll();
-  }
-
-  @Get()
-  async getPicsActionless(): Promise<Pic[]> {
     return this.picsService.findAll();
   }
 
