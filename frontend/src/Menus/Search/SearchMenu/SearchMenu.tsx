@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { CategoryAPI } from "../../../Api/User/CategoryApi";
+import { CategoryAPI } from "../../../Api/Category/CategoryApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { ReturnFuncDto } from "../../../Api/UtilsDtos/ReturnFuncDto";
-import { CategoryDto } from "../../../Api/Pic/PicDtos/category.dto";
+import { CategoryDto } from "../../../Api/Category/CategoryDtos/category.dto";
 import { Dndfuncs } from "../../../components/Functions/Dndfuncs";
 import { PrettyHeaderExtendCategory } from "../../../components/Prettys/PrettyComponents";
 import { HeaderCategoryAlert } from "../../../components/Views/Alerts";
@@ -68,7 +68,7 @@ const SearchMenu: React.FC<{
                   (category: CategoryDto, categoryIndex: any) => (
                     <button
                       key={categoryIndex}
-                      className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem]"
+                      className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem] min-w-[8rem]"
                     >
                       <img
                         src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
