@@ -11,18 +11,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicCreateDto = void 0;
 const class_validator_1 = require("class-validator");
-const user_dto_1 = require("../user/user.dto");
+const user_schema_1 = require("../../schemas/user.schema");
 class PicCreateDto {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", user_dto_1.UserDto)
+    (0, class_validator_1.IsMongoId)(),
+    __metadata("design:type", user_schema_1.User)
 ], PicCreateDto.prototype, "authorPic", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], PicCreateDto.prototype, "categories", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], PicCreateDto.prototype, "title", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], PicCreateDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], PicCreateDto.prototype, "hashTags", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsObject)(),

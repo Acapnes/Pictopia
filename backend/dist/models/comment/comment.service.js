@@ -26,8 +26,11 @@ let CommentService = class CommentService {
     async findAll() {
         return this.commentModel.find({});
     }
-    async findCommentByMongooseId(_id) {
-        return (await this.commentModel.find({ destPicture: _id }).populate('author')).reverse();
+    async findCommentByMongooseId(destPicture) {
+        return (await this.commentModel.find({ destPicture: destPicture }).populate('author')).reverse();
+    }
+    async getCommentReplies(_id) {
+        return (await this.commentModel.find({ parentId: _id }).populate('author')).reverse();
     }
     async signComment(_id, commentCreateDto) {
         if (!commentCreateDto.comment || !commentCreateDto.destPicture) {
@@ -58,6 +61,39 @@ let CommentService = class CommentService {
             return {
                 success: true,
                 message: 'New comment has been added.',
+            };
+        });
+    }
+    async signReply(_id, commentCreateDto) {
+        if (!commentCreateDto.comment || !commentCreateDto.destPicture || !commentCreateDto.parentId) {
+            return {
+                success: false,
+                message: 'Comment, Destination Picture, Comment Id cannot be empty',
+            };
+        }
+        return await this.picService.getPicById(commentCreateDto.destPicture)
+            .then(async (resp) => {
+            if (!resp) {
+                return {
+                    success: false,
+                    message: 'Destination Picture cannot found.',
+                };
+            }
+            const newComment = await this.commentModel.create({
+                author: _id,
+                destPicture: commentCreateDto.destPicture,
+                parentId: commentCreateDto.parentId,
+                comment: commentCreateDto.comment,
+            });
+            if (!this.findCommentByMongooseId(newComment._id)) {
+                return {
+                    success: false,
+                    message: 'Something went wrong, could not add reply.',
+                };
+            }
+            return {
+                success: true,
+                message: 'New reply has been added.',
             };
         });
     }

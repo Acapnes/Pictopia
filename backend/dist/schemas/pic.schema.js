@@ -20,6 +20,14 @@ __decorate([
     __metadata("design:type", user_schema_1.User)
 ], Pic.prototype, "authorPic", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({
+        type: [mongoose_2.default.Schema.Types.ObjectId],
+        ref: 'Category',
+        required: true,
+    }),
+    __metadata("design:type", Array)
+], Pic.prototype, "categories", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Pic.prototype, "title", void 0);
@@ -28,7 +36,15 @@ __decorate([
     __metadata("design:type", String)
 ], Pic.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: Object, required: true, default: { data: null, contentType: null } }),
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Array)
+], Pic.prototype, "hashTags", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        type: Object,
+        required: true,
+        default: { data: null, contentType: null },
+    }),
     __metadata("design:type", Object)
 ], Pic.prototype, "picture_file", void 0);
 Pic = __decorate([

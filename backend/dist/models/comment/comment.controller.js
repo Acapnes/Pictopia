@@ -27,8 +27,14 @@ let CommentController = class CommentController {
     async getCommentsById(_id) {
         return this.commentsService.findCommentByMongooseId(_id);
     }
+    async getCommentsReply(destPicture) {
+        return this.commentsService.getCommentReplies(destPicture);
+    }
     async commentCreate(req, commentCreateDto) {
         return this.commentsService.signComment(req.user, commentCreateDto);
+    }
+    async commentReplyCreate(req, commentCreateDto) {
+        return this.commentsService.signReply(req.user, commentCreateDto);
     }
 };
 __decorate([
@@ -45,6 +51,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommentController.prototype, "getCommentsById", null);
 __decorate([
+    (0, common_1.Get)('/replyof/:_id'),
+    __param(0, (0, common_1.Param)('_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CommentController.prototype, "getCommentsReply", null);
+__decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Post)('/create'),
     __param(0, (0, common_1.Request)()),
@@ -53,6 +66,15 @@ __decorate([
     __metadata("design:paramtypes", [Object, comment_create_dto_1.CommentCreateDto]),
     __metadata("design:returntype", Promise)
 ], CommentController.prototype, "commentCreate", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/create/reply'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, comment_create_dto_1.CommentCreateDto]),
+    __metadata("design:returntype", Promise)
+], CommentController.prototype, "commentReplyCreate", null);
 CommentController = __decorate([
     (0, common_1.Controller)('/comments'),
     __metadata("design:paramtypes", [comment_service_1.CommentService])

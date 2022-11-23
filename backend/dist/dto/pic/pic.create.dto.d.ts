@@ -1,9 +1,12 @@
 /// <reference types="node" />
-import { UserDto } from '../user/user.dto';
+import { Category } from 'src/schemas/category.schema';
+import { User } from 'src/schemas/user.schema';
 export declare class PicCreateDto {
-    authorPic: UserDto;
+    authorPic: User;
+    categories: Category[];
     title: string;
     description: string;
+    hashTags: string[];
     picture_file: {
         data: Buffer;
         contentType: string;

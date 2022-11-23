@@ -25,6 +25,14 @@ __decorate([
     __metadata("design:type", pic_schema_1.Pic)
 ], Comment.prototype, "destPicture", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({
+        required: false,
+        type: mongoose_2.default.Schema.Types.ObjectId,
+        ref: 'Comment',
+    }),
+    __metadata("design:type", String)
+], Comment.prototype, "parentId", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Comment.prototype, "comment", void 0);

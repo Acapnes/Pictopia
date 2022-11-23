@@ -8,6 +8,8 @@ export declare class CommentService {
     private picService;
     constructor(commentModel: Model<CommentDocument>, picService: PicService);
     findAll(): Promise<Comment[]>;
-    findCommentByMongooseId(_id: mongoose.Types.ObjectId): Promise<Comment[]>;
+    findCommentByMongooseId(destPicture: mongoose.Types.ObjectId): Promise<Comment[]>;
+    getCommentReplies(_id: mongoose.Types.ObjectId): Promise<Comment[]>;
     signComment(_id: mongoose.Types.ObjectId | any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
+    signReply(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
 }

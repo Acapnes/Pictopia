@@ -7,5 +7,7 @@ export declare class CommentController {
     constructor(commentsService: CommentService);
     getAllComments(): Promise<Comment[]>;
     getCommentsById(_id: any): Promise<Comment[]>;
+    getCommentsReply(destPicture: any): Promise<Comment[]>;
     commentCreate(req: any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
+    commentReplyCreate(req: any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
 }
