@@ -13,6 +13,13 @@ export class Comment {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Pic' })
   destPicture: Pic;
 
+  @Prop({
+    required: false,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Comment',
+  })
+  parentId: string;
+
   @Prop({ required: true })
   comment: string;
 }

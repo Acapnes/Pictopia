@@ -1,15 +1,34 @@
-import { IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
-import { UserDto } from '../user/user.dto';
+import {
+  IsArray,
+  IsMongoId,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { Category } from 'src/schemas/category.schema';
+import { User } from 'src/schemas/user.schema';
 
 export class PicCreateDto {
   @IsNotEmpty()
-  authorPic: UserDto;
+  @IsMongoId()
+  authorPic: User;
+
+  @IsNotEmpty()
+  @IsArray()
+  categories: Category[];
 
   @IsNotEmpty()
   @IsString()
   title: string;
 
+  @IsOptional()
+  @IsString()
   description: string;
+
+  @IsOptional()
+  @IsArray()
+  hashTags: string[];
 
   @IsNotEmpty()
   @IsObject()
