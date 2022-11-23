@@ -1,4 +1,8 @@
+import { ReactNode } from "react";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { UserAPI } from "../../Api/User/UserApi";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
+import { MultiFuncs } from "../Functions/MultipleFuncs";
 import { PrettyRotatingArrow } from "./PrettyComponents";
 import {
   PrettyAlertIcon,
@@ -13,8 +17,29 @@ import {
   PrettyThumbsUpIcon,
   PrettyTrashIcon,
   PrettyUploadIcon,
-  PrettyXIcon,
 } from "./PrettyIcons";
+
+const PrettyRainbow: React.FC<{ children: ReactNode; rounded?: any }> = ({
+  children,
+  rounded,
+}) => {
+  return (
+    <div
+      className={`relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group ${
+        rounded ? "rounded-md" : "rounded-sm"
+      }`}
+    >
+      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+      <span
+        className={`relative px-3 py-2 transition-all ease-out bg-gray-900 group-hover:bg-opacity-0 duration-400 ${
+          rounded ? "rounded-md" : "rounded-sm"
+        }`}
+      >
+        {children}
+      </span>
+    </div>
+  );
+};
 
 const PrettyShare: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const sharePicture = async () => {
@@ -30,86 +55,84 @@ const PrettyShare: React.FC<{ picture: PicDto }> = ({ picture }) => {
       onClick={() => sharePicture()}
       className="rounded-md flex items-center"
     >
-      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-        <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-          <PrettyShareIcon />
-        </span>
-      </div>
+      <PrettyRainbow rounded>
+        <PrettyShareIcon />
+      </PrettyRainbow>
     </button>
   );
 };
 
-const PrettySavePicture = () => {
+const PrettySavePicture: React.FC<{
+  picture: PicDto;
+  setCustomToastResult: React.Dispatch<
+    React.SetStateAction<ReturnFuncDto | undefined>
+  >;
+}> = ({ picture, setCustomToastResult }) => {
+  const savePictureToAlbum = async () => {
+    if (window.localStorage.getItem("access_token")) {
+      await UserAPI.savedPicturesToUserAlbum(
+        window.localStorage.getItem("access_token")!,
+        picture
+      ).then((resp) => {
+        setCustomToastResult(resp);
+        MultiFuncs.AlertTimer("DetailsCustomToast", true);
+      });
+    }
+  };
+
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+    <button
+      onClick={() => savePictureToAlbum()}
+      className="rounded-md flex items-center"
+    >
+      <PrettyRainbow rounded>
         <PrettyBookMarksIcon />
-      </span>
-    </div>
+      </PrettyRainbow>
+    </button>
   );
 };
 
-const PrettyXButton = () => {
+const PrettyCommentsButton: React.FC<{ state: boolean; length: number }> = ({
+  state,
+  length,
+}) => {
   return (
-    <div className="relative h-fit w-fit p-[0.05rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-1 py-1 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-        <PrettyXIcon fill={"white"} size={14} />
-      </span>
-    </div>
-  );
-};
-
-const PrettyCommentsButton = (props: any) => {
-  return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <div className="flex flex-row justify-center items-center space-x-2">
-          <span className="text-gray-200">
-            {props.length ? props.length : "0"} Comments
-          </span>
-          <PrettyRotatingArrow state={props.state} />
-        </div>
-      </span>
-    </div>
+    <PrettyRainbow>
+      <div className="flex flex-row space-x-1 items-center">
+        <span className="text-gray-200">{length ? length : "0"} Comments</span>
+        <PrettyRotatingArrow state={state} />
+      </div>
+    </PrettyRainbow>
   );
 };
 
 const PrettyReportButton = () => {
   return (
     <button className="rounded-md flex items-center">
-      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-        <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-          <PrettyAlertIcon size={16} />
-        </span>
-      </div>
+      <PrettyRainbow rounded>
+        <PrettyAlertIcon size={16} />
+      </PrettyRainbow>
     </button>
   );
 };
 
 const PrettyAuthButton = (props: any) => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <span className="text-white">{props.text}</span>
-      </span>
-    </div>
+    <PrettyRainbow>
+      <div className="px-4 py-0.5">
+        <span className="text-white ">{props.text}</span>
+      </div>
+    </PrettyRainbow>
   );
 };
 
 const PrettySaveChanges = () => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-5 py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
+    <PrettyRainbow>
+      <div className="px-2 py-0.5">
         <span className="text-white">Save</span>
-      </span>
-    </div>
+      </div>
+    </PrettyRainbow>
   );
 };
 
@@ -121,36 +144,6 @@ const PrettyChangeProfileAvatar = () => {
         <span className="text-white">
           <PrettyCameraIcon fill={"white"} />
         </span>
-      </span>
-    </div>
-  );
-};
-
-const PrettyExtendedChangeProfile = () => {
-  return (
-    <div className="relative px-2 py-2 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group text-sm w-fit">
-      <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
-      <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
-      <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
-      <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
-      <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
-      <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease space-y-1">
-        <p>Extended Menu</p>
-        <div className="w-full flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            fill="currentColor"
-            className="bi bi-arrow-bar-down"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fillRule="evenodd"
-              d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"
-            />
-          </svg>
-        </div>
       </span>
     </div>
   );
@@ -176,14 +169,11 @@ const PrettyHeaderSignIn = () => {
   );
 };
 
-const PrettyTrashButton = () => {
+const PrettyTrashButton: React.FC<{}> = () => {
   return (
-    <div className="relative h-fit w-fit p-[0.12rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative p-1 py-2.5 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-        <PrettyTrashIcon fill={"white"} size={18} />
-      </span>
-    </div>
+    <PrettyRainbow>
+      <PrettyTrashIcon fill={"white"} size={18} />
+    </PrettyRainbow>
   );
 };
 
@@ -241,17 +231,14 @@ const PrettyCategories = (props: any) => {
 const PrettyUploadPicture = () => {
   return (
     <div className="h-full flex items-center">
-      <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-sm">
-        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-        <span className="relative px-4 py-2 md:py-3 lg:py-2 transition-all ease-out bg-gray-900 rounded-sm group-hover:bg-opacity-0 duration-400">
-          <div className="flex flex-row">
-            <span className="text-white hidden lg:block pr-1.5">Upload</span>
-            <div className="flex items-end">
-              <PrettyUploadIcon />
-            </div>
+      <PrettyRainbow>
+        <div className="flex flex-row">
+          <span className="text-white hidden lg:block pr-1.5">Upload</span>
+          <div className="flex items-end">
+            <PrettyUploadIcon />
           </div>
-        </span>
-      </div>
+        </div>
+      </PrettyRainbow>
     </div>
   );
 };
@@ -388,8 +375,7 @@ const PrettyThumbsDownButton = () => {
 const PrettyReply = () => {
   return (
     <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-2 py-1.5 first-letter:transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
+      <span className="relative px-1 py-1 first-letter:transition-all ease-out bg-pretty-pink rounded-md group-hover:bg-opacity-0 duration-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -405,23 +391,23 @@ const PrettyReply = () => {
   );
 };
 
-const PrettySend = () => {
+const PrettySend: React.FC<{
+  size?: number;
+  fill?: string;
+}> = ({ size, fill }) => {
   return (
-    <div className="relative h-fit w-fit p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
-      <span className="relative px-3.5 py-2 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="white"
-          className="bi bi-send-plus-fill"
-          viewBox="0 0 16 16"
-        >
-          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-          <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
-        </svg>
-      </span>
+    <div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 16}
+        height={size || 16}
+        fill={fill || "currentColor"}
+        className="bi bi-send-plus-fill"
+        viewBox="0 0 16 16"
+      >
+        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+      </svg>
     </div>
   );
 };
@@ -454,6 +440,7 @@ const PrettyAddAvatar = () => {
 };
 
 export {
+  PrettyRainbow,
   PrettyShare,
   PrettySavePicture,
   PrettyCommentsButton,
@@ -461,7 +448,6 @@ export {
   PrettyAuthButton,
   PrettySaveChanges,
   PrettyChangeProfileAvatar,
-  PrettyExtendedChangeProfile,
   PrettyHeaderSignIn,
   PrettyCategories,
   PrettySearch,
@@ -478,7 +464,6 @@ export {
   PrettyAddAvatar,
   PrettyHomeButton,
   PrettySearchMenuButton,
-  PrettyXButton,
   PrettySearchMobileHeaderButton,
   PrettyHeaderUploadPicture,
 };
