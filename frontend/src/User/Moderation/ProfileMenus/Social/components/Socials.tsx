@@ -17,7 +17,6 @@ const Socials: React.FC<{ user: UserDto }> = ({ user }) => {
   const [userSocials, setUserSocials] = useState<UserSocialsDto>();
 
   const UpdateSocials = async () => {};
-  console.log(user?.userSocials["discord"]);
 
   useEffect(() => {
     setUserSocials(user?.userSocials);

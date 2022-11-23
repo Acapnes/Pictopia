@@ -1,5 +1,5 @@
-import { CategoryAPI } from "../../Api/User/CategoryApi";
-import { CategoryDto } from "../../Api/Pic/PicDtos/category.dto";
+import { CategoryAPI } from "../../Api/Category/CategoryApi";
+import { CategoryDto } from "../../Api/Category/CategoryDtos/category.dto";
 import { MultiFuncs } from "./MultipleFuncs";
 
 export class Dndfuncs {

@@ -87,7 +87,7 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
         </div>
       </div>
       <div id="EditAlert" className="hidden">
-        <CustomToast toastResult={simpleUpdateResult} />
+        <CustomToast result={simpleUpdateResult} />
       </div>
     </div>
   );

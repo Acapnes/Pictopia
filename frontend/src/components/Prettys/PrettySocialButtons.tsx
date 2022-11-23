@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
 import { MultiFuncs } from "../Functions/MultipleFuncs";
 import CustomToast from "../Views/CustomToast";
 
@@ -28,13 +30,13 @@ const PrettyShareProfileButton = () => {
 };
 
 const PrettyProfileCopyButton = () => {
-  const [toastResult, setToastResult] = useState<Object>();
+  const [toastResult, setToastResult] = useState<ReturnFuncDto>(Object);
 
   return (
     <button
       onClick={() => {
         navigator.clipboard.writeText(window.location.href).then(() => {
-          setToastResult({ message: "Profile copied" });
+          setToastResult({ success: true, message: "Profile copied" });
           MultiFuncs.AlertTimer("CopyButton", true);
         });
       }}
@@ -56,7 +58,7 @@ const PrettyProfileCopyButton = () => {
         </div>
       </span>
       <div id="CopyButton" className="hidden">
-        <CustomToast toastResult={toastResult} />
+        <CustomToast result={toastResult} />
       </div>
     </button>
   );
@@ -113,10 +115,12 @@ const PrettySocialGitHubButton = (props: any) => {
   );
 };
 
-const PrettySocialLinkedInButton = (props: any) => {
+const PrettySocialLinkedInButton: React.FC<{ socialUrl: string }> = ({
+  socialUrl,
+}) => {
   return (
     <a
-      href={`//${props?.socialUrl}`}
+      href={`//${socialUrl}`}
       className="h-fit w-fit inline-flex items-center justify-center font-bold overflow-hidden group rounded-md bg-blue-700"
     >
       <span className="relative p-2.5">
