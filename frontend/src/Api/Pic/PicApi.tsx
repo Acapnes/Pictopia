@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CategoryDto } from "../Category/CategoryDtos/category.dto";
 import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
 import { PicDto } from "./PicDtos/picDto";
 import { UploadPicDto } from "./PicDtos/uploadPicDto";
@@ -15,24 +16,17 @@ export class PicAPI {
   }
 
   public static async uploadPicture(uploadPicDto: UploadPicDto, access_token: string):Promise<ReturnFuncDto> {
-    if (!uploadPicDto.title) {
-      return {
-        success: false,
-        message: "Please set a title",
-      };
-    }
-
-    if (!uploadPicDto?.picture?.size) {
-      return {
-        success: false,
-        message: "Please select a picture",
-      };
-    }
-
     const formData = new FormData();
     formData.append("picture", uploadPicDto.picture);
     formData.append("title", uploadPicDto.title);
     formData.append("description", uploadPicDto.description);
+    
+    uploadPicDto.categories.forEach((category:CategoryDto ,categoryIndex:number) => {
+      formData.append(`categories[${categoryIndex}]`, category._id);
+    });
+    uploadPicDto.hashTags.forEach((hashtag,hashtagIndex) => {
+      formData.append(`hashTags[${hashtagIndex}]`, hashtag);
+    });
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios.post(`http://localhost:3000/pics/create/`, formData)
