@@ -16,6 +16,7 @@ exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
+const pic_search_dto_1 = require("../../dto/pic/pic.search.dto");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
     constructor(picsService) {
@@ -32,8 +33,11 @@ let PicController = class PicController {
     async getPicById(id) {
         return this.picsService.getPicById(id);
     }
-    async uploadImage(file, req, body) {
+    async uploadPicture(file, req, body) {
         return await this.picsService.createPostWithImage(req.user, file, body);
+    }
+    async searchInPictures(picSearchDto) {
+        return await this.picsService.getPicturesByInput(picSearchDto);
     }
 };
 __decorate([
@@ -68,7 +72,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
-], PicController.prototype, "uploadImage", null);
+], PicController.prototype, "uploadPicture", null);
+__decorate([
+    (0, common_1.Post)('/search'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "searchInPictures", null);
 PicController = __decorate([
     (0, common_1.Controller)('/pics'),
     __metadata("design:paramtypes", [pic_service_1.PicService])

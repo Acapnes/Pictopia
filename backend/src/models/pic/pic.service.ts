@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
 
 @Injectable()
 export class PicService {
@@ -21,7 +22,11 @@ export class PicService {
     return this.picModel.findOne({ _id: id }).populate('authorPic');
   }
 
-  async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any,file: any,picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
+  async createPostWithImage(
+    authorPicId: mongoose.Types.ObjectId | any,
+    file: any,
+    picCreateDto: PicCreateDto,
+  ): Promise<ReturnFuncDto> {
     if (!picCreateDto.title) {
       return {
         success: false,
@@ -55,5 +60,35 @@ export class PicService {
       success: true,
       message: 'Picture has been created',
     };
+  }
+
+  async getPicturesByInput(picSearchDto: PicSearchDto): Promise<Pic[]> {
+    let searchArray = [];
+    if (picSearchDto.input[0] === '#') {
+      return await this.picModel
+        .find({ hashTags: picSearchDto.input })
+        .populate('authorPic')
+        .limit(30)
+        .then((hashResult) => {
+          searchArray.push([...hashResult]);
+          return searchArray;
+        });
+    } else {
+      return await this.picModel
+        .find({ title: picSearchDto.input })
+        // .populate('authorPic')
+        .limit(5)
+        .then(async (titleResult) => {
+          searchArray.push(...titleResult);
+          await this.picModel
+            .find({ description: picSearchDto.input })
+            // .populate('authorPic')
+            .limit(5)
+            .then(async (descriptionResult) => {
+              searchArray.push(...descriptionResult.filter((description) => searchArray.some((titleResult) => titleResult?._id === description?._id)));
+            });
+          return searchArray;
+        });
+    }
   }
 }

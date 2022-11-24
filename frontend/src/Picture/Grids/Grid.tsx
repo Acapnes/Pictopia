@@ -7,6 +7,9 @@ import Notfound from "../../components/Views/NotFound";
 const Grid: React.FC<{}> = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
 
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState();
+
   const fetchAndSetPics = async () => {
     setRespPics(await PicAPI.getAllPics());
   };
