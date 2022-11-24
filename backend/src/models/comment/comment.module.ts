@@ -1,10 +1,12 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Comment, CommentSchema } from 'src/schemas/comment.schema';
 import { Pic, PicSchema } from 'src/schemas/pic.schema';
 import { PicService } from '../pic/pic.service';
-import { UserService } from '../user/user.service';
 import { CommentController } from './comment.controller';
+import { CommentResolver } from './comment.resolver';
 import { CommentService } from './comment.service';
 
 @Module({
@@ -15,6 +17,6 @@ import { CommentService } from './comment.service';
     ]),
   ],
   controllers: [CommentController],
-  providers: [CommentService,PicService],
+  providers: [CommentService, PicService, CommentResolver],
 })
 export class CommentModule {}

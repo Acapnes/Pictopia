@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /// <reference types="mongoose/types/aggregate" />
 /// <reference types="mongoose/types/callback" />
 /// <reference types="mongoose/types/collection" />
@@ -28,7 +27,7 @@ export declare type CategoryDocument = Category & Document;
 export declare class Category {
     title: string;
     category_picture_file: {
-        data: Buffer;
+        data: string;
         contentType: string;
     };
 }

@@ -10,19 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategorySchema = exports.Category = void 0;
+const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
+const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
 let Category = class Category {
 };
 __decorate([
+    (0, graphql_1.Field)({ nullable: false }),
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Category.prototype, "title", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: Object, required: true, default: { data: null, contentType: null } }),
+    (0, graphql_1.Field)(() => picture_file_schema_1.PictureFile, {
+        nullable: false,
+        defaultValue: { data: null, contentType: null },
+    }),
+    (0, mongoose_1.Prop)({
+        type: Object,
+        required: true,
+        default: { data: null, contentType: null },
+    }),
     __metadata("design:type", Object)
 ], Category.prototype, "category_picture_file", void 0);
 Category = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)(),
+    (0, graphql_1.ObjectType)('Category')
 ], Category);
 exports.Category = Category;
 exports.CategorySchema = mongoose_1.SchemaFactory.createForClass(Category);

@@ -12,6 +12,7 @@ import { SavedPicturesService } from './moderation/saved.pictures.service';
 import { UserCategoryService } from './moderation/user.category.service';
 import { UserModerationController } from './moderation/user.moderation.controller';
 import { UserController } from './user.controller';
+import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
 @Module({
@@ -20,9 +21,20 @@ import { UserService } from './user.service';
       secret: 'super-jwt-secret-key',
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    MongooseModule.forFeature([{ name: Category.name, schema: CategorySchema }]),
+    MongooseModule.forFeature([
+      { name: Category.name, schema: CategorySchema },
+    ]),
   ],
-  controllers: [UserController,UserAuthController,UserModerationController],
-  providers: [UserService, JwtStrategy, AuthService, ModerationService,SavedPicturesService,UserCategoryService,CategoryService],
+  controllers: [UserController, UserAuthController, UserModerationController],
+  providers: [
+    UserResolver,
+    UserService,
+    JwtStrategy,
+    AuthService,
+    ModerationService,
+    SavedPicturesService,
+    UserCategoryService,
+    CategoryService,
+  ],
 })
 export class UserModule {}

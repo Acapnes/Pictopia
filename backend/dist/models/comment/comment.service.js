@@ -24,7 +24,7 @@ let CommentService = class CommentService {
         this.picService = picService;
     }
     async findAll() {
-        return this.commentModel.find({});
+        return this.commentModel.find({}).populate('author');
     }
     async findCommentByMongooseId(destPicture) {
         return (await this.commentModel.find({ destPicture: destPicture }).populate('author')).reverse();

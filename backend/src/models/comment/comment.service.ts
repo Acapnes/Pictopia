@@ -16,7 +16,7 @@ export class CommentService {
   ) {}
 
   async findAll(): Promise<Comment[]> {
-    return this.commentModel.find({});
+    return this.commentModel.find({}).populate('author');
   }
 
   async findCommentByMongooseId(destPicture: mongoose.Types.ObjectId): Promise<Comment[]> {

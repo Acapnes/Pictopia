@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const pic_schema_1 = require("../../schemas/pic.schema");
 const pic_controller_1 = require("./pic.controller");
+const pic_resolver_1 = require("./pic.resolver");
 const pic_service_1 = require("./pic.service");
 let PicModule = class PicModule {
 };
@@ -18,7 +19,7 @@ PicModule = __decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forFeature([{ name: pic_schema_1.Pic.name, schema: pic_schema_1.PicSchema }])],
         controllers: [pic_controller_1.PicController],
-        providers: [pic_service_1.PicService],
+        providers: [pic_service_1.PicService, pic_resolver_1.PicResolver],
     })
 ], PicModule);
 exports.PicModule = PicModule;

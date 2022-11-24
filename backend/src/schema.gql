@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PictureFile {
+  data: String!
+  contentType: String!
+}
+
+type Category {
+  title: String!
+  category_picture_file: PictureFile!
+}
+
+type UserSocials {
+  instagram: String
+  github: String
+  steam: String
+  discord: String
+  linkedin: String
+}
+
+type User {
+  name: String
+  email: String!
+  username: String!
+  avatar: PictureFile!
+  savedPictures: [Pic!]!
+  userSocials: UserSocials!
+  birthDate: String!
+  confrimed: Boolean
+  bio: String
+  password: String!
+}
+
+type Pic {
+  authorPic: User!
+  title: String!
+  description: String
+  hashTags: [String!]
+  picture_file: PictureFile!
+  categories: Category!
+}
+
+type Comment {
+  author: User!
+  destPicture: Pic!
+  parentId: Comment
+  comment: String!
+}
+
+type Query {
+  pics: [Pic!]!
+  users: [User!]!
+  comments: [Comment!]!
+  categories: [Category!]!
+}

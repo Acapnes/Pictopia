@@ -21,6 +21,7 @@ const saved_pictures_service_1 = require("./moderation/saved.pictures.service");
 const user_category_service_1 = require("./moderation/user.category.service");
 const user_moderation_controller_1 = require("./moderation/user.moderation.controller");
 const user_controller_1 = require("./user.controller");
+const user_resolver_1 = require("./user.resolver");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
 };
@@ -31,10 +32,21 @@ UserModule = __decorate([
                 secret: 'super-jwt-secret-key',
             }),
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
-            mongoose_1.MongooseModule.forFeature([{ name: category_schema_1.Category.name, schema: category_schema_1.CategorySchema }]),
+            mongoose_1.MongooseModule.forFeature([
+                { name: category_schema_1.Category.name, schema: category_schema_1.CategorySchema },
+            ]),
         ],
         controllers: [user_controller_1.UserController, user_auth_controller_1.UserAuthController, user_moderation_controller_1.UserModerationController],
-        providers: [user_service_1.UserService, jwt_strategy_1.JwtStrategy, auth_service_1.AuthService, moderation_service_1.ModerationService, saved_pictures_service_1.SavedPicturesService, user_category_service_1.UserCategoryService, category_service_1.CategoryService],
+        providers: [
+            user_resolver_1.UserResolver,
+            user_service_1.UserService,
+            jwt_strategy_1.JwtStrategy,
+            auth_service_1.AuthService,
+            moderation_service_1.ModerationService,
+            saved_pictures_service_1.SavedPicturesService,
+            user_category_service_1.UserCategoryService,
+            category_service_1.CategoryService,
+        ],
     })
 ], UserModule);
 exports.UserModule = UserModule;

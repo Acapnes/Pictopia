@@ -4,7 +4,6 @@ import { User } from './user.schema';
 export declare type PicDocument = Pic & Document;
 export declare class Pic {
     authorPic: User;
-    categories: mongoose.Schema.Types.ObjectId[];
     title: string;
     description: string;
     hashTags: string[];
@@ -12,5 +11,6 @@ export declare class Pic {
         data: Buffer;
         contentType: string;
     };
+    categories: mongoose.Schema.Types.ObjectId[];
 }
 export declare const PicSchema: mongoose.Schema<Pic, mongoose.Model<Pic, any, any, any, any>, {}, {}, {}, {}, "type", Pic>;
