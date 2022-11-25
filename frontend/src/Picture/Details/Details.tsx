@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
-import Grid from "../Grids/Grid";
 import Header from "../../Menus/Header";
 import PictureDetailsCard from "./Card/PictureDetailsCard";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
@@ -25,7 +24,7 @@ const Details: React.FC<{}> = () => {
         <DetailPicture picture={picture} />
         <PictureDetailsCard picture={picture} />
       </div>
-      <Grid />
+      {/* <Grid /> */}
     </div>
   );
 };

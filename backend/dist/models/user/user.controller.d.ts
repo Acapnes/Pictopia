@@ -7,5 +7,5 @@ export declare class UserController {
     constructor(usersService: UserService);
     getUsers(): Promise<User[]>;
     getUserProfileVeriables(username: string): Promise<User | ReturnFuncDto>;
-    userFindByUsername(UserFindDto: UserFindDto): Promise<User | ReturnFuncDto | User[]>;
+    userFindByUsername(UserFindDto: UserFindDto): Promise<User | User[] | ReturnFuncDto>;
 }

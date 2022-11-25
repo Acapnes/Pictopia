@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PicPaginationDto } from 'src/dto/pic/pic.pagination.to';
 import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
 
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
@@ -14,6 +15,11 @@ export class PicController {
   @Get()
   async getPics(): Promise<Pic[]> {
     return this.picsService.findAll();
+  }
+
+  @Post()
+  async getPicsByPagination(@Body() picPaginationDto: PicPaginationDto): Promise<Pic[]> {
+    return this.picsService.picPagination(picPaginationDto);
   }
 
   @Get('/pretty/:id')

@@ -1,10 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Type } from 'class-transformer';
 import mongoose, { Document, Types } from 'mongoose';
 import { PictureFile } from './altSchemas/picture.file.schema';
 import { Category } from './category.schema';
-import { Comment, CommentSchema } from './comment.schema';
 import { User } from './user.schema';
 
 export type PicDocument = Pic & Document;

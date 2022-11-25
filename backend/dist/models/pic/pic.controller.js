@@ -16,6 +16,7 @@ exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
+const pic_pagination_to_1 = require("../../dto/pic/pic.pagination.to");
 const pic_search_dto_1 = require("../../dto/pic/pic.search.dto");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
@@ -24,6 +25,9 @@ let PicController = class PicController {
     }
     async getPics() {
         return this.picsService.findAll();
+    }
+    async getPicsByPagination(picPaginationDto) {
+        return this.picsService.picPagination(picPaginationDto);
     }
     async getPrettyPicById(res, req, id) {
         const picture = await this.picsService.getPicById(id);
@@ -46,6 +50,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPics", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pic_pagination_to_1.PicPaginationDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "getPicsByPagination", null);
 __decorate([
     (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),

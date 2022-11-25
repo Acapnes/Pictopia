@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import "./index.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./Pictopia";
+import Pictopia from "./Pictopia";
 import Details from "./Picture/Details/Details";
 import Login from "./User/Auth/Login";
 import Register from "./User/Auth/Register";
@@ -14,13 +14,14 @@ import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Suspense fallback={<SuspenseVeiw />}>
         <Routes>
-          <Route path="*" element={<App />} />
-          <Route path="/explore" element={<App />} />
+          <Route path="*" element={<Pictopia />} />
+          <Route path="/explore" element={<Pictopia />} />
           <Route path="/detail/*" element={<Details />} />
           <Route path="/user/*" element={<User />} />
           <Route path="/login" element={<Login />} />

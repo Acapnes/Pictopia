@@ -28,6 +28,13 @@ let PicService = class PicService {
             .limit(30)
             .populate('authorPic');
     }
+    async picPagination(picPaginationDto) {
+        return (this.picModel
+            .find({})
+            .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
+            .limit(picPaginationDto.postPerPage)
+            .populate('authorPic'));
+    }
     async getPicById(id) {
         return this.picModel.findOne({ _id: id }).populate('authorPic');
     }

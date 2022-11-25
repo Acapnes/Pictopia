@@ -10,6 +10,14 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
+  public static async getPicsByPagination(currentPage: number, postPerPage: number): Promise<PicDto[]> {
+    return await axios.post("http://localhost:3000/pics",{
+      currentPage: currentPage,
+      postPerPage: postPerPage
+    })
+      .then((resp) => resp.data);
+  }
+
   public static async getDetailPic(_id: string): Promise<PicDto> {
     return await axios.get(`http://localhost:3000/pics/${_id}`)
       .then((resp) => resp.data);
@@ -25,7 +33,7 @@ export class PicAPI {
       formData.append(`categories[${categoryIndex}]`, category._id);
     });
     uploadPicDto.hashTags.forEach((hashtag,hashtagIndex) => {
-      formData.append(`hashTags[${hashtagIndex}]`, hashtag);
+      formData.append(`hashTags[${hashtagIndex}]`, `#${hashtag}`);
     });
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
