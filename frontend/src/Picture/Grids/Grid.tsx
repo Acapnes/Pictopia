@@ -26,7 +26,7 @@ const Grid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   return (
     <div className="w-full flex justify-center">
       {respPics.length > 0 ? (
-        <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={3}>
+        <Masonry columns={{ xs: 2, sm: 2, md: 3, lg: 4, xl: 5 }} spacing={3}>
           {respPics.map((pic, picIndex) => (
             <div
               className="group relative h-fit w-full flex flex-col justify-center items-center-4 duration-300 hover:scale-105 "

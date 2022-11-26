@@ -106,6 +106,8 @@ const SearchMenu: React.FC<{
                         Dndfuncs.DragStarted(e, category, categoryIndex)
                       }
                       key={categoryIndex}
+                      className=""
+                      // cursor-grab
                     >
                       <PrettyHeaderExtendCategory category={category} />
                     </div>

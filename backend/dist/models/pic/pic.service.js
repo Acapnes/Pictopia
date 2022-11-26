@@ -28,13 +28,6 @@ let PicService = class PicService {
             .limit(30)
             .populate('authorPic');
     }
-    async picPagination(picPaginationDto) {
-        return (this.picModel
-            .find({})
-            .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
-            .limit(picPaginationDto.postPerPage)
-            .populate('authorPic'));
-    }
     async getPicById(id) {
         return this.picModel.findOne({ _id: id }).populate('authorPic');
     }
@@ -66,34 +59,6 @@ let PicService = class PicService {
             success: true,
             message: 'Picture has been created',
         };
-    }
-    async getPicturesByInput(picSearchDto) {
-        let searchArray = [];
-        if (picSearchDto.input[0] === '#') {
-            return await this.picModel
-                .find({ hashTags: picSearchDto.input })
-                .populate('authorPic')
-                .limit(30)
-                .then((hashResult) => {
-                searchArray.push([...hashResult]);
-                return searchArray;
-            });
-        }
-        else {
-            return await this.picModel
-                .find({ title: picSearchDto.input })
-                .limit(5)
-                .then(async (titleResult) => {
-                searchArray.push(...titleResult);
-                await this.picModel
-                    .find({ description: picSearchDto.input })
-                    .limit(5)
-                    .then(async (descriptionResult) => {
-                    searchArray.push(...descriptionResult.filter((description) => searchArray.some((titleResult) => (titleResult === null || titleResult === void 0 ? void 0 : titleResult._id) === (description === null || description === void 0 ? void 0 : description._id))));
-                });
-                return searchArray;
-            });
-        }
     }
 };
 PicService = __decorate([

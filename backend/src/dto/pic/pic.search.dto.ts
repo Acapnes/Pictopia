@@ -1,7 +1,19 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class PicSearchDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  input: string;
+  category?: string;
+
+  @IsOptional()
+  @IsString()
+  input?: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  currentPage: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  postPerPage: number;
 }

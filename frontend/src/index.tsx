@@ -22,6 +22,9 @@ root.render(
         <Routes>
           <Route path="*" element={<Pictopia />} />
           <Route path="/explore" element={<Pictopia />} />
+          <Route path="/categories/*" element={<Pictopia />} />
+
+
           <Route path="/detail/*" element={<Details />} />
           <Route path="/user/*" element={<User />} />
           <Route path="/login" element={<Login />} />

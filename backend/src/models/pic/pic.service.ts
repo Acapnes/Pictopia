@@ -5,8 +5,6 @@ import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
-import internal from 'stream';
-import { PicPaginationDto } from 'src/dto/pic/pic.pagination.to';
 
 @Injectable()
 export class PicService {
@@ -18,21 +16,6 @@ export class PicService {
       .skip(Math.random() * 10)
       .limit(30)
       .populate('authorPic');
-  }
-
-  async picPagination(picPaginationDto: PicPaginationDto): Promise<Pic[]> {
-    return (
-      this.picModel
-        .find({})
-        .skip(
-          Math.ceil(
-            picPaginationDto.currentPage * picPaginationDto.postPerPage,
-          ),
-        )
-        // .skip(Math.ceil(Math.random() * 5))
-        .limit(picPaginationDto.postPerPage)
-        .populate('authorPic')
-    );
   }
 
   async getPicById(id: any): Promise<Pic> {
@@ -77,41 +60,5 @@ export class PicService {
       success: true,
       message: 'Picture has been created',
     };
-  }
-
-  async getPicturesByInput(picSearchDto: PicSearchDto): Promise<Pic[]> {
-    let searchArray = [];
-    if (picSearchDto.input[0] === '#') {
-      return await this.picModel
-        .find({ hashTags: picSearchDto.input })
-        .populate('authorPic')
-        .limit(30)
-        .then((hashResult) => {
-          searchArray.push([...hashResult]);
-          return searchArray;
-        });
-    } else {
-      return await this.picModel
-        .find({ title: picSearchDto.input })
-        // .populate('authorPic')
-        .limit(5)
-        .then(async (titleResult) => {
-          searchArray.push(...titleResult);
-          await this.picModel
-            .find({ description: picSearchDto.input })
-            // .populate('authorPic')
-            .limit(5)
-            .then(async (descriptionResult) => {
-              searchArray.push(
-                ...descriptionResult.filter((description) =>
-                  searchArray.some(
-                    (titleResult) => titleResult?._id === description?._id,
-                  ),
-                ),
-              );
-            });
-          return searchArray;
-        });
-    }
   }
 }

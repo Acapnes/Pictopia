@@ -1,9 +1,10 @@
 import Grid from "./Picture/Grids/Grid";
 import Header from "./Menus/Header";
 import React, { useState } from "react";
+import { CategoryDto } from "./Api/Category/CategoryDtos/category.dto";
 
-const Pictopia: React.FC<{}> = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+const Pictopia: React.FC<{  }> = ({ }) => {
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [postPerPage, setPostPerPage] = useState<number>(20);
 
   const handleScroll = (e: any) => {

@@ -6,20 +6,19 @@ import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
 
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { Pic } from 'src/schemas/pic.schema';
+import { PicFetchService } from './pic.fetch.service';
 import { PicService } from './pic.service';
 
 @Controller('/pics')
 export class PicController {
-  constructor(private readonly picsService: PicService) {}
+  constructor(
+    private readonly picsService: PicService,
+    private readonly picFetchService: PicFetchService
+    ) {}
 
   @Get()
   async getPics(): Promise<Pic[]> {
     return this.picsService.findAll();
-  }
-
-  @Post()
-  async getPicsByPagination(@Body() picPaginationDto: PicPaginationDto): Promise<Pic[]> {
-    return this.picsService.picPagination(picPaginationDto);
   }
 
   @Get('/pretty/:id')
@@ -41,9 +40,16 @@ export class PicController {
     return await this.picsService.createPostWithImage(req.user,file,body)
   }  
 
+  @Post()
+  async getPicsByPagination(@Body() picSearchDto: PicSearchDto): Promise<Pic[]> {
+    return this.picFetchService.picPagination(picSearchDto);
+  }
+
   @Post('/search')
   async searchInPictures(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
-    return await this.picsService.getPicturesByInput(picSearchDto)
+    return await this.picFetchService.getPicturesByInput(picSearchDto)
   }  
+
+
 }
   

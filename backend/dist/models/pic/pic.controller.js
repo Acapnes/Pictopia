@@ -16,18 +16,16 @@ exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const platform_express_1 = require("@nestjs/platform-express");
-const pic_pagination_to_1 = require("../../dto/pic/pic.pagination.to");
 const pic_search_dto_1 = require("../../dto/pic/pic.search.dto");
+const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
-    constructor(picsService) {
+    constructor(picsService, picFetchService) {
         this.picsService = picsService;
+        this.picFetchService = picFetchService;
     }
     async getPics() {
         return this.picsService.findAll();
-    }
-    async getPicsByPagination(picPaginationDto) {
-        return this.picsService.picPagination(picPaginationDto);
     }
     async getPrettyPicById(res, req, id) {
         const picture = await this.picsService.getPicById(id);
@@ -40,8 +38,11 @@ let PicController = class PicController {
     async uploadPicture(file, req, body) {
         return await this.picsService.createPostWithImage(req.user, file, body);
     }
+    async getPicsByPagination(picSearchDto) {
+        return this.picFetchService.picPagination(picSearchDto);
+    }
     async searchInPictures(picSearchDto) {
-        return await this.picsService.getPicturesByInput(picSearchDto);
+        return await this.picFetchService.getPicturesByInput(picSearchDto);
     }
 };
 __decorate([
@@ -50,13 +51,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPics", null);
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_pagination_to_1.PicPaginationDto]),
-    __metadata("design:returntype", Promise)
-], PicController.prototype, "getPicsByPagination", null);
 __decorate([
     (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),
@@ -85,6 +79,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "uploadPicture", null);
 __decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "getPicsByPagination", null);
+__decorate([
     (0, common_1.Post)('/search'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -93,7 +94,8 @@ __decorate([
 ], PicController.prototype, "searchInPictures", null);
 PicController = __decorate([
     (0, common_1.Controller)('/pics'),
-    __metadata("design:paramtypes", [pic_service_1.PicService])
+    __metadata("design:paramtypes", [pic_service_1.PicService,
+        pic_fetch_service_1.PicFetchService])
 ], PicController);
 exports.PicController = PicController;
 //# sourceMappingURL=pic.controller.js.map
