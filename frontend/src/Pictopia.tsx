@@ -1,9 +1,11 @@
-import Grid from "./Picture/Grids/Grid";
+// import Grid from "./Picture/Grids/Grid";
 import Header from "./Menus/Header";
-import React, { useState } from "react";
-import { CategoryDto } from "./Api/Category/CategoryDtos/category.dto";
+import React, { Suspense, useState } from "react";
+import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 
-const Pictopia: React.FC<{  }> = ({ }) => {
+const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
+
+const Pictopia: React.FC<{}> = ({}) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [postPerPage, setPostPerPage] = useState<number>(20);
 
@@ -19,7 +21,10 @@ const Pictopia: React.FC<{  }> = ({ }) => {
       className="min-h-screen h-[10rem] flex flex-col space-y-3 bg-soft-black overflow-auto"
     >
       <Header />
-      <Grid currentPage={currentPage} postPerPage={postPerPage} />
+
+      <Suspense fallback={<SuspenseVeiw />}>
+        <PictopiaGrid currentPage={currentPage} postPerPage={postPerPage} />
+      </Suspense>
     </div>
   );
 };
