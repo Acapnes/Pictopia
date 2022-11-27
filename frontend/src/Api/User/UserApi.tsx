@@ -174,4 +174,11 @@ export class UserAPI {
       .get(`http://localhost:3000/user/${username}`)
       .then((resp) => resp.data);
   }
+
+  public static async GetUsersLastSearchedList(access_token: string) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .get(`http://localhost:3000/user/searched/last`)
+      .then((resp) => resp.data);
+  }
 }
