@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { CategoryDto } from 'src/dto/category/category.dto';
 import { Category } from 'src/schemas/category.schema';
 import { CategoryService } from './category.service';
 
@@ -10,6 +11,16 @@ export class CategoryController {
     @Get()
     async getCategories(): Promise<Category[]> {
       return this.categoryService.findAll();
+    }
+
+    @Get('/:title')
+    async getCategoriesByTitle(@Param('title') title:string): Promise<Category> {
+      return this.categoryService.findCategoryByTitle(title);
+    }
+
+    @Post()
+    async getCategoryIdFromTitle(categoryDto: CategoryDto): Promise<Category>{
+      return this.categoryService.getCategoryIdByTitle(categoryDto.title);
     }
 
     @Post('/create')

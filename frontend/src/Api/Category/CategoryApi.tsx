@@ -9,6 +9,12 @@ export class CategoryAPI {
       .then(async (resp) => resp.data);
   }
 
+  public static async getCategoryByTitle(title: string): Promise<CategoryDto> {
+    return await axios
+      .get(`http://localhost:3000/category/${title}`)
+      .then(async (resp) => resp.data);
+  }
+
   public static async getUserFavoriteCategories(
     access_token: string
   ): Promise<CategoryDto[]> {
@@ -32,6 +38,16 @@ export class CategoryAPI {
   ): Promise<ReturnFuncDto> {
     return await axios
       .post(`http://localhost:3000/user/profile/category/add`, {
+        category_id: category_id,
+      })
+      .then((resp) => resp.data);
+  }
+
+  public static async RemoveFavoriteCategory(
+    category_id: string
+  ): Promise<ReturnFuncDto> {
+    return await axios
+      .post(`http://localhost:3000/user/profile/category/remove`, {
         category_id: category_id,
       })
       .then((resp) => resp.data);
