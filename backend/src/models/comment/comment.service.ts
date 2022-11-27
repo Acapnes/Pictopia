@@ -1,11 +1,9 @@
 import mongoose, { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CommentDto } from 'src/dto/comment/comment.dto';
 import { Comment, CommentDocument } from 'src/schemas/comment.schema';
 import { CommentCreateDto } from 'src/dto/comment/comment.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserService } from '../user/user.service';
 import { PicService } from '../pic/pic.service';
 
 @Injectable()

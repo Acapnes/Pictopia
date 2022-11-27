@@ -26,6 +26,8 @@ export interface UserDto {
 
   savedPictures: string[];
 
+  lastSearched: string[];
+
   birthDate: string;
 
   confrimed: boolean;

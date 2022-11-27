@@ -22,7 +22,7 @@ const Header: React.FC = () => {
     <div className="w-full z-10 sticky top-0">
       <div className="">
         <div className="w-full h-header_height flex flex-row justify-between space-x-3 px-3 bg-soft-black bg-opacity-90 py-2">
-          <a href="/" className="h-full flex items-center w-fit rounded-md">
+          <a href="/explore" className="h-full flex items-center w-fit rounded-md">
             <PrettyPictopia />
           </a>
           <SearchBar />

@@ -1,4 +1,4 @@
-import { CommentDto } from "../../Api/Pic/PicDtos/commentDto";
+import { CommentDto } from "../../Api/Comment/Comment/commentDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
 import Replies from "./Replies";
 

@@ -11,7 +11,7 @@ const ProfileAvatar: React.FC<{ userAvatar: UserDto["avatar"] }> = ({
   return (
     <div className="w-full h-full flex justify-center">
       {userAvatar?.data || userAvatar?.contentType ? (
-        <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] w-[15rem] rounded-sm relative p-[0.12rem]">
+        <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] w-[20rem] rounded-sm relative p-[0.12rem]">
           <PrettyProfilePicture userAvatar={userAvatar} />
         </div>
       ) : (

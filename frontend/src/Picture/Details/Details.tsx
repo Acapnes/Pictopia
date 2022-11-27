@@ -18,7 +18,7 @@ const Details: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col bg-soft-black">
+    <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
       <Header />
       <div className="min-h-[70vh] flex flex-col justify-center items-center px-2 py-10">
         <DetailPicture picture={picture} />

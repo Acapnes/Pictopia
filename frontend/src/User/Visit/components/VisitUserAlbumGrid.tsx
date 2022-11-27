@@ -15,7 +15,7 @@ const VisitUserAlbumGrid: React.FC<{ user: UserDto }> = ({ user }) => {
   }, []);
 
   return (
-    <div>
+    <div className="pb-10">
       {respPics.length > 0 && (
         <div className="flex flex-col space-y-5 bg-soft-black bg-opacity-95">
           <p className="w-full text-center text-3xl text-pretty-pink text-opacity-80 select-none">

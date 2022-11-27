@@ -1,6 +1,6 @@
 import axios from "axios";
-import { CommentCreateDto } from "./PicDtos/commentCreateDto";
-import { CommentDto } from "./PicDtos/commentDto";
+import { CommentCreateDto } from "./Comment/commentCreateDto";
+import { CommentDto } from "./Comment/commentDto";
 import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
 
 export class CommentAPI {

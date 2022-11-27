@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { CommentAPI } from "../../Api/Pic/CommentApi";
-import { CommentDto } from "../../Api/Pic/PicDtos/commentDto";
+import { CommentAPI } from "../../Api/Comment/CommentApi";
+import { CommentDto } from "../../Api/Comment/Comment/commentDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
 
 const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {

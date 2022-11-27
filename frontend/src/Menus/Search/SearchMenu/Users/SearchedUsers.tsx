@@ -25,14 +25,11 @@ const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
                 />
               </div>
             ) : (
-              <a
-                href="#_"
-                className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative p-[0.18rem]"
-              >
+              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative p-[0.18rem]">
                 <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
                   <PrettyProfileIcon size={32} fill={"white"} />
                 </div>
-              </a>
+              </div>
             )}
 
             <div className="w-full flex items-center truncate">

@@ -21,9 +21,7 @@ root.render(
       <Suspense fallback={<SuspenseVeiw />}>
         <Routes>
           <Route path="*" element={<Pictopia />} />
-          <Route path="/explore" element={<Pictopia />} />
           <Route path="/categories/*" element={<Pictopia />} />
-
 
           <Route path="/detail/*" element={<Details />} />
           <Route path="/user/*" element={<User />} />
@@ -38,3 +36,18 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+{
+  /* <Route
+path="*"
+element={
+  <Pictopia searchOptions={{ currentPage: 0, postPerPage: 20 }} />
+}
+/>
+<Route
+path="/categories/*"
+element={
+  <Pictopia searchOptions={{ currentPage: 0, postPerPage: 20 }} />
+}
+/> */
+}
