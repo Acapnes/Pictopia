@@ -4,11 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
+import { CategoryService } from '../category/category.service';
 
 @Injectable()
 export class PicService {
-  constructor(@InjectModel(Pic.name) private picModel: Model<PicDocument>) {}
+  constructor(
+    @InjectModel(Pic.name) private picModel: Model<PicDocument>,
+    
+  ) {}
 
   async findAll(): Promise<Pic[]> {
     return this.picModel

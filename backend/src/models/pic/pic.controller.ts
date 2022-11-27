@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { PicPaginationDto } from 'src/dto/pic/pic.pagination.to';
 import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
 
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
@@ -42,14 +41,18 @@ export class PicController {
 
   @Post()
   async getPicsByPagination(@Body() picSearchDto: PicSearchDto): Promise<Pic[]> {
-    return this.picFetchService.picPagination(picSearchDto);
+    return this.picFetchService.picSearchByCategory(picSearchDto);
+  }
+
+  @Post('/category')
+  async searchInPicturesByCategory(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
+    return await this.picFetchService.picSearchByCategory(picSearchDto)
   }
 
   @Post('/search')
-  async searchInPictures(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
-    return await this.picFetchService.getPicturesByInput(picSearchDto)
-  }  
-
+  async searchInPicturesByInput(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
+    return await this.picFetchService.picSearchByInput(picSearchDto)
+  }
 
 }
   
