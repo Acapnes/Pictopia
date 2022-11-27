@@ -1,7 +1,9 @@
 import axios from "axios";
+import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { CategoryDto } from "../Category/CategoryDtos/category.dto";
 import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
 import { PicDto } from "./PicDtos/picDto";
+import { PicSearchDto } from "./PicDtos/picSearchDto";
 import { UploadPicDto } from "./PicDtos/uploadPicDto";
 
 export class PicAPI {
@@ -10,12 +12,15 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsByPagination(currentPage: number, postPerPage: number): Promise<PicDto[]> {
-    return await axios.post("http://localhost:3000/pics",{
-      currentPage: currentPage,
-      postPerPage: postPerPage
+  public static async getPicsByCategory(picSearchDto:PicSearchDto): Promise<PicDto[]> {
+    return await axios.post("http://localhost:3000/pics/category",{
+      category: await (await MultiFuncs.UrlParam()).charAt(0).toLocaleUpperCase() + (await MultiFuncs.UrlParam()).slice(1),
+      currentPage: picSearchDto.currentPage,
+      postPerPage: picSearchDto.postPerPage
     })
-      .then((resp) => resp.data);
+      .then((resp) => {
+        return resp.data
+      });
   }
 
   public static async getDetailPic(_id: string): Promise<PicDto> {
@@ -30,7 +35,7 @@ export class PicAPI {
     formData.append("description", uploadPicDto.description);
     
     uploadPicDto.categories.forEach((category:CategoryDto ,categoryIndex:number) => {
-      formData.append(`categories[${categoryIndex}]`, category.title);
+      formData.append(`categories[${categoryIndex}]`, category._id);
     });
     uploadPicDto.hashTags.forEach((hashtag,hashtagIndex) => {
       formData.append(`hashTags[${hashtagIndex}]`, `#${hashtag}`);

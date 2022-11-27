@@ -48,7 +48,11 @@ export class User {
   })
   favCategories: Category[];
 
-  @Field(() => UserSocials, { nullable: false })
+  @Field(() => [String], { nullable: true })
+  @Prop({ type: [], required: false })
+  lastSearchs: string[];
+
+  @Field(() => UserSocials, { nullable: true })
   @Prop({ type: Object, required: false })
   userSocials: UserSocials;
 

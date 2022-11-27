@@ -18,10 +18,10 @@ export class UserService {
   }
 
   async findOne(): Promise<User> {
-    return this.userModel.findOne({})
+    return this.userModel.findOne({});
   }
 
-  async findByEmail(email: string): Promise <UserDto | ReturnFuncDto> {
+  async findByEmail(email: string): Promise<UserDto | ReturnFuncDto> {
     return this.userModel.findOne({ email: email }).then((result) => {
       if (!result) {
         return {
@@ -33,19 +33,23 @@ export class UserService {
     });
   }
 
-  async findByLikeUsername(username: string): Promise <User[] | ReturnFuncDto | User> {
-    return this.userModel.find({ username: { $regex: '.*' + username + '.*',$options:'i'} }).then((result) => {
-      if (!result) {
-        return {
-          success: false,
-          message: 'User cannot found by username',
-        };
-      }
-      return result;
-    });
+  async findByLikeUsername(
+    username: string,
+  ): Promise<User[] | ReturnFuncDto | User> {
+    return this.userModel
+      .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
+      .then((result) => {
+        if (!result) {
+          return {
+            success: false,
+            message: 'User cannot found by username',
+          };
+        }
+        return result;
+      });
   }
 
-  async findOneByUsername(username: string): Promise <ReturnFuncDto | User> {
+  async findOneByUsername(username: string): Promise<ReturnFuncDto | User> {
     return this.userModel.findOne({ username: username }).then((result) => {
       if (!result) {
         return {
@@ -57,7 +61,9 @@ export class UserService {
     });
   }
 
-  async findByMongooseId(_id: mongoose.Types.ObjectId):Promise <ReturnFuncDto | User> {
+  async findByMongooseId(
+    _id: mongoose.Types.ObjectId,
+  ): Promise<ReturnFuncDto | User> {
     return this.userModel.findOne({ _id: _id }).then((result) => {
       if (!result) {
         return {
@@ -71,5 +77,22 @@ export class UserService {
 
   async generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object> {
     return this.jwtService.sign({ _id: _id });
+  }
+
+  async getUsersLastSearchedList(
+    _id: mongoose.Types.ObjectId,
+  ): Promise<User['lastSearchs']> {
+    return (await this.userModel.findOne({ _id: _id })).lastSearchs;
+  }
+
+  async saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string) {
+    return await this.userModel.findByIdAndUpdate(
+      { _id: _id },
+      {
+        $push: {
+          lastSearchs: searchText,
+        },
+      },
+    );
   }
 }

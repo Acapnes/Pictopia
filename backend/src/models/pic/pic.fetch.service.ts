@@ -23,7 +23,8 @@ export class PicFetchService {
   }
 
   async picSearchByCategory(picSearchDto: PicSearchDto): Promise<Pic[]> {
-    if (picSearchDto.category === 'Explore') {
+    console.log(picSearchDto)
+    if (picSearchDto.category === 'Explore' || picSearchDto.category === '') {
       return await this.picModel
         .find({})
         .skip(Math.ceil(picSearchDto.currentPage * picSearchDto.postPerPage))
