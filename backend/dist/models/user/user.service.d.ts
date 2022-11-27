@@ -14,4 +14,8 @@ export declare class UserService {
     findOneByUsername(username: string): Promise<ReturnFuncDto | User>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object>;
+    getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['lastSearchs']>;
+    saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string): Promise<User & mongoose.Document<any, any, any> & {
+        _id: mongoose.Types.ObjectId;
+    }>;
 }

@@ -59,7 +59,12 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "favCategories", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => user_socials_schema_1.UserSocials, { nullable: false }),
+    (0, graphql_1.Field)(() => [String], { nullable: true }),
+    (0, mongoose_1.Prop)({ type: [], required: false }),
+    __metadata("design:type", Array)
+], User.prototype, "lastSearchs", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => user_socials_schema_1.UserSocials, { nullable: true }),
     (0, mongoose_1.Prop)({ type: Object, required: false }),
     __metadata("design:type", user_socials_schema_1.UserSocials)
 ], User.prototype, "userSocials", void 0);

@@ -14,6 +14,7 @@ export declare class User {
     };
     savedPictures: Pic[];
     favCategories: Category[];
+    lastSearchs: string[];
     userSocials: UserSocials;
     birthDate: string;
     confrimed: boolean;

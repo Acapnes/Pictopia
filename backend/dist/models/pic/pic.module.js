@@ -9,7 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const category_schema_1 = require("../../schemas/category.schema");
 const pic_schema_1 = require("../../schemas/pic.schema");
+const category_service_1 = require("../category/category.service");
 const pic_controller_1 = require("./pic.controller");
 const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_resolver_1 = require("./pic.resolver");
@@ -18,9 +20,14 @@ let PicModule = class PicModule {
 };
 PicModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: pic_schema_1.Pic.name, schema: pic_schema_1.PicSchema }])],
+        imports: [
+            mongoose_1.MongooseModule.forFeature([
+                { name: pic_schema_1.Pic.name, schema: pic_schema_1.PicSchema },
+                { name: category_schema_1.Category.name, schema: category_schema_1.CategorySchema },
+            ]),
+        ],
         controllers: [pic_controller_1.PicController],
-        providers: [pic_service_1.PicService, pic_fetch_service_1.PicFetchService, pic_resolver_1.PicResolver],
+        providers: [pic_service_1.PicService, pic_fetch_service_1.PicFetchService, pic_resolver_1.PicResolver, category_service_1.CategoryService],
     })
 ], PicModule);
 exports.PicModule = PicModule;

@@ -41,7 +41,9 @@ let UserService = class UserService {
         });
     }
     async findByLikeUsername(username) {
-        return this.userModel.find({ username: { $regex: '.*' + username + '.*', $options: 'i' } }).then((result) => {
+        return this.userModel
+            .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
+            .then((result) => {
             if (!result) {
                 return {
                     success: false,
@@ -75,6 +77,16 @@ let UserService = class UserService {
     }
     async generateLoginToken(_id) {
         return this.jwtService.sign({ _id: _id });
+    }
+    async getUsersLastSearchedList(_id) {
+        return (await this.userModel.findOne({ _id: _id })).lastSearchs;
+    }
+    async saveToLastSearchs(_id, searchText) {
+        return await this.userModel.findByIdAndUpdate({ _id: _id }, {
+            $push: {
+                lastSearchs: searchText,
+            },
+        });
     }
 };
 UserService = __decorate([

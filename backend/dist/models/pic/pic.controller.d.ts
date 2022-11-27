@@ -12,5 +12,6 @@ export declare class PicController {
     getPicById(id: any): Promise<Pic>;
     uploadPicture(file: any, req: any, body: any): Promise<ReturnFuncDto>;
     getPicsByPagination(picSearchDto: PicSearchDto): Promise<Pic[]>;
-    searchInPictures(picSearchDto: PicSearchDto): Promise<Pic[]>;
+    searchInPicturesByCategory(picSearchDto: PicSearchDto): Promise<Pic[]>;
+    searchInPicturesByInput(picSearchDto: PicSearchDto): Promise<Pic[]>;
 }

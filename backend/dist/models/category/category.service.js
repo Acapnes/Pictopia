@@ -24,6 +24,12 @@ let CategoryService = class CategoryService {
     async findAll() {
         return this.categoryModel.find({});
     }
+    async findCategoryByTitle(title) {
+        return this.categoryModel.findOne({ title: title });
+    }
+    async getCategoryIdByTitle(title) {
+        return (await this.categoryModel.findOne({ title: title }))._id;
+    }
     async createCategory(file, categoryCreationDto) {
         const newCategory = await new this.categoryModel(categoryCreationDto);
         newCategory.category_picture_file.data = file.buffer;

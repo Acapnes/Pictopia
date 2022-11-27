@@ -26,7 +26,8 @@ type User {
   username: String!
   avatar: PictureFile!
   savedPictures: [Pic!]!
-  userSocials: UserSocials!
+  lastSearchs: [String!]
+  userSocials: UserSocials
   birthDate: String!
   confrimed: Boolean
   bio: String

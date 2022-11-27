@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
+const category_dto_1 = require("../../dto/category/category.dto");
 const category_service_1 = require("./category.service");
 let CategoryController = class CategoryController {
     constructor(categoryService) {
@@ -22,6 +23,12 @@ let CategoryController = class CategoryController {
     }
     async getCategories() {
         return this.categoryService.findAll();
+    }
+    async getCategoriesByTitle(title) {
+        return this.categoryService.findCategoryByTitle(title);
+    }
+    async getCategoryIdFromTitle(categoryDto) {
+        return this.categoryService.getCategoryIdByTitle(categoryDto.title);
     }
     async uploadImage(category_picture, res, req, body) {
         const picture = await this.categoryService.createCategory(category_picture, body);
@@ -38,6 +45,19 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "getCategories", null);
+__decorate([
+    (0, common_1.Get)('/:title'),
+    __param(0, (0, common_1.Param)('title')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "getCategoriesByTitle", null);
+__decorate([
+    (0, common_1.Post)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [category_dto_1.CategoryDto]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "getCategoryIdFromTitle", null);
 __decorate([
     (0, common_1.Post)('/create'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('category_picture')),

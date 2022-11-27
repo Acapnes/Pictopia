@@ -39,10 +39,13 @@ let PicController = class PicController {
         return await this.picsService.createPostWithImage(req.user, file, body);
     }
     async getPicsByPagination(picSearchDto) {
-        return this.picFetchService.picPagination(picSearchDto);
+        return this.picFetchService.picSearchByCategory(picSearchDto);
     }
-    async searchInPictures(picSearchDto) {
-        return await this.picFetchService.getPicturesByInput(picSearchDto);
+    async searchInPicturesByCategory(picSearchDto) {
+        return await this.picFetchService.picSearchByCategory(picSearchDto);
+    }
+    async searchInPicturesByInput(picSearchDto) {
+        return await this.picFetchService.picSearchByInput(picSearchDto);
     }
 };
 __decorate([
@@ -86,12 +89,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicsByPagination", null);
 __decorate([
+    (0, common_1.Post)('/category'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "searchInPicturesByCategory", null);
+__decorate([
     (0, common_1.Post)('/search'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
     __metadata("design:returntype", Promise)
-], PicController.prototype, "searchInPictures", null);
+], PicController.prototype, "searchInPicturesByInput", null);
 PicController = __decorate([
     (0, common_1.Controller)('/pics'),
     __metadata("design:paramtypes", [pic_service_1.PicService,
