@@ -8,28 +8,56 @@ import { CategoryDto } from "../../Api/Category/CategoryDtos/category.dto";
 import { CategoryAPI } from "../../Api/Category/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
 import LastSearchs from "./SearchMenu/components/LastSearchs";
-import SearchMenu from "./SearchMenu/SearchMenu";
 import CurrentCategory from "./SearchMenu/Category/CurrentCategory";
+import { usePictopiaDNDStore } from "../../components/Zustand/store";
+import DefaultCategories from "./SearchMenu/Category/DefaultCategories";
+import FavoriteCategories from "./SearchMenu/Category/FavoriteCategories";
+import SearchMenuUsersGrid from "./SearchMenu/Users/SearchedUsers";
 
 const SearchBar: React.FC<{}> = () => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
-  const [searchedCategories, setFetchedSearchedCategories] = useState<
-    CategoryDto[]
-  >([]);
   const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
-
-  const fetchAndSetPicsAndUsers = async () => {
-    setFetchedSearchedCategories(await CategoryAPI.getAllCategories());
-  };
 
   const searchUsers = async (username: string) => {
     setSearchedUsers(await UserAPI.findUserByUsername(username));
   };
 
+  const setDefaultCategories = usePictopiaDNDStore(
+    (state: any) => state.setDefaultCategories
+  );
+  const setFavoriteCategories = usePictopiaDNDStore(
+    (state: any) => state.setFavoriteCategories
+  );
+
+  const FetchCategories = async () => {
+    window.localStorage.getItem("access_token");
+    if (window.localStorage.getItem("access_token")) {
+      setFavoriteCategories(
+        await CategoryAPI.getUserFavoriteCategories(
+          window.localStorage.getItem("access_token")!
+        )
+      );
+      setDefaultCategories(
+        await CategoryAPI.getAllCategoriesByDevidedUserFavorites(
+          window.localStorage.getItem("access_token")!
+        )
+      );
+    } else {
+      setDefaultCategories(await CategoryAPI.getAllCategories());
+    }
+  };
+
   useEffect(() => {
-    fetchAndSetPicsAndUsers();
+    FetchCategories();
   }, []);
+
+  const defaultCategories = usePictopiaDNDStore<CategoryDto[]>(
+    (state: any) => state.defaultCategories
+  );
+  const favoriteCategories = usePictopiaDNDStore<CategoryDto[]>(
+    (state: any) => state.favoriteCategories
+  );
 
   return (
     <div className="w-full hidden md:flex md:items-center relative">
@@ -44,6 +72,9 @@ const SearchBar: React.FC<{}> = () => {
               <PrettySearchIcon fill={"white"} />
             </div>
             <input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") console.log("asd");
+              }}
               autoComplete="off"
               id="SearchInput"
               onChange={(e) => {
@@ -72,18 +103,18 @@ const SearchBar: React.FC<{}> = () => {
         <div className="absolute top-[4rem] w-full shadow-lg">
           <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
             <div className=" w-full p-5 bg-soft-black bg-opacity-95 rounded-sm relative">
-              <div className="w-full flex flex-col space-y-3">
-                <div className="w-full flex flex-row justify-between space-x-5">
+              <div className="w-full flex flex-row space-x-2">
+                <div className="flex flex-col space-y-2 w-fit">
                   <CurrentCategory />
-                  <LastSearchs />
+                  <FavoriteCategories favoriteCategories={favoriteCategories} />
                 </div>
-                <div className="w-full h-full">
-                  <SearchMenu
-                    showSearchMenu={showSearchMenu}
-                    searchedUsers={searchedUsers}
-                    searchInputvalue={searchInputvalue}
-                    searchedCategories={searchedCategories}
-                  />
+                <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2">
+                  <LastSearchs />
+                  {searchInputvalue ? (
+                    <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+                  ) : (
+                    <DefaultCategories defaultCategories={defaultCategories} />
+                  )}
                 </div>
               </div>
             </div>
