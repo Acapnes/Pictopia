@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CommentAPI } from "../../Api/Pic/CommentApi";
+import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../Functions/MultipleFuncs";
@@ -140,28 +140,10 @@ const PrettyHeaderNullAvatar: React.FC<{}> = (props: any) => {
   );
 };
 
-const PrettyHeaderExtendCategory = (props: any) => {
-  return (
-    <div className="relative w-full text-start font-semibold text-white rounded-sm h-[20rem]">
-      <img
-        src={`data:${props?.category?.category_picture_file?.contentType};base64,${props?.category?.category_picture_file?.data}`}
-        className="object-cover h-full w-full opacity-50 rounded-sm border-2"
-        alt=""
-      />
-      <div className="absolute top-0 w-full h-full flex flex-row justify-center space-x-2 items-center text-center px-4 py-2 rounded-lg duration-300 hover:bg-gray-400 hover:bg-opacity-30">
-        <p className="my-2 text-gray-200 font-bold text-xl ">
-          {props?.category?.title}
-        </p>
-      </div>
-    </div>
-  );
-};
-
 export {
   PrettySendCommentOrReply,
   PrettyLargeAvatar,
   PrettyMediumAvatar,
   PrettyRotatingArrow,
-  PrettyHeaderExtendCategory,
   PrettyHeaderNullAvatar,
 };
