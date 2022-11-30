@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Comment, CommentSchema } from 'src/schemas/comment.schema';
 import { Pic, PicSchema } from 'src/schemas/pic.schema';
@@ -6,6 +11,7 @@ import { PicService } from '../pic/pic.service';
 import { CommentController } from './comment.controller';
 import { CommentResolver } from './comment.resolver';
 import { CommentService } from './comment.service';
+import { PicSelectionMiddleware } from './middleware/pic.selection.middleware';
 
 @Module({
   imports: [
@@ -17,4 +23,10 @@ import { CommentService } from './comment.service';
   controllers: [CommentController],
   providers: [CommentService, PicService, CommentResolver],
 })
-export class CommentModule {}
+export class CommentModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(PicSelectionMiddleware)
+      .forRoutes({ path: '/comments/*', method: RequestMethod.POST });
+  }
+}

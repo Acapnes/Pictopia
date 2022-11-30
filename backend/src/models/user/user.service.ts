@@ -33,9 +33,7 @@ export class UserService {
     });
   }
 
-  async findByLikeUsername(
-    username: string,
-  ): Promise<User[] | ReturnFuncDto | User> {
+  async findByLikeUsername(username: string): Promise<User[] | ReturnFuncDto | User> {
     return this.userModel
       .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
       .then((result) => {
@@ -61,21 +59,11 @@ export class UserService {
     });
   }
 
-  async findByMongooseId(
-    _id: mongoose.Types.ObjectId,
-  ): Promise<ReturnFuncDto | User> {
-    return this.userModel.findOne({ _id: _id }).then((result) => {
-      if (!result) {
-        return {
-          success: false,
-          message: 'User cannot found by id',
-        };
-      }
-      return result;
-    });
+  async findByMongooseId(_id: mongoose.Types.ObjectId,): Promise<ReturnFuncDto | User> {
+    return this.userModel.findOne({ _id: _id });
   }
 
-  async generateLoginToken(_id: mongoose.Types.ObjectId): Promise<Object> {
+  async generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string> {
     return this.jwtService.sign({ _id: _id });
   }
 

@@ -25,78 +25,44 @@ export class CommentService {
     return (await this.commentModel.find({ parentId: _id }).populate('author')).reverse();
   }
 
-  async signComment(_id: mongoose.Types.ObjectId | any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
-    if (!commentCreateDto.comment || !commentCreateDto.destPicture ){
+  async signComment(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
+    const newComment = await this.commentModel.create({
+      author: _id,
+      destPicture: commentCreateDto.destPicture,
+      comment: commentCreateDto.comment,
+    });
+
+    if (!this.findCommentByMongooseId(newComment._id)) {
       return {
         success: false,
-        message: 'Comment or Destination Picture cannot be empty',
+        message: 'Something went wrong, could not add comment.',
       };
     }
 
-    return await this.picService.getPicById(commentCreateDto.destPicture)
-      .then(async (resp) => {
-        if (!resp) {
-          return {
-            success: false,
-            message: 'Destination Picture cannot found.',
-          };
-        }
-
-        const newComment = await this.commentModel.create({
-          author: _id,
-          destPicture: commentCreateDto.destPicture,
-          comment: commentCreateDto.comment,
-        });
-
-        if (!this.findCommentByMongooseId(newComment._id)) {
-          return {
-            success: false,
-            message: 'Something went wrong, could not add comment.',
-          };
-        }
-
-        return {
-          success: true,
-          message: 'New comment has been added.',
-        };
-      });
+    return {
+      success: true,
+      message: 'New comment has been added.',
+    };
   }
 
   async signReply(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
-    if (!commentCreateDto.comment || !commentCreateDto.destPicture || !commentCreateDto.parentId ){
+    const newReply = await this.commentModel.create({
+      author: _id,
+      destPicture: commentCreateDto.destPicture,
+      parentId: commentCreateDto.parentId,
+      comment: commentCreateDto.comment,
+    });
+
+    if (!this.findCommentByMongooseId(newReply._id)) {
       return {
         success: false,
-        message: 'Comment, Destination Picture, Comment Id cannot be empty',
+        message: 'Something went wrong, could not add reply.',
       };
     }
 
-    return await this.picService.getPicById(commentCreateDto.destPicture)
-      .then(async (resp) => {
-        if (!resp) {
-          return {
-            success: false,
-            message: 'Destination Picture cannot found.',
-          };
-        }
-
-        const newComment = await this.commentModel.create({
-          author: _id,
-          destPicture: commentCreateDto.destPicture,
-          parentId: commentCreateDto.parentId,
-          comment: commentCreateDto.comment,
-        });
-
-        if (!this.findCommentByMongooseId(newComment._id)) {
-          return {
-            success: false,
-            message: 'Something went wrong, could not add reply.',
-          };
-        }
-
-        return {
-          success: true,
-          message: 'New reply has been added.',
-        };
-      });
+    return {
+      success: true,
+      message: 'New reply has been added.',
+    };
   }
 }

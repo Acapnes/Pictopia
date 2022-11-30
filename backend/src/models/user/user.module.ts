@@ -1,12 +1,19 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
-import { JwtStrategy } from 'src/helpers/AuthGuards/jwt.strategy';
+import { JwtStrategy } from 'src/helpers/guards/jwt.strategy';
 import { Category, CategorySchema } from 'src/schemas/category.schema';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { CategoryService } from '../category/category.service';
 import { AuthService } from './auth/auth.service';
 import { UserAuthController } from './auth/user.auth.controller';
+import { UserModerationMiddleware } from './moderation/middleware/moderation.middleware';
 import { ModerationService } from './moderation/moderation.service';
 import { SavedPicturesService } from './moderation/saved.pictures.service';
 import { UserCategoryService } from './moderation/user.category.service';
@@ -37,4 +44,10 @@ import { UserService } from './user.service';
     CategoryService,
   ],
 })
-export class UserModule {}
+export class UserModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // consumer
+    //   .apply(UserModerationMiddleware)
+    //   .forRoutes({ path: '/user/profile/*', method: RequestMethod.ALL });
+  }
+}

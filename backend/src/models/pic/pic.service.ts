@@ -4,14 +4,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { CategoryService } from '../category/category.service';
 
 @Injectable()
 export class PicService {
-  constructor(
-    @InjectModel(Pic.name) private picModel: Model<PicDocument>,
-    
-  ) {}
+  constructor(@InjectModel(Pic.name) private picModel: Model<PicDocument>) {}
 
   async findAll(): Promise<Pic[]> {
     return this.picModel
@@ -21,15 +17,11 @@ export class PicService {
       .populate('authorPic');
   }
 
-  async getPicById(id: any): Promise<Pic> {
+  async getPicById(id: mongoose.Types.ObjectId): Promise<Pic> {
     return this.picModel.findOne({ _id: id }).populate('authorPic');
   }
 
-  async createPostWithImage(
-    authorPicId: mongoose.Types.ObjectId | any,
-    file: any,
-    picCreateDto: PicCreateDto,
-  ): Promise<ReturnFuncDto> {
+  async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any, file: any, picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
     if (!picCreateDto.title) {
       return {
         success: false,

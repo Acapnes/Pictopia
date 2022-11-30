@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Category, CategorySchema } from 'src/schemas/category.schema';
 import { Pic, PicSchema } from 'src/schemas/pic.schema';
@@ -18,4 +18,6 @@ import { PicService } from './pic.service';
   controllers: [PicController],
   providers: [PicService, PicFetchService, PicResolver, CategoryService],
 })
-export class PicModule {}
+export class PicModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {}
+}
