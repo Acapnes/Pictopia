@@ -47,6 +47,7 @@ type Comment {
   author: User!
   destPicture: Pic!
   parentId: Comment
+  likedUsers: User
   comment: String!
 }
 

@@ -26,6 +26,14 @@ export class Comment {
   })
   parentId: string;
 
+  @Field(() => User, { nullable: true })
+  @Prop({
+    required: false,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  likedUsers: [mongoose.Schema.Types.ObjectId]
+
   @Field({ nullable: false })
   @Prop({ required: true })
   comment: string;

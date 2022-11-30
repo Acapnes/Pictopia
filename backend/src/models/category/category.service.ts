@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CategoryCreationDto } from 'src/dto/category/category.creation.dto';
-import { CategoryDto } from 'src/dto/category/category.dto';
+
 import { Category, CategoryDocument } from 'src/schemas/category.schema';
 
 @Injectable()

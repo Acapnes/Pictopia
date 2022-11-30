@@ -23,7 +23,6 @@ export class PicFetchService {
   }
 
   async picSearchByCategory(picSearchDto: PicSearchDto): Promise<Pic[]> {
-    console.log(picSearchDto)
     if (picSearchDto.category === 'Explore' || picSearchDto.category === '') {
       return await this.picModel
         .find({})
@@ -79,36 +78,4 @@ export class PicFetchService {
         .populate('categories')
     );
   }
-
-  // async getPicturesByInput(picSearchDto: PicSearchDto): Promise<Pic[]> {
-  //   let searchArray = [];
-  //   if (picSearchDto.input[0] === '#') {
-  //     return await this.picModel
-  //       .find({ hashTags: picSearchDto.input })
-  //       .populate('authorPic')
-  //       .limit(30);
-  //   } else {
-  //     return await this.picModel
-  //       .find({ title: picSearchDto.input })
-  //       // .populate('authorPic')
-  //       .limit(5)
-  //       .then(async (titleResult) => {
-  //         searchArray.push(...titleResult);
-  //         await this.picModel
-  //           .find({ description: picSearchDto.input })
-  //           // .populate('authorPic')
-  //           .limit(5)
-  //           .then(async (descriptionResult) => {
-  //             searchArray.push(
-  //               ...descriptionResult.filter((description) =>
-  //                 searchArray.some(
-  //                   (titleResult) => titleResult?._id === description?._id,
-  //                 ),
-  //               ),
-  //             );
-  //           });
-  //         return searchArray;
-  //       });
-  //   }
-  // }
 }
