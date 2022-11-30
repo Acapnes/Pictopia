@@ -17,6 +17,7 @@ const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_resolver_1 = require("./pic.resolver");
 const pic_service_1 = require("./pic.service");
 let PicModule = class PicModule {
+    configure(consumer) { }
 };
 PicModule = __decorate([
     (0, common_1.Module)({

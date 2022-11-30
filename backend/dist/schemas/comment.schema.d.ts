@@ -6,6 +6,7 @@ export declare class Comment {
     author: User;
     destPicture: Pic;
     parentId: string;
+    likedUsers: [mongoose.Schema.Types.ObjectId];
     comment: string;
 }
 export declare const CommentSchema: mongoose.Schema<Comment, mongoose.Model<Comment, any, any, any, any>, {}, {}, {}, {}, "type", Comment>;

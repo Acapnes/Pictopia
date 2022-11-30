@@ -65,15 +65,7 @@ let UserService = class UserService {
         });
     }
     async findByMongooseId(_id) {
-        return this.userModel.findOne({ _id: _id }).then((result) => {
-            if (!result) {
-                return {
-                    success: false,
-                    message: 'User cannot found by id',
-                };
-            }
-            return result;
-        });
+        return this.userModel.findOne({ _id: _id });
     }
     async generateLoginToken(_id) {
         return this.jwtService.sign({ _id: _id });

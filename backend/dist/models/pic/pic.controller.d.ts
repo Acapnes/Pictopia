@@ -8,10 +8,10 @@ export declare class PicController {
     private readonly picFetchService;
     constructor(picsService: PicService, picFetchService: PicFetchService);
     getPics(): Promise<Pic[]>;
-    getPrettyPicById(res: any, req: any, id: any): Promise<Pic>;
+    getPicsByPagination(picSearchDto: PicSearchDto): Promise<Pic[]>;
+    getPrettyPicById(res: any, id: any): Promise<Pic>;
     getPicById(id: any): Promise<Pic>;
     uploadPicture(file: any, req: any, body: any): Promise<ReturnFuncDto>;
-    getPicsByPagination(picSearchDto: PicSearchDto): Promise<Pic[]>;
     searchInPicturesByCategory(picSearchDto: PicSearchDto): Promise<Pic[]>;
     searchInPicturesByInput(picSearchDto: PicSearchDto): Promise<Pic[]>;
 }

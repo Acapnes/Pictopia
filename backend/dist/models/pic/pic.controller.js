@@ -27,7 +27,10 @@ let PicController = class PicController {
     async getPics() {
         return this.picsService.findAll();
     }
-    async getPrettyPicById(res, req, id) {
+    async getPicsByPagination(picSearchDto) {
+        return this.picFetchService.picSearchByCategory(picSearchDto);
+    }
+    async getPrettyPicById(res, id) {
         const picture = await this.picsService.getPicById(id);
         res.setHeader('Content-type', picture.picture_file.contentType);
         return res.send(picture.picture_file.data.buffer);
@@ -37,9 +40,6 @@ let PicController = class PicController {
     }
     async uploadPicture(file, req, body) {
         return await this.picsService.createPostWithImage(req.user, file, body);
-    }
-    async getPicsByPagination(picSearchDto) {
-        return this.picFetchService.picSearchByCategory(picSearchDto);
     }
     async searchInPicturesByCategory(picSearchDto) {
         return await this.picFetchService.picSearchByCategory(picSearchDto);
@@ -55,12 +55,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPics", null);
 __decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "getPicsByPagination", null);
+__decorate([
     (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),
-    __param(1, (0, common_1.Req)()),
-    __param(2, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPrettyPicById", null);
 __decorate([
@@ -81,13 +87,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "uploadPicture", null);
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
-    __metadata("design:returntype", Promise)
-], PicController.prototype, "getPicsByPagination", null);
 __decorate([
     (0, common_1.Post)('/category'),
     __param(0, (0, common_1.Body)()),

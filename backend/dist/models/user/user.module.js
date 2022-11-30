@@ -10,7 +10,7 @@ exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
-const jwt_strategy_1 = require("../../helpers/AuthGuards/jwt.strategy");
+const jwt_strategy_1 = require("../../helpers/guards/jwt.strategy");
 const category_schema_1 = require("../../schemas/category.schema");
 const user_schema_1 = require("../../schemas/user.schema");
 const category_service_1 = require("../category/category.service");
@@ -24,6 +24,8 @@ const user_controller_1 = require("./user.controller");
 const user_resolver_1 = require("./user.resolver");
 const user_service_1 = require("./user.service");
 let UserModule = class UserModule {
+    configure(consumer) {
+    }
 };
 UserModule = __decorate([
     (0, common_1.Module)({
