@@ -1,7 +1,6 @@
 import React from "react";
-import { PrettyBugIcon } from "../Prettys/PrettyIcons";
 
-const SuspenseVeiw = () => {
+const SuspenseVeiw: React.FC<{}> = () => {
   return (
     <div className="w-full flex items-center justify-center mt-20">
       <div className="flex flex-col h-fit w-fit items-center">

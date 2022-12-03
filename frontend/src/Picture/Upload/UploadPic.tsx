@@ -2,18 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { UploadPicDto } from "../../Api/Pic/PicDtos/uploadPicDto";
-import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
 import { PrettyUploadIcon } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 import SelectPicture from "./components/SelectPicture";
-import CustomToast from "../../components/Views/CustomToast";
 import CategorySelection from "./components/Category/CategorySelection";
 import HashtagList from "./components/Hashtags/HashtagList";
 import Hashtag from "./components/Hashtags/Hashtag";
 import { CategoryDto } from "../../Api/Category/CategoryDtos/category.dto";
+import { useToastStore } from "../../components/Zustand/store";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
 
 const UploadPic: React.FC<{}> = () => {
+  const setToastState = useToastStore((state: any) => state.setToastState);
+
   const [inputTitle, setInputTitle] = useState("");
   const [inputDescription, setInputDescription] = useState("");
 
@@ -25,8 +27,6 @@ const UploadPic: React.FC<{}> = () => {
 
   const [categoryArray, setCategoryArray] = useState<CategoryDto[]>([]);
   const [setedCategories, setSetedCategories] = useState<CategoryDto[]>([]);
-
-  const [picUploadResult, setPicUploadResult] = useState(Object);
 
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -54,9 +54,10 @@ const UploadPic: React.FC<{}> = () => {
           hashTags: hashtagArray,
         } as UploadPicDto,
         window.localStorage.getItem("access_token")!
-      )
-        .then((resp) => setPicUploadResult(resp))
-        .then(() => MultiFuncs.AlertTimer("CustomPicUploadAlert"));
+      ).then(
+        async (UploadResp: ReturnFuncDto) =>
+          await setToastState(UploadResp.message)
+      );
     }
   };
 
@@ -129,9 +130,6 @@ const UploadPic: React.FC<{}> = () => {
           ref={hiddenFileInput}
           onChange={handleChange}
         />
-      </div>
-      <div className="hidden" id="CustomPicUploadAlert">
-        <CustomToast result={picUploadResult} />
       </div>
     </div>
   );

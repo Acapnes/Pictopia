@@ -10,6 +10,7 @@ const SelectPicture: React.FC<{
   handleClick: Function;
   setImageURL: any;
 }> = ({ imageURL, handleClick, setImageURL }) => {
+  
   return (
     <div className="w-full flex items-center justify-center">
       {imageURL === "null" ? (
@@ -28,6 +29,7 @@ const SelectPicture: React.FC<{
       ) : (
         <div className="relative">
           <img
+            id="UploadPicture"
             src={imageURL}
             alt=""
             className="object-contain rounded-sm max-h-[100vh] "

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import { PicCreateDto } from '../pic/pic.create.dto';
 export declare class CommentCreateDto {
-    destPicture: PicCreateDto;
+    destPicture: mongoose.Types.ObjectId;
     parentId?: mongoose.Types.ObjectId;
     comment: string;
 }

@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import mongoose from 'mongoose';
-import { PicCreateDto } from '../pic/pic.create.dto';
 
 export class CommentCreateDto {
   @IsNotEmpty()
-  destPicture: PicCreateDto;
+  @IsMongoId()
+  destPicture: mongoose.Types.ObjectId;
 
   @IsOptional()
   parentId?: mongoose.Types.ObjectId;

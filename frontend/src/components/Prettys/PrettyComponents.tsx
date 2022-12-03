@@ -1,9 +1,5 @@
-import { useState } from "react";
-import { CommentAPI } from "../../Api/Comment/CommentApi";
-import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../Functions/MultipleFuncs";
-import { PrettySend } from "./PrettyButtons";
 import { PrettyProfileIcon, PrettySmallArrowDown } from "./PrettyIcons";
 
 const PrettyLargeAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
@@ -79,45 +75,6 @@ const PrettyMediumAvatar: React.FC<{ user: UserDto; rounded: boolean }> = ({
   );
 };
 
-const PrettySendCommentOrReply: React.FC<{
-  getCommentsById: Function;
-  author: UserDto;
-  picture: PicDto;
-}> = ({ getCommentsById, picture, author }) => {
-  const [newCommentsComment, setNewCommentsComment] = useState(String);
-  const postComment = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      await CommentAPI.postCommentToPicture(
-        window.localStorage.getItem("access_token")!,
-        {
-          comment: newCommentsComment,
-          destPicture: picture?._id,
-        }
-      ).then(() => getCommentsById());
-    }
-  };
-
-  return (
-    <div className="flex flex-row space-x-2 items-center">
-      <PrettyMediumAvatar user={author} rounded={true} />
-      <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2.5rem]">
-        <textarea
-          id="InputNewComment"
-          onChange={(e) => setNewCommentsComment(e.target.value)}
-          className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
-          placeholder="Sıgn new comment"
-        />
-        <div
-          onClick={() => postComment()}
-          className="h-full flex items-center px-2 hover:bg-pretty-pink hover:bg-opacity-40 cursor-pointer"
-        >
-          <PrettySend size={18} fill="rgb(244, 114, 182)" />
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const PrettyRotatingArrow: React.FC<{ state: boolean }> = ({ state }) => {
   return (
     <div
@@ -130,20 +87,4 @@ const PrettyRotatingArrow: React.FC<{ state: boolean }> = ({ state }) => {
   );
 };
 
-const PrettyHeaderNullAvatar: React.FC<{}> = (props: any) => {
-  return (
-    <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[4rem] relative p-[0.12rem]">
-      <div className="w-full h-full flex items-center justify-center bg-soft-black py-1 rounded-sm">
-        <PrettyProfileIcon size={props.nullAvatarSize} fill={"white"} />
-      </div>
-    </div>
-  );
-};
-
-export {
-  PrettySendCommentOrReply,
-  PrettyLargeAvatar,
-  PrettyMediumAvatar,
-  PrettyRotatingArrow,
-  PrettyHeaderNullAvatar,
-};
+export { PrettyLargeAvatar, PrettyMediumAvatar, PrettyRotatingArrow };

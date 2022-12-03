@@ -3,7 +3,7 @@ import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import {
   PrettyProfileCopyButton,
   PrettyShareProfileButton,
-} from "../../../components/Prettys/PrettySocialButtons";
+} from "./PrettySocialButtons";
 import UserSocialList from "../../components/UserSocialList";
 
 const VisitUserInfo: React.FC<{ user: UserDto }> = ({ user }) => {

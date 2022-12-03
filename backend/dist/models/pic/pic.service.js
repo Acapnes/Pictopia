@@ -49,16 +49,18 @@ let PicService = class PicService {
         newImage.picture_file.data = file.buffer;
         newImage.picture_file.contentType = file.mimetype;
         await newImage.save();
-        if (!(await this.getPicById(newImage._id))) {
+        return await this.getPicById(newImage._id).then((result) => {
+            if (!result) {
+                return {
+                    success: false,
+                    message: 'Something went wrong!',
+                };
+            }
             return {
-                success: false,
-                message: 'Something went wrong!',
+                success: true,
+                message: result._id.toString(),
             };
-        }
-        return {
-            success: true,
-            message: 'Picture has been created',
-        };
+        });
     }
 };
 PicService = __decorate([

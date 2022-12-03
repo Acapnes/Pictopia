@@ -10,6 +10,6 @@ export declare class CommentService {
     findAll(): Promise<Comment[]>;
     findCommentByMongooseId(destPicture: mongoose.Types.ObjectId): Promise<Comment[]>;
     getCommentReplies(_id: mongoose.Types.ObjectId): Promise<Comment[]>;
-    signComment(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
+    signComment(_id: mongoose.Types.ObjectId | any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
     signReply(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto>;
 }

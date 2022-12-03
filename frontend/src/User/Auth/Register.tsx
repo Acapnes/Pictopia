@@ -1,36 +1,42 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
-import CustomAlert from "../../components/Views/CustomAlert";
-import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
+import { useToastStore } from "../../components/Zustand/store";
 
 const Register: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userBirthDate, setUserBirthDate] = useState(Date);
-  const [userPassword, setUserPassword] = useState(Date);
-  const [registerResult, setRegisterResult] = useState(Object);
+
+  const userEmailRef = useRef<HTMLInputElement>(null);
+  const userPasswordRef = useRef<HTMLInputElement>(null);
+  const userBirthDateRef = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<HTMLInputElement>(null);
+
+  const setToastState = useToastStore((state: any) => state.setToastState);
 
   const userRegister = async () => {
     UserAPI.userRegister({
-      email: userEmail,
-      password: userPassword,
-      username: userName,
-      birthDate: userBirthDate,
-    }).then((resp) =>
-      setRegisterResult({
-        access: resp.access,
-        message: resp.message,
-      })
+      email: userEmailRef.current!.value!,
+      password: userPasswordRef.current!.value!,
+      username: userBirthDateRef.current!.value!,
+      birthDate: userNameRef.current!.value!,
+    }).then(
+      async (RegisterResp: ReturnFuncDto) =>
+        await setToastState(RegisterResp.message)
     );
   };
 
+  useEffect(() => {
+    userEmailRef.current!.value = "";
+    userPasswordRef.current!.value = "";
+    userBirthDateRef.current!.value = "";
+    userNameRef.current!.value = "";
+  }, []);
+
   return (
-    <div
-      className={`w-full h-full`}
-    >
+    <div className={`w-full h-full`}>
       <div className="flex justify-center relative">
         <div className="absolute top-0 w-full h-full z-10 bg-gray-900 bg-opacity-70"></div>
         <div className="min-w-screen min-h-screen">
@@ -39,19 +45,18 @@ const Register: React.FC<{}> = () => {
 
         <div className="fixed z-20 mt-14 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-soft-black drop-shadow-xl p-12 shadow-3xl rounded-sm">
           <div className="relative space-y-5 flex flex-col ">
-            <CustomAlert result={registerResult} />
             <p className="text-4xl text-center text-gray-200 mt-3">
               User Register
             </p>
 
             <input
-              onChange={(e) => setUserName(e.target.value)}
+              ref={userNameRef}
               type="text"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
               placeholder="Username"
             />
             <input
-              onChange={(e) => setUserEmail(e.target.value)}
+              ref={userEmailRef}
               type="email"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
               placeholder="Email"
@@ -59,7 +64,7 @@ const Register: React.FC<{}> = () => {
 
             <div className="flex flex-row lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
-                onChange={(e) => setUserPassword(e.target.value)}
+                ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"
                 placeholder="Password"
@@ -70,15 +75,17 @@ const Register: React.FC<{}> = () => {
             </div>
 
             <input
-              onChange={(e) => setUserBirthDate(e.target.value)}
+              ref={userBirthDateRef}
               type="date"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
             />
 
             <div className="w-full flex justify-center items-center">
-              <button onClick={() => userRegister()}>
-                <PrettyAuthButton text={"SIGN UP"} />
-              </button>
+              <PrettyRainbow onclick={() => userRegister()}>
+                <div className="px-4 py-0.5">
+                  <span className="text-white ">SIGN UP</span>
+                </div>
+              </PrettyRainbow>
             </div>
 
             <div className="w-full flex text-center">

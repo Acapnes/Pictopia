@@ -1,6 +1,7 @@
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettyHeaderSignIn } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { PrettySignIcon } from "../../components/Prettys/PrettyIcons";
 
 const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
@@ -8,7 +9,15 @@ const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
       {window.localStorage.getItem("access_token") ? (
         <PrettyMediumAvatar user={user} rounded={false} />
       ) : (
-        <PrettyHeaderSignIn />
+        <PrettyRainbow
+          onclick={() => (window.location.href = "/login")}
+          advStyle="whitespace-nowrap text-gray-200 cursor-pointer"
+        >
+          <span className="hidden md:block">SIGN IN</span>
+          <div className="block md:hidden">
+            <PrettySignIcon size={20} />
+          </div>
+        </PrettyRainbow>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { UserDto } from 'src/dto/user/user.dto';
 
 @Injectable()
 export class PicService {
@@ -21,7 +22,7 @@ export class PicService {
     return this.picModel.findOne({ _id: id }).populate('authorPic');
   }
 
-  async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any, file: any, picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
+  async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any,file: any,picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
     if (!picCreateDto.title) {
       return {
         success: false,
@@ -44,16 +45,17 @@ export class PicService {
 
     await newImage.save();
 
-    if (!(await this.getPicById(newImage._id))) {
+    return await this.getPicById(newImage._id).then((result:any) => {
+      if (!result) {
+        return {
+          success: false,
+          message: 'Something went wrong!',
+        };
+      }
       return {
-        success: false,
-        message: 'Something went wrong!',
+        success: true,
+        message: result._id.toString(),
       };
-    }
-
-    return {
-      success: true,
-      message: 'Picture has been created',
-    };
+    });
   }
 }

@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
-import { PrettySaveChanges } from "../../../../components/Prettys/PrettyButtons";
-import CustomToast from "../../../../components/Views/CustomToast";
+import { PrettyRainbow } from "../../../../components/Prettys/PrettyButtons";
 import ProfileAvatar from "./ProfileAvatar";
 
 const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
@@ -11,7 +9,6 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
   const [inputName, setInputName] = useState("");
   const [inputBirthDate, setInputBirthDate] = useState("");
   const [inputBio, setInputBio] = useState("");
-  const [simpleUpdateResult, setSimpleUpdateResult] = useState(Object);
 
   const simpleUpdateProfile = async () => {
     if (window.localStorage.getItem("access_token")) {
@@ -23,16 +20,14 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
           birthDate: inputBirthDate || user?.birthDate,
           bio: inputBio || user?.bio,
         }
-      )
-        .then((resp) => setSimpleUpdateResult(resp))
-        .then(() => MultiFuncs.AlertTimer("EditAlert"));
+      );
     }
   };
 
   return (
     <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-[0.15rem] rounded-sm">
       <div
-        className={` grid grid-cols-1 gap-y-5 px-5 pb-[1rem] pt-[2rem] rounded-sm bg-soft-black`}
+        className={` grid grid-cols-1 gap-y-3 px-5 pb-[1rem] pt-[2rem] rounded-sm bg-soft-black`}
       >
         <ProfileAvatar user={user} />
         <div className="space-y-2">
@@ -81,13 +76,15 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
           />
         </div>
         <div className="col-span-1 w-full flex justify-end">
-          <button onClick={() => simpleUpdateProfile()}>
-            <PrettySaveChanges />
-          </button>
+          <PrettyRainbow
+            advStyle="cursor-pointer"
+            onclick={() => simpleUpdateProfile()}
+          >
+            <div className="px-2 py-0.5">
+              <span className="text-white">Save</span>
+            </div>
+          </PrettyRainbow>
         </div>
-      </div>
-      <div id="EditAlert" className="hidden">
-        <CustomToast result={simpleUpdateResult} />
       </div>
     </div>
   );

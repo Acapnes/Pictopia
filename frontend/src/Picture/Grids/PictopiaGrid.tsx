@@ -39,7 +39,7 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
               alt=""
               className="min-w-full rounded-sm"
             />
-            <GridMenu pic={pic} />
+            <GridMenu picture={pic} />
           </div>
         ))}
       </Masonry>

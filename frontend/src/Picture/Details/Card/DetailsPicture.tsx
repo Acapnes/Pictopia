@@ -1,10 +1,11 @@
 import React from "react";
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
+import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyButtons";
 import { PrettyErrorIcon } from "../../../components/Prettys/PrettyIcons";
 
-const DetailPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
+const DetailsPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
   return (
-    <div>
+    <>
       {picture?.picture_file?.data || picture?.picture_file?.contentType ? (
         <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm shadow-lg w-fit h-fit mb-10 relative">
           <img
@@ -14,17 +15,18 @@ const DetailPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
           />
         </div>
       ) : (
-        <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 w-fit h-fit mb-10 relative">
-          <div className="w-full h-full bg-soft-black items-center space-y-5 p-5 flex flex-col">
-            <div className="text-gray-200 text-2xl font-semibold">
-              Picture not found
-            </div>
-            <PrettyErrorIcon size={30} fill={"rgb(244,114,182)"} />
+        <PrettyRainbowDiv
+          advStyle="shadow-lg w-fit h-fit mb-10 relative rounded-md"
+          advChildStyle="px-7 py-7 flex flex-col items-center rounded-md"
+        >
+          <div className="text-gray-200 text-2xl font-semibold ">
+            Picture not found
           </div>
-        </div>
+          <PrettyErrorIcon size={30} fill={"rgb(244,114,182)"} />
+        </PrettyRainbowDiv>
       )}
-    </div>
+    </>
   );
 };
 
-export default DetailPicture;
+export default DetailsPicture;

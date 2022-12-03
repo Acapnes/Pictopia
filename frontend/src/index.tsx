@@ -10,6 +10,7 @@ import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/Visit/User";
 import Profile from "./User/Moderation/Profile";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
+import CustomToast from "./components/Views/CustomToast";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,6 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+      <CustomToast />
       <Suspense fallback={<SuspenseVeiw />}>
         <Routes>
           <Route path="*" element={<Pictopia />} />
@@ -36,18 +38,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-{
-  /* <Route
-path="*"
-element={
-  <Pictopia searchOptions={{ currentPage: 0, postPerPage: 20 }} />
-}
-/>
-<Route
-path="/categories/*"
-element={
-  <Pictopia searchOptions={{ currentPage: 0, postPerPage: 20 }} />
-}
-/> */
-}

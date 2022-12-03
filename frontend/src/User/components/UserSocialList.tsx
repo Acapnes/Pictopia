@@ -4,7 +4,7 @@ import {
   PrettySocialGitHubButton,
   PrettySocialInstagramButton,
   PrettySocialLinkedInButton,
-} from "../../components/Prettys/PrettySocialButtons";
+} from "../Visit/components/PrettySocialButtons";
 
 const UserSocialList: React.FC<{ user: UserDto }> = ({ user }) => {
   return (

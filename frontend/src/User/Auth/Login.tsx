@@ -1,22 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
-import CustomAlert from "../../components/Views/CustomAlert";
-import { PrettyAuthButton } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
+import { useToastStore } from "../../components/Zustand/store";
+import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
 
 const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [loginResult, setLoginResult] = useState(Object);
+  const userEmailRef = useRef<HTMLInputElement>(null);
+  const userPasswordRef = useRef<HTMLInputElement>(null);
+
+  const setToastState = useToastStore((state: any) => state.setToastState);
 
   const userLogin = async () => {
     await UserAPI.userLogin({
-      email: userEmail,
-      password: userPassword,
-    }).then((resp) => setLoginResult(resp));
+      email: userEmailRef.current!.value!,
+      password: userPasswordRef.current!.value!,
+    }).then(
+      async (loginResp: ReturnFuncDto) => await setToastState(loginResp.message)
+    );
   };
+
+  useEffect(() => {
+    userEmailRef.current!.value = "";
+    userPasswordRef.current!.value = "";
+  }, []);
 
   return (
     <div className="w-full h-full">
@@ -28,19 +37,18 @@ const Login: React.FC<{}> = () => {
 
         <div className="fixed z-20 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-soft-black drop-shadow-xl p-12 shadow-3xl rounded-sm">
           <div className="relative space-y-5 flex flex-col ">
-            <CustomAlert result={loginResult} />
             <p className="text-4xl text-center text-gray-200 mt-3">
               User Login
             </p>
             <input
-              onChange={(e) => setUserEmail(e.target.value)}
+              ref={userEmailRef}
               type="text"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
               placeholder="Email or Username"
             />
             <div className="flex flex-row lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
-                onChange={(e) => setUserPassword(e.target.value)}
+                ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"
                 placeholder="Password"
@@ -56,9 +64,11 @@ const Login: React.FC<{}> = () => {
             </div>
 
             <div className="w-full flex justify-center items-center">
-              <button onClick={() => userLogin()}>
-                <PrettyAuthButton text={"SIGN IN"} />
-              </button>
+              <PrettyRainbow onclick={() => userLogin()}>
+                <div className="px-4 py-0.5">
+                  <span className="text-white ">SIGN IN</span>
+                </div>
+              </PrettyRainbow>
             </div>
 
             <div className="w-full flex flex-col space-y-1 items-center">

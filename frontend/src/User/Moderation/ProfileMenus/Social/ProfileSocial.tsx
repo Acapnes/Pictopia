@@ -8,7 +8,7 @@ const ProfileSocial: React.FC<{ user: UserDto }> = ({ user }) => {
       <div className="flex flex-col space-y-5 p-5 rounded-sm bg-soft-black">
         <Socials user={user} />
         <hr className="w-full border-pretty-pink" />
-        <Email user={user.email} />
+        <Email user={user?.email} />
         <hr className="w-full border-pretty-pink" />
       </div>
     </div>

@@ -4,25 +4,16 @@ import { CommentDto } from "../../../Api/Comment/Comment/commentDto";
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../Api/UtilsDtos/ReturnFuncDto";
 import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
-import {
-  PrettyCommentsButton,
-  PrettyReportButton,
-  PrettySavePicture,
-  PrettyShare,
-} from "../../../components/Prettys/PrettyButtons";
-import {
-  PrettyLargeAvatar,
-  PrettySendCommentOrReply,
-} from "../../../components/Prettys/PrettyComponents";
-import CustomToast from "../../../components/Views/CustomToast";
+import { PrettyCommentsButton } from "../../../components/Prettys/PrettyButtons";
+import { PrettyLargeAvatar } from "../../../components/Prettys/PrettyComponents";
 import Comments from "../../Comments/Comments";
+import CardOptions from "./components/CardOptions";
+import PrettySendCommentOrReply from "../../Comments/SendComment";
 
-const PictureDetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
+const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const [commentsStatus, setCommentsStatus] = useState(false);
   const [comments, setComments] = useState<CommentDto[]>([]);
-  const [customToastResult, setCustomToastResult] = useState<ReturnFuncDto>();
   const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] =
     useState<UserDto>(Object);
 
@@ -48,10 +39,6 @@ const PictureDetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
   return (
     <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] p-0.5 mb-10 flex flex-col shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-      <div id="DetailsCustomToast">
-        {customToastResult && <CustomToast result={customToastResult} />}
-      </div>
-
       <div className="h-full flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
         <div className="flex flex-col space-y-2 w-full h-full">
           <PrettyLargeAvatar user={picture.authorPic} />
@@ -68,16 +55,8 @@ const PictureDetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
             </button>
           </div>
         </div>
-        <div className="h-full flex flex-col justify-between items-end space-y-3">
-          <PrettySavePicture
-            picture={picture}
-            setCustomToastResult={setCustomToastResult}
-          />
-          <PrettyShare picture={picture} />
-          <PrettyReportButton />
-        </div>
+        <CardOptions picture={picture} />
       </div>
-
       <div className="bg-soft-black bg-opacity-95 px-5">
         <div className={`${commentsStatus ? "block" : "hidden"} `}>
           <PrettySendCommentOrReply
@@ -94,4 +73,4 @@ const PictureDetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   );
 };
 
-export default PictureDetailsCard;
+export default DetailsCard;

@@ -1,7 +1,7 @@
 import React from "react";
 import { PrettyBugIcon } from "../Prettys/PrettyIcons";
 
-const Notfound = () => {
+const Notfound: React.FC<{}> = () => {
   return (
     <div className="flex flex-col h-fit w-fit items-center mt-20">
       <div className="w-full">

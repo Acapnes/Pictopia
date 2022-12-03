@@ -6,7 +6,6 @@ import { ExpInterceptor } from 'src/helpers/interceptors/exp.interceptor';
 import { Comment } from 'src/schemas/comment.schema';
 import { CommentService } from './comment.service';
 
-// @UseInterceptors(new ExpInterceptor())
 @Controller('/comments')
 export class CommentController {
   constructor(private readonly commentsService: CommentService) {}

@@ -6,26 +6,19 @@ import { UserValidationDto } from "./UserDtos/userValidationDto";
 
 export class UserAPI {
   public static async userLogin(userValidationDto: UserValidationDto) {
-    if (userValidationDto.email === "" || userValidationDto.password === "") {
-      return {
-        access: false,
-        message: "Please fill in the blanks",
-      };
-    }
-
     const resp = await fetch("http://localhost:3000/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userValidationDto),
     });
 
+    const data = await resp.json();
+
     if (resp.status === (400 || 404 || 500))
       return {
         access: false,
-        message: "Access verification failed",
+        message: data.message[0],
       };
-
-    const data = await resp.json();
 
     if (data.access === true) {
       window.localStorage.setItem("access_token", data.access_token);
@@ -35,18 +28,6 @@ export class UserAPI {
   }
 
   public static async userRegister(userRegistrationDto: UserRegistrationDto) {
-    if (
-      userRegistrationDto.email === "" ||
-      userRegistrationDto.password === "" ||
-      userRegistrationDto.birthDate === "" ||
-      userRegistrationDto.username === ""
-    ) {
-      return {
-        access: false,
-        message: "Please fill in the blanks",
-      };
-    }
-
     const resp = await fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -85,7 +66,10 @@ export class UserAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async userEditProfile(access_token: string, userSimpleUpdateDto: UserSimpleUpdateDto) {
+  public static async userEditProfile(
+    access_token: string,
+    userSimpleUpdateDto: UserSimpleUpdateDto
+  ) {
     const resp = await fetch(
       "http://localhost:3000/user/profile/update/simple",
       {
@@ -145,14 +129,15 @@ export class UserAPI {
     access_token: string,
     picDto: PicDto
   ) {
-    if (!localStorage.getItem("access_token")) return;
-
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .post("http://localhost:3000/user/profile/saved/add", {
         picture_id: picDto._id,
       })
-      .then((resp) => resp.data);
+      .then((resp) => {
+        console.log(resp.data);
+        return resp.data;
+      });
   }
 
   public static async getAllUsers() {
