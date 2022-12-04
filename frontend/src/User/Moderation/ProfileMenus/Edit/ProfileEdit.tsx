@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import ProfileAvatar from "./ProfileAvatar";
 
 const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {

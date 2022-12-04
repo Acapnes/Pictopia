@@ -3,8 +3,8 @@ import { CommentDto } from "../../Api/Comment/Comment/commentDto";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettySend } from "../../components/Prettys/PrettyButtons";
-import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
+import { PrettySend } from "../../components/Prettys/PrettyIcons";
 import { usePictureCommentStore } from "../../components/Zustand/store";
 
 const SendReply: React.FC<{

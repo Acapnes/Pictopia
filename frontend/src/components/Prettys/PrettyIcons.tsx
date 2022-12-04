@@ -77,7 +77,7 @@ const PrettyProfilePicture: React.FC<{ userAvatar: UserDto["avatar"] }> = ({
     <img
       src={`data:${userAvatar?.contentType};base64,${userAvatar?.data}`}
       alt=""
-      className="rounded-sm w-full object-cover p-[0.15rem]"
+      className="rounded-sm w-full object-cover"
     />
   );
 };
@@ -271,6 +271,27 @@ const PrettyLogOut = () => {
         d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
       />
     </svg>
+  );
+};
+
+const PrettySend: React.FC<{
+  size?: number;
+  fill?: string;
+}> = ({ size, fill }) => {
+  return (
+    <div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 16}
+        height={size || 16}
+        fill={fill || "currentColor"}
+        className="bi bi-send-plus-fill"
+        viewBox="0 0 16 16"
+      >
+        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 1.59 2.498C8 14 8 13 8 12.5a4.5 4.5 0 0 1 5.026-4.47L15.964.686Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z" />
+      </svg>
+    </div>
   );
 };
 
@@ -537,9 +558,11 @@ export {
   PrettyEyeIcon,
   PrettyPenIcon,
   PrettyDownloadIcon,
+  PrettySend,
+  PrettyBookMarksIcon,
+  PrettyProfileIcon,
   PrettyOptionsIcon,
   PrettySearchIcon,
-  PrettyProfileIcon,
   PrettyLogOut,
   PrettyPictopia,
   PrettyWorldIcon,
@@ -554,7 +577,6 @@ export {
   PrettySmallArrowUpIcon,
   PrettyUploadIcon,
   PrettyHomeIcon,
-  PrettyBookMarksIcon,
   PrettyBugIcon,
   PrettyAlertIcon,
   PrettyErrorIcon,

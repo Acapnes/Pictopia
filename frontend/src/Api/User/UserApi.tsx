@@ -163,4 +163,12 @@ export class UserAPI {
       .get(`http://localhost:3000/user/searched/last`)
       .then((resp) => resp.data);
   }
+
+  public static async GetUsersPostedPictures(username: string) {
+    return await axios
+      .post(`http://localhost:3000/user/account/posted`, {
+        username: username,
+      })
+      .then((resp) => resp.data);
+  }
 }

@@ -1,8 +1,6 @@
 import React from "react";
-import {
-  PrettyRainbow,
-  PrettyTip,
-} from "../../../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../../../components/Prettys/PrettyComponents";
+import { PrettyTip } from "../../../../../components/Prettys/PrettyElements";
 import Header from "../../../../../Menus/Header";
 import { PasswordInput } from "./ManageComps";
 

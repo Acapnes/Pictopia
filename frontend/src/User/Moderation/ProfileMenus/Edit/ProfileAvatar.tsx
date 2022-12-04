@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,
   PrettyCheckIcon,

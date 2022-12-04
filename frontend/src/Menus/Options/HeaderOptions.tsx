@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyOptionsIcon } from "../../components/Prettys/PrettyIcons";
 import HeaderOptionsMenu from "./HeaderOptionsMenu";
 

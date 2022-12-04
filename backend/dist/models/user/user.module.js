@@ -12,8 +12,11 @@ const jwt_1 = require("@nestjs/jwt");
 const mongoose_1 = require("@nestjs/mongoose");
 const jwt_strategy_1 = require("../../helpers/guards/jwt.strategy");
 const category_schema_1 = require("../../schemas/category.schema");
+const pic_schema_1 = require("../../schemas/pic.schema");
 const user_schema_1 = require("../../schemas/user.schema");
 const category_service_1 = require("../category/category.service");
+const account_service_1 = require("./account/account.service");
+const user_account_controller_1 = require("./account/user.account.controller");
 const auth_service_1 = require("./auth/auth.service");
 const user_auth_controller_1 = require("./auth/user.auth.controller");
 const moderation_service_1 = require("./moderation/moderation.service");
@@ -37,16 +40,23 @@ UserModule = __decorate([
             mongoose_1.MongooseModule.forFeature([
                 { name: category_schema_1.Category.name, schema: category_schema_1.CategorySchema },
             ]),
+            mongoose_1.MongooseModule.forFeature([{ name: pic_schema_1.Pic.name, schema: pic_schema_1.PicSchema }]),
         ],
-        controllers: [user_controller_1.UserController, user_auth_controller_1.UserAuthController, user_moderation_controller_1.UserModerationController],
+        controllers: [
+            user_controller_1.UserController,
+            user_auth_controller_1.UserAuthController,
+            user_moderation_controller_1.UserModerationController,
+            user_account_controller_1.UserAccountController,
+        ],
         providers: [
-            user_resolver_1.UserResolver,
-            user_service_1.UserService,
             jwt_strategy_1.JwtStrategy,
+            user_service_1.UserService,
             auth_service_1.AuthService,
+            account_service_1.AccountService,
             moderation_service_1.ModerationService,
             saved_pictures_service_1.SavedPicturesService,
             user_category_service_1.UserCategoryService,
+            user_resolver_1.UserResolver,
             category_service_1.CategoryService,
         ],
     })

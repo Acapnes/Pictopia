@@ -9,8 +9,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtStrategy } from 'src/helpers/guards/jwt.strategy';
 import { Category, CategorySchema } from 'src/schemas/category.schema';
+import { Pic, PicSchema } from 'src/schemas/pic.schema';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { CategoryService } from '../category/category.service';
+import { AccountService } from './account/account.service';
+import { UserAccountController } from './account/user.account.controller';
 import { AuthService } from './auth/auth.service';
 import { UserAuthController } from './auth/user.auth.controller';
 import { UserModerationMiddleware } from './moderation/middleware/moderation.middleware';
@@ -31,16 +34,23 @@ import { UserService } from './user.service';
     MongooseModule.forFeature([
       { name: Category.name, schema: CategorySchema },
     ]),
+    MongooseModule.forFeature([{ name: Pic.name, schema: PicSchema }]),
   ],
-  controllers: [UserController, UserAuthController, UserModerationController],
+  controllers: [
+    UserController,
+    UserAuthController,
+    UserModerationController,
+    UserAccountController,
+  ],
   providers: [
-    UserResolver,
-    UserService,
     JwtStrategy,
+    UserService,
     AuthService,
+    AccountService,
     ModerationService,
     SavedPicturesService,
     UserCategoryService,
+    UserResolver,
     CategoryService,
   ],
 })

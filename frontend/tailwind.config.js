@@ -7,6 +7,8 @@ module.exports = {
       },
       colors: {
         "soft-black": "#171717",
+        "light-soft-black": "#282828",
+        "rough-soft-black": "#0d0d0d",
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
         "pretty-yellow":"#FCBA28"

@@ -7,7 +7,7 @@ import Details from "./Picture/Details/Details";
 import Login from "./User/Auth/Login";
 import Register from "./User/Auth/Register";
 import UploadPic from "./Picture/Upload/UploadPic";
-import User from "./User/Visit/User";
+import User from "./User/User";
 import Profile from "./User/Moderation/Profile";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 import CustomToast from "./components/Views/CustomToast";
@@ -25,13 +25,13 @@ root.render(
         <Routes>
           <Route path="*" element={<Pictopia />} />
           <Route path="/categories/*" element={<Pictopia />} />
-
-          <Route path="/detail/*" element={<Details />} />
-          <Route path="/user/*" element={<User />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/detail/:id" element={<Details />} />
           <Route path="/upload" element={<UploadPic />} />
 
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route path="/user/:id/*" element={<User />} />
           <Route path="/profile/edit" element={<Profile />} />
           <Route path="/profile/privacy" element={<Profile />} />
           <Route path="/profile/management" element={<Profile />} />

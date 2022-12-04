@@ -1,4 +1,4 @@
-import { PrettyProfileSelectionButton } from "../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
 
 const ProfileSelections: React.FC<{}> = () => {
   return (
@@ -20,3 +20,14 @@ const ProfileSelections: React.FC<{}> = () => {
 };
 
 export default ProfileSelections;
+
+const PrettyProfileSelectionButton: React.FC<{ text: string }> = ({ text }) => {
+  return (
+    <PrettyRainbow
+      advStyle={`w-full min-w-[10rem] rounded-sm`}
+      advChildStyle="w-full min-w-[10rem]"
+    >
+      <span className="text-white">{text}</span>
+    </PrettyRainbow>
+  );
+};

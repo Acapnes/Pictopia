@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
-import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
 import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";

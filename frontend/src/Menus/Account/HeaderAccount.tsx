@@ -1,6 +1,6 @@
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
-import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
+import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { PrettySignIcon } from "../../components/Prettys/PrettyIcons";
 
 const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 
 const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
   return (

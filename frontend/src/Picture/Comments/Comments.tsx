@@ -1,7 +1,7 @@
 import { CommentDto } from "../../Api/Comment/Comment/commentDto";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { usePictureCommentStore } from "../../components/Zustand/store";
 import Replies from "./Replies";
 import SendReply from "./SendReply";

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { UploadPicDto } from "../../Api/Pic/PicDtos/uploadPicDto";
-import { PrettyRainbow } from "../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyUploadIcon } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 import SelectPicture from "./components/SelectPicture";

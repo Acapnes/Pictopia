@@ -11,7 +11,7 @@ export declare class UserService {
     findOne(): Promise<User>;
     findByEmail(email: string): Promise<UserDto | ReturnFuncDto>;
     findByLikeUsername(username: string): Promise<User[] | ReturnFuncDto | User>;
-    findOneByUsername(username: string): Promise<ReturnFuncDto | User>;
+    findOneByUsername(username: string): Promise<ReturnFuncDto | User | UserDto>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string>;
     getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['lastSearchs']>;

@@ -3,7 +3,7 @@ import React from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
 import { PicDto } from "../../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../../Api/User/UserApi";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyAlertIcon,
   PrettyBookMarksIcon,

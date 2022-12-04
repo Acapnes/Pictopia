@@ -1,16 +1,15 @@
 import React from "react";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
 import {
-  PrettyRainbow,
-  PrettyTrashButton,
-} from "../../../components/Prettys/PrettyButtons";
-import { PrettyPictureIcon } from "../../../components/Prettys/PrettyIcons";
+  PrettyPictureIcon,
+  PrettyTrashIcon,
+} from "../../../components/Prettys/PrettyIcons";
 
 const SelectPicture: React.FC<{
   imageURL: any;
   handleClick: Function;
   setImageURL: any;
 }> = ({ imageURL, handleClick, setImageURL }) => {
-  
   return (
     <div className="w-full flex items-center justify-center">
       {imageURL === "null" ? (
@@ -38,7 +37,9 @@ const SelectPicture: React.FC<{
             onClick={() => setImageURL("null")}
             className="absolute top-1 right-1 "
           >
-            <PrettyTrashButton />
+            <PrettyRainbow>
+              <PrettyTrashIcon fill={"white"} size={18} />
+            </PrettyRainbow>
           </button>
         </div>
       )}

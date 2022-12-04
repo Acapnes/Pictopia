@@ -5,11 +5,11 @@ import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
-import { PrettyRainbow } from "../../../components/Prettys/PrettyButtons";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyLargeAvatar,
   PrettyRotatingArrow,
-} from "../../../components/Prettys/PrettyComponents";
+} from "../../../components/Prettys/PrettyElements";
 import Comments from "../../Comments/Comments";
 import CardOptions from "./components/CardOptions";
 import SendComment from "../../Comments/SendComment";

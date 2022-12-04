@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
-import { PrettyHeaderUploadPicture } from "../components/Prettys/PrettyButtons";
-import { PrettyPictopia } from "../components/Prettys/PrettyIcons";
+import { PrettyRainbow } from "../components/Prettys/PrettyComponents";
+import {
+  PrettyPictopia,
+  PrettyUploadIcon,
+} from "../components/Prettys/PrettyIcons";
 import SearchBar from "./Search/SearchBar";
 import HeaderOptions from "./Options/HeaderOptions";
 import HeaderAccount from "./Account/HeaderAccount";
+import { Outlet } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -22,7 +26,10 @@ const Header: React.FC = () => {
     <div className="w-full z-10 sticky top-0">
       <div className="">
         <div className="w-full h-header_height flex flex-row justify-between space-x-3 px-3 bg-soft-black bg-opacity-95 py-2">
-          <a href="/explore" className="h-full flex items-center w-fit rounded-md">
+          <a
+            href="/explore"
+            className="h-full flex items-center w-fit rounded-md"
+          >
             <PrettyPictopia />
           </a>
           <SearchBar />
@@ -33,8 +40,24 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+      <Outlet />
     </div>
   );
 };
 
 export default Header;
+
+const PrettyHeaderUploadPicture = () => {
+  return (
+    <a href="/upload" className="h-full flex items-center">
+      <PrettyRainbow onclick={() => (window.location.href = "/upload")}>
+        <div className="flex flex-row">
+          <span className="text-white hidden lg:block pr-1.5">Upload</span>
+          <div className="flex items-end">
+            <PrettyUploadIcon />
+          </div>
+        </div>
+      </PrettyRainbow>
+    </a>
+  );
+};

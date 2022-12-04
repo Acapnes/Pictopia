@@ -1,6 +1,6 @@
 import React from "react";
 import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
-import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyButtons";
+import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";
 import { PrettyErrorIcon } from "../../../components/Prettys/PrettyIcons";
 
 const DetailsPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {

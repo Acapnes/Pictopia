@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { PicDto } from "../../Api/Pic/PicDtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettySend } from "../../components/Prettys/PrettyButtons";
-import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
+import { PrettySend } from "../../components/Prettys/PrettyIcons";
 
 const SendComment: React.FC<{
   getCommentsById: Function;
