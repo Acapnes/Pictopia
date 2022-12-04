@@ -45,4 +45,8 @@ export class PicAPI {
     return await axios.post(`http://localhost:3000/pics/create/`, formData)
       .then((resp) => resp.data);
   }
+
+  public static async getPicsByBlob(picDto: PicDto) {
+    return await axios.get(`http://localhost:3000/pics/pretty/${picDto?._id}`,{responseType:'blob'}).then((resp) => resp.data);
+  }
 }

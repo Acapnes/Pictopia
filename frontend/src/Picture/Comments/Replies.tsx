@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { CommentDto } from "../../Api/Comment/Comment/commentDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { usePictureCommentStore } from "../../components/Zustand/store";
 
 const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {
+  const sendReplyViewState = usePictureCommentStore(
+    (state: any) => state.sendReplyViewState
+  );
   const [replies, setReplies] = useState<CommentDto[]>();
 
   const getReplies = async () => {
@@ -12,7 +16,7 @@ const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {
 
   useEffect(() => {
     getReplies();
-  }, []);
+  }, [sendReplyViewState]);
 
   return (
     <div className="w-full">

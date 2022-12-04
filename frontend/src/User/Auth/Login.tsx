@@ -46,16 +46,19 @@ const Login: React.FC<{}> = () => {
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
               placeholder="Email or Username"
             />
-            <div className="flex flex-row lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
+            <div className="flex flex-row items-center lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
                 ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"
                 placeholder="Password"
               />
-              <button onClick={() => setShowPassword(!showPassword)}>
+              <div
+                className="cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
                 <PrettyEyeIcon show={showPassword} />
-              </button>
+              </div>
             </div>
 
             <div className="w-full flex flex-row space-x-2 items-center ">

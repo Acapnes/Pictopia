@@ -9,9 +9,9 @@ const PrettyLargeAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
         user?.avatar?.contentType,
         user?.avatar?.data,
       ]) ? (
-        <a href={`/user/${user?.username}`} className="rounded-full ">
+        <a href={`/user/${user?.username}`} className="rounded-full">
           <div
-            className={`h-full w-[6rem] flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm`}
+            className={`h-fit w-[6rem] flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm`}
           >
             <img
               src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
@@ -52,7 +52,7 @@ const PrettyMediumAvatar: React.FC<{ user: UserDto; rounded: boolean }> = ({
           <img
             src={`data:${user.avatar?.contentType};base64,${user.avatar?.data}`}
             alt=""
-            className={`w-full h-full object-cover p-[0.12rem] min-w-[4rem] max-h-[4rem] ${
+            className={`w-full h-full object-cover p-0.5 min-w-[4rem] max-h-[4rem] ${
               rounded ? " rounded-full" : "rounded-sm"
             }`}
           />
@@ -60,7 +60,7 @@ const PrettyMediumAvatar: React.FC<{ user: UserDto; rounded: boolean }> = ({
       ) : (
         <a
           href={`/user/${user?.username}`}
-          className={`flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] relative p-[0.2rem]`}
+          className={`flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full min-w-[4rem] h-[4rem] relative p-0.5`}
         >
           <div
             className={`w-full h-full flex items-center justify-center bg-soft-black ${

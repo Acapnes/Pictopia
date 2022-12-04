@@ -16,7 +16,7 @@ export class PicFetchService {
     return await this.picModel
       .find({})
       .skip(Math.ceil(picSearchDto.currentPage * picSearchDto.postPerPage))
-      // .skip(Math.ceil(Math.random() * 5))
+      // .skip(random)
       .limit(picSearchDto.postPerPage)
       .populate('authorPic')
       .populate('categories');

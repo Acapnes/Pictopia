@@ -4,7 +4,7 @@ import {
   PrettyProfileCopyButton,
   PrettyShareProfileButton,
 } from "./PrettySocialButtons";
-import UserSocialList from "../../components/UserSocialList";
+import VisitUserSocials from "./VisitUserSocials";
 
 const VisitUserInfo: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
@@ -12,7 +12,7 @@ const VisitUserInfo: React.FC<{ user: UserDto }> = ({ user }) => {
       <p className="text-3xl font-bold text-gray-200">{user.name}</p>
       <p className="text-lg text-gray-200">{user.username}</p>
       <div className="w-fit flex flex-row justify-center items-center space-x-5">
-        <UserSocialList user={user} />
+        <VisitUserSocials user={user} />
         <PrettyProfileCopyButton />
         <PrettyShareProfileButton />
       </div>

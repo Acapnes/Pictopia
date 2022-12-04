@@ -4,7 +4,9 @@ import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import Header from "../../Menus/Header";
 import ProfileSelections from "./components/ProfileSelections";
+import Blocking from "./ProfileMenus/Blocking/Blocking";
 import ProfileEdit from "./ProfileMenus/Edit/ProfileEdit";
+import Management from "./ProfileMenus/Management/Management";
 import ProfileSocial from "./ProfileMenus/Social/ProfileSocial";
 
 const Profile: React.FC<{}> = () => {
@@ -30,6 +32,8 @@ const Profile: React.FC<{}> = () => {
           <div className="w-full h-full">
             {urlParam === "edit" && <ProfileEdit user={userCredentials} />}
             {urlParam === "privacy" && <ProfileSocial user={userCredentials} />}
+            {urlParam === "management" && <Management user={userCredentials} />}
+            {urlParam === "blocking" && <Blocking user={userCredentials} />}
           </div>
         </div>
       </div>

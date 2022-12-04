@@ -22,7 +22,6 @@ const CurrentCategory: React.FC<{}> = () => {
     getCategoryByTitle();
   }, []);
 
-  // console.log(currentCategory);
 
   return (
     <>

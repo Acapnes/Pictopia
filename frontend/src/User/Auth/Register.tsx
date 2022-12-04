@@ -48,7 +48,6 @@ const Register: React.FC<{}> = () => {
             <p className="text-4xl text-center text-gray-200 mt-3">
               User Register
             </p>
-
             <input
               ref={userNameRef}
               type="text"
@@ -62,16 +61,19 @@ const Register: React.FC<{}> = () => {
               placeholder="Email"
             />
 
-            <div className="flex flex-row lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
+            <div className="flex flex-row items-center lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
                 ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"
                 placeholder="Password"
               />
-              <button onClick={() => setShowPassword(!showPassword)}>
+              <div
+                className="cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
                 <PrettyEyeIcon show={showPassword} />
-              </button>
+              </div>
             </div>
 
             <input

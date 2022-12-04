@@ -134,10 +134,7 @@ export class UserAPI {
       .post("http://localhost:3000/user/profile/saved/add", {
         picture_id: picDto._id,
       })
-      .then((resp) => {
-        console.log(resp.data);
-        return resp.data;
-      });
+      .then((resp) => resp.data);
   }
 
   public static async getAllUsers() {

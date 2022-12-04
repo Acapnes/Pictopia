@@ -11,6 +11,7 @@ import User from "./User/Visit/User";
 import Profile from "./User/Moderation/Profile";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 import CustomToast from "./components/Views/CustomToast";
+import AccountDeletion from "./User/Moderation/ProfileMenus/Management/components/AccountDeletion";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,8 +20,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <CustomToast />
       <Suspense fallback={<SuspenseVeiw />}>
+        <CustomToast />
         <Routes>
           <Route path="*" element={<Pictopia />} />
           <Route path="/categories/*" element={<Pictopia />} />
@@ -33,6 +34,9 @@ root.render(
 
           <Route path="/profile/edit" element={<Profile />} />
           <Route path="/profile/privacy" element={<Profile />} />
+          <Route path="/profile/management" element={<Profile />} />
+          <Route path="/profile/blocking" element={<Profile />} />
+          <Route path="/profile/deletion" element={<AccountDeletion />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

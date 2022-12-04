@@ -27,8 +27,8 @@ let CommentController = class CommentController {
     async getCommentsById(_id) {
         return this.commentsService.findCommentByMongooseId(_id);
     }
-    async getCommentsReply(destPicture) {
-        return this.commentsService.getCommentReplies(destPicture);
+    async getCommentsReply(destComment) {
+        return this.commentsService.getCommentReplies(destComment);
     }
     async commentCreate(req, commentCreateDto) {
         return this.commentsService.signComment(req.user, commentCreateDto);

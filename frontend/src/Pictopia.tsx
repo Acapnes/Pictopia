@@ -21,7 +21,6 @@ const Pictopia: React.FC<{}> = ({}) => {
       className="min-h-screen h-[10rem] flex flex-col space-y-3 bg-soft-black overflow-auto"
     >
       <Header />
-
       <Suspense fallback={<SuspenseVeiw />}>
         <PictopiaGrid currentPage={currentPage} postPerPage={postPerPage} />
       </Suspense>

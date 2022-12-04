@@ -5,20 +5,29 @@ import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
-import { PrettyCommentsButton } from "../../../components/Prettys/PrettyButtons";
-import { PrettyLargeAvatar } from "../../../components/Prettys/PrettyComponents";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyButtons";
+import {
+  PrettyLargeAvatar,
+  PrettyRotatingArrow,
+} from "../../../components/Prettys/PrettyComponents";
 import Comments from "../../Comments/Comments";
 import CardOptions from "./components/CardOptions";
-import PrettySendCommentOrReply from "../../Comments/SendComment";
+import SendComment from "../../Comments/SendComment";
+import { usePictureCommentStore } from "../../../components/Zustand/store";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const [commentsStatus, setCommentsStatus] = useState(false);
-  const [comments, setComments] = useState<CommentDto[]>([]);
-  const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] =
-    useState<UserDto>(Object);
+  const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] = useState<UserDto>(Object);
+
+  const setCurrentComments = usePictureCommentStore(
+    (state: any) => state.setCurrentComments
+  );
+  const currentComments = usePictureCommentStore<CommentDto[]>(
+    (state: any) => state.currentComments
+  );
 
   const getCommentsById = async () => {
-    setComments(
+    setCurrentComments(
       await CommentAPI.getCommentsOfPicture(await MultiFuncs.UrlParam())
     );
   };
@@ -39,34 +48,61 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
   return (
     <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] p-0.5 mb-10 flex flex-col shadow-3xl bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-      <div className="h-full flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
+      <div className="h-full flex flex-row justify-between space-x-4 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
         <div className="flex flex-col space-y-2 w-full h-full">
-          <PrettyLargeAvatar user={picture.authorPic} />
-          <p className="w-fullh-full font-bold text-2xl">{picture?.title}</p>
-          <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide">
-            {picture.description}
+          <div className="flex flex-row space-x-4 items-center">
+            <div className="items-center">
+              <PrettyLargeAvatar user={picture.authorPic} />
+            </div>
+            <div className="flex flex-col">
+              <p className="w-full font-bold text-2xl max-h-[12vh] break-all overflow-y-auto scrollbar-hide first-letter:uppercase">
+                {picture?.title}
+              </p>
+              {picture?.description?.length <= 50 && (
+                <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide first-letter:uppercase">
+                  <p>{picture?.description}</p>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="h-fit w-full items-start ">
-            <button onClick={() => setCommentsStatus(!commentsStatus)}>
-              <PrettyCommentsButton
-                state={commentsStatus}
-                length={comments.length}
-              />
-            </button>
+          {picture?.description?.length > 50 && (
+            <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide">
+              <p>{picture?.description}</p>
+            </div>
+          )}
+
+          <div className="h-fit w-full flex flex-row items-center justify-between pt-5">
+            <PrettyRainbow
+              advStyle="rounded-sm "
+              advChildStyle="py-1.5 px-2.5 rounded-sm text-sm"
+              onclick={() => setCommentsStatus(!commentsStatus)}
+            >
+              <div className="flex flex-row space-x-1 items-center">
+                <span className="text-gray-200">
+                  {currentComments.length ? currentComments.length : "0"}{" "}
+                  Comments
+                </span>
+                <PrettyRotatingArrow state={commentsStatus} />
+              </div>
+            </PrettyRainbow>
+            <CardOptions picture={picture} />
           </div>
         </div>
-        <CardOptions picture={picture} />
       </div>
       <div className="bg-soft-black bg-opacity-95 px-5">
         <div className={`${commentsStatus ? "block" : "hidden"} `}>
-          <PrettySendCommentOrReply
+          <SendComment
             getCommentsById={getCommentsById}
             author={newCommentAuthorCredentials}
             picture={picture}
           />
         </div>
         <div className={`${commentsStatus ? "block" : "hidden"} pb-5 `}>
-          <Comments comments={comments} />
+          <Comments
+            comments={currentComments}
+            author={newCommentAuthorCredentials}
+            picture={picture}
+          />
         </div>
       </div>
     </div>

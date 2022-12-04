@@ -100,6 +100,7 @@ const UploadPic: React.FC<{}> = () => {
               <textarea
                 onChange={(e) => setInputDescription(e.target.value)}
                 className="min-h-[5vh] max-h-[15vh] outline-none rounded-sm p-1"
+                maxLength={2000}
               ></textarea>
             </div>
             <Hashtag

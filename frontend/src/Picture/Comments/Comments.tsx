@@ -1,11 +1,26 @@
 import { CommentDto } from "../../Api/Comment/Comment/commentDto";
+import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyComponents";
+import { usePictureCommentStore } from "../../components/Zustand/store";
 import Replies from "./Replies";
+import SendReply from "./SendReply";
 
-const Comments: React.FC<{ comments: CommentDto[] }> = ({ comments }) => {
+const Comments: React.FC<{
+  comments: CommentDto[];
+  author: UserDto;
+  picture: PicDto;
+}> = ({ comments, author, picture }) => {
+  const setsendReplyViewState = usePictureCommentStore(
+    (state: any) => state.setsendReplyViewState
+  );
+  const sendReplyViewState = usePictureCommentStore(
+    (state: any) => state.sendReplyViewState
+  );
+
   return (
     <div className="w-full max-h-[30rem] overflow-auto py-2 scrollbar-hide text-gray-200">
-      {comments.length ? (
+      {comments.length > 0 ? (
         <div className="w-full flex flex-col space-y-5">
           {comments?.map((_comment: CommentDto, _commentIndex: any) => (
             <div
@@ -27,7 +42,10 @@ const Comments: React.FC<{ comments: CommentDto[] }> = ({ comments }) => {
                   <div className="w-full flex justify-between">
                     <div className="flex flex-row space-x-1">
                       <p className="text-sm text-gray-400">1h</p>
-                      <p className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer">
+                      <p
+                        onClick={() => setsendReplyViewState(_commentIndex)}
+                        className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer"
+                      >
                         Reply
                       </p>
                       <p className="text-sm font-bold cursor-pointer">♥</p>
@@ -35,6 +53,13 @@ const Comments: React.FC<{ comments: CommentDto[] }> = ({ comments }) => {
                     <div></div>
                   </div>
                 </div>
+                {sendReplyViewState === _commentIndex && (
+                  <SendReply
+                    authorReply={author}
+                    parentComment={_comment}
+                    picture={picture}
+                  />
+                )}
                 <Replies comment={_comment} />
               </div>
             </div>

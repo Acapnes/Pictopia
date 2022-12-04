@@ -15,6 +15,7 @@ const User: React.FC<{}> = () => {
       await UserAPI.VisitProfileFetchUser(await MultiFuncs.UrlParam())
     );
   };
+
   useEffect(() => {
     setUserCredentials();
   }, []);
@@ -23,11 +24,22 @@ const User: React.FC<{}> = () => {
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
       {userVisitCredentials && (
-        <div className="w-full h-full flex flex-col space-y-20">
+        <div className="w-full h-full flex flex-col space-y-5">
           <div className="w-full h-full flex flex-col space-y-3 items-center">
             <ProfileAvatar userAvatar={userVisitCredentials["avatar"]} />
             <VisitUserInfo user={userVisitCredentials!} />
           </div>
+          <div className="w-full flex flex-row items-center justify-center">
+            <a href={`/saved`} className="bg-slate-800 px-4 py-2">
+              Saved
+            </a>
+          </div>
+          {/* <Routes>
+            <Route
+              path="/saved"
+              element={<VisitUserAlbumGrid user={userVisitCredentials!} />}
+            />
+          </Routes> */}
           <VisitUserAlbumGrid user={userVisitCredentials!} />
         </div>
       )}

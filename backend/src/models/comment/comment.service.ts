@@ -17,16 +17,28 @@ export class CommentService {
     return this.commentModel.find({}).populate('author');
   }
 
-  async findCommentByMongooseId(destPicture: mongoose.Types.ObjectId): Promise<Comment[]> {
-    return (await this.commentModel.find({ destPicture: destPicture }).populate('author')).reverse();
+  async findCommentByMongooseId(
+    destPicture: mongoose.Types.ObjectId,
+  ): Promise<Comment[]> {
+    return (
+      await this.commentModel
+        .find({ destPicture: destPicture, parentId: { $exists: false } })
+        .populate('author')
+    ).reverse();
   }
 
   async getCommentReplies(_id: mongoose.Types.ObjectId): Promise<Comment[]> {
-    return (await this.commentModel.find({ parentId: _id }).populate('author')).reverse();
+    return (
+      await this.commentModel.find({ parentId: _id }).populate('author')
+    ).reverse();
   }
 
-  async signComment(_id: mongoose.Types.ObjectId | any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
-    return await this.picService.getPicById(commentCreateDto.destPicture)
+  async signComment(
+    _id: mongoose.Types.ObjectId | any,
+    commentCreateDto: CommentCreateDto,
+  ): Promise<ReturnFuncDto> {
+    return await this.picService
+      .getPicById(commentCreateDto.destPicture)
       .then(async (resp) => {
         if (!resp) {
           return {
@@ -55,15 +67,23 @@ export class CommentService {
       });
   }
 
-  async signReply(_id: mongoose.Types.ObjectId, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
-    if (!commentCreateDto.comment || !commentCreateDto.destPicture || !commentCreateDto.parentId ){
+  async signReply(
+    _id: mongoose.Types.ObjectId,
+    commentCreateDto: CommentCreateDto,
+  ): Promise<ReturnFuncDto> {
+    if (
+      !commentCreateDto.comment ||
+      !commentCreateDto.destPicture ||
+      !commentCreateDto.parentId
+    ) {
       return {
         success: false,
         message: 'Comment, Destination Picture, Comment Id cannot be empty',
       };
     }
 
-    return await this.picService.getPicById(commentCreateDto.destPicture)
+    return await this.picService
+      .getPicById(commentCreateDto.destPicture)
       .then(async (resp) => {
         if (!resp) {
           return {

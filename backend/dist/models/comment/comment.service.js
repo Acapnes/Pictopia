@@ -27,13 +27,16 @@ let CommentService = class CommentService {
         return this.commentModel.find({}).populate('author');
     }
     async findCommentByMongooseId(destPicture) {
-        return (await this.commentModel.find({ destPicture: destPicture }).populate('author')).reverse();
+        return (await this.commentModel
+            .find({ destPicture: destPicture, parentId: { $exists: false } })
+            .populate('author')).reverse();
     }
     async getCommentReplies(_id) {
         return (await this.commentModel.find({ parentId: _id }).populate('author')).reverse();
     }
     async signComment(_id, commentCreateDto) {
-        return await this.picService.getPicById(commentCreateDto.destPicture)
+        return await this.picService
+            .getPicById(commentCreateDto.destPicture)
             .then(async (resp) => {
             if (!resp) {
                 return {
@@ -59,13 +62,16 @@ let CommentService = class CommentService {
         });
     }
     async signReply(_id, commentCreateDto) {
-        if (!commentCreateDto.comment || !commentCreateDto.destPicture || !commentCreateDto.parentId) {
+        if (!commentCreateDto.comment ||
+            !commentCreateDto.destPicture ||
+            !commentCreateDto.parentId) {
             return {
                 success: false,
                 message: 'Comment, Destination Picture, Comment Id cannot be empty',
             };
         }
-        return await this.picService.getPicById(commentCreateDto.destPicture)
+        return await this.picService
+            .getPicById(commentCreateDto.destPicture)
             .then(async (resp) => {
             if (!resp) {
                 return {

@@ -21,8 +21,8 @@ export class CommentController {
   }
 
   @Get('/replyof/:_id')
-  async getCommentsReply(@Param('_id') destPicture): Promise<Comment[]> {
-    return this.commentsService.getCommentReplies(destPicture);
+  async getCommentsReply(@Param('_id') destComment): Promise<Comment[]> {
+    return this.commentsService.getCommentReplies(destComment);
   }
 
   @UseGuards(AuthGuard('jwt'))
