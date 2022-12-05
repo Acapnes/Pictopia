@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
-import { PicDto } from "../../../../Api/Pic/PicDtos/picDto";
-import { UserAPI } from "../../../../Api/User/UserApi";
+import { PicDto } from "../../../../Api/Pic/dtos/picDto";
+import { AccountAPI } from "../../../../Api/User/AccountApi";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyAlertIcon,
@@ -38,7 +38,7 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
         advChildStyle="rounded-md px-2"
         onclick={async () => {
           if (window.localStorage.getItem("access_token")) {
-            await UserAPI.savedPicturesToUserAlbum(
+            await AccountAPI.savedPicturesToUserAlbum(
               window.localStorage.getItem("access_token")!,
               picture
             ).then((resp) => {});

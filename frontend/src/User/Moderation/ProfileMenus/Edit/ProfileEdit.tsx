@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserAPI } from "../../../../Api/User/UserApi";
+import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import ProfileAvatar from "./ProfileAvatar";
@@ -12,7 +12,7 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
 
   const simpleUpdateProfile = async () => {
     if (window.localStorage.getItem("access_token")) {
-      await UserAPI.userEditProfile(
+      await ModerationAPI.userEditProfile(
         window.localStorage.getItem("access_token")!,
         {
           username: inputUsername || user?.username,

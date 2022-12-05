@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
@@ -24,7 +25,7 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
 
   const changeAvatarFunc = async () => {
     if (window.localStorage.getItem("access_token")) {
-      await UserAPI.changeUserAvatar(
+      await ModerationAPI.changeUserAvatar(
         changeAvatar,
         window.localStorage.getItem("access_token")!
       );
@@ -33,7 +34,7 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
 
   const removeAvatarFunc = async () => {
     if (window.localStorage.getItem("access_token")) {
-      await UserAPI.removeUserAvatar(
+      await ModerationAPI.removeUserAvatar(
         window.localStorage.getItem("access_token")!
       );
     }

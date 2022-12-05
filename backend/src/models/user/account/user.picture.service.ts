@@ -4,14 +4,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { UserService } from '../user.service';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserDto } from 'src/dto/user/user.dto';
-import { PicDto } from 'src/dto/pic/pic.dto';
 import { Pic } from 'src/schemas/pic.schema';
 import { UserSavedPictureDto } from 'src/dto/user/saved/user.saved.pictures.dto';
 import { UserFindDto } from 'src/dto/user/user.find.dto';
 
 @Injectable()
-export class SavedPicturesService {
+export class UserPictureService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,private userService: UserService,
   ) {}

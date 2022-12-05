@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { CategoryAPI } from "../../../../Api/Category/CategoryApi";
-import { CategoryDto } from "../../../../Api/Category/CategoryDtos/category.dto";
+import { CategoryAPI } from "../../../../Api/User/CategoryApi";
+import { CategoryDto } from "../../../../Api/User/CategoryDtos/category.dto";
 import { PrettySmallArrowDown } from "../../../../components/Prettys/PrettyIcons";
 import CategoryList from "./CategoryList";
 

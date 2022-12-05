@@ -1,19 +1,19 @@
 import Header from "../Menus/Header";
 import { Route, Routes, useParams } from "react-router-dom";
-import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
 import { useEffect, useState } from "react";
 import SavedPictures from "./Visit/VisitMenus/SavedPictures";
 import Visit from "./Visit/Visit";
 import Notfound from "../components/Views/NotFound";
 import PostedPictures from "./Visit/VisitMenus/PostedPictures";
+import { AccountAPI } from "../Api/User/AccountApi";
 
 const User: React.FC<{}> = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
   const params = useParams() as any;
 
   const setUserCredentials = async () => {
-    setUserVisitCredentials(await UserAPI.VisitProfileFetchUser(params.id));
+    setUserVisitCredentials(await AccountAPI.VisitProfileFetchUser(params.id));
   };
 
   useEffect(() => {

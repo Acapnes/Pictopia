@@ -1,4 +1,4 @@
-import { CategoryDto } from "../../Category/CategoryDtos/category.dto";
+import { CategoryDto } from "../../User/CategoryDtos/category.dto";
 
 export interface UploadPicDto {
   title: string;

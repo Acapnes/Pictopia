@@ -1,6 +1,6 @@
 import create from "zustand";
-import { CategoryDto } from "../../Api/Category/CategoryDtos/category.dto";
-import { CommentDto } from "../../Api/Comment/Comment/commentDto";
+import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
+import { CommentDto } from "../../Api/Comment/dtos/commentDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 
 interface usePictopiaDNDState {

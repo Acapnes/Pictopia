@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CommentAPI } from "../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../Api/Comment/Comment/commentDto";
-import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
+import { CommentDto } from "../../../Api/Comment/dtos/commentDto";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
@@ -110,3 +110,13 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 };
 
 export default DetailsCard;
+
+const HashTags: React.FC<{}> = () => {
+  return (
+    <div className="w-full flex flex-row">
+      <button className="rounded-full border-[0.23rem] border-blue-600 border-opacity-70 px-2 py-1 text-blue-600 text-sm">
+        #Medieval
+      </button>
+    </div>
+  );
+};

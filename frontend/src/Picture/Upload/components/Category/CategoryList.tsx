@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoryDto } from "../../../../Api/Category/CategoryDtos/category.dto";
+import { CategoryDto } from "../../../../Api/User/CategoryDtos/category.dto";
 
 const CategoryList: React.FC<{
   showCategoryList: boolean;

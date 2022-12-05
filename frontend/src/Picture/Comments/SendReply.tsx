@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { CommentDto } from "../../Api/Comment/Comment/commentDto";
+import { CommentDto } from "../../Api/Comment/dtos/commentDto";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
-import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { PrettySend } from "../../components/Prettys/PrettyIcons";

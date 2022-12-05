@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
-import { CommentDto } from "../../Api/Comment/Comment/commentDto";
+import { CommentDto } from "../../Api/Comment/dtos/commentDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { usePictureCommentStore } from "../../components/Zustand/store";
 

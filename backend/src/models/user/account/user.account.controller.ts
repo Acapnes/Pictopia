@@ -7,16 +7,103 @@ import {
   Request,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
+import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { UserSavedPictureDto } from 'src/dto/user/saved/user.saved.pictures.dto';
 import { UserFindDto } from 'src/dto/user/user.find.dto';
+import { UserCategoryDto } from 'src/dto/user/utils/user.category.dto';
+import { Category } from 'src/schemas/category.schema';
+import { Pic } from 'src/schemas/pic.schema';
 import { AccountService } from './account.service';
+import { UserPictureService } from './user.picture.service';
+import { UserCategoryService } from './user.category.service';
 
 // @UseGuards(AuthGuard('jwt'))
 @Controller('/user/account')
 export class UserAccountController {
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private userPictureService: UserPictureService,
+    private userCategoryService: UserCategoryService,
+  ) {}
 
   @Post('/posted')
   async getUsersPostedPictures(@Body() userFindDto: UserFindDto) {
     return this.accountService.getUsersPostedPictures(userFindDto);
+  }
+
+  @Post('/saved')
+  async getOneUser(
+    @Body() userFindDto: UserFindDto,
+  ): Promise<ReturnFuncDto | Pic[] | Pic> {
+    return this.userPictureService.findUserAndPopulateSavedPics(userFindDto);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/saved/add')
+  async userSavePicture(
+    @Request() req,
+    @Body() userSavedPictureDto: UserSavedPictureDto,
+  ): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.userPictureService.savePicture(
+      req.user._id,
+      userSavedPictureDto,
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/saved/remove')
+  async userRemoveSavedPicture(
+    @Request() req,
+    @Body() userSavedPictureDto: UserSavedPictureDto,
+  ): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.userPictureService.removeSavedPicture(
+      req.user._id,
+      userSavedPictureDto,
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/category')
+  async listFavoriteCategories(
+    @Request() req,
+  ): Promise<ReturnFuncDto | Category[] | Category> {
+    return this.userCategoryService.findUserAndPopulateFavCategories(
+      req.user._id,
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/category/devided')
+  async getAllCategoriesByDevidedUserFavorites(
+    @Request() req,
+  ): Promise<ReturnFuncDto | Category[] | Category> {
+    return this.userCategoryService.getAllCategoriesByDevidedUserFavorites(
+      req.user._id,
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/category/add')
+  async setFavoriteCategory(
+    @Request() req,
+    @Body() userCategoryDto: UserCategoryDto,
+  ) {
+    return this.userCategoryService.setFavorieCategory(
+      req.user._id,
+      userCategoryDto,
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/category/remove')
+  async removeFavoriteCategory(
+    @Request() req,
+    @Body() userCategoryDto: UserCategoryDto,
+  ): Promise<ReturnFuncDto | Category[] | Category> {
+    return this.userCategoryService.removeFavoriteCategory(
+      req.user._id,
+      userCategoryDto,
+    );
   }
 }

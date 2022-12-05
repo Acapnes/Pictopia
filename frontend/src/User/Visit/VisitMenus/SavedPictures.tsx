@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
-import { UserAPI } from "../../../Api/User/UserApi";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 
 const SavedPictures: React.FC<{ user: UserDto }> = ({ user }) => {
   const [SavedPictures, setSavedPictures] = useState<PicDto[]>([]);
 
   const getSavedPictures = async () => {
-    setSavedPictures(await UserAPI.getSavedPicturesOfUser(user?.username));
+    setSavedPictures(await AccountAPI.getSavedPicturesOfUser(user?.username));
   };
   useEffect(() => {
     getSavedPictures();

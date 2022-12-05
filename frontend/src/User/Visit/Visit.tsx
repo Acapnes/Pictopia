@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
-import { UserAPI } from "../../Api/User/UserApi";
+import { AccountAPI } from "../../Api/User/AccountApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
 import Notfound from "../../components/Views/NotFound";
@@ -15,7 +15,7 @@ const Visit: React.FC<{}> = () => {
   const params = useParams() as any;
 
   const setUserCredentials = async () => {
-    setUserVisitCredentials(await UserAPI.VisitProfileFetchUser(params.id));
+    setUserVisitCredentials(await AccountAPI.VisitProfileFetchUser(params.id));
   };
 
   useEffect(() => {

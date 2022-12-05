@@ -1,57 +1,7 @@
 import axios from "axios";
-import { PicDto } from "../Pic/PicDtos/picDto";
-import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
-import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
-import { UserValidationDto } from "./UserDtos/userValidationDto";
+import { PicDto } from "../Pic/dtos/picDto";
 
 export class UserAPI {
-  public static async userLogin(userValidationDto: UserValidationDto) {
-    const resp = await fetch("http://localhost:3000/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userValidationDto),
-    });
-
-    const data = await resp.json();
-
-    if (resp.status === (400 || 404 || 500))
-      return {
-        access: false,
-        message: data.message[0],
-      };
-
-    if (data.access === true) {
-      window.localStorage.setItem("access_token", data.access_token);
-      window.location.href = "/";
-    }
-    return data;
-  }
-
-  public static async userRegister(userRegistrationDto: UserRegistrationDto) {
-    const resp = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userRegistrationDto),
-    });
-
-    const data = await resp.json();
-
-    if (resp.status === (400 || 404 || 500))
-      return {
-        access: false,
-        message: data.message[0],
-      };
-
-    if (data.access === true) {
-      window.localStorage.setItem("access_token", data.access_token);
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1000);
-    }
-
-    return data;
-  }
-
   public static async fetchUserCredentials(access_token: string) {
     if (!localStorage.getItem("access_token")) return;
     return await fetch("http://localhost:3000/user/profile/credentials", {
@@ -64,77 +14,6 @@ export class UserAPI {
       .then((resp) => resp.json())
       .then((data) => data)
       .catch((err) => console.log(err));
-  }
-
-  public static async userEditProfile(
-    access_token: string,
-    userSimpleUpdateDto: UserSimpleUpdateDto
-  ) {
-    const resp = await fetch(
-      "http://localhost:3000/user/profile/update/simple",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify(userSimpleUpdateDto),
-      }
-    );
-
-    const data = await resp.json();
-
-    if (data.access === true)
-      window.localStorage.setItem("access_token", data.access_token);
-
-    return data;
-  }
-
-  public static async changeUserAvatar(avatar: any, access_token: string) {
-    const formData = new FormData();
-    formData.append("avatar", avatar);
-
-    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios
-      .post(`http://localhost:3000/user/profile/update/avatar/`, formData)
-      .then((resp) => resp.data);
-  }
-
-  public static async removeUserAvatar(access_token: string) {
-    if (!localStorage.getItem("access_token")) return;
-    return await fetch(
-      "http://localhost:3000/user/profile/update/avatar/remove",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((data) => data)
-      .catch((err) => console.log(err));
-  }
-
-  public static async getSavedPicturesOfUser(username: string) {
-    return await axios
-      .post("http://localhost:3000/user/profile/saved", {
-        username: username,
-      })
-      .then((resp) => resp.data);
-  }
-
-  public static async savedPicturesToUserAlbum(
-    access_token: string,
-    picDto: PicDto
-  ) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios
-      .post("http://localhost:3000/user/profile/saved/add", {
-        picture_id: picDto._id,
-      })
-      .then((resp) => resp.data);
   }
 
   public static async getAllUsers() {
@@ -151,24 +30,4 @@ export class UserAPI {
       .then((resp) => resp.data);
   }
 
-  public static async VisitProfileFetchUser(username: string) {
-    return await axios
-      .get(`http://localhost:3000/user/${username}`)
-      .then((resp) => resp.data);
-  }
-
-  public static async GetUsersLastSearchedList(access_token: string) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios
-      .get(`http://localhost:3000/user/searched/last`)
-      .then((resp) => resp.data);
-  }
-
-  public static async GetUsersPostedPictures(username: string) {
-    return await axios
-      .post(`http://localhost:3000/user/account/posted`, {
-        username: username,
-      })
-      .then((resp) => resp.data);
-  }
 }

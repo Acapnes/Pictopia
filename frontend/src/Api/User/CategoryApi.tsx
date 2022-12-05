@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../Utils/dtos/ReturnFuncDto";
 import { CategoryDto } from "./CategoryDtos/category.dto";
 
 export class CategoryAPI {
@@ -20,7 +20,7 @@ export class CategoryAPI {
   ): Promise<CategoryDto[]> {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .get("http://localhost:3000/user/profile/category/")
+      .get("http://localhost:3000/user/account/category/")
       .then((resp) => resp.data);
   }
 
@@ -29,7 +29,7 @@ export class CategoryAPI {
   ): Promise<CategoryDto[]> {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .get("http://localhost:3000/user/profile/category/devided")
+      .get("http://localhost:3000/user/account/category/devided")
       .then((resp) => resp.data);
   }
 
@@ -37,7 +37,7 @@ export class CategoryAPI {
     category_id: string
   ): Promise<ReturnFuncDto> {
     return await axios
-      .post(`http://localhost:3000/user/profile/category/add`, {
+      .post(`http://localhost:3000/user/account/category/add`, {
         category_id: category_id,
       })
       .then((resp) => resp.data);
@@ -47,7 +47,7 @@ export class CategoryAPI {
     category_id: string
   ): Promise<ReturnFuncDto> {
     return await axios
-      .post(`http://localhost:3000/user/profile/category/remove`, {
+      .post(`http://localhost:3000/user/account/category/remove`, {
         category_id: category_id,
       })
       .then((resp) => resp.data);

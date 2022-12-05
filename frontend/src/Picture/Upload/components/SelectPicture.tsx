@@ -31,7 +31,7 @@ const SelectPicture: React.FC<{
             id="UploadPicture"
             src={imageURL}
             alt=""
-            className="object-contain rounded-sm max-h-[100vh] "
+            className="object-contain rounded-sm max-h-[100vh]"
           />
           <button
             onClick={() => setImageURL("null")}

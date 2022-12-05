@@ -1,10 +1,10 @@
 import axios from "axios";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
-import { CategoryDto } from "../Category/CategoryDtos/category.dto";
-import { ReturnFuncDto } from "../UtilsDtos/ReturnFuncDto";
-import { PicDto } from "./PicDtos/picDto";
-import { PicSearchDto } from "./PicDtos/picSearchDto";
-import { UploadPicDto } from "./PicDtos/uploadPicDto";
+import { CategoryDto } from "../User/CategoryDtos/category.dto";
+import { ReturnFuncDto } from "../Utils/dtos/ReturnFuncDto";
+import { PicDto } from "./dtos/picDto";
+import { PicSearchDto } from "./dtos/picSearchDto";
+import { UploadPicDto } from "./dtos/uploadPicDto";
 
 export class PicAPI {
   public static async getAllPics(): Promise<PicDto[]> {

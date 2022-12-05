@@ -1,4 +1,4 @@
-import { PicDto } from "../../../Api/Pic/PicDtos/picDto";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
 
 const GridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
   return (

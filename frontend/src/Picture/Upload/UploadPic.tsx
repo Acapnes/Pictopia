@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
-import { UploadPicDto } from "../../Api/Pic/PicDtos/uploadPicDto";
+import { UploadPicDto } from "../../Api/Pic/dtos/uploadPicDto";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyUploadIcon } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
@@ -9,9 +9,9 @@ import SelectPicture from "./components/SelectPicture";
 import CategorySelection from "./components/Category/CategorySelection";
 import HashtagList from "./components/Hashtags/HashtagList";
 import Hashtag from "./components/Hashtags/Hashtag";
-import { CategoryDto } from "../../Api/Category/CategoryDtos/category.dto";
+import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { useToastStore } from "../../components/Zustand/store";
-import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/dtos/ReturnFuncDto";
 
 const UploadPic: React.FC<{}> = () => {
   const setToastState = useToastStore((state: any) => state.setToastState);
@@ -129,6 +129,7 @@ const UploadPic: React.FC<{}> = () => {
           type="file"
           style={{ display: "none" }}
           ref={hiddenFileInput}
+          accept="image/jpg, image/jpeg, image/png, image/webp, image/jfif"
           onChange={handleChange}
         />
       </div>

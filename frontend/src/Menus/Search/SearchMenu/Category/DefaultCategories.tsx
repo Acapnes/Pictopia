@@ -1,7 +1,7 @@
 import { Masonry } from "@mui/lab";
 import React from "react";
-import { CategoryAPI } from "../../../../Api/Category/CategoryApi";
-import { CategoryDto } from "../../../../Api/Category/CategoryDtos/category.dto";
+import { CategoryAPI } from "../../../../Api/User/CategoryApi";
+import { CategoryDto } from "../../../../Api/User/CategoryDtos/category.dto";
 import { usePictopiaDNDStore } from "../../../../components/Zustand/store";
 
 const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({

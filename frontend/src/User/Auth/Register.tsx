@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { UserAPI } from "../../Api/User/UserApi";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
-import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/dtos/ReturnFuncDto";
 import { useToastStore } from "../../components/Zustand/store";
+import { AuthAPI } from "../../Api/User/AuthApi";
 
 const Register: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,7 @@ const Register: React.FC<{}> = () => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   const userRegister = async () => {
-    UserAPI.userRegister({
+    AuthAPI.userRegister({
       email: userEmailRef.current!.value!,
       password: userPasswordRef.current!.value!,
       username: userBirthDateRef.current!.value!,

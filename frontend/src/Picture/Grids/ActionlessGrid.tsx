@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../../Api/Pic/PicDtos/picDto";
+import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
 
 const ActionlessGrid: React.FC<{}> = () => {

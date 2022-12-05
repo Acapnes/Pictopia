@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { UserAPI } from "../../Api/User/UserApi";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
 import { useToastStore } from "../../components/Zustand/store";
-import { ReturnFuncDto } from "../../Api/UtilsDtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/dtos/ReturnFuncDto";
+import { AuthAPI } from "../../Api/User/AuthApi";
 
 const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,7 +14,7 @@ const Login: React.FC<{}> = () => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   const userLogin = async () => {
-    await UserAPI.userLogin({
+    await AuthAPI.userLogin({
       email: userEmailRef.current!.value!,
       password: userPasswordRef.current!.value!,
     }).then(
