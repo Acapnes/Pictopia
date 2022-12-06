@@ -65,7 +65,7 @@ export class ModerationService {
       });
   }
 
-  async changeAvatar(_id: mongoose.Types.ObjectId | any,avatar_file: any): Promise<ReturnAuthDto> {
+  async changeAvatar(_id: mongoose.Types.ObjectId, avatar_file: any): Promise<ReturnAuthDto> {
     return await this.userModel
       .findOneAndUpdate(
         { _id: _id },
@@ -92,12 +92,66 @@ export class ModerationService {
       });
   }
 
-  async removeAvatar(_id: mongoose.Types.ObjectId | any): Promise<ReturnAuthDto> {
+  async removeAvatar(_id: mongoose.Types.ObjectId): Promise<ReturnAuthDto> {
     return await this.userModel
       .findOneAndUpdate(
         { _id: _id },
         {
           avatar: {
+            data: null,
+            contentType: null,
+          },
+        },
+      )
+      .then(async () => {
+        return {
+          access: true,
+          message: 'Your avatar has been removed!',
+          access_token: await this.userService.generateLoginToken(_id),
+        };
+      })
+      .catch((err) => {
+        return {
+          access: false,
+          message: 'Something went wrong!',
+          access_token: '',
+        };
+      });
+  }
+
+  async changeBackground(_id: mongoose.Types.ObjectId, background_file: any): Promise<ReturnAuthDto> {
+    return await this.userModel
+      .findOneAndUpdate(
+        { _id: _id },
+        {
+          profile_background: {
+            data: background_file.buffer,
+            contentType: background_file.mimetype,
+          },
+        },
+      )
+      .then(async () => {
+        return {
+          access: true,
+          message: 'Your avatar has been changed!',
+          access_token: await this.userService.generateLoginToken(_id),
+        };
+      })
+      .catch((err) => {
+        return {
+          access: false,
+          message: 'Something went wrong! : ' + err,
+          access_token: '',
+        };
+      });
+  }
+
+  async removeBackground(_id: mongoose.Types.ObjectId): Promise<ReturnAuthDto> {
+    return await this.userModel
+      .findOneAndUpdate(
+        { _id: _id },
+        {
+          profile_background: {
             data: null,
             contentType: null,
           },

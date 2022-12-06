@@ -2,6 +2,30 @@ import axios from "axios";
 import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
 
 export class ModerationAPI {
+  public static async userEditProfile(
+    access_token: string,
+    userSimpleUpdateDto: UserSimpleUpdateDto
+  ) {
+    const resp = await fetch(
+      "http://localhost:3000/user/profile/update/simple",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access_token}`,
+        },
+        body: JSON.stringify(userSimpleUpdateDto),
+      }
+    );
+
+    const data = await resp.json();
+
+    if (data.access === true)
+      window.localStorage.setItem("access_token", data.access_token);
+
+    return data;
+  }
+
   public static async changeUserAvatar(avatar: any, access_token: string) {
     const formData = new FormData();
     formData.append("avatar", avatar);
@@ -29,27 +53,30 @@ export class ModerationAPI {
       .catch((err) => console.log(err));
   }
 
-  public static async userEditProfile(
-    access_token: string,
-    userSimpleUpdateDto: UserSimpleUpdateDto
-  ) {
-    const resp = await fetch(
-      "http://localhost:3000/user/profile/update/simple",
+  public static async changeUserBackground(avatar: any, access_token: string) {
+    const formData = new FormData();
+    formData.append("background", avatar);
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .post(`http://localhost:3000/user/profile/update/background/`, formData)
+      .then((resp) => resp.data);
+  }
+
+  public static async removeUserBackground(access_token: string) {
+    if (!localStorage.getItem("access_token")) return;
+    return await fetch(
+      "http://localhost:3000/user/profile/update/background/remove",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token}`,
         },
-        body: JSON.stringify(userSimpleUpdateDto),
       }
-    );
-
-    const data = await resp.json();
-
-    if (data.access === true)
-      window.localStorage.setItem("access_token", data.access_token);
-
-    return data;
+    )
+      .then((resp) => resp.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
   }
 }

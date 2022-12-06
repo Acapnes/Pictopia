@@ -14,6 +14,11 @@ export interface UserDto {
     contentType: string;
   };
 
+  profile_background: {
+    data: Buffer;
+    contentType: string;
+  };
+
   userSocials: {
     instagram?: string;
 

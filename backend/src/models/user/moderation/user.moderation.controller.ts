@@ -25,7 +25,7 @@ export class UserModerationController {
   @Post('/update/simple')
   async userProfileUpdate(
     @Request() req,
-    @Body() userUpdateDto: UserUpdateDto,
+    @Body() userUpdateDto: UserUpdateDto
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.moderationService.updateProfile(req.user._id, userUpdateDto);
   }
@@ -35,7 +35,7 @@ export class UserModerationController {
   @UseInterceptors(FileInterceptor('avatar'))
   async userChangeAvatar(
     @UploadedFile() avatar_file,
-    @Request() req,
+    @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.moderationService.changeAvatar(req.user._id, avatar_file);
   }
@@ -43,15 +43,36 @@ export class UserModerationController {
   @UseGuards(AuthGuard('jwt'))
   @Post('/update/avatar/remove')
   async userRemoveAvatar(
-    @Request() req,
+    @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.moderationService.removeAvatar(req.user._id);
   }
 
   @UseGuards(AuthGuard('jwt'))
+  @Post('/update/background')
+  @UseInterceptors(FileInterceptor('background'))
+  async userChangeBackground(
+    @UploadedFile() background_file,
+    @Request() req
+  ): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.moderationService.changeBackground(
+      req.user._id,
+      background_file
+    );
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/update/background/remove')
+  async userRemoveBackground(
+    @Request() req
+  ): Promise<ReturnAuthDto | ReturnFuncDto> {
+    return this.moderationService.removeBackground(req.user._id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
   @Get('/credentials')
   async fetchUserCredentials(
-    @Request() req,
+    @Request() req
   ): Promise<UserCredentialsDto | ReturnFuncDto> {
     return this.moderationService.fetchUserCredentialsWithToken(req.user);
   }
@@ -60,11 +81,11 @@ export class UserModerationController {
   @Post('/socials/update')
   async userSocialsUpdate(
     @Request() req,
-    @Body() userSocialsDto: UserSocialsDto,
+    @Body() userSocialsDto: UserSocialsDto
   ): Promise<ReturnFuncDto> {
     return this.moderationService.userUpdateSocials(
       req.user._id,
-      userSocialsDto,
+      userSocialsDto
     );
   }
 

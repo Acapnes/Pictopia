@@ -2,11 +2,16 @@ import Header from "../Menus/Header";
 import { Route, Routes, useParams } from "react-router-dom";
 import { UserDto } from "../Api/User/UserDtos/userDto";
 import { useEffect, useState } from "react";
-import SavedPictures from "./Visit/VisitMenus/SavedPictures";
 import Visit from "./Visit/Visit";
 import Notfound from "../components/Views/NotFound";
 import PostedPictures from "./Visit/VisitMenus/PostedPictures";
 import { AccountAPI } from "../Api/User/AccountApi";
+import React from "react";
+import PostedComments from "./Visit/VisitMenus/PostedComments";
+
+const SavedPictures = React.lazy(
+  () => import("./Visit/VisitMenus/SavedPictures")
+);
 
 const User: React.FC<{}> = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
@@ -35,7 +40,7 @@ const User: React.FC<{}> = () => {
           />
           <Route
             path="comments"
-            element={<SavedPictures user={userVisitCredentials!} />}
+            element={<PostedComments user={userVisitCredentials!} />}
           />
           <Route
             path="followers"

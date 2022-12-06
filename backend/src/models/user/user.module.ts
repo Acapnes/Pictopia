@@ -11,7 +11,6 @@ import { Category, CategorySchema } from 'src/schemas/category.schema';
 import { Pic, PicSchema } from 'src/schemas/pic.schema';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { CategoryService } from '../category/category.service';
-import { AccountService } from './account/account.service';
 import { UserPictureService } from './account/user.picture.service';
 import { UserAccountController } from './account/user.account.controller';
 import { UserCategoryService } from './account/user.category.service';
@@ -22,6 +21,8 @@ import { UserModerationController } from './moderation/user.moderation.controlle
 import { UserController } from './user.controller';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
+import { Comment, CommentSchema } from 'src/schemas/comment.schema';
+import { UserCommentervice } from './account/user.comment.service';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UserService } from './user.service';
       { name: User.name, schema: UserSchema },
       { name: Category.name, schema: CategorySchema },
       { name: Pic.name, schema: PicSchema },
+      { name: Comment.name, schema: CommentSchema },
     ]),
   ],
   controllers: [
@@ -44,10 +46,10 @@ import { UserService } from './user.service';
     JwtStrategy,
     UserService,
     AuthService,
-    AccountService,
     ModerationService,
     UserPictureService,
     UserCategoryService,
+    UserCommentervice,
     UserResolver,
     CategoryService,
   ],

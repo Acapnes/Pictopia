@@ -22,7 +22,6 @@ export class AccountAPI {
       .then((resp) => resp.data);
   }
 
-
   public static async VisitProfileFetchUser(username: string) {
     return await axios
       .get(`http://localhost:3000/user/${username}`)
@@ -43,5 +42,12 @@ export class AccountAPI {
       })
       .then((resp) => resp.data);
   }
-  
+
+  public static async GetUsersPostedComments(username: string) {
+    return await axios
+      .post(`http://localhost:3000/user/account/comments`, {
+        username: username,
+      })
+      .then((resp) => resp.data);
+  }
 }

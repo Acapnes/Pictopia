@@ -37,6 +37,20 @@ export class User {
     contentType: string;
   };
 
+  @Field(() => PictureFile, {
+    nullable: false,
+    defaultValue: { data: null, contentType: null },
+  })
+  @Prop({
+    type: Object,
+    required: true,
+    default: { data: null, contentType: null },
+  })
+  profile_background: {
+    data: Buffer;
+    contentType: string;
+  };
+
   @Field(() => [Pic], { nullable: false })
   @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Pic', required: false })
   savedPictures: Pic[];

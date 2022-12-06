@@ -1,35 +1,27 @@
 import React, { useState } from "react";
 import { ModerationAPI } from "../../../../Api/User/ModerationApi";
-import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,
-  PrettyCheckIcon,
   PrettyProfileIcon,
   PrettyTrashIcon,
-  PrettyXIcon,
 } from "../../../../components/Prettys/PrettyIcons";
 
 const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [imageURL, setImageURL] = useState<any>("null");
-  const hiddenFileInput =
-    React.useRef() as React.MutableRefObject<HTMLInputElement>;
-  const [changeAvatar, setChangeAvatar] = useState<any>();
+  const hiddenFileInput = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const [changeAvatar, setChangeAvatar] = useState<File>();
 
-  const [changeAvatarOptions, setChangeAvatarOptions] = useState(false);
-
-  const handleClick = () => {
+  const handleClick = async () => {
     hiddenFileInput.current ? hiddenFileInput.current.click() : alert("Error!");
   };
 
-  const changeAvatarFunc = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      await ModerationAPI.changeUserAvatar(
-        changeAvatar,
-        window.localStorage.getItem("access_token")!
-      );
-    }
+  const changeAvatarFunc = async (avatar: any) => {
+    await ModerationAPI.changeUserAvatar(
+      avatar,
+      window.localStorage.getItem("access_token")!
+    );
   };
 
   const removeAvatarFunc = async () => {
@@ -42,13 +34,13 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
 
   const handleChange = async (e: any) => {
     const fileUploaded = await e.target.files[0];
-    setChangeAvatar(fileUploaded);
     setImageURL(URL.createObjectURL(fileUploaded));
-    setChangeAvatarOptions(true);
+    setChangeAvatar(fileUploaded);
+    await changeAvatarFunc(fileUploaded);
   };
 
   return (
-    <div className="h-full max-h-[60vh] flex justify-center">
+    <div className="h-full max-h-[60vh] flex flex-col space-y-4 items-center">
       <div className="w-fit flex flex-col relative space-y-2">
         {user?.avatar?.data || user?.avatar?.contentType ? (
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.15rem] relative">
@@ -85,50 +77,21 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
             )}
           </div>
         )}
-        <div
-          className={`w-full flex flex-row space-x-2 items-center ${
-            changeAvatarOptions ? "justify-between" : "justify-center"
-          }`}
-        >
-          {changeAvatarOptions && (
-            <PrettyRainbow
-              advStyle="rounded-md flex items-center cursor-pointer rounded-md"
-              advChildStyle="rounded-md"
-              onclick={() => {
-                setChangeAvatar("");
-                setChangeAvatarOptions(false);
-              }}
-            >
-              <PrettyXIcon fill={"white"} size={16} />
-            </PrettyRainbow>
-          )}
-          <div className="flex flex-row space-x-3">
-            <PrettyRainbow
-              advStyle="cursor-pointer"
-              onclick={() => handleClick()}
-            >
-              <PrettyCameraIcon fill={"white"} size={20} />
-            </PrettyRainbow>
-            <PrettyRainbow
-              advStyle="cursor-pointer"
-              onclick={() => removeAvatarFunc()}
-            >
-              <PrettyTrashIcon fill={"white"} size={20} />
-            </PrettyRainbow>
-          </div>
-
-          {changeAvatarOptions && (
-            <PrettyRainbow
-              advStyle="rounded-md flex items-center cursor-pointer rounded-md"
-              advChildStyle="rounded-md"
-              onclick={() => {
-                changeAvatarFunc();
-                setChangeAvatarOptions(false);
-              }}
-            >
-              <PrettyCheckIcon fill={"white"} size={16} />
-            </PrettyRainbow>
-          )}
+      </div>
+      <div className="w-full flex flex-row space-x-2 items-center justify-center">
+        <div className="flex flex-row space-x-3">
+          <PrettyRainbow
+            advStyle="cursor-pointer"
+            onclick={() => handleClick()}
+          >
+            <PrettyCameraIcon fill={"white"} size={20} />
+          </PrettyRainbow>
+          <PrettyRainbow
+            advStyle="cursor-pointer"
+            onclick={() => removeAvatarFunc()}
+          >
+            <PrettyTrashIcon fill={"white"} size={20} />
+          </PrettyRainbow>
         </div>
       </div>
       <input

@@ -87,14 +87,21 @@ const PrettyCustomSizeAvatar: React.FC<{
     <div className="w-fit">
       {MultiFuncs.ParamController([avatar?.contentType, avatar?.data]) ? (
         <div
-          style={{ width: `${size}rem` }}
-          className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] max-h-[50vh] rounded-sm relative p-0.5"
+          style={{ width: `${size}rem`, height: `${size}rem` }}
+          className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] relative p-0.5 rounded-full"
         >
-          <PrettyProfilePicture userAvatar={avatar} />
+          <img
+            src={`data:${avatar?.contentType};base64,${avatar?.data}`}
+            alt=""
+            className="w-full object-cover rounded-full"
+          />
         </div>
       ) : (
-        <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm relative p-0.5">
-          <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-sm p-10">
+        <div
+          style={{ width: `${size}rem`, height: `${size}rem` }}
+          className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative p-0.5"
+        >
+          <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full p-10">
             <PrettyProfileIcon size={70} fill={"white"} />
           </div>
         </div>
