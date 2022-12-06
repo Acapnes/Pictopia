@@ -14,27 +14,27 @@ import { UserFindDto } from 'src/dto/user/user.find.dto';
 import { UserCategoryDto } from 'src/dto/user/utils/user.category.dto';
 import { Category } from 'src/schemas/category.schema';
 import { Pic } from 'src/schemas/pic.schema';
-import { AccountService } from './account.service';
 import { UserPictureService } from './user.picture.service';
 import { UserCategoryService } from './user.category.service';
+import { UserCommentervice } from './user.comment.service';
 
 // @UseGuards(AuthGuard('jwt'))
 @Controller('/user/account')
 export class UserAccountController {
   constructor(
-    private accountService: AccountService,
     private userPictureService: UserPictureService,
     private userCategoryService: UserCategoryService,
+    private userCommentervice: UserCommentervice
   ) {}
 
   @Post('/posted')
   async getUsersPostedPictures(@Body() userFindDto: UserFindDto) {
-    return this.accountService.getUsersPostedPictures(userFindDto);
+    return this.userPictureService.getUsersPostedPictures(userFindDto);
   }
 
   @Post('/saved')
   async getOneUser(
-    @Body() userFindDto: UserFindDto,
+    @Body() userFindDto: UserFindDto
   ): Promise<ReturnFuncDto | Pic[] | Pic> {
     return this.userPictureService.findUserAndPopulateSavedPics(userFindDto);
   }
@@ -43,11 +43,11 @@ export class UserAccountController {
   @Post('/saved/add')
   async userSavePicture(
     @Request() req,
-    @Body() userSavedPictureDto: UserSavedPictureDto,
+    @Body() userSavedPictureDto: UserSavedPictureDto
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.userPictureService.savePicture(
       req.user._id,
-      userSavedPictureDto,
+      userSavedPictureDto
     );
   }
 
@@ -55,31 +55,31 @@ export class UserAccountController {
   @Post('/saved/remove')
   async userRemoveSavedPicture(
     @Request() req,
-    @Body() userSavedPictureDto: UserSavedPictureDto,
+    @Body() userSavedPictureDto: UserSavedPictureDto
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
     return this.userPictureService.removeSavedPicture(
       req.user._id,
-      userSavedPictureDto,
+      userSavedPictureDto
     );
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/category')
   async listFavoriteCategories(
-    @Request() req,
+    @Request() req
   ): Promise<ReturnFuncDto | Category[] | Category> {
     return this.userCategoryService.findUserAndPopulateFavCategories(
-      req.user._id,
+      req.user._id
     );
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/category/devided')
   async getAllCategoriesByDevidedUserFavorites(
-    @Request() req,
+    @Request() req
   ): Promise<ReturnFuncDto | Category[] | Category> {
     return this.userCategoryService.getAllCategoriesByDevidedUserFavorites(
-      req.user._id,
+      req.user._id
     );
   }
 
@@ -87,11 +87,11 @@ export class UserAccountController {
   @Post('/category/add')
   async setFavoriteCategory(
     @Request() req,
-    @Body() userCategoryDto: UserCategoryDto,
+    @Body() userCategoryDto: UserCategoryDto
   ) {
     return this.userCategoryService.setFavorieCategory(
       req.user._id,
-      userCategoryDto,
+      userCategoryDto
     );
   }
 
@@ -99,11 +99,18 @@ export class UserAccountController {
   @Post('/category/remove')
   async removeFavoriteCategory(
     @Request() req,
-    @Body() userCategoryDto: UserCategoryDto,
+    @Body() userCategoryDto: UserCategoryDto
   ): Promise<ReturnFuncDto | Category[] | Category> {
     return this.userCategoryService.removeFavoriteCategory(
       req.user._id,
-      userCategoryDto,
+      userCategoryDto
     );
+  }
+
+  @Post('/comments')
+  async getUsersPostedComments(
+    @Body() userFindDto: UserFindDto
+  ): Promise<ReturnFuncDto | Pic[]> {
+    return this.userCommentervice.findUserGetComments(userFindDto);
   }
 }
