@@ -25,6 +25,7 @@ type User {
   email: String!
   username: String!
   avatar: PictureFile!
+  profile_background: PictureFile!
   savedPictures: [Pic!]!
   lastSearchs: [String!]
   userSocials: UserSocials
