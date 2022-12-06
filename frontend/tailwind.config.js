@@ -11,7 +11,7 @@ module.exports = {
         "rough-soft-black": "#0d0d0d",
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
-        "pretty-yellow":"#FCBA28"
+        "pretty-yellow": "#FCBA28",
       },
       screens: {
         "3xl": "1920px",

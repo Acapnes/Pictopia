@@ -12,6 +12,10 @@ export declare class User {
         data: Buffer;
         contentType: string;
     };
+    profile_background: {
+        data: Buffer;
+        contentType: string;
+    };
     savedPictures: Pic[];
     favCategories: Category[];
     lastSearchs: string[];

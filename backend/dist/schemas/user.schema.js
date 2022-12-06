@@ -46,6 +46,18 @@ __decorate([
     __metadata("design:type", Object)
 ], User.prototype, "avatar", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => picture_file_schema_1.PictureFile, {
+        nullable: false,
+        defaultValue: { data: null, contentType: null },
+    }),
+    (0, mongoose_1.Prop)({
+        type: Object,
+        required: true,
+        default: { data: null, contentType: null },
+    }),
+    __metadata("design:type", Object)
+], User.prototype, "profile_background", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [pic_schema_1.Pic], { nullable: false }),
     (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Pic', required: false }),
     __metadata("design:type", Array)
