@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../../../Api/Utils/dtos/ReturnFuncDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,
   PrettyProfileIcon,
   PrettyTrashIcon,
 } from "../../../../components/Prettys/PrettyIcons";
+import { useToastStore } from "../../../../components/Zustand/store";
 
 const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
+  const setToastState = useToastStore((state: any) => state.setToastState);
   const [imageURL, setImageURL] = useState<any>("null");
-  const hiddenFileInput = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const hiddenFileInput =
+    React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [changeAvatar, setChangeAvatar] = useState<File>();
 
   const handleClick = async () => {
@@ -21,6 +25,8 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
     await ModerationAPI.changeUserAvatar(
       avatar,
       window.localStorage.getItem("access_token")!
+    ).then(
+      async (loginResp: ReturnFuncDto) => await setToastState(loginResp.message)
     );
   };
 
@@ -28,6 +34,9 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
     if (window.localStorage.getItem("access_token")) {
       await ModerationAPI.removeUserAvatar(
         window.localStorage.getItem("access_token")!
+      ).then(
+        async (loginResp: ReturnFuncDto) =>
+          await setToastState(loginResp.message)
       );
     }
   };
@@ -61,7 +70,7 @@ const ProfileAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
         ) : (
           <div className="h-full flex justify-center items-center ">
             {changeAvatar ? (
-              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-[0.3rem] relative">
+              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 relative">
                 <img
                   src={`${imageURL}`}
                   alt=""

@@ -20,7 +20,7 @@ export class UserCommentervice {
     return this.userService
       .findOneByUsername(userFindDto.username)
       .then(async (user: UserDto) => {
-        return (await this.commentModel.find({ author: user._id })).reverse();
+        return (await this.commentModel.find({ author: user._id }).populate('destPicture').populate('author')).reverse();
       });
   }
 }

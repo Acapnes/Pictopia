@@ -1,23 +1,28 @@
+import { Masonry } from "@mui/lab";
 import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import GridMenu from "../../../Picture/Grids/components/GridMenu";
 
-const SavedPictures: React.FC<{ user: UserDto }> = ({ user }) => {
+const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
+  user,
+  params,
+}) => {
   const [SavedPictures, setSavedPictures] = useState<PicDto[]>([]);
 
   const getSavedPictures = async () => {
-    setSavedPictures(await AccountAPI.getSavedPicturesOfUser(user?.username));
+    setSavedPictures(await AccountAPI.getSavedPicturesOfUser(params.id));
   };
   useEffect(() => {
     getSavedPictures();
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen">
       {SavedPictures.length > 0 && (
-        <div className="flex flex-col space-y-5 bg-soft-black bg-opacity-95 px-4">
-          <div className="columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 2xl:columns-4 3xl:columns-5 4xl:colmuns-6 gap-4 z-0 w-fit space-y-4 ">
+        <div className="flex flex-col items-center bg-soft-black bg-opacity-95 px-4 pb-4">
+          <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
             {SavedPictures.map((pic: PicDto, picIndex: number) => (
               <div
                 className="group relative h-fit w-full flex flex-col justify-center items-center-4 "
@@ -28,9 +33,10 @@ const SavedPictures: React.FC<{ user: UserDto }> = ({ user }) => {
                   alt=""
                   className="min-w-full"
                 />
+                <GridMenu picture={pic} />
               </div>
             ))}
-          </div>
+          </Masonry>
         </div>
       )}
     </div>

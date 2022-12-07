@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { CategoryAPI } from "../../../../Api/User/CategoryApi";
-import { CategoryDto } from "../../../../Api/User/CategoryDtos/category.dto";
-import { MultiFuncs } from "../../../../components/Functions/MultipleFuncs";
-import { PrettyCompassIcon } from "../../../../components/Prettys/PrettyIcons";
+import { CategoryAPI } from "../../../Api/User/CategoryApi";
+import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { MultiFuncs } from "../../../components/Functions/MultipleFuncs";
+import { PrettyCompassIcon } from "../../../components/Prettys/PrettyIcons";
 
 const CurrentCategory: React.FC<{}> = () => {
   const [currentCategory, setCurrentCategory] = useState<CategoryDto>(Object);

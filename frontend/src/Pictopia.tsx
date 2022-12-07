@@ -2,7 +2,6 @@
 import Header from "./Menus/Header";
 import React, { Suspense, useState } from "react";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
-
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = ({}) => {

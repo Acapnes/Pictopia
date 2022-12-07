@@ -129,6 +129,8 @@ const UploadPic: React.FC<{}> = () => {
           type="file"
           style={{ display: "none" }}
           ref={hiddenFileInput}
+          
+          
           accept="image/jpg, image/jpeg, image/png, image/webp, image/jfif"
           onChange={handleChange}
         />

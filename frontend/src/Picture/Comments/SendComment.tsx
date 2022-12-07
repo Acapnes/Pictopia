@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";

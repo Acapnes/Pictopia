@@ -21,7 +21,7 @@ export class UserPictureService {
     return this.userService
       .findOneByUsername(userFindDto.username)
       .then(async (user: UserDto) => {
-        return (await this.picModel.find({ authorPic: user._id })).reverse();
+        return (await this.picModel.find({ authorPic: user._id }).populate('authorPic')).reverse();
       });
   }
 
@@ -47,10 +47,10 @@ export class UserPictureService {
 
   async findUserAndPopulateSavedPics(
     userFindDto: UserFindDto
-  ): Promise<ReturnFuncDto | Pic[] | Pic> {
+  ): Promise<ReturnFuncDto | Pic[] | Pic | any> {
     return this.userModel
       .findOne({ username: userFindDto.username })
-      .populate('savedPictures')
+      .populate({ path: 'savedPictures', populate: [{ path: 'authorPic' }] })
       .then((result) => {
         if (!result) {
           return {

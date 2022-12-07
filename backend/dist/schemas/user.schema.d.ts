@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
+import { SecuritySettings } from './altSchemas/user.security.schema';
 import { UserSocials } from './altSchemas/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
@@ -20,6 +21,7 @@ export declare class User {
     favCategories: Category[];
     lastSearchs: string[];
     userSocials: UserSocials;
+    userSecuritySettings: SecuritySettings;
     birthDate: string;
     confrimed: boolean;
     bio: string;

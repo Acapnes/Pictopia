@@ -1,8 +1,8 @@
 import { Masonry } from "@mui/lab";
 import React from "react";
-import { CategoryAPI } from "../../../../Api/User/CategoryApi";
-import { CategoryDto } from "../../../../Api/User/CategoryDtos/category.dto";
-import { usePictopiaDNDStore } from "../../../../components/Zustand/store";
+import { CategoryAPI } from "../../../Api/User/CategoryApi";
+import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { usePictopiaDNDStore } from "../../../components/Zustand/store";
 
 const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
   defaultCategories,
@@ -50,7 +50,7 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
                     );
                   }}
                   key={categoryIndex}
-                  className="relative w-full text-start font-semibold text-white rounded-sm h-[18rem] cursor-pointer"
+                  className="relative w-full text-start font-semibold text-white rounded-sm max-h-[20rem] cursor-pointer"
                 >
                   <img
                     src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}

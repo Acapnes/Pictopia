@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
+const user_security_schema_1 = require("./altSchemas/user.security.schema");
 const user_socials_schema_1 = require("./altSchemas/user.socials.schema");
 const pic_schema_1 = require("./pic.schema");
 let User = class User {
@@ -80,6 +81,11 @@ __decorate([
     (0, mongoose_1.Prop)({ type: Object, required: false }),
     __metadata("design:type", user_socials_schema_1.UserSocials)
 ], User.prototype, "userSocials", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => user_security_schema_1.SecuritySettings, { nullable: true }),
+    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    __metadata("design:type", user_security_schema_1.SecuritySettings)
+], User.prototype, "userSecuritySettings", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: false }),
     (0, mongoose_1.Prop)({ required: true }),

@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { CommentDto } from "../../Api/Comment/dtos/commentDto";
-import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
+import {
+  PrettyMediumAvatar,
+  PrettySmallAvatar,
+} from "../../components/Prettys/PrettyElements";
 import { usePictureCommentStore } from "../../components/Zustand/store";
 
-const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {
+const Replies: React.FC<{
+  comment: CommentDto;
+  options?: boolean;
+  small?: boolean;
+}> = ({ comment, options, small }) => {
   const sendReplyViewState = usePictureCommentStore(
     (state: any) => state.sendReplyViewState
   );
@@ -21,14 +28,19 @@ const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {
   return (
     <div className="w-full">
       {replies && replies?.length > 0 && (
-        <div className="w-full pl-10">
+        <div className="w-full">
           <div className="w-full flex flex-col space-y-2">
             {replies?.map((reply: CommentDto, replyIndex: any) => (
               <div
                 key={replyIndex}
                 className="w-full h-full flex flex-row space-x-3"
               >
-                <PrettyMediumAvatar user={reply.author} rounded={true} />
+                {small ? (
+                  <PrettySmallAvatar user={reply.author} rounded={true} />
+                ) : (
+                  <PrettyMediumAvatar user={reply.author} rounded={true} />
+                )}
+
                 <div className="w-full flex flex-col">
                   <div className="w-full h-full flex-row">
                     <a
@@ -40,13 +52,15 @@ const Replies: React.FC<{ comment: CommentDto }> = ({ comment }) => {
                     <span className="w-full font-normal break-all pl-2">
                       {reply?.comment}
                     </span>
-                    <div className="w-full flex justify-between">
-                      <div className="flex flex-row space-x-1">
-                        <p className="text-sm text-gray-400">1h</p>
-                        <p className="text-sm font-bold cursor-pointer">♥</p>
+                    {options && (
+                      <div className="w-full flex justify-between">
+                        <div className="flex flex-row space-x-1">
+                          <p className="text-sm text-gray-400">1h</p>
+                          <p className="text-sm font-bold cursor-pointer">♥</p>
+                        </div>
+                        <div></div>
                       </div>
-                      <div></div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

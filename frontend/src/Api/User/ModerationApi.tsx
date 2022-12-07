@@ -1,5 +1,6 @@
 import axios from "axios";
 import { UserSimpleUpdateDto } from "./UserDtos/userSimpleUpdateDto";
+import { UserSocialsDto } from "./UserDtos/userSocialsDto";
 
 export class ModerationAPI {
   public static async userEditProfile(
@@ -24,6 +25,13 @@ export class ModerationAPI {
       window.localStorage.setItem("access_token", data.access_token);
 
     return data;
+  }
+
+  public static async setUserSocials(access_token: string,userSocialsDto:UserSocialsDto) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .post(`http://localhost:3000/user/profile/socials/update/`, userSocialsDto)
+      .then((resp) => resp.data);
   }
 
   public static async changeUserAvatar(avatar: any, access_token: string) {

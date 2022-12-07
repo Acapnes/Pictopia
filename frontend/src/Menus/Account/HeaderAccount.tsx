@@ -7,7 +7,7 @@ const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
     <div className="flex items-center">
       {window.localStorage.getItem("access_token") ? (
-        <PrettyMediumAvatar user={user} rounded={false} />
+        <PrettyMediumAvatar user={user} rounded={true} />
       ) : (
         <PrettyRainbow
           onclick={() => (window.location.href = "/login")}

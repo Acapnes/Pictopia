@@ -24,7 +24,8 @@ root.render(
         <CustomToast />
         <Routes>
           <Route path="*" element={<Pictopia />} />
-          <Route path="/categories/*" element={<Pictopia />} />
+          <Route path="/category/:category" element={<Pictopia />} />
+          <Route path="/search/:input" element={<Pictopia />} />
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/upload" element={<UploadPic />} />
 

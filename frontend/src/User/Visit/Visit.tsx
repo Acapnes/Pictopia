@@ -38,32 +38,32 @@ const Visit: React.FC<{}> = () => {
                     : `/background.png`
                 } `}
                 alt=""
-                className="w-full min-h-[40vh] max-h-[58vh] object-cover opacity-90"
+                className="w-full min-h-[40vh] max-h-[50vh] object-cover opacity-90"
               />
               <BackgroundHandler />
               <div className="w-full absolute bottom-0 pb-4 bg-gradient-to-t from-light-soft-black">
-                <div className="flex flex-col space-y-2 items-center">
+                <div className="flex flex-col items-center">
                   <PrettyCustomSizeAvatar
                     avatar={userVisitCredentials["avatar"]}
-                    size={12}
+                    size={9}
                   />
                   <div className="flex flex-col items-center">
-                    <p className="text-3xl font-bold text-gray-200">
+                    <p className="text-2xl font-bold text-gray-200">
                       {userVisitCredentials?.name}
                     </p>
-                    <p className="text-lg text-gray-200">
+                    <p className="text-gray-200">
                       {userVisitCredentials?.username}
                     </p>
                   </div>
 
-                  <div className="w-fit flex flex-row justify-center pt-2 items-center space-x-5">
+                  <div className="w-fit flex flex-row justify-center pt-3 items-center space-x-5">
                     <VisitUserSocials user={userVisitCredentials} />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="w-full flex flex-row place-content-center text-gray-200 bg-light-soft-black bg-opacity-95">
+            <div className="w-full flex flex-row place-content-center text-gray-200 bg-rough-soft-black bg-opacity-95">
               <VisitLinkComp to={``}>Saved</VisitLinkComp>
               <VisitLinkComp to={`posted`}>Posted</VisitLinkComp>
               <VisitLinkComp to={`comments`}>Comments</VisitLinkComp>
@@ -94,7 +94,7 @@ const VisitLinkComp: React.FC<{ children: ReactNode; to: string }> = ({
       to={to}
       className={`px-4 py-3 flex items-center transition duration-500 ${
         params["*"] === to
-          ? "bg-rough-soft-black text-pretty-pink"
+          ? "bg-light-soft-black text-pretty-pink"
           : "hover:text-pretty-pink"
       } `}
     >
@@ -136,14 +136,14 @@ export const BackgroundHandler: React.FC<{}> = () => {
       <div className="flex flex-col space-y-1.5 items-end">
         <button
           onClick={handleClick}
-          className="flex flex-row space-x-1 items-center border-[1px] border-gray-400 py-0.5 px-1 bg-rough-soft-black"
+          className="flex flex-row space-x-1 items-center border-[1px] border-pretty-pink py-0.5 px-1 bg-rough-soft-black"
         >
           <PrettyCameraIcon size={12} />
           <p className=" rounded-sm">Change Background</p>
         </button>
         <button
           onClick={() => removeAvatarFunc()}
-          className="w-fit flex flex-row space-x-1 items-center border-[1px] border-gray-400 py-0.5 px-1 bg-rough-soft-black"
+          className="w-fit flex flex-row space-x-1 items-center border-[1px] border-pretty-pink py-0.5 px-1 bg-rough-soft-black"
         >
           <PrettyXIcon size={10} />
           <p className=" rounded-sm">Remove</p>

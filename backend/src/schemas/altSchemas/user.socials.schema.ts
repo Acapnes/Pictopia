@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document } from 'mongoose';
+import { Document } from 'mongoose';
 
-export type CategoryDocument = UserSocials & Document;
+export type UserSocialsDocument = UserSocials & Document;
 
 @Schema()
 @ObjectType()
@@ -22,7 +22,7 @@ export class UserSocials {
   @Field({ nullable: true })
   @Prop({ required: false })
   discord: string;
-  
+
   @Field({ nullable: true })
   @Prop({ required: false })
   linkedin: string;

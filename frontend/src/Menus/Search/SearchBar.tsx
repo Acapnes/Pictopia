@@ -9,10 +9,10 @@ import {
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import CurrentCategory from "./SearchMenu/Category/CurrentCategory";
+import CurrentCategory from "./Category/CurrentCategory";
 import { usePictopiaDNDStore } from "../../components/Zustand/store";
-import DefaultCategories from "./SearchMenu/Category/DefaultCategories";
-import FavoriteCategories from "./SearchMenu/Category/FavoriteCategories";
+import DefaultCategories from "./Category/DefaultCategories";
+import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
 
 const SearchBar: React.FC<{}> = () => {
@@ -74,7 +74,13 @@ const SearchBar: React.FC<{}> = () => {
             </div>
             <input
               onKeyDown={(e) => {
-                if (e.key === "Enter") console.log("asd");
+                if (
+                  e.key === "Enter" &&
+                  searchInputvalue?.length &&
+                  searchInputvalue?.length > 0
+                ) {
+                  window.location.href = `/search/${searchInputvalue}`
+                }
               }}
               autoComplete="off"
               id="SearchInput"

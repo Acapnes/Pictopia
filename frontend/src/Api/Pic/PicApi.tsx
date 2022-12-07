@@ -14,13 +14,18 @@ export class PicAPI {
 
   public static async getPicsByCategory(picSearchDto:PicSearchDto): Promise<PicDto[]> {
     return await axios.post("http://localhost:3000/pics/category",{
-      category: await (await MultiFuncs.UrlParam()).charAt(0).toLocaleUpperCase() + (await MultiFuncs.UrlParam()).slice(1),
+      category: picSearchDto?.category!.charAt(0).toLocaleUpperCase() + picSearchDto?.category!.slice(1),
       currentPage: picSearchDto.currentPage,
       postPerPage: picSearchDto.postPerPage
-    })
-      .then((resp) => {
-        return resp.data
-      });
+    }).then((resp) => resp.data);
+  }
+
+  public static async getPicsBySeachInput( picSearchDto: PicSearchDto): Promise<PicDto[]> {
+    return await axios.post("http://localhost:3000/pics/search",{
+      input: picSearchDto?.input,
+      currentPage: picSearchDto?.currentPage,
+      postPerPage: picSearchDto?.postPerPage
+    }).then((resp) => resp.data);
   }
 
   public static async getDetailPic(_id: string): Promise<PicDto> {

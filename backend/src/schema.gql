@@ -12,6 +12,10 @@ type Category {
   category_picture_file: PictureFile!
 }
 
+type SecuritySettings {
+  visitShow: Boolean
+}
+
 type UserSocials {
   instagram: String
   github: String
@@ -29,6 +33,7 @@ type User {
   savedPictures: [Pic!]!
   lastSearchs: [String!]
   userSocials: UserSocials
+  userSecuritySettings: SecuritySettings
   birthDate: String!
   confrimed: Boolean
   bio: String

@@ -22,7 +22,7 @@ const ActionlessGrid: React.FC<{}> = () => {
             key={picIndex}
           >
             <img
-              src={`data:${pic.picture_file.contentType};base64,${pic.picture_file.data}`}
+              src={`data:${pic?.picture_file?.contentType};base64,${pic?.picture_file?.data}`}
               alt=""
               className="min-w-full"
             />

@@ -60,7 +60,7 @@ const Comments: React.FC<{
                     picture={picture}
                   />
                 )}
-                <Replies comment={_comment} />
+                <Replies options comment={_comment} />
               </div>
             </div>
           ))}

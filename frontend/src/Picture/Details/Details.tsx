@@ -46,10 +46,10 @@ const DetailsPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
       ) : (
         <PrettyRainbowDiv
           advStyle="shadow-lg w-fit h-fit mb-10 relative rounded-md"
-          advChildStyle="px-7 py-7 flex flex-col items-center rounded-md"
+          advChildStyle="px-7 py-7 flex flex-col space-y-2 items-center rounded-md"
         >
           <div className="text-gray-200 text-2xl font-semibold ">
-            Picture not found
+            <span>Picture not found</span>
           </div>
           <PrettyErrorIcon size={30} fill={"rgb(244,114,182)"} />
         </PrettyRainbowDiv>

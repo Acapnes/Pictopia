@@ -7,10 +7,12 @@ import Notfound from "../components/Views/NotFound";
 import PostedPictures from "./Visit/VisitMenus/PostedPictures";
 import { AccountAPI } from "../Api/User/AccountApi";
 import React from "react";
-import PostedComments from "./Visit/VisitMenus/PostedComments";
 
 const SavedPictures = React.lazy(
   () => import("./Visit/VisitMenus/SavedPictures")
+);
+const PostedComments = React.lazy(
+  () => import("./Visit/VisitMenus/PostedComments")
 );
 
 const User: React.FC<{}> = () => {
@@ -32,19 +34,27 @@ const User: React.FC<{}> = () => {
         <Route element={<Visit />}>
           <Route
             index
-            element={<SavedPictures user={userVisitCredentials!} />}
+            element={
+              <SavedPictures user={userVisitCredentials!} params={params} />
+            }
           />
           <Route
             path="posted"
-            element={<PostedPictures user={userVisitCredentials!} />}
+            element={
+              <PostedPictures user={userVisitCredentials!} params={params} />
+            }
           />
           <Route
             path="comments"
-            element={<PostedComments user={userVisitCredentials!} />}
+            element={
+              <PostedComments user={userVisitCredentials!} params={params} />
+            }
           />
           <Route
             path="followers"
-            element={<SavedPictures user={userVisitCredentials!} />}
+            element={
+              <SavedPictures user={userVisitCredentials!} params={params} />
+            }
           />
           <Route path="*" element={<Notfound />} />
         </Route>

@@ -4,21 +4,44 @@ import { PicAPI } from "../../Api/Pic/PicApi";
 import GridMenu from "./components/GridMenu";
 import React from "react";
 import { Masonry } from "@mui/lab";
+import { useParams } from "react-router-dom";
 
 const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   currentPage,
   postPerPage,
 }) => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);
+  const params = useParams();
 
   const fetchAndSetPics = async () => {
-    setRespPics([
-      ...respPics,
-      ...(await PicAPI.getPicsByCategory({
-        currentPage: currentPage,
-        postPerPage: postPerPage,
-      })),
-    ]);
+    if (params?.category) {
+      setRespPics([
+        ...respPics,
+        ...(await PicAPI.getPicsByCategory({
+          category: params?.category,
+          currentPage: currentPage,
+          postPerPage: postPerPage,
+        })),
+      ]);
+    } else if (params?.input) {
+      setRespPics([
+        ...respPics,
+        ...(await PicAPI.getPicsBySeachInput({
+          input: params?.input,
+          currentPage: currentPage,
+          postPerPage: postPerPage,
+        })),
+      ]);
+    } else {
+      setRespPics([
+        ...respPics,
+        ...(await PicAPI.getPicsByCategory({
+          category: "Explore",
+          currentPage: currentPage,
+          postPerPage: postPerPage,
+        })),
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -35,7 +58,7 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
           >
             <img
               loading="lazy"
-              src={`data:${pic.picture_file.contentType};base64,${pic.picture_file.data}`}
+              src={`data:${pic?.picture_file?.contentType};base64,${pic?.picture_file?.data}`}
               alt=""
               className="min-w-full rounded-sm"
             />

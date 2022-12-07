@@ -2,6 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { PictureFile } from './altSchemas/picture.file.schema';
+import { SecuritySettings } from './altSchemas/user.security.schema';
 import { UserSocials } from './altSchemas/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
@@ -69,6 +70,10 @@ export class User {
   @Field(() => UserSocials, { nullable: true })
   @Prop({ type: Object, required: false })
   userSocials: UserSocials;
+
+  @Field(() => SecuritySettings, { nullable: true })
+  @Prop({ type: Object, required: false })
+  userSecuritySettings: SecuritySettings;
 
   @Field({ nullable: false })
   @Prop({ required: true })
