@@ -9,7 +9,10 @@ const Pictopia: React.FC<{}> = ({}) => {
   const [postPerPage, setPostPerPage] = useState<number>(20);
 
   const handleScroll = (e: any) => {
-    if (e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight) {
+    if (
+      e.target.scrollHeight - e.target.scrollTop <=
+      e.target.clientHeight + 10
+    ) {
       setCurrentPage(currentPage + 1);
     }
   };

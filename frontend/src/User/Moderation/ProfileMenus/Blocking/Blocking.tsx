@@ -4,7 +4,7 @@ import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 
 const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
-    <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-[0.15rem] rounded-sm">
+    <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm">
       <div className="flex flex-col space-y-10 py-5 rounded-sm bg-soft-black">
         <div className="flex flex-col space-y-3 px-5 text-gray-200">
           <div className="flex flex-col space-y-2">

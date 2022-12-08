@@ -79,7 +79,14 @@ const SearchBar: React.FC<{}> = () => {
                   searchInputvalue?.length &&
                   searchInputvalue?.length > 0
                 ) {
-                  window.location.href = `/search/${searchInputvalue}`
+                  if (searchInputvalue[0] === "#") {
+                    window.location.href = `/search/tags/${searchInputvalue.slice(
+                      1,
+                      searchInputvalue.length
+                    )}`;
+                  } else {
+                    window.location.href = `/search/${searchInputvalue}`;
+                  }
                 }
               }}
               autoComplete="off"
@@ -91,7 +98,7 @@ const SearchBar: React.FC<{}> = () => {
                 }
               }}
               type="text"
-              placeholder="search"
+              placeholder="Search by type in pictures & hashtags & users..."
               className="outline-none bg-transparent text-gray-100 w-full placeholder:font-semibold"
             />
           </div>
@@ -109,7 +116,7 @@ const SearchBar: React.FC<{}> = () => {
       {showSearchMenu && (
         <div className="absolute top-[4rem] w-full shadow-lg">
           <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-            <div className=" w-full p-5 bg-soft-black bg-opacity-95 rounded-sm relative">
+            <div className=" w-full p-3.5 bg-soft-black  rounded-sm relative">
               <div className="w-full flex flex-row space-x-2">
                 <div className="flex flex-col space-y-2 w-fit">
                   <CurrentCategory />
@@ -118,7 +125,10 @@ const SearchBar: React.FC<{}> = () => {
                 <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2">
                   <LastSearchs />
                   {searchInputvalue ? (
-                    <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+                    <SearchResults
+                      searchedUsers={searchedUsers}
+                      searchInput={searchInputvalue}
+                    />
                   ) : (
                     <DefaultCategories defaultCategories={defaultCategories} />
                   )}
@@ -134,30 +144,64 @@ const SearchBar: React.FC<{}> = () => {
 
 export default SearchBar;
 
+const SearchResults: React.FC<{
+  searchedUsers: UserDto[];
+  searchInput: string;
+}> = ({ searchedUsers, searchInput }) => {
+  return (
+    <>
+      <div className="flex flex-col space-y-2 px-2 max-h-[60vh] text-gray-200">
+        <a
+          href={`/search/${searchInput}`}
+          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+        >
+          <PrettySearchIcon size={14} />
+          <span className="">
+            Search in pictures
+            <span className="font-bold pl-1">{searchInput}</span>
+          </span>
+        </a>
+
+        <a
+          href={`/search/tags/${searchInput}`}
+          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+        >
+          <PrettySearchIcon size={14} />
+          <span className="">
+            Search in hashtags
+            <span className="font-bold pl-1">#{searchInput}</span>
+          </span>
+        </a>
+        <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+      </div>
+    </>
+  );
+};
+
 const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
   searchedUsers,
 }) => {
   return (
-    <div className="flex justify-center max-h-[60vh] overflow-y-auto scrollbar-hide">
-      <div className="grid grid-cols-1 gap-4 py-4 px-1 w-full">
+    <div className="flex justify-center overflow-y-auto scrollbar-hide">
+      <div className="grid grid-cols-1 gap-4 w-full">
         {searchedUsers?.map((user: UserDto, userIndex: number) => (
           <a
             href={`/user/${user.username}`}
-            className="flex flex-row space-x-3 items-center group bg-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
+            className="flex flex-row space-x-3 items-center group bg-rough-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
             key={userIndex}
           >
             {user?.avatar?.contentType && user?.avatar?.data ? (
-              <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative">
+              <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
                 <img
                   src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
                   alt=""
-                  className="rounded-full w-full h-full object-cover p-[0.18rem]"
+                  className="rounded-full w-full h-full object-cover p-0.5"
                 />
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[5rem] h-[5rem] relative p-[0.18rem]">
+              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative p-0.5">
                 <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
-                  <PrettyProfileIcon size={32} fill={"white"} />
+                  <PrettyProfileIcon size={24} fill={"white"} />
                 </div>
               </div>
             )}
@@ -200,7 +244,7 @@ const LastSearchs: React.FC<{}> = () => {
   return (
     <>
       {lastSearches.length > 0 && (
-        <div className="w-full flex flex-row items-center space-x-2 h-[4rem] border-b-2 border-pretty-pink ">
+        <div className="w-full flex flex-row items-center space-x-2 h-[4rem] border-b-2 border-pretty-pink">
           {lastSearches.map((search, searchIndex) => (
             <div key={searchIndex} className="">
               <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">

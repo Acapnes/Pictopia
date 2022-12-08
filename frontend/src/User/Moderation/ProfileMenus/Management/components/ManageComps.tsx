@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { UserDto } from "../../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../../components/Prettys/PrettyComponents";
-import {
-  PrettyCheckIcon,
-  PrettyEyeIcon,
-  PrettyXIcon,
-} from "../../../../../components/Prettys/PrettyIcons";
+import { PrettyEyeIcon } from "../../../../../components/Prettys/PrettyIcons";
 
 const ManageEmail: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
   const [userEmail, setuserEmail] = useState<string>(email);

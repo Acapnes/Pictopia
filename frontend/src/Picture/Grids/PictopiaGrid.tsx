@@ -10,13 +10,13 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   currentPage,
   postPerPage,
 }) => {
-  const [respPics, setRespPics] = useState<PicDto[]>([]);
+  const [pictures, setPictures] = useState<PicDto[]>([]);
   const params = useParams();
 
   const fetchAndSetPics = async () => {
     if (params?.category) {
-      setRespPics([
-        ...respPics,
+      setPictures([
+        ...pictures,
         ...(await PicAPI.getPicsByCategory({
           category: params?.category,
           currentPage: currentPage,
@@ -24,17 +24,26 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
         })),
       ]);
     } else if (params?.input) {
-      setRespPics([
-        ...respPics,
+      setPictures([
+        ...pictures,
         ...(await PicAPI.getPicsBySeachInput({
           input: params?.input,
           currentPage: currentPage,
           postPerPage: postPerPage,
         })),
       ]);
+    } else if (params?.tag) {
+      setPictures([
+        ...pictures,
+        ...(await PicAPI.getPicsBySeachInput({
+          input: `#${params!.tag}`,
+          currentPage: currentPage,
+          postPerPage: postPerPage,
+        })),
+      ]);
     } else {
-      setRespPics([
-        ...respPics,
+      setPictures([
+        ...pictures,
         ...(await PicAPI.getPicsByCategory({
           category: "Explore",
           currentPage: currentPage,
@@ -50,8 +59,8 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
 
   return (
     <div className="w-full flex justify-center">
-      <Masonry columns={{ xs: 2, sm: 2, md: 3, lg: 4, xl: 5 }} spacing={3}>
-        {respPics.map((pic, picIndex) => (
+      <Masonry columns={{ xs: 2, sm: 2, md: 3, lg: 5, xl: 6 }} spacing={2}>
+        {pictures.map((pic: PicDto, picIndex: number) => (
           <div
             className="group relative h-fit w-full flex flex-col justify-center items-center-4 duration-300 hover:scale-105 "
             key={picIndex}

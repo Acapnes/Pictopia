@@ -10,8 +10,12 @@ import {
   PrettyDownloadIcon,
   PrettyShareIcon,
 } from "../../../../components/Prettys/PrettyIcons";
+import { useToastStore } from "../../../../components/Zustand/store";
+import { ReturnFuncDto } from "../../../../Api/Utils/dtos/ReturnFuncDto";
 
 const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
+  const setToastState = useToastStore((state: any) => state.setToastState);
+
   return (
     <div className="h-full flex flex-row justify-between items-center space-x-2">
       {/* Download Picture */}
@@ -41,7 +45,10 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
             await AccountAPI.savedPicturesToUserAlbum(
               window.localStorage.getItem("access_token")!,
               picture
-            ).then((resp) => {});
+            ).then(
+              async (loginResp: ReturnFuncDto) =>
+                await setToastState(loginResp.message)
+            );
           }
         }}
       >

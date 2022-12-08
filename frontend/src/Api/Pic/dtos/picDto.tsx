@@ -10,5 +10,6 @@ export interface PicDto {
     data: Buffer;
     contentType: string;
   };
-  
+
+  hashTags: [string];
 }

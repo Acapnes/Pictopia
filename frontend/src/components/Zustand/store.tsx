@@ -1,9 +1,9 @@
 import create from "zustand";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { CommentDto } from "../../Api/Comment/dtos/commentDto";
-import { UserDto } from "../../Api/User/UserDtos/userDto";
 
 interface usePictopiaDNDState {
+  draggingNumber: number | null; /// 0 -> default to favorite | 1 -> favorite to default IS DRAGGING
   defaultCategories: CategoryDto[];
   favoriteCategories: CategoryDto[];
 }
@@ -11,9 +11,14 @@ interface usePictopiaDNDState {
 export const usePictopiaDNDStore = create<usePictopiaDNDState>((set) => ({
   defaultCategories: [],
   favoriteCategories: [],
+  draggingNumber: null,
+
+  setDraggingNumber: (_draggingNumber: number) => {
+    set(() => ({ draggingNumber: _draggingNumber }));
+  },
 
   setDefaultCategories: (_defaultCategories: CategoryDto[]) => {
-    set((state: any) => ({ defaultCategories: _defaultCategories }));
+    set(() => ({ defaultCategories: _defaultCategories }));
   },
 
   setFavoriteCategories: (_category: CategoryDto[], _categoryIndex: number) => {

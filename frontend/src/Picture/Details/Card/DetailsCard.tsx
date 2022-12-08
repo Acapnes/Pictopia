@@ -17,7 +17,8 @@ import { usePictureCommentStore } from "../../../components/Zustand/store";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const [commentsStatus, setCommentsStatus] = useState(false);
-  const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] = useState<UserDto>(Object);
+  const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] =
+    useState<UserDto>(Object);
 
   const setCurrentComments = usePictureCommentStore(
     (state: any) => state.setCurrentComments
@@ -66,12 +67,13 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
             </div>
           </div>
           {picture?.description?.length > 50 && (
-            <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide">
+            <div className="max-h-[35vh] break-all overflow-y-auto scrollbar-hide">
               <p>{picture?.description}</p>
             </div>
           )}
+          <HashTags hashTags={picture?.hashTags} />
 
-          <div className="h-fit w-full flex flex-row items-center justify-between pt-5">
+          <div className="h-fit w-full flex flex-row items-center justify-between">
             <PrettyRainbow
               advStyle="rounded-sm "
               advChildStyle="py-1.5 px-2.5 rounded-sm text-sm"
@@ -111,12 +113,19 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
 export default DetailsCard;
 
-const HashTags: React.FC<{}> = () => {
+const HashTags: React.FC<{ hashTags: PicDto["hashTags"] }> = ({ hashTags }) => {
   return (
-    <div className="w-full flex flex-row">
-      <button className="rounded-full border-[0.23rem] border-blue-600 border-opacity-70 px-2 py-1 text-blue-600 text-sm">
-        #Medieval
-      </button>
+    <div className="w-full flex flex-row space-x-2 py-2 overflow-x-scroll scrollbar-hide">
+      {hashTags?.map((hashtag: string, hashIndex: number) => (
+        <div key={hashIndex}>
+          <a
+            href={`/search/${hashtag}`}
+            className="rounded-md border-[1px] border-pretty-rough-pink border-opacity-70 px-2 py-1 text-pretty-pink text-sm"
+          >
+            {hashtag}
+          </a>
+        </div>
+      ))}
     </div>
   );
 };

@@ -34,6 +34,7 @@ export class ModerationService {
           bio: funcResult.bio,
           savedPictures: funcResult.savedPictures,
           userSocials: funcResult.userSocials,
+          profile_background:funcResult.profile_background
         };
       });
   }

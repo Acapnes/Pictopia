@@ -10,13 +10,20 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
   const setDefaultCategories = usePictopiaDNDStore(
     (state: any) => state.setDefaultCategories
   );
+  const setDraggingNumber = usePictopiaDNDStore(
+    (state: any) => state.setDraggingNumber
+  );
+  const draggingNumber = usePictopiaDNDStore(
+    (state: any) => state.draggingNumber
+  );
   const favoriteCategories = usePictopiaDNDStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
+
   return (
     <div
       className="w-full flex flex-auto"
-      onDragOver={(e) => e.preventDefault()}
+      onDragOver={(e) => draggingNumber !== 0 && e.preventDefault()}
       onDrop={async(droppedCategory) => {
         const category = JSON.parse(droppedCategory.dataTransfer.getData("category")) as CategoryDto;
         const categoryIndex = JSON.parse(droppedCategory.dataTransfer.getData("categoryIndex")) as number;
@@ -40,6 +47,7 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
                   }
                   draggable={true}
                   onDragStart={(event: React.DragEvent<HTMLButtonElement>) => {
+                    setDraggingNumber(0)
                     event.dataTransfer.setData(
                       "category",
                       JSON.stringify(category)
@@ -50,14 +58,14 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
                     );
                   }}
                   key={categoryIndex}
-                  className="relative w-full text-start font-semibold text-white rounded-sm max-h-[20rem] cursor-pointer"
+                  className="relative w-full text-start font-semibold text-white rounded-sm max-h-[18rem] cursor-pointer"
                 >
                   <img
                     src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
                     className="object-cover h-full w-full opacity-50 rounded-sm border-2"
                     alt=""
                   />
-                  <div className="absolute top-0 w-full h-full flex flex-row justify-center space-x-2 items-center text-center px-4 py-2 rounded-lg duration-300 hover:bg-gray-400 hover:bg-opacity-30">
+                  <div className="absolute top-0 w-full h-full flex flex-row justify-center space-x-2 items-center text-center px-4 py-2 rounded-lg duration-300 hover:bg-soft-black hover:bg-opacity-30">
                     <p className="my-2 text-gray-200 font-bold text-xl ">
                       {category?.title}
                     </p>

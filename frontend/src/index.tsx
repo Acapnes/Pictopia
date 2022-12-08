@@ -26,6 +26,7 @@ root.render(
           <Route path="*" element={<Pictopia />} />
           <Route path="/category/:category" element={<Pictopia />} />
           <Route path="/search/:input" element={<Pictopia />} />
+          <Route path="/search/tags/:tag" element={<Pictopia />} />
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/upload" element={<UploadPic />} />
 
@@ -33,11 +34,7 @@ root.render(
           <Route path="/register" element={<Register />} />
 
           <Route path="/user/:id/*" element={<User />} />
-          <Route path="/profile/edit" element={<Profile />} />
-          <Route path="/profile/privacy" element={<Profile />} />
-          <Route path="/profile/management" element={<Profile />} />
-          <Route path="/profile/blocking" element={<Profile />} />
-          <Route path="/profile/deletion" element={<AccountDeletion />} />
+          <Route path="/profile/*" element={<Profile />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

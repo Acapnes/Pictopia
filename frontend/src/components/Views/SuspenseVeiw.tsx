@@ -2,8 +2,8 @@ import React from "react";
 
 const SuspenseVeiw: React.FC<{}> = () => {
   return (
-    <div className="w-full flex justify-center">
-      <div className="flex flex-col space-y-3 h-fit w-fit items-center">
+    <div className="min-h-screen w-full flex justify-center bg-soft-black">
+      <div className="flex flex-col space-y-3 h-fit w-fit items-center mt-10">
         <div role="status">
           <svg
             aria-hidden="true"

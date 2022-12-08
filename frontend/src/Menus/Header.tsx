@@ -23,9 +23,9 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full z-10 sticky top-0">
+    <div className="w-full z-10 sticky top-0 text-sm">
       <div className="">
-        <div className="w-full h-header_height flex flex-row justify-between space-x-3 px-3 py-2">
+        <div className="w-full h-header_height flex flex-row justify-between space-x-3 bg-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
           <a
             href="/explore"
             className="h-full flex items-center w-fit rounded-md"

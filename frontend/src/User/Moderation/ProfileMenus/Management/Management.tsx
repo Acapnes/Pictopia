@@ -8,8 +8,8 @@ import {
 
 const Management: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
-    <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-[0.15rem] rounded-sm">
-      <div className="flex flex-col space-y-10 py-5 rounded-sm bg-soft-black">
+    <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm">
+      <div className="flex flex-col space-y-5 py-5 rounded-sm bg-soft-black">
         <div className="flex flex-col space-y-1 lg:flex-row lg:space-x-5 lg:space-y-0 px-5">
           <div className="w-full lg:w-[20rem] flex flex-col space-y-1 items-center justify-center text-center text-gray-200">
             <p className="text-2xl">Login Email</p>
