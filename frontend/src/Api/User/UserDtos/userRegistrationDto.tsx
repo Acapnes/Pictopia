@@ -3,7 +3,5 @@ export interface UserRegistrationDto {
 
   email: string;
   
-  birthDate: string;
-
   password: string;
 }

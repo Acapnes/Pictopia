@@ -73,11 +73,7 @@ export class User {
 
   @Field(() => SecuritySettings, { nullable: true })
   @Prop({ type: Object, required: false })
-  userSecuritySettings: SecuritySettings;
-
-  @Field({ nullable: false })
-  @Prop({ required: true })
-  birthDate: string;
+  settings: SecuritySettings;
 
   @Field({ nullable: true })
   @Prop({ required: false })

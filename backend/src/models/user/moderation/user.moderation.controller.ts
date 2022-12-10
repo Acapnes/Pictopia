@@ -13,63 +13,50 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
-import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { UserSocialsDto } from 'src/dto/user/utils/user.socials.dto';
+import { AvatarService } from './avatar.service';
 import { ModerationService } from './moderation.service';
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('user/profile')
 export class UserModerationController {
-  constructor(private moderationService: ModerationService) {}
+  constructor(
+    private moderationService: ModerationService,
+    private avatarService: AvatarService
+  ) {}
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/update/simple')
-  async userProfileUpdate(
-    @Request() req,
-    @Body() userUpdateDto: UserUpdateDto
-  ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.updateProfile(req.user._id, userUpdateDto);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/update/avatar')
+  @Post('/avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   async userChangeAvatar(
     @UploadedFile() avatar_file,
     @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.changeAvatar(req.user._id, avatar_file);
+    return this.avatarService.changeAvatar(req.user._id, avatar_file);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/update/avatar/remove')
+  @Post('/avatar/remove')
   async userRemoveAvatar(
     @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.removeAvatar(req.user._id);
+    return this.avatarService.removeAvatar(req.user._id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/update/background')
+  @Post('/background')
   @UseInterceptors(FileInterceptor('background'))
   async userChangeBackground(
     @UploadedFile() background_file,
     @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.changeBackground(
-      req.user._id,
-      background_file
-    );
+    return this.avatarService.changeBackground(req.user._id, background_file);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/update/background/remove')
+  @Post('/background/remove')
   async userRemoveBackground(
     @Request() req
   ): Promise<ReturnAuthDto | ReturnFuncDto> {
-    return this.moderationService.removeBackground(req.user._id);
+    return this.avatarService.removeBackground(req.user._id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('/credentials')
   async fetchUserCredentials(
     @Request() req
@@ -77,7 +64,6 @@ export class UserModerationController {
     return this.moderationService.fetchUserCredentialsWithToken(req.user);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Post('/socials/update')
   async userSocialsUpdate(
     @Request() req,
@@ -89,7 +75,6 @@ export class UserModerationController {
     );
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get('/socials')
   async userFetchSocials(@Request() req): Promise<ReturnFuncDto | any> {
     return this.moderationService.userFetchSocials(req.user._id);

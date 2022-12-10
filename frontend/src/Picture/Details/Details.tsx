@@ -40,7 +40,7 @@ const DetailsPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
           <img
             src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
             alt=""
-            className="object-contain max-h-[70vh] 3xl:max-w-[55vw] rounded-sm"
+            className="object-contain max-h-[70vh] 3xl:max-w-[55vw] rounded-sm bg-soft-black"
           />
         </div>
       ) : (

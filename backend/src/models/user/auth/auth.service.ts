@@ -24,10 +24,7 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
         message: 'This email already been used',
       };
 
-    userRegistrationDto.password = await bcrypt.hashSync(
-      userRegistrationDto.password,
-      10,
-    );
+    userRegistrationDto.password = await bcrypt.hashSync(userRegistrationDto.password,10);
     
     this.userModel.create(userRegistrationDto);
     return {
@@ -54,6 +51,28 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
               access: false,
               message: 'Access verification failed',
               access_token: '',
+            };
+          }
+        }
+        return findReturn;
+      });
+  }
+
+  async validateUserEmailPassword(userValidationDto: UserValidationDto): Promise<ReturnFuncDto> {
+    return await this.userService.findByEmail(userValidationDto.email).then(async (findReturn : any) => {
+        if (findReturn.success !== false) {
+          const selectedUser = findReturn as UserDto;
+          const rawPassword = userValidationDto.password.toString();
+          const loginResult = bcrypt.compareSync(rawPassword,selectedUser.password.toString());
+          if (loginResult) {
+            return {
+              success: true,
+              message: 'Access verification successful',
+            };
+          } else {
+            return {
+              success: false,
+              message: 'Access verification failed',
             };
           }
         }

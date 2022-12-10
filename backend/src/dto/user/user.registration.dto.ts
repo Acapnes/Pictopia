@@ -18,10 +18,6 @@ export class UserRegistrationDto {
     contentType: string;
   };
 
-  // @IsDate()
-  @IsNotEmpty()
-  birthDate!: string;
-
   @IsBoolean()
   confrimed?: boolean = false;
 

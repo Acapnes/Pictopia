@@ -7,17 +7,14 @@ export class ModerationAPI {
     access_token: string,
     userSimpleUpdateDto: UserSimpleUpdateDto
   ) {
-    const resp = await fetch(
-      "http://localhost:3000/user/profile/update/simple",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify(userSimpleUpdateDto),
-      }
-    );
+    const resp = await fetch("http://localhost:3000/user/profile/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+      body: JSON.stringify(userSimpleUpdateDto),
+    });
 
     const data = await resp.json();
 
@@ -27,10 +24,16 @@ export class ModerationAPI {
     return data;
   }
 
-  public static async setUserSocials(access_token: string,userSocialsDto:UserSocialsDto) {
+  public static async setUserSocials(
+    access_token: string,
+    userSocialsDto: UserSocialsDto
+  ) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/socials/update/`, userSocialsDto)
+      .post(
+        `http://localhost:3000/user/profile/socials/update/`,
+        userSocialsDto
+      )
       .then((resp) => resp.data);
   }
 
@@ -40,22 +43,19 @@ export class ModerationAPI {
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/update/avatar/`, formData)
+      .post(`http://localhost:3000/user/profile/avatar/`, formData)
       .then((resp) => resp.data);
   }
 
   public static async removeUserAvatar(access_token: string) {
     if (!localStorage.getItem("access_token")) return;
-    return await fetch(
-      "http://localhost:3000/user/profile/update/avatar/remove",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    )
+    return await fetch("http://localhost:3000/user/profile/avatar/remove", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
       .then((resp) => resp.json())
       .then((data) => data)
       .catch((err) => console.log(err));
@@ -67,22 +67,19 @@ export class ModerationAPI {
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/update/background/`, formData)
+      .post(`http://localhost:3000/user/profile/background/`, formData)
       .then((resp) => resp.data);
   }
 
   public static async removeUserBackground(access_token: string) {
     if (!localStorage.getItem("access_token")) return;
-    return await fetch(
-      "http://localhost:3000/user/profile/update/background/remove",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    )
+    return await fetch("http://localhost:3000/user/profile/background/remove", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
       .then((resp) => resp.json())
       .then((data) => data)
       .catch((err) => console.log(err));

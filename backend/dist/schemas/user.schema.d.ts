@@ -21,8 +21,7 @@ export declare class User {
     favCategories: Category[];
     lastSearchs: string[];
     userSocials: UserSocials;
-    userSecuritySettings: SecuritySettings;
-    birthDate: string;
+    settings: SecuritySettings;
     confrimed: boolean;
     bio: string;
     password: string;

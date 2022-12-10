@@ -11,7 +11,7 @@ import User from "./User/User";
 import Profile from "./User/Moderation/Profile";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 import CustomToast from "./components/Views/CustomToast";
-import AccountDeletion from "./User/Moderation/ProfileMenus/Management/components/AccountDeletion";
+import RouteGuard from "./components/Helpers/RouteGuard";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -28,13 +28,19 @@ root.render(
           <Route path="/search/:input" element={<Pictopia />} />
           <Route path="/search/tags/:tag" element={<Pictopia />} />
           <Route path="/detail/:id" element={<Details />} />
-          <Route path="/upload" element={<UploadPic />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
           <Route path="/user/:id/*" element={<User />} />
-          <Route path="/profile/*" element={<Profile />} />
+
+          {/* AuthGuard */}
+          <Route element={<RouteGuard />}>
+            <Route path="/profile/*" element={<Profile />} />
+            <Route path="/upload" element={<UploadPic />} />
+          </Route>
+
+          {/* AuthGuard */}
         </Routes>
       </Suspense>
     </BrowserRouter>

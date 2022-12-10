@@ -1,4 +1,11 @@
-import { IsBoolean, IsEmail, IsMongoId, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsMongoId,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 import mongoose from 'mongoose';
 
 export class UserDto {
@@ -24,10 +31,6 @@ export class UserDto {
     contentType: string;
   };
 
-  @IsString()
-  @IsNotEmpty()
-  birthDate: string;
-
   @IsBoolean()
   @IsNotEmpty()
   confrimed: boolean;
@@ -38,4 +41,9 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   password: string;
+
+  @IsObject()
+  settings: {
+    privateAccount: boolean;
+  };
 }

@@ -37,9 +37,9 @@ export const useToastStore = create<useToastState>((set) => ({
 
   setToastState: (_toastMassage: string) => {
     set((state: any) => ({ toastState: true, toastMassage: _toastMassage }));
-    // setTimeout(()=>{
-    //   set((state: any) => ({ defaultToastState: false }));
-    // },3000)
+    setTimeout(() => {
+      set(() => ({ toastState: false }));
+    }, 3000);
   },
 }));
 

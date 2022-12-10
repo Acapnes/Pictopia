@@ -9,7 +9,7 @@ export type SecuritySettingsDocument = SecuritySettings & Document;
 export class SecuritySettings {
   @Field(() => Boolean, { nullable: true })
   @Prop({ type: Boolean, default: true })
-  visitShow: boolean;
+  privateAccount: boolean;
 }
 
 export const SecuritySettingsSchema =

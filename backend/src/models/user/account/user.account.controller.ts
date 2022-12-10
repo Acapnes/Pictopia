@@ -17,8 +17,8 @@ import { Pic } from 'src/schemas/pic.schema';
 import { UserPictureService } from './user.picture.service';
 import { UserCategoryService } from './user.category.service';
 import { UserCommentervice } from './user.comment.service';
+import { PrivateGuard } from 'src/helpers/guards/private.guard';
 
-// @UseGuards(AuthGuard('jwt'))
 @Controller('/user/account')
 export class UserAccountController {
   constructor(
@@ -27,6 +27,7 @@ export class UserAccountController {
     private userCommentervice: UserCommentervice
   ) {}
 
+  @UseGuards(PrivateGuard)
   @Post('/posted')
   async getUsersPostedPictures(@Body() userFindDto: UserFindDto) {
     return this.userPictureService.getUsersPostedPictures(userFindDto);

@@ -85,12 +85,7 @@ __decorate([
     (0, graphql_1.Field)(() => user_security_schema_1.SecuritySettings, { nullable: true }),
     (0, mongoose_1.Prop)({ type: Object, required: false }),
     __metadata("design:type", user_security_schema_1.SecuritySettings)
-], User.prototype, "userSecuritySettings", void 0);
-__decorate([
-    (0, graphql_1.Field)({ nullable: false }),
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], User.prototype, "birthDate", void 0);
+], User.prototype, "settings", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
     (0, mongoose_1.Prop)({ required: false }),

@@ -11,7 +11,6 @@ const Register: React.FC<{}> = () => {
 
   const userEmailRef = useRef<HTMLInputElement>(null);
   const userPasswordRef = useRef<HTMLInputElement>(null);
-  const userBirthDateRef = useRef<HTMLInputElement>(null);
   const userNameRef = useRef<HTMLInputElement>(null);
 
   const setToastState = useToastStore((state: any) => state.setToastState);
@@ -20,8 +19,7 @@ const Register: React.FC<{}> = () => {
     AuthAPI.userRegister({
       email: userEmailRef.current!.value!,
       password: userPasswordRef.current!.value!,
-      username: userBirthDateRef.current!.value!,
-      birthDate: userNameRef.current!.value!,
+      username: userNameRef.current!.value!,
     }).then(
       async (RegisterResp: ReturnFuncDto) =>
         await setToastState(RegisterResp.message)
@@ -31,7 +29,6 @@ const Register: React.FC<{}> = () => {
   useEffect(() => {
     userEmailRef.current!.value = "";
     userPasswordRef.current!.value = "";
-    userBirthDateRef.current!.value = "";
     userNameRef.current!.value = "";
   }, []);
 
@@ -75,12 +72,6 @@ const Register: React.FC<{}> = () => {
                 <PrettyEyeIcon show={showPassword} />
               </div>
             </div>
-
-            <input
-              ref={userBirthDateRef}
-              type="date"
-              className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
-            />
 
             <div className="w-full flex justify-center items-center">
               <PrettyRainbow onclick={() => userRegister()}>

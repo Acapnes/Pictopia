@@ -1,11 +1,13 @@
 import React from "react";
 import { CategoryAPI } from "../../../Api/User/CategoryApi";
 import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { PrettySmallArrowUpIcon } from "../../../components/Prettys/PrettyIcons";
 import { usePictopiaDNDStore } from "../../../components/Zustand/store";
-const FavoriteCategories: React.FC<{ favoriteCategories: CategoryDto[] }> = ({
-  favoriteCategories,
-}) => {
+const FavoriteCategories: React.FC<{
+  favoriteCategories: CategoryDto[];
+  user: UserDto;
+}> = ({ favoriteCategories, user }) => {
   const setFavoriteCategories = usePictopiaDNDStore(
     (state: any) => state.setFavoriteCategories
   );
@@ -18,6 +20,7 @@ const FavoriteCategories: React.FC<{ favoriteCategories: CategoryDto[] }> = ({
   const draggingNumber = usePictopiaDNDStore(
     (state: any) => state.draggingNumber
   );
+
   return (
     <div className="flex min-w-[25vw] 2xl:min-w-[15vw] max-w-[25vw] 2xl:max-w-[15vw] max-h-[60vh] overflow-y-auto scrollbar-hide">
       <div className="w-full h-fit inline-flex items-center justify-center font-bold">
@@ -25,7 +28,11 @@ const FavoriteCategories: React.FC<{ favoriteCategories: CategoryDto[] }> = ({
           <div className="w-full flex flex-col">
             <p className="text-gray-200 text-sm pb-3">Favorites</p>
             <div
-              onDragOver={(e) => draggingNumber !== 1 && e.preventDefault()}
+              onDragOver={(e) => {
+                if (user?.email) {
+                  draggingNumber !== 1 && e.preventDefault();
+                }
+              }}
               onDrop={async (droppedCategory) => {
                 const category = JSON.parse(
                   droppedCategory.dataTransfer.getData("category")
@@ -45,7 +52,10 @@ const FavoriteCategories: React.FC<{ favoriteCategories: CategoryDto[] }> = ({
               }}
               className="min-h-[50vh] h-full relative"
             >
-              <FavoriteDropHelper categoryLength={favoriteCategories.length} />
+              <FavoriteDropHelper
+                categoryLength={favoriteCategories.length}
+                user={user}
+              />
               {favoriteCategories?.map(
                 (category: CategoryDto, categoryIndex: any) => (
                   <div
@@ -90,17 +100,26 @@ const FavoriteCategories: React.FC<{ favoriteCategories: CategoryDto[] }> = ({
 
 export default FavoriteCategories;
 
-export const FavoriteDropHelper: React.FC<{ categoryLength: number }> = ({
-  categoryLength,
-}) => {
+export const FavoriteDropHelper: React.FC<{
+  categoryLength: number;
+  user: UserDto;
+}> = ({ categoryLength, user }) => {
   return (
     <>
       {categoryLength <= 0 && (
         <div className="absolute top-0 w-full h-full z-20 border-dashed border-2 border-pretty-pink select-none">
           <div className="w-full h-full flex items-center justify-center text-center text-gray-200">
             <div className="w-full flex flex-col space-y-2 items-center justify-center">
-              <PrettySmallArrowUpIcon />
-              <span className="text-md">Drag your favorite categories</span>
+              {user?.email ? (
+                <>
+                  <PrettySmallArrowUpIcon />
+                  <span className="text-md">Drag your favorite categories</span>
+                </>
+              ) : (
+                <span className="text-md">
+                  Sign in to add favorite category
+                </span>
+              )}
             </div>
           </div>
         </div>

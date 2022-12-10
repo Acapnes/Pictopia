@@ -7,7 +7,15 @@ export class AccountAPI {
       .post("http://localhost:3000/user/account/saved", {
         username: username,
       })
-      .then((resp) => resp.data);
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err: any) => {
+        return {
+          success: false,
+          message: err.response.data.message,
+        }
+      });
   }
 
   public static async savedPicturesToUserAlbum(
@@ -40,7 +48,15 @@ export class AccountAPI {
       .post(`http://localhost:3000/user/account/posted`, {
         username: username,
       })
-      .then((resp) => resp.data);
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err: any) => {
+        return {
+          success: false,
+          message: err.response.data.message,
+        }
+      });
   }
 
   public static async GetUsersPostedComments(username: string) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../components/Prettys/PrettyComponents";
+import { PrettyRainbowLink } from "../components/Prettys/PrettyComponents";
 import {
   PrettyPictopia,
   PrettyUploadIcon,
@@ -11,7 +11,7 @@ import HeaderOptions from "./Options/HeaderOptions";
 import HeaderAccount from "./Account/HeaderAccount";
 import { Outlet } from "react-router-dom";
 
-const Header: React.FC = () => {
+const Header: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
 
   const initFetchCredentials = async () => {
@@ -32,11 +32,11 @@ const Header: React.FC = () => {
           >
             <PrettyPictopia />
           </a>
-          <SearchBar />
-          <div className="flex flex-row space-x-3 ">
+          <SearchBar user={userCredentials} />
+          <div className="flex flex-row space-x-3 items-center">
             <PrettyHeaderUploadPicture />
             <HeaderAccount user={userCredentials} />
-            <HeaderOptions />
+            <HeaderOptions user={userCredentials} />
           </div>
         </div>
       </div>
@@ -49,15 +49,13 @@ export default Header;
 
 const PrettyHeaderUploadPicture = () => {
   return (
-    <a href="/upload" className="h-full flex items-center">
-      <PrettyRainbow onclick={() => (window.location.href = "/upload")}>
-        <div className="flex flex-row">
-          <span className="text-white hidden lg:block pr-1.5">Upload</span>
-          <div className="flex items-end">
-            <PrettyUploadIcon />
-          </div>
+    <PrettyRainbowLink href={"/upload"}>
+      <div className="flex flex-row">
+        <span className="text-white hidden lg:block pr-1.5">Upload</span>
+        <div className="flex items-end">
+          <PrettyUploadIcon />
         </div>
-      </PrettyRainbow>
-    </a>
+      </div>
+    </PrettyRainbowLink>
   );
 };

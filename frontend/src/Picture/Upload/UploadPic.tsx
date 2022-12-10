@@ -46,21 +46,19 @@ const UploadPic: React.FC<{}> = () => {
   };
 
   const uploadPicture = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      await PicAPI.uploadPicture(
-        {
-          picture: picture,
-          title: inputTitle,
-          description: inputDescription,
-          categories: setedCategories,
-          hashTags: hashtagArray,
-        } as UploadPicDto,
-        window.localStorage.getItem("access_token")!
-      ).then(
-        async (UploadResp: ReturnFuncDto) =>
-          await setToastState(UploadResp.message)
-      );
-    }
+    await PicAPI.uploadPicture(
+      {
+        picture: picture,
+        title: inputTitle,
+        description: inputDescription,
+        categories: setedCategories,
+        hashTags: hashtagArray,
+      } as UploadPicDto,
+      window.localStorage.getItem("access_token")!
+    ).then(
+      async (UploadResp: ReturnFuncDto) =>
+        await setToastState(UploadResp.message)
+    );
   };
 
   return (
@@ -68,8 +66,8 @@ const UploadPic: React.FC<{}> = () => {
       <div className="flex-none">
         <Header />
       </div>
-      <div className="w-full flex-auto flex items-center justify-center">
-        <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 md:shadow-2xl">
+      <div className="w-full flex-auto flex items-center justify-center pt-5">
+        <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
           <div className="w-full flex flex-col space-y-4 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
             <div className="flex flex-col space-y-2">
               <span className="font-semibold text-gray-200 text-lg">
@@ -173,8 +171,8 @@ const SelectPicture: React.FC<{
             onClick={() => setImageURL("null")}
             className="absolute top-1 right-1 "
           >
-            <PrettyRainbow>
-              <PrettyTrashIcon fill={"white"} size={18} />
+            <PrettyRainbow advChildStyle="px-2 py-2">
+              <PrettyTrashIcon fill={"white"} size={14} />
             </PrettyRainbow>
           </button>
         </div>

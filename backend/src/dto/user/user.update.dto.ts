@@ -1,20 +1,36 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class UserUpdateDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  email!: string;
 
   @IsString()
   @IsNotEmpty()
-  username: string;
+  password!: string;
 
   @IsString()
-  @IsNotEmpty()
-  birthDate: string;
+  @IsOptional()
+  name?: string;
 
   @IsString()
-  @IsNotEmpty()
-  bio: string;
+  @IsOptional()
+  newEmail?: string;
+  
+  @IsString()
+  @IsOptional()
+  newPassword?: string;
+
+  @IsString()
+  @IsOptional()
+  username?: string;
+
+  @IsString()
+  @IsOptional()
+  birthDate?: string;
+
+  @IsString()
+  @IsOptional()
+  bio?: string;
 }

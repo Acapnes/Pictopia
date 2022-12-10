@@ -72,7 +72,6 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
             </div>
           )}
           <HashTags hashTags={picture?.hashTags} />
-
           <div className="h-fit w-full flex flex-row items-center justify-between">
             <PrettyRainbow
               advStyle="rounded-sm "
@@ -119,7 +118,7 @@ const HashTags: React.FC<{ hashTags: PicDto["hashTags"] }> = ({ hashTags }) => {
       {hashTags?.map((hashtag: string, hashIndex: number) => (
         <div key={hashIndex}>
           <a
-            href={`/search/${hashtag}`}
+            href={`/search/tags/${hashtag.slice(1, hashtag.length)}`}
             className="rounded-md border-[1px] border-pretty-rough-pink border-opacity-70 px-2 py-1 text-pretty-pink text-sm"
           >
             {hashtag}

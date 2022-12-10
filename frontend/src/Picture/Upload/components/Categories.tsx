@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { CategoryAPI } from "../../../Api/User/CategoryApi";
 import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
-import { PrettySmallArrowDown } from "../../../components/Prettys/PrettyIcons";
+import {
+  PrettySmallArrowDown,
+  PrettyTrashIcon,
+} from "../../../components/Prettys/PrettyIcons";
 
 const CategorySelection: React.FC<{
   categoryArray: CategoryDto[];
@@ -49,6 +52,7 @@ const CategorySelection: React.FC<{
     </div>
   );
 };
+
 const CategoryList: React.FC<{
   showCategoryList: boolean;
   categoryArray: CategoryDto[];
@@ -83,9 +87,15 @@ const CategoryList: React.FC<{
         {setedCategories?.length > 0 &&
           setedCategories?.map(
             (setedCategory: CategoryDto, setedCategoryIndex: number) => (
-              <div
+              <button
+                onClick={() => {
+                  const updatedArray = setedCategories.filter(
+                    (_, i) => i !== setedCategoryIndex
+                  );
+                  setSetedCategories(updatedArray);
+                }}
                 key={setedCategoryIndex}
-                className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem] min-w-[10rem]"
+                className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem] min-w-[10rem] group"
               >
                 <img
                   src={`data:${setedCategory?.category_picture_file?.contentType};base64,${setedCategory?.category_picture_file?.data}`}
@@ -96,8 +106,11 @@ const CategoryList: React.FC<{
                   <p className="my-2 text-gray-200 font-bold text-lg">
                     {setedCategory?.title}
                   </p>
+                  <div className="transition duration-500 opacity-0 group-hover:opacity-100">
+                    <PrettyTrashIcon fill={"white"} size={18} />
+                  </div>
                 </div>
-              </div>
+              </button>
             )
           )}
       </div>
@@ -106,6 +119,5 @@ const CategoryList: React.FC<{
 };
 
 export default CategoryList;
-
 
 export { CategorySelection };

@@ -6,7 +6,7 @@ import { PrettySignIcon } from "../../components/Prettys/PrettyIcons";
 const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
     <div className="flex items-center">
-      {window.localStorage.getItem("access_token") ? (
+      {user?.email ? (
         <PrettyMediumAvatar user={user} rounded={true} />
       ) : (
         <PrettyRainbow

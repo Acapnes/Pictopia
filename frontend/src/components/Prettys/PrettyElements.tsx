@@ -196,22 +196,10 @@ const PrettyRotatingArrow: React.FC<{ state: boolean }> = ({ state }) => {
   );
 };
 
-const PrettyTip: React.FC<{ text: string }> = ({ text }) => {
-  return (
-    <div className="relative pl-2 inline-flex items-center justify-center font-semibold overflow-hidden">
-      <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-      <span className="w-full relative px-4 py-4 transition-all ease-out bg-gray-900 group-hover:bg-opacity-0 duration-400 text-gray-200 text-start">
-        {text}
-      </span>
-    </div>
-  );
-};
-
 export {
   PrettyLargeAvatar,
   PrettyMediumAvatar,
   PrettySmallAvatar,
   PrettyCustomSizeAvatar,
   PrettyRotatingArrow,
-  PrettyTip,
 };

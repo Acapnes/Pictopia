@@ -27,6 +27,9 @@ const user_resolver_1 = require("./user.resolver");
 const user_service_1 = require("./user.service");
 const comment_schema_1 = require("../../schemas/comment.schema");
 const user_comment_service_1 = require("./account/user.comment.service");
+const avatar_service_1 = require("./moderation/avatar.service");
+const management_service_1 = require("./moderation/management/management.service");
+const management_controller_1 = require("./moderation/management/management.controller");
 let UserModule = class UserModule {
     configure(consumer) { }
 };
@@ -48,17 +51,20 @@ UserModule = __decorate([
             user_auth_controller_1.UserAuthController,
             user_moderation_controller_1.UserModerationController,
             user_account_controller_1.UserAccountController,
+            management_controller_1.UserManagementController,
         ],
         providers: [
-            jwt_strategy_1.JwtStrategy,
             user_service_1.UserService,
             auth_service_1.AuthService,
             moderation_service_1.ModerationService,
             user_picture_service_1.UserPictureService,
             user_category_service_1.UserCategoryService,
             user_comment_service_1.UserCommentervice,
+            avatar_service_1.AvatarService,
+            management_service_1.ManagementService,
             user_resolver_1.UserResolver,
             category_service_1.CategoryService,
+            jwt_strategy_1.JwtStrategy,
         ],
     })
 ], UserModule);

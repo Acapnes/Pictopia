@@ -16,19 +16,20 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
   const [inputName, setInputName] = useState("");
   const [inputBirthDate, setInputBirthDate] = useState("");
   const [inputBio, setInputBio] = useState("");
+  const setToastState = useToastStore((state: any) => state.setToastState);
 
   const simpleUpdateProfile = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      await ModerationAPI.userEditProfile(
-        window.localStorage.getItem("access_token")!,
-        {
-          username: inputUsername || user?.username,
-          name: inputName || user?.name,
-          birthDate: inputBirthDate || user?.birthDate,
-          bio: inputBio || user?.bio,
-        }
-      );
-    }
+    await ModerationAPI.userEditProfile(
+      window.localStorage.getItem("access_token")!,
+      {
+        username: inputUsername || user?.username,
+        name: inputName || user?.name,
+        birthDate: inputBirthDate || user?.birthDate,
+        bio: inputBio || user?.bio,
+      }
+    ).then(
+      async (loginResp: ReturnFuncDto) => await setToastState(loginResp.message)
+    );
   };
 
   return (

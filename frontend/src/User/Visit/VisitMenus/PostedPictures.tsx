@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../../Api/Utils/dtos/ReturnFuncDto";
+import { PrettyLockIcon } from "../../../components/Prettys/PrettyIcons";
 import GridMenu from "../../../Picture/Grids/components/GridMenu";
 
 const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
@@ -10,16 +12,27 @@ const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
   params,
 }) => {
   const [postedPictures, setPostedPictures] = useState<PicDto[]>([]);
+  const [functionResult, setFunctionResult] = useState<string>();
 
   useEffect(() => {
     (async () => {
-      setPostedPictures(await AccountAPI.GetUsersPostedPictures(params.id));
+      await AccountAPI.GetUsersPostedPictures(params.id).then(
+        (result: PicDto[] & ReturnFuncDto) => {
+          if (result?.success === false) {
+            const funcResult = result as ReturnFuncDto;
+            setFunctionResult(funcResult.message);
+          } else {
+            const picturesArray = result as PicDto[];
+            setPostedPictures(picturesArray);
+          }
+        }
+      );
     })();
   }, []);
 
   return (
     <div className="min-h-screen">
-      {postedPictures.length > 0 && (
+      {postedPictures?.length > 0 && (
         <div className="flex flex-col items-center bg-soft-black bg-opacity-95 px-4 pb-4">
           <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
             {postedPictures.map((pic: PicDto, picIndex: number) => (
@@ -36,6 +49,12 @@ const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
               </div>
             ))}
           </Masonry>
+        </div>
+      )}
+      {functionResult && (
+        <div className="w-full flex flex-col space-y-2 items-center justify-center mt-10">
+          <PrettyLockIcon fill="white" size={30} />
+          <p className="text-gray-200 font-bold text-3xl">PRIVATE ACCOUNT</p>
         </div>
       )}
     </div>

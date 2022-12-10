@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../../Api/Utils/dtos/ReturnFuncDto";
 import GridMenu from "../../../Picture/Grids/components/GridMenu";
 
 const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
@@ -10,12 +11,23 @@ const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
   params,
 }) => {
   const [SavedPictures, setSavedPictures] = useState<PicDto[]>([]);
+  const [functionResult, setFunctionResult] = useState<string>();
 
-  const getSavedPictures = async () => {
-    setSavedPictures(await AccountAPI.getSavedPicturesOfUser(params.id));
-  };
+
   useEffect(() => {
-    getSavedPictures();
+    (async () => {
+      await AccountAPI.getSavedPicturesOfUser(params.id).then(
+        (result: PicDto[] & ReturnFuncDto) => {
+          if (result?.success === false) {
+            const funcResult = result as ReturnFuncDto;
+            setFunctionResult(funcResult.message);
+          } else {
+            const picturesArray = result as PicDto[];
+            setSavedPictures(picturesArray);
+          }
+        }
+      );
+    })();
   }, []);
 
   return (

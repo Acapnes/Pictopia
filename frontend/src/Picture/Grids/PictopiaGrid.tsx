@@ -58,7 +58,7 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   }, [currentPage]);
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex flex-col items-center justify-center">
       <Masonry columns={{ xs: 2, sm: 2, md: 3, lg: 5, xl: 6 }} spacing={2}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div

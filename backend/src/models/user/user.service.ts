@@ -10,7 +10,7 @@ import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -34,7 +34,7 @@ export class UserService {
   }
 
   async findByLikeUsername(
-    username: string,
+    username: string
   ): Promise<User[] | ReturnFuncDto | User> {
     return this.userModel
       .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
@@ -49,7 +49,9 @@ export class UserService {
       });
   }
 
-  async findOneByUsername(username: string): Promise<ReturnFuncDto | User | UserDto> {
+  async findOneByUsername(
+    username: string
+  ): Promise<ReturnFuncDto | User | UserDto> {
     return this.userModel.findOne({ username: username }).then((result) => {
       if (!result) {
         return {
@@ -62,8 +64,8 @@ export class UserService {
   }
 
   async findByMongooseId(
-    _id: mongoose.Types.ObjectId,
-  ): Promise<ReturnFuncDto | User> {
+    _id: mongoose.Types.ObjectId
+  ): Promise<ReturnFuncDto | User | UserDto> {
     return this.userModel.findOne({ _id: _id });
   }
 
@@ -72,7 +74,7 @@ export class UserService {
   }
 
   async getUsersLastSearchedList(
-    _id: mongoose.Types.ObjectId,
+    _id: mongoose.Types.ObjectId
   ): Promise<User['lastSearchs']> {
     return (await this.userModel.findOne({ _id: _id })).lastSearchs;
   }
@@ -84,7 +86,7 @@ export class UserService {
         $push: {
           lastSearchs: searchText,
         },
-      },
+      }
     );
   }
 }

@@ -13,7 +13,7 @@ type Category {
 }
 
 type SecuritySettings {
-  visitShow: Boolean
+  privateAccount: Boolean
 }
 
 type UserSocials {
@@ -33,8 +33,7 @@ type User {
   savedPictures: [Pic!]!
   lastSearchs: [String!]
   userSocials: UserSocials
-  userSecuritySettings: SecuritySettings
-  birthDate: String!
+  settings: SecuritySettings
   confrimed: Boolean
   bio: String
   password: String!

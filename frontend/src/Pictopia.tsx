@@ -11,7 +11,7 @@ const Pictopia: React.FC<{}> = ({}) => {
   const handleScroll = (e: any) => {
     if (
       e.target.scrollHeight - e.target.scrollTop <=
-      e.target.clientHeight + 10
+      e.target.clientHeight + 5
     ) {
       setCurrentPage(currentPage + 1);
     }
@@ -20,7 +20,7 @@ const Pictopia: React.FC<{}> = ({}) => {
   return (
     <div
       onScroll={(e) => handleScroll(e)}
-      className="min-h-screen h-[10rem] flex flex-col space-y-3 bg-soft-black overflow-auto"
+      className="min-h-screen h-[10rem] flex flex-col space-y-3 bg-soft-black overflow-y-auto overflow-x-hidden"
     >
       <Header />
       <Suspense fallback={<SuspenseVeiw />}>

@@ -15,7 +15,7 @@ import DefaultCategories from "./Category/DefaultCategories";
 import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
 
-const SearchBar: React.FC<{}> = () => {
+const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
   const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
@@ -120,7 +120,10 @@ const SearchBar: React.FC<{}> = () => {
               <div className="w-full flex flex-row space-x-2">
                 <div className="flex flex-col space-y-2 w-fit">
                   <CurrentCategory />
-                  <FavoriteCategories favoriteCategories={favoriteCategories} />
+                  <FavoriteCategories
+                    favoriteCategories={favoriteCategories}
+                    user={user}
+                  />
                 </div>
                 <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2">
                   <LastSearchs />

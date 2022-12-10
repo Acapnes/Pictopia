@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtStrategy } from 'src/helpers/guards/jwt.strategy';
@@ -23,6 +18,9 @@ import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 import { Comment, CommentSchema } from 'src/schemas/comment.schema';
 import { UserCommentervice } from './account/user.comment.service';
+import { AvatarService } from './moderation/avatar.service';
+import { ManagementService } from './moderation/management/management.service';
+import { UserManagementController } from './moderation/management/management.controller';
 
 @Module({
   imports: [
@@ -41,17 +39,20 @@ import { UserCommentervice } from './account/user.comment.service';
     UserAuthController,
     UserModerationController,
     UserAccountController,
+    UserManagementController,
   ],
   providers: [
-    JwtStrategy,
     UserService,
     AuthService,
     ModerationService,
     UserPictureService,
     UserCategoryService,
     UserCommentervice,
+    AvatarService,
+    ManagementService,
     UserResolver,
     CategoryService,
+    JwtStrategy,
   ],
 })
 export class UserModule implements NestModule {

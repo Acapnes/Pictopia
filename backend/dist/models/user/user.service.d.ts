@@ -12,7 +12,7 @@ export declare class UserService {
     findByEmail(email: string): Promise<UserDto | ReturnFuncDto>;
     findByLikeUsername(username: string): Promise<User[] | ReturnFuncDto | User>;
     findOneByUsername(username: string): Promise<ReturnFuncDto | User | UserDto>;
-    findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User>;
+    findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User | UserDto>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string>;
     getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['lastSearchs']>;
     saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string): Promise<User & mongoose.Document<any, any, any> & {
