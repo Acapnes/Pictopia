@@ -9,8 +9,10 @@ export declare class UserDto {
         data: Buffer;
         contentType: string;
     };
-    birthDate: string;
     confrimed: boolean;
     bio: string;
     password: string;
+    settings: {
+        privateAccount: boolean;
+    };
 }

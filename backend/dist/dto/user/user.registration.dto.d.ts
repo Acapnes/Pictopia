@@ -7,7 +7,6 @@ export declare class UserRegistrationDto {
         data: Buffer;
         contentType: string;
     };
-    birthDate: string;
     confrimed?: boolean;
     bio?: string;
     password: string;

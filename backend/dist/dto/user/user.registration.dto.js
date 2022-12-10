@@ -33,10 +33,6 @@ __decorate([
     __metadata("design:type", String)
 ], UserRegistrationDto.prototype, "username", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], UserRegistrationDto.prototype, "birthDate", void 0);
-__decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], UserRegistrationDto.prototype, "confrimed", void 0);
