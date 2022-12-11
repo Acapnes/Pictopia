@@ -1,14 +1,17 @@
+import React from "react";
 import { useEffect, useState } from "react";
-import { Outlet, Route, Routes, useParams } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import Header from "../../Menus/Header";
 import Blocking from "./ProfileMenus/Blocking/Blocking";
 import ProfileEdit from "./ProfileMenus/Edit/ProfileEdit";
+import AccountDeletion from "./ProfileMenus/Management/components/AccountDeletion";
 import Management from "./ProfileMenus/Management/Management";
-import ProfileSocial from "./ProfileMenus/Social/ProfileSocial";
+const ProfileSocial = React.lazy(
+  () => import("./ProfileMenus/Social/ProfileSocial")
+);
 
 const Profile: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -42,6 +45,7 @@ const Profile: React.FC<{}> = () => {
               path="blocking"
               element={<Blocking user={userCredentials} />}
             />
+            <Route path="deletion" element={<AccountDeletion />} />
           </Routes>
         </div>
       </div>

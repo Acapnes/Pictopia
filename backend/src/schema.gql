@@ -12,8 +12,13 @@ type Category {
   category_picture_file: PictureFile!
 }
 
+type DeepLearning {
+  searched: [String!]
+}
+
 type SecuritySettings {
   privateAccount: Boolean
+  notification: Boolean
 }
 
 type UserSocials {
@@ -31,7 +36,7 @@ type User {
   avatar: PictureFile!
   profile_background: PictureFile!
   savedPictures: [Pic!]!
-  lastSearchs: [String!]
+  deepLearning: DeepLearning
   userSocials: UserSocials
   settings: SecuritySettings
   confrimed: Boolean

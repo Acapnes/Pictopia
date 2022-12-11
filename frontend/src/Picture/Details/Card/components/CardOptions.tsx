@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
 import { PicDto } from "../../../../Api/Pic/dtos/picDto";
@@ -8,7 +7,9 @@ import {
   PrettyAlertIcon,
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
+  PrettyPenIcon,
   PrettyShareIcon,
+  PrettyTrashIcon,
 } from "../../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../../components/Zustand/store";
 import { ReturnFuncDto } from "../../../../Api/Utils/dtos/ReturnFuncDto";
@@ -82,4 +83,31 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
   );
 };
 
-export default CardOptions;
+const CardAuthorOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
+  const setToastState = useToastStore((state: any) => state.setToastState);
+
+  return (
+    <>
+      <div className="h-full flex flex-row justify-between items-center space-x-2">
+        {/* Edit Picture */}
+        <PrettyRainbow
+          advStyle="rounded-sm cursor-pointer"
+          advChildStyle="rounded-sm px-3.5 py-1.5 flex flex-row space-x-1 items-center"
+        >
+          <PrettyPenIcon size={14} fill="white" />
+          <span className="text-sm font-semibold text-gray-200">Edit</span>
+        </PrettyRainbow>
+        {/* Remove Picture */}
+        <PrettyRainbow
+          advStyle="rounded-sm cursor-pointer"
+          advChildStyle="rounded-sm px-3.5 py-1.5 flex flex-row space-x-1 items-center"
+        >
+          <PrettyTrashIcon size={14} fill="white" />
+          <span className="text-sm font-semibold text-gray-200">Delete</span>
+        </PrettyRainbow>
+      </div>
+    </>
+  );
+};
+
+export { CardOptions, CardAuthorOptions };

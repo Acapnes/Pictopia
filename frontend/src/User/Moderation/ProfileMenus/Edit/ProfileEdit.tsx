@@ -14,7 +14,6 @@ import { useToastStore } from "../../../../components/Zustand/store";
 const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputName, setInputName] = useState("");
-  const [inputBirthDate, setInputBirthDate] = useState("");
   const [inputBio, setInputBio] = useState("");
   const setToastState = useToastStore((state: any) => state.setToastState);
 
@@ -24,7 +23,6 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
       {
         username: inputUsername || user?.username,
         name: inputName || user?.name,
-        birthDate: inputBirthDate || user?.birthDate,
         bio: inputBio || user?.bio,
       }
     ).then(
@@ -71,17 +69,6 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
             <p className="text-xs text-gray-400">
               Your real name if you want to share.
             </p>
-          </div>
-          <div className="space-y-2">
-            <div className="text-center flex items-center">
-              <p className="font-semibold text-gray-200">BirthDate</p>
-            </div>
-            <input
-              type="text"
-              className="w-full px-3 py-2.5 outline-none bg-white shadow-xl rounded-sm text-gray-800"
-              placeholder={user?.birthDate}
-              onChange={(e) => setInputBirthDate(e.target.value)}
-            />
           </div>
           <div className="col-span-1 space-y-2 h-full pb-[4rem]">
             <div className="text-center flex items-center">

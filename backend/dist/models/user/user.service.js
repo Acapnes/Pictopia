@@ -29,6 +29,11 @@ let UserService = class UserService {
     async findOne() {
         return this.userModel.findOne({});
     }
+    async decodeUserByToken(token) {
+        const userAccessToken = token.slice(7, token.length);
+        const userId = this.jwtService.decode(userAccessToken)['_id'];
+        return await this.findByMongooseId(userId);
+    }
     async findByEmail(email) {
         return this.userModel.findOne({ email: email }).then((result) => {
             if (!result) {
@@ -71,7 +76,7 @@ let UserService = class UserService {
         return this.jwtService.sign({ _id: _id });
     }
     async getUsersLastSearchedList(_id) {
-        return (await this.userModel.findOne({ _id: _id })).lastSearchs;
+        return (await this.userModel.findOne({ _id: _id })).deepLearning.searched.reverse();
     }
     async saveToLastSearchs(_id, searchText) {
         return await this.userModel.findByIdAndUpdate({ _id: _id }, {

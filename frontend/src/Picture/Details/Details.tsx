@@ -6,6 +6,7 @@ import DetailsCard from "./Card/DetailsCard";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
 import { PrettyErrorIcon } from "../../components/Prettys/PrettyIcons";
+import { CardAuthorOptions } from "./Card/components/CardOptions";
 
 const Details: React.FC<{}> = () => {
   const [picture, setPicture] = useState<PicDto>(Object);
@@ -21,8 +22,9 @@ const Details: React.FC<{}> = () => {
   return (
     <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
       <Header />
-      <div className="min-h-[70vh] flex flex-col justify-center items-center px-2 py-10">
+      <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
         <DetailsPicture picture={picture} />
+        <CardAuthorOptions picture={picture} />
         <DetailsCard picture={picture} />
       </div>
       {/* <Grid /> */}
@@ -36,7 +38,7 @@ const DetailsPicture: React.FC<{ picture: PicDto }> = ({ picture }) => {
   return (
     <>
       {picture?.picture_file?.data || picture?.picture_file?.contentType ? (
-        <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm shadow-lg w-fit h-fit mb-10 relative">
+        <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm shadow-lg w-fit h-fit relative">
           <img
             src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
             alt=""

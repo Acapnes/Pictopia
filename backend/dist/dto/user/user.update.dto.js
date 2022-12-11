@@ -53,5 +53,10 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UserUpdateDto.prototype, "bio", void 0);
+__decorate([
+    (0, class_validator_1.IsObject)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], UserUpdateDto.prototype, "settings", void 0);
 exports.UserUpdateDto = UserUpdateDto;
 //# sourceMappingURL=user.update.dto.js.map
