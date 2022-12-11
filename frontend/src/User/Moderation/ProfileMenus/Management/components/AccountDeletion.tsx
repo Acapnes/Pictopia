@@ -8,10 +8,7 @@ import { PasswordInput } from "./ManageComps";
 
 const AccountDeletion: React.FC<{}> = () => {
   return (
-    <div className="min-h-screen w-full h-full bg-soft-black flex flex-col space-y-10 md:pb-3">
-      <div className="flex-none">
-        <Header />
-      </div>
+    <div className="min-h-screen w-full h-full bg-soft-black flex flex-col space-y-10 md:pb-3 mt-5">
       <div className="w-full flex-auto flex justify-center">
         <div className="w-[50rem] h-full flex flex-col space-y-5 ">
           <p className="text-3xl text-gray-200 font-bold text-center">

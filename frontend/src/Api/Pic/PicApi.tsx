@@ -47,7 +47,7 @@ export class PicAPI {
     });
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios.post(`http://localhost:3000/pics/create/`, formData)
+    return await axios.post(`http://localhost:3000/pics/account/create/`, formData)
       .then((resp) => resp.data);
   }
 

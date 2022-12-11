@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
+const user_learn_schema_1 = require("./altSchemas/user.learn.schema");
 const user_security_schema_1 = require("./altSchemas/user.security.schema");
 const user_socials_schema_1 = require("./altSchemas/user.socials.schema");
 const pic_schema_1 = require("./pic.schema");
@@ -72,10 +73,10 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "favCategories", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [String], { nullable: true }),
-    (0, mongoose_1.Prop)({ type: [], required: false }),
-    __metadata("design:type", Array)
-], User.prototype, "lastSearchs", void 0);
+    (0, graphql_1.Field)(() => user_learn_schema_1.DeepLearning, { nullable: true }),
+    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    __metadata("design:type", user_learn_schema_1.DeepLearning)
+], User.prototype, "deepLearning", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_socials_schema_1.UserSocials, { nullable: true }),
     (0, mongoose_1.Prop)({ type: Object, required: false }),

@@ -7,4 +7,8 @@ export declare class UserUpdateDto {
     username?: string;
     birthDate?: string;
     bio?: string;
+    settings: {
+        privateAccount: boolean;
+        notification: boolean;
+    };
 }

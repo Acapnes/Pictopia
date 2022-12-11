@@ -8,9 +8,6 @@ export declare class UserController {
     constructor(usersService: UserService);
     getUsers(): Promise<User[]>;
     getUserProfileVeriables(username: string): Promise<User | ReturnFuncDto | UserDto>;
-    userFindByUsername(UserFindDto: UserFindDto): Promise<User | ReturnFuncDto | User[]>;
-    getUsersSearchedList(req: any): Promise<User['lastSearchs']>;
-    addUsersSearchedList(req: any): Promise<User & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+    userFindByUsername(UserFindDto: UserFindDto): Promise<User | User[] | ReturnFuncDto>;
+    getUsersSearchedList(req: any): Promise<User['deepLearning']['searched']>;
 }

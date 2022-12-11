@@ -9,12 +9,13 @@ export declare class UserService {
     constructor(userModel: Model<UserDocument>, jwtService: JwtService);
     findAll(): Promise<User[]>;
     findOne(): Promise<User>;
+    decodeUserByToken(token: string): Promise<ReturnFuncDto | User | UserDto>;
     findByEmail(email: string): Promise<UserDto | ReturnFuncDto>;
     findByLikeUsername(username: string): Promise<User[] | ReturnFuncDto | User>;
     findOneByUsername(username: string): Promise<ReturnFuncDto | User | UserDto>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User | UserDto>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string>;
-    getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['lastSearchs']>;
+    getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['deepLearning']['searched']>;
     saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string): Promise<User & mongoose.Document<any, any, any> & {
         _id: mongoose.Types.ObjectId;
     }>;

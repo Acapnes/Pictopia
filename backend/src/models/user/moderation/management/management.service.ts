@@ -17,10 +17,7 @@ export class ManagementService {
     @InjectModel(Comment.name) private commentModel: Model<CommentDocument>
   ) {}
 
-  async updateProfile(
-    _id: mongoose.Types.ObjectId,
-    userUpdateDto: UserUpdateDto
-  ): Promise<ReturnFuncDto> {
+  async updateProfile(_id: mongoose.Types.ObjectId, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
     return await this.userModel
       .findOneAndUpdate(
         { _id: _id },
@@ -45,10 +42,7 @@ export class ManagementService {
       });
   }
 
-  async updateEmail(
-    _id: mongoose.Types.ObjectId,
-    userUpdateDto: UserUpdateDto
-  ): Promise<ReturnFuncDto> {
+  async updateEmail(_id: mongoose.Types.ObjectId, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
     if (!userUpdateDto.newEmail) {
       return {
         success: false,
@@ -69,18 +63,15 @@ export class ManagementService {
           message: 'Your email has been updated!',
         };
       })
-      .catch(() => {
+      .catch((err) => {
         return {
           success: false,
-          message: 'Something went wrong! ',
+          message: 'Something went wrong! '+ err,
         };
       });
   }
 
-  async updatePassword(
-    _id: mongoose.Types.ObjectId,
-    userUpdateDto: UserUpdateDto
-  ): Promise<ReturnFuncDto> {
+  async updatePassword(_id: mongoose.Types.ObjectId,userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
     if (!userUpdateDto.newPassword) {
       return {
         success: false,
@@ -109,10 +100,7 @@ export class ManagementService {
       });
   }
 
-  async deleteUserAndConnections(
-    _id: mongoose.Types.ObjectId | any,
-    userUpdateDto: UserUpdateDto
-  ): Promise<ReturnFuncDto | any> {
+  async deleteUserAndConnections(_id: mongoose.Types.ObjectId | any, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto | any> {
     return await this.userModel
       .findOneAndDelete({ _id: _id })
       .then(async () => {
@@ -138,6 +126,28 @@ export class ManagementService {
                   });
               });
           });
+      });
+  }
+
+  async updateSettings(_id: mongoose.Types.ObjectId, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
+    return await this.userModel
+      .findOneAndUpdate(
+        { _id: _id },
+        {
+          settings: userUpdateDto.settings,
+        }
+      )
+      .then(async () => {
+        return {
+          success: true,
+          message: 'Your settings has been updated!',
+        };
+      })
+      .catch(() => {
+        return {
+          success: false,
+          message: 'Something went wrong! ',
+        };
       });
   }
 }

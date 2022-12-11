@@ -1,9 +1,15 @@
-export interface UserSimpleUpdateDto {
-  name: string;
+export interface UserUpdateDto {
 
-  username: string;
+  email?: string;
+  newEmail?: string;
 
-  birthDate: string;
+  password?: string;
+  newPassword?: string;
 
-  bio: string;
+  name?: string;
+
+  username?: string;
+
+  bio?: string;
+  
 }

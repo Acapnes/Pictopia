@@ -33,9 +33,6 @@ let UserController = class UserController {
     async getUsersSearchedList(req) {
         return this.usersService.getUsersLastSearchedList(req.user._id);
     }
-    async addUsersSearchedList(req) {
-        return this.usersService.saveToLastSearchs(req.user._id, "deneme");
-    }
 };
 __decorate([
     (0, common_1.Get)(),
@@ -65,14 +62,6 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getUsersSearchedList", null);
-__decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Post)('/searched/last'),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "addUsersSearchedList", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
+import { DeepLearning } from './altSchemas/user.learn.schema';
 import { SecuritySettings } from './altSchemas/user.security.schema';
 import { UserSocials } from './altSchemas/user.socials.schema';
 import { Category } from './category.schema';
@@ -19,7 +20,7 @@ export declare class User {
     };
     savedPictures: Pic[];
     favCategories: Category[];
-    lastSearchs: string[];
+    deepLearning: DeepLearning;
     userSocials: UserSocials;
     settings: SecuritySettings;
     confrimed: boolean;

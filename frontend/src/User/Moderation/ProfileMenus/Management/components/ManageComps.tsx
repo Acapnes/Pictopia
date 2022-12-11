@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { ModerationAPI } from "../../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../../../../components/Prettys/PrettyIcons";
 
 const ManageEmail: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
-  const [userEmail, setuserEmail] = useState<string>(email);
-  const [userPassword, setPassword] = useState<string>(email);
+  const [userNewEmail, setUserNewEmail] = useState<string>();
+  const [userPassword, setUserPassword] = useState<string>(email);
 
   const changeEmail = async () => {
-    console.log(userEmail, userPassword);
+    await ModerationAPI.userChangeEmail(
+      window.localStorage.getItem("access_token")!,
+      {
+        email: email,
+        newEmail: userNewEmail,
+        password: userPassword,
+      }
+    );
   };
 
   return (
@@ -19,19 +27,31 @@ const ManageEmail: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
           <input
             type="email"
             defaultValue={email}
-            onChange={(e) => setuserEmail(e.target.value)}
+            disabled
             className="w-full bg-transparent text-gray-200 outline-none px-2 py-1.5 rounded-sm border-[1.5px] border-pretty-rough-pink
           border-opacity-50 duration-200 focus:border-opacity-100"
           />
         </div>
       </div>
 
-      {email !== userEmail && (
+      <div className="flex flex-col space-y-1">
+        <p className="text-gray-200 font-bold">* New Email</p>
+        <div className="flex flex-row space-x-2 justify-between items-center">
+          <input
+            type="email"
+            onChange={(e) => setUserNewEmail(e.target.value)}
+            className="w-full bg-transparent text-gray-200 outline-none px-2 py-1.5 rounded-sm border-[1.5px] border-pretty-rough-pink
+          border-opacity-50 duration-200 focus:border-opacity-100"
+          />
+        </div>
+      </div>
+
+      {true && (
         <div className="flex flex-col space-y-1">
           <p className="text-gray-200">
             * Please enter your password to change your email address
           </p>
-          <PasswordInput inputSetState={setPassword} />
+          <PasswordInput inputSetState={setUserPassword} />
           <div className="h-1"></div>
           <PrettyRainbow
             onclick={() => changeEmail()}

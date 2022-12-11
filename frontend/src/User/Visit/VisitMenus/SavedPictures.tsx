@@ -4,6 +4,7 @@ import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { ReturnFuncDto } from "../../../Api/Utils/dtos/ReturnFuncDto";
+import { PrettyLockIcon } from "../../../components/Prettys/PrettyIcons";
 import GridMenu from "../../../Picture/Grids/components/GridMenu";
 
 const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
@@ -12,7 +13,6 @@ const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
 }) => {
   const [SavedPictures, setSavedPictures] = useState<PicDto[]>([]);
   const [functionResult, setFunctionResult] = useState<string>();
-
 
   useEffect(() => {
     (async () => {
@@ -49,6 +49,12 @@ const SavedPictures: React.FC<{ user: UserDto; params: any }> = ({
               </div>
             ))}
           </Masonry>
+        </div>
+      )}
+      {functionResult && (
+        <div className="w-full flex flex-col space-y-2 items-center justify-center mt-10">
+          <PrettyLockIcon fill="white" size={30} />
+          <p className="text-gray-200 font-bold text-3xl">PRIVATE ACCOUNT</p>
         </div>
       )}
     </div>

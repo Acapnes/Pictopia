@@ -29,13 +29,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/searched/last')
-  async getUsersSearchedList(@Req() req): Promise<User['lastSearchs']> {
+  async getUsersSearchedList(@Req() req): Promise<User['deepLearning']['searched']> {
     return this.usersService.getUsersLastSearchedList(req.user._id);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/searched/last')
-  async addUsersSearchedList(@Req() req){
-    return this.usersService.saveToLastSearchs(req.user._id,"deneme");
   }
 }

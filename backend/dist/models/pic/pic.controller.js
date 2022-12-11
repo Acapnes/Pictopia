@@ -14,9 +14,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-const platform_express_1 = require("@nestjs/platform-express");
 const pic_search_dto_1 = require("../../dto/pic/pic.search.dto");
+const search_interceptor_1 = require("../../helpers/interceptors/search.interceptor");
 const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
@@ -37,9 +36,6 @@ let PicController = class PicController {
     }
     async getPicById(id) {
         return this.picsService.getPicById(id);
-    }
-    async uploadPicture(file, req, body) {
-        return await this.picsService.createPostWithImage(req.user, file, body);
     }
     async searchInPicturesByCategory(picSearchDto) {
         return await this.picFetchService.picSearchByCategory(picSearchDto);
@@ -77,17 +73,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicById", null);
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Post)('/create'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('picture')),
-    __param(0, (0, common_1.UploadedFile)()),
-    __param(1, (0, common_1.Req)()),
-    __param(2, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, Object]),
-    __metadata("design:returntype", Promise)
-], PicController.prototype, "uploadPicture", null);
-__decorate([
     (0, common_1.Post)('/category'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -95,6 +80,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "searchInPicturesByCategory", null);
 __decorate([
+    (0, common_1.UseInterceptors)(search_interceptor_1.SearchInterceptor),
     (0, common_1.Post)('/search'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

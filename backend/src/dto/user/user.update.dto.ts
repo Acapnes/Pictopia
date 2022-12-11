@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import mongoose from 'mongoose';
 
 export class UserUpdateDto {
@@ -17,7 +23,7 @@ export class UserUpdateDto {
   @IsString()
   @IsOptional()
   newEmail?: string;
-  
+
   @IsString()
   @IsOptional()
   newPassword?: string;
@@ -33,4 +39,11 @@ export class UserUpdateDto {
   @IsString()
   @IsOptional()
   bio?: string;
+
+  @IsObject()
+  @IsOptional()
+  settings: {
+    privateAccount: boolean;
+    notification: boolean;
+  };
 }

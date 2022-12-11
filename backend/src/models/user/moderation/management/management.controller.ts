@@ -5,7 +5,7 @@ import { UserUpdateDto } from 'src/dto/user/user.update.dto';
 import { ManagementGuard } from 'src/helpers/guards/management.guard';
 import { ManagementService } from './management.service';
 
-// @UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 // @UseGuards(ManagementGuard)
 @Controller('user/profile')
 export class UserManagementController {
@@ -34,6 +34,11 @@ export class UserManagementController {
     @Body() userUpdateDto: UserUpdateDto
   ): Promise<ReturnFuncDto> {
     return this.managementService.updatePassword(req.user._id, userUpdateDto);
+  }
+
+  @Post('/update/settings')
+  async userSettingsUpdate(@Request() req,@Body() userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
+    return this.managementService.updateSettings(req.user._id, userUpdateDto);
   }
 
   @Post('/delete')

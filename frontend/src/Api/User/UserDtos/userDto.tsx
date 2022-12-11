@@ -40,4 +40,9 @@ export interface UserDto {
   confrimed: boolean;
 
   bio: string;
+
+  settings: {
+    privateAccount: boolean;
+    notification: boolean;
+  };
 }

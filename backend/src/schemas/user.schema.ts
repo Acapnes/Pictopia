@@ -2,6 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { PictureFile } from './altSchemas/picture.file.schema';
+import { DeepLearning } from './altSchemas/user.learn.schema';
 import { SecuritySettings } from './altSchemas/user.security.schema';
 import { UserSocials } from './altSchemas/user.socials.schema';
 import { Category } from './category.schema';
@@ -63,9 +64,9 @@ export class User {
   })
   favCategories: Category[];
 
-  @Field(() => [String], { nullable: true })
-  @Prop({ type: [], required: false })
-  lastSearchs: string[];
+  @Field(() => DeepLearning, { nullable: true })
+  @Prop({ type: Object, required: false })
+  deepLearning: DeepLearning;
 
   @Field(() => UserSocials, { nullable: true })
   @Prop({ type: Object, required: false })

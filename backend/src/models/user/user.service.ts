@@ -21,6 +21,12 @@ export class UserService {
     return this.userModel.findOne({});
   }
 
+  async decodeUserByToken(token: string): Promise<ReturnFuncDto | User | UserDto> {
+    const userAccessToken = token.slice(7,token.length);
+    const userId = this.jwtService.decode(userAccessToken)['_id']
+    return await this.findByMongooseId(userId)
+  }
+
   async findByEmail(email: string): Promise<UserDto | ReturnFuncDto> {
     return this.userModel.findOne({ email: email }).then((result) => {
       if (!result) {
@@ -63,9 +69,7 @@ export class UserService {
     });
   }
 
-  async findByMongooseId(
-    _id: mongoose.Types.ObjectId
-  ): Promise<ReturnFuncDto | User | UserDto> {
+  async findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User | UserDto> {
     return this.userModel.findOne({ _id: _id });
   }
 
@@ -73,10 +77,8 @@ export class UserService {
     return this.jwtService.sign({ _id: _id });
   }
 
-  async getUsersLastSearchedList(
-    _id: mongoose.Types.ObjectId
-  ): Promise<User['lastSearchs']> {
-    return (await this.userModel.findOne({ _id: _id })).lastSearchs;
+  async getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['deepLearning']['searched']> {
+    return (await this.userModel.findOne({ _id: _id })).deepLearning.searched.reverse();
   }
 
   async saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string) {

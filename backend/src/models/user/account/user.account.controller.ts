@@ -33,6 +33,7 @@ export class UserAccountController {
     return this.userPictureService.getUsersPostedPictures(userFindDto);
   }
 
+  @UseGuards(PrivateGuard)
   @Post('/saved')
   async getOneUser(
     @Body() userFindDto: UserFindDto

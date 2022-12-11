@@ -1,18 +1,22 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { PicManageDto } from 'src/dto/pic/pic.manage.dto';
 import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { SearchInterceptor } from 'src/helpers/interceptors/search.interceptor';
 import { Pic } from 'src/schemas/pic.schema';
+import { PicAccountService } from './pic.account.service';
 import { PicFetchService } from './pic.fetch.service';
 import { PicService } from './pic.service';
 
-@Controller('/pics')
-export class PicController {
+@UseGuards(AuthGuard('jwt'))
+@Controller('/pics/account')
+export class PicAccountController {
   constructor(
     private readonly picsService: PicService,
-    private readonly picFetchService: PicFetchService
+    private readonly picFetchService: PicFetchService,
+    private readonly picAccountService: PicAccountService,
     ) {}
 
   @Get()
@@ -37,15 +41,25 @@ export class PicController {
     return this.picsService.getPicById(id);
   }
 
+  @Post('/create')
+  @UseInterceptors(FileInterceptor('picture'))
+  async uploadPicture(@UploadedFile() file, @Req() req, @Body() body): Promise<ReturnFuncDto>{
+    return await this.picsService.createPostWithImage(req.user,file,body)
+  }  
+
   @Post('/category')
   async searchInPicturesByCategory(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
     return await this.picFetchService.picSearchByCategory(picSearchDto)
   }
 
-  @UseInterceptors(SearchInterceptor)
   @Post('/search')
   async searchInPicturesByInput(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
     return await this.picFetchService.picSearchByInput(picSearchDto)
+  }
+
+  @Post('/delete')
+  async deleteAuthorsPicture(@Req() req,@Body() picManageDto: PicManageDto): Promise<ReturnFuncDto>{
+    return await this.picAccountService.deleteAuthorsPicture(req.user._id,picManageDto)
   }
 
 }

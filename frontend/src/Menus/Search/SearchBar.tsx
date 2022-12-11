@@ -125,7 +125,7 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
                     user={user}
                   />
                 </div>
-                <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2">
+                <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2 ">
                   <LastSearchs />
                   {searchInputvalue ? (
                     <SearchResults
@@ -247,14 +247,23 @@ const LastSearchs: React.FC<{}> = () => {
   return (
     <>
       {lastSearches.length > 0 && (
-        <div className="w-full flex flex-row items-center space-x-2 h-[4rem] border-b-2 border-pretty-pink">
+        <div className="flex flex-wrap items-center h-fit pb-1.5 px-1.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
           {lastSearches.map((search, searchIndex) => (
-            <div key={searchIndex} className="">
-              <button className="relative group rounded-sm bg-slate-800 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-center duration-300">
-                <div className="px-2.5 py-1">
+            <div
+              key={searchIndex}
+              className="bg-slate-800 rounded-sm mx-1.5 mb-1.5 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-sm text-center duration-300"
+            >
+              <a
+                href={
+                  search[0] === "#"
+                    ? `/search/tags/${search.slice(1, search.length)}`
+                    : `/search/${search}`
+                }
+              >
+                <div className="px-2.5 py-2">
                   <span>{search}</span>
                 </div>
-              </button>
+              </a>
             </div>
           ))}
         </div>

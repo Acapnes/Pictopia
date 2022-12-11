@@ -24,7 +24,7 @@ export class PrivateGuard implements CanActivate {
           const visitorUserAccessToken = request.headers['authorization'].slice(7,request.headers['authorization'].length);
           const visitorUserId = this.jwtService.decode(visitorUserAccessToken)['_id'] as UserDto['_id'];
           return await this.userService.findByMongooseId(visitorUserId).then((visitorUser: UserDto) => {
-              if (authorUser._id === visitorUser._id) {
+              if (authorUser._id.toString() === visitorUser._id.toString()) {
                 return true;
               } else throw new BadRequestException('Private Account');
             });
