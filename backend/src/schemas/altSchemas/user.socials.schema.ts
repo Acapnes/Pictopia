@@ -8,23 +8,23 @@ export type UserSocialsDocument = UserSocials & Document;
 @ObjectType()
 export class UserSocials {
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: null })
   instagram: string;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: null })
   github: string;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: null })
   steam: string;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: null })
   discord: string;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: null })
   linkedin: string;
 }
 

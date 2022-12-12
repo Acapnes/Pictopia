@@ -43,10 +43,10 @@ export class ManagementService {
   }
 
   async updateEmail(_id: mongoose.Types.ObjectId, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
-    if (!userUpdateDto.newEmail) {
+    if (!userUpdateDto.newEmail || !userUpdateDto.password || !userUpdateDto.email) {
       return {
         success: false,
-        message: 'New email cannot be empty',
+        message: 'Please fill in the blanks',
       };
     }
 

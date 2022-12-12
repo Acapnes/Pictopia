@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../../Api/Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,

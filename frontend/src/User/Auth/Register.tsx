@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
 import ActionlessGrid from "../../Picture/Grids/ActionlessGrid";
-import { ReturnFuncDto } from "../../Api/Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
 import { useToastStore } from "../../components/Zustand/store";
 import { AuthAPI } from "../../Api/User/AuthApi";
 

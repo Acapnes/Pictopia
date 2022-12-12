@@ -25,7 +25,7 @@ const Management: React.FC<{ user: UserDto }> = ({ user }) => {
             <p className="text-2xl">Account Password</p>
             <p>You can change your account password from here</p>
           </div>
-          <ManagePassword />
+          <ManagePassword email={user?.email} />
         </div>
 
         <hr className="w-full border-pretty-pink" />

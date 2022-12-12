@@ -14,7 +14,7 @@ export type UserDocument = User & Document;
 @ObjectType()
 export class User {
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: '' })
   name: string;
 
   @Field({ nullable: false })
@@ -61,27 +61,28 @@ export class User {
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Category',
     required: false,
+    default: [],
   })
   favCategories: Category[];
 
   @Field(() => DeepLearning, { nullable: true })
-  @Prop({ type: Object, required: false })
+  @Prop({ type: Object, required: false, default: new DeepLearning })
   deepLearning: DeepLearning;
 
   @Field(() => UserSocials, { nullable: true })
-  @Prop({ type: Object, required: false })
+  @Prop({ type: Object, required: false, default: new UserSocials })
   userSocials: UserSocials;
 
   @Field(() => SecuritySettings, { nullable: true })
-  @Prop({ type: Object, required: false })
+  @Prop({ type: Object, required: false, default: new SecuritySettings })
   settings: SecuritySettings;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: false })
   confrimed: boolean;
 
   @Field({ nullable: true })
-  @Prop({ required: false })
+  @Prop({ required: false, default: '' })
   bio: string;
 
   @Field({ nullable: false })

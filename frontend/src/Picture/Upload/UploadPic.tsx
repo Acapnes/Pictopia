@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { UploadPicDto } from "../../Api/Pic/dtos/uploadPicDto";
@@ -11,7 +11,7 @@ import {
 import Header from "../../Menus/Header";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { useToastStore } from "../../components/Zustand/store";
-import { ReturnFuncDto } from "../../Api/Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
 import { Hashtag, HashtagList } from "./components/Hashtags";
 import { CategorySelection } from "./components/Categories";
 
@@ -21,8 +21,8 @@ const UploadPic: React.FC<{}> = () => {
   const [inputTitle, setInputTitle] = useState("");
   const [inputDescription, setInputDescription] = useState("");
 
-  const [inputHashtag, setInputHashtag] = useState("");
   const [hashtagArray, setHashtagArray] = useState<string[]>([]);
+  const inputHashtagRef = useRef<HTMLInputElement>(null);
 
   const [picture, setPicture] = useState<any>(Object);
   const [imageURL, setImageURL] = useState<any>("null");
@@ -63,9 +63,7 @@ const UploadPic: React.FC<{}> = () => {
 
   return (
     <div className="min-h-screen w-full h-full bg-soft-black flex flex-col md:pb-3">
-      <div className="flex-none">
-        <Header />
-      </div>
+      <Header />
       <div className="w-full flex-auto flex items-center justify-center pt-5">
         <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
           <div className="w-full flex flex-col space-y-4 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
@@ -104,9 +102,8 @@ const UploadPic: React.FC<{}> = () => {
               ></textarea>
             </div>
             <Hashtag
-              inputHashtag={inputHashtag}
               hashtagArray={hashtagArray}
-              setInputHashtag={setInputHashtag}
+              refInput={inputHashtagRef}
               setHashtagArray={setHashtagArray}
             />
             <HashtagList

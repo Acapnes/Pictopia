@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ReturnFuncDto } from "../Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
 import { CategoryDto } from "./CategoryDtos/category.dto";
 
 export class CategoryAPI {

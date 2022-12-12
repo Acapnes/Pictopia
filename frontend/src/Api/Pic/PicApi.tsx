@@ -1,7 +1,7 @@
 import axios from "axios";
 import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { CategoryDto } from "../User/CategoryDtos/category.dto";
-import { ReturnFuncDto } from "../Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
 import { PicDto } from "./dtos/picDto";
 import { PicSearchDto } from "./dtos/picSearchDto";
 import { UploadPicDto } from "./dtos/uploadPicDto";

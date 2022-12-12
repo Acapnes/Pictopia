@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../Api/Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../Api/Utils/ReturnFuncDto";
 import { PrettyLockIcon } from "../../../components/Prettys/PrettyIcons";
 import GridMenu from "../../../Picture/Grids/components/GridMenu";
 

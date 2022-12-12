@@ -6,9 +6,11 @@ module.exports = {
         header_height: "5.2rem",
       },
       colors: {
+        "rough-soft-black": "#0d0d0d",
         "soft-black": "#171717",
         "light-soft-black": "#282828",
-        "rough-soft-black": "#0d0d0d",
+        "extra-light-soft-black": "#363636",
+        "2xl-extra-light-soft-black": "#424242",
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
         "pretty-yellow": "#FCBA28",

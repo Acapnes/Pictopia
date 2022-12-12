@@ -24,7 +24,6 @@ const Details: React.FC<{}> = () => {
       <Header />
       <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
         <DetailsPicture picture={picture} />
-        <CardAuthorOptions picture={picture} />
         <DetailsCard picture={picture} />
       </div>
       {/* <Grid /> */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
 import { PicDto } from "../../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../../Api/User/AccountApi";
@@ -7,12 +7,11 @@ import {
   PrettyAlertIcon,
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
-  PrettyPenIcon,
+  PrettyLinkIcon,
   PrettyShareIcon,
-  PrettyTrashIcon,
 } from "../../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../../components/Zustand/store";
-import { ReturnFuncDto } from "../../../../Api/Utils/dtos/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
 
 const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
@@ -78,33 +77,65 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
         advChildStyle="rounded-md px-2"
       >
         <PrettyAlertIcon size={14} />
+        {/* <ReportPopUp /> */}
       </PrettyRainbow>
     </div>
   );
 };
 
-const CardAuthorOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
+const CardAuthorOptions: React.FC<{
+  picture: PicDto;
+}> = ({ picture }) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (
     <>
-      <div className="h-full flex flex-row justify-between items-center space-x-2">
+      <div className="w-full h-full flex flex-row justify-end items-center">
         {/* Edit Picture */}
         <PrettyRainbow
           advStyle="rounded-sm cursor-pointer"
-          advChildStyle="rounded-sm px-3.5 py-1.5 flex flex-row space-x-1 items-center"
+          advChildStyle="rounded-sm px-3 py-1 flex flex-row space-x-1 items-center"
         >
-          <PrettyPenIcon size={14} fill="white" />
+          <PrettyLinkIcon size={14} fill="white" />
           <span className="text-sm font-semibold text-gray-200">Edit</span>
         </PrettyRainbow>
-        {/* Remove Picture */}
+        {/* Remove Picture
         <PrettyRainbow
           advStyle="rounded-sm cursor-pointer"
           advChildStyle="rounded-sm px-3.5 py-1.5 flex flex-row space-x-1 items-center"
         >
           <PrettyTrashIcon size={14} fill="white" />
           <span className="text-sm font-semibold text-gray-200">Delete</span>
-        </PrettyRainbow>
+        </PrettyRainbow> */}
+      </div>
+    </>
+  );
+};
+
+const ReportPopUp: React.FC<{}> = ({}) => {
+  return (
+    <>
+      <div className="fixed -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 z-40 bg-rough-soft-black rounded-sm cursor-default">
+        <div className="flex flex-col px-5 py-4 space-y-5">
+          <div className="flex flex-row space-x-1 items-center justify-center relative">
+            <div className="absolute left-0">
+              <PrettyAlertIcon size={20} />
+            </div>
+            <p className="text-gray-300 text-2xl">Report Picture</p>
+          </div>
+          <div className="flex flex-col space-y-1">
+            <p>Sign The Reason</p>
+            <textarea className="w-[15rem] sm:w-[20rem] md:w-[25rem] min-h-[10rem] max-h-[20rem] bg-light-soft-black text-gray-300 outline-none px-1 py-1" />
+          </div>
+          <div className="w-full flex justify-between">
+            <button className="border-2 rounded-sm w-fit px-2 py-1.5 border-light-soft-black transition duration-300 hover:border-2xl-extra-light-soft-black">
+              <p className="text-sm">Cancel</p>
+            </button>
+            <button className="border-2 rounded-sm w-fit px-2 py-1.5 border-light-soft-black transition duration-300 hover:border-2xl-extra-light-soft-black">
+              <p className="text-sm">Send Report</p>
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -27,39 +27,14 @@ export class ModerationAPI {
 
   public static async userChangeEmail(access_token: string,userUpdateDto: UserUpdateDto) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios.post(`http://localhost:3000/user/profile/update/email`, {
-        email: userUpdateDto?.email,
-        newEmail: userUpdateDto?.newEmail,
-        password: userUpdateDto?.password,
-      })
-      .then((resp) => {
-        console.log(resp.data)
-        return resp.data
-      });
+    return await axios.post(`http://localhost:3000/user/profile/update/email`, userUpdateDto)
+      .then((resp) => resp.data);
   }
 
-  public static async userChangePassword(
-    access_token: string,
-    userUpdateDto: UserUpdateDto
-  ) {
-    const resp = await fetch(
-      "http://localhost:3000/user/profile/update/password",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-        body: JSON.stringify(userUpdateDto),
-      }
-    );
-
-    const data = await resp.json();
-
-    if (data.access === true)
-      window.localStorage.setItem("access_token", data.access_token);
-
-    return data;
+  public static async userChangePassword(access_token: string, userUpdateDto: UserUpdateDto) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios.post(`http://localhost:3000/user/profile/update/password`, userUpdateDto)
+      .then((resp) => resp.data);
   }
 
   public static async setUserSocials(
@@ -125,7 +100,6 @@ export class ModerationAPI {
     access_token: string,
     updateDto: UserDto["settings"]
   ) {
-    console.log("UpdateDto", updateDto);
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .post(`http://localhost:3000/user/profile/update/settings`, {
