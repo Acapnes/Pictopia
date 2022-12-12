@@ -13,6 +13,7 @@ const comment_schema_1 = require("../../schemas/comment.schema");
 const pic_schema_1 = require("../../schemas/pic.schema");
 const pic_service_1 = require("../pic/pic.service");
 const comment_controller_1 = require("./comment.controller");
+const comment_management_service_1 = require("./comment.management.service");
 const comment_resolver_1 = require("./comment.resolver");
 const comment_service_1 = require("./comment.service");
 const pic_selection_middleware_1 = require("./middleware/pic.selection.middleware");
@@ -32,7 +33,7 @@ CommentModule = __decorate([
             ]),
         ],
         controllers: [comment_controller_1.CommentController],
-        providers: [comment_service_1.CommentService, pic_service_1.PicService, comment_resolver_1.CommentResolver],
+        providers: [comment_service_1.CommentService, comment_management_service_1.CommentManagementService, pic_service_1.PicService, comment_resolver_1.CommentResolver],
     })
 ], CommentModule);
 exports.CommentModule = CommentModule;

@@ -16,25 +16,31 @@ exports.CommentController = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const comment_create_dto_1 = require("../../dto/comment/comment.create.dto");
+const comment_dto_1 = require("../../dto/comment/comment.dto");
+const comment_management_service_1 = require("./comment.management.service");
 const comment_service_1 = require("./comment.service");
 let CommentController = class CommentController {
-    constructor(commentsService) {
-        this.commentsService = commentsService;
+    constructor(commentService, commentManagementService) {
+        this.commentService = commentService;
+        this.commentManagementService = commentManagementService;
     }
     async getAllComments() {
-        return this.commentsService.findAll();
+        return this.commentService.findAll();
     }
     async getCommentsById(_id) {
-        return this.commentsService.findCommentByMongooseId(_id);
+        return this.commentService.findCommentByMongooseId(_id);
     }
     async getCommentsReply(destComment) {
-        return this.commentsService.getCommentReplies(destComment);
+        return this.commentService.getCommentReplies(destComment);
     }
     async commentCreate(req, commentCreateDto) {
-        return this.commentsService.signComment(req.user, commentCreateDto);
+        return this.commentService.signComment(req.user, commentCreateDto);
     }
     async commentReplyCreate(req, commentCreateDto) {
-        return this.commentsService.signReply(req.user, commentCreateDto);
+        return this.commentService.signReply(req.user, commentCreateDto);
+    }
+    async commentDelete(commentDto) {
+        return this.commentManagementService.deteleCommentById(commentDto._id);
     }
 };
 __decorate([
@@ -75,9 +81,18 @@ __decorate([
     __metadata("design:paramtypes", [Object, comment_create_dto_1.CommentCreateDto]),
     __metadata("design:returntype", Promise)
 ], CommentController.prototype, "commentReplyCreate", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
+    (0, common_1.Post)('/delete'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [comment_dto_1.CommentDto]),
+    __metadata("design:returntype", Promise)
+], CommentController.prototype, "commentDelete", null);
 CommentController = __decorate([
     (0, common_1.Controller)('/comments'),
-    __metadata("design:paramtypes", [comment_service_1.CommentService])
+    __metadata("design:paramtypes", [comment_service_1.CommentService,
+        comment_management_service_1.CommentManagementService])
 ], CommentController);
 exports.CommentController = CommentController;
 //# sourceMappingURL=comment.controller.js.map

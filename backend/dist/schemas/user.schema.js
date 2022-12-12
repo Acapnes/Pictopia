@@ -22,7 +22,7 @@ let User = class User {
 };
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: '' }),
     __metadata("design:type", String)
 ], User.prototype, "name", void 0);
 __decorate([
@@ -69,32 +69,33 @@ __decorate([
         type: [mongoose_2.default.Schema.Types.ObjectId],
         ref: 'Category',
         required: false,
+        default: [],
     }),
     __metadata("design:type", Array)
 ], User.prototype, "favCategories", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_learn_schema_1.DeepLearning, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_learn_schema_1.DeepLearning }),
     __metadata("design:type", user_learn_schema_1.DeepLearning)
 ], User.prototype, "deepLearning", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_socials_schema_1.UserSocials, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_socials_schema_1.UserSocials }),
     __metadata("design:type", user_socials_schema_1.UserSocials)
 ], User.prototype, "userSocials", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_security_schema_1.SecuritySettings, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_security_schema_1.SecuritySettings }),
     __metadata("design:type", user_security_schema_1.SecuritySettings)
 ], User.prototype, "settings", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "confrimed", void 0);
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
-    (0, mongoose_1.Prop)({ required: false }),
+    (0, mongoose_1.Prop)({ required: false, default: '' }),
     __metadata("design:type", String)
 ], User.prototype, "bio", void 0);
 __decorate([
