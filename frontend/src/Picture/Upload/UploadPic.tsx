@@ -12,23 +12,18 @@ import Header from "../../Menus/Header";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { useToastStore } from "../../components/Zustand/store";
 import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
-import { Hashtag, HashtagList } from "./components/Hashtags";
+import { HashtagAppend } from "./components/Hashtags";
 import { CategorySelection } from "./components/Categories";
+import { PicDto } from "../../Api/Pic/dtos/picDto";
 
 const UploadPic: React.FC<{}> = () => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
-  const [inputTitle, setInputTitle] = useState("");
-  const [inputDescription, setInputDescription] = useState("");
-
-  const [hashtagArray, setHashtagArray] = useState<string[]>([]);
   const inputHashtagRef = useRef<HTMLInputElement>(null);
 
-  const [picture, setPicture] = useState<any>(Object);
   const [imageURL, setImageURL] = useState<any>("null");
 
-  const [categoryArray, setCategoryArray] = useState<CategoryDto[]>([]);
-  const [setedCategories, setSetedCategories] = useState<CategoryDto[]>([]);
+  const [uploadPicture, setUploadPicture] = useState<PicDto>(Object);
 
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -41,18 +36,18 @@ const UploadPic: React.FC<{}> = () => {
 
   const handleChange = async (e: any) => {
     const fileUploaded = await e.target.files[0];
-    setPicture(fileUploaded);
+    setUploadPicture({ ...uploadPicture, picture_file: fileUploaded });
     setImageURL(URL.createObjectURL(fileUploaded));
   };
 
-  const uploadPicture = async () => {
+  const uploadPictureFunction = async () => {
     await PicAPI.uploadPicture(
       {
-        picture: picture,
-        title: inputTitle,
-        description: inputDescription,
-        categories: setedCategories,
-        hashTags: hashtagArray,
+        picture: uploadPicture!.picture_file,
+        title: uploadPicture!.title,
+        description: uploadPicture?.description,
+        categories: uploadPicture?.categories,
+        hashTags: uploadPicture?.hashTags,
       } as UploadPicDto,
       window.localStorage.getItem("access_token")!
     ).then(
@@ -66,14 +61,19 @@ const UploadPic: React.FC<{}> = () => {
       <Header />
       <div className="w-full flex-auto flex items-center justify-center pt-5">
         <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
-          <div className="w-full flex flex-col space-y-4 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
+          <div className="w-full flex flex-col space-y-2 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
             <div className="flex flex-col space-y-2">
               <span className="font-semibold text-gray-200 text-lg">
                 *Title
               </span>
               <div className="w-full items-center space-x-3 rounded-sm">
                 <input
-                  onChange={(e) => setInputTitle(e.target.value)}
+                  onChange={(e) =>
+                    setUploadPicture({
+                      ...uploadPicture,
+                      title: e.target.value,
+                    })
+                  }
                   className="w-full outline-none rounded-sm p-1"
                 />
               </div>
@@ -86,32 +86,36 @@ const UploadPic: React.FC<{}> = () => {
               />
             </div>
             <CategorySelection
-              categoryArray={categoryArray}
-              setedCategories={setedCategories}
-              setCategoryArray={setCategoryArray}
-              setSetedCategories={setSetedCategories}
+              picture={uploadPicture}
+              setPicture={setUploadPicture}
             />
             <div className="flex flex-col space-y-2">
               <span className="font-semibold text-gray-200 text-lg">
                 Description
               </span>
               <textarea
-                onChange={(e) => setInputDescription(e.target.value)}
+                onChange={(e) =>
+                  setUploadPicture({
+                    ...uploadPicture,
+                    description: e.target.value,
+                  })
+                }
                 className="min-h-[5vh] max-h-[15vh] outline-none rounded-sm p-1"
                 maxLength={2000}
               ></textarea>
             </div>
-            <Hashtag
-              hashtagArray={hashtagArray}
-              refInput={inputHashtagRef}
-              setHashtagArray={setHashtagArray}
-            />
-            <HashtagList
-              hashtags={hashtagArray}
-              setHashtagArray={setHashtagArray}
-            />
+            <div className="flex flex-col space-y-2">
+              <span className="font-semibold text-gray-200 text-lg">
+                Hashtags
+              </span>
+              <HashtagAppend
+                refInput={inputHashtagRef}
+                picture={uploadPicture}
+                setPicture={setUploadPicture}
+              />
+            </div>
             <div className="w-full flex justify-end flex-row space-x-4 items-center">
-              <button onClick={() => uploadPicture()}>
+              <button onClick={() => uploadPictureFunction()}>
                 <PrettyRainbow>
                   <div className="flex flex-row space-x-1.5 items-center">
                     <span className="text-gray-200">Send</span>
@@ -142,7 +146,7 @@ const SelectPicture: React.FC<{
   setImageURL: any;
 }> = ({ imageURL, handleClick, setImageURL }) => {
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full flex items-center justify-center pt-1">
       {imageURL === "null" ? (
         <div className="w-full py-5 bg-black rounded-sm object-contain border-[1px] border-pretty-rough-pink flex flex-col space-y-3 items-center justify-center">
           <PrettyPictureIcon fill="white" size={40} />

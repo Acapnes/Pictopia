@@ -39,10 +39,10 @@ export class PicAPI {
     formData.append("title", uploadPicDto.title);
     formData.append("description", uploadPicDto.description);
     
-    uploadPicDto.categories.forEach((category:CategoryDto ,categoryIndex:number) => {
+    uploadPicDto?.categories?.forEach((category:CategoryDto ,categoryIndex:number) => {
       formData.append(`categories[${categoryIndex}]`, category._id);
     });
-    uploadPicDto.hashTags.forEach((hashtag,hashtagIndex) => {
+    uploadPicDto?.hashTags?.forEach((hashtag,hashtagIndex) => {
       formData.append(`hashTags[${hashtagIndex}]`, `#${hashtag}`);
     });
 

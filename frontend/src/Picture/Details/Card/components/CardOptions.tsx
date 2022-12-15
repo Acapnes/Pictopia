@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
 import { PicDto } from "../../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../../Api/User/AccountApi";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
+import {
+  PrettyRainbow,
+  PrettyRainbowLink,
+} from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyAlertIcon,
   PrettyBookMarksIcon,
@@ -12,6 +15,7 @@ import {
 } from "../../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../../components/Zustand/store";
 import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 
 const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
@@ -84,30 +88,24 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
 };
 
 const CardAuthorOptions: React.FC<{
-  picture: PicDto;
-}> = ({ picture }) => {
-  const setToastState = useToastStore((state: any) => state.setToastState);
-
+  visitor: UserDto;
+  authorPic: PicDto["authorPic"];
+}> = ({ authorPic, visitor }) => {
   return (
     <>
-      <div className="w-full h-full flex flex-row justify-end items-center">
-        {/* Edit Picture */}
-        <PrettyRainbow
-          advStyle="rounded-sm cursor-pointer"
-          advChildStyle="rounded-sm px-3 py-1 flex flex-row space-x-1 items-center"
-        >
-          <PrettyLinkIcon size={14} fill="white" />
-          <span className="text-sm font-semibold text-gray-200">Edit</span>
-        </PrettyRainbow>
-        {/* Remove Picture
-        <PrettyRainbow
-          advStyle="rounded-sm cursor-pointer"
-          advChildStyle="rounded-sm px-3.5 py-1.5 flex flex-row space-x-1 items-center"
-        >
-          <PrettyTrashIcon size={14} fill="white" />
-          <span className="text-sm font-semibold text-gray-200">Delete</span>
-        </PrettyRainbow> */}
-      </div>
+      {visitor?._id === authorPic?._id && (
+        <div className="w-full h-full flex flex-row justify-end items-center">
+          {/* Edit Picture */}
+          <PrettyRainbowLink
+            href={`/edit`}
+            advStyle="rounded-sm cursor-pointer"
+            advChildStyle="rounded-sm px-3 py-1 flex flex-row space-x-1 items-center"
+          >
+            <PrettyLinkIcon size={14} fill="white" />
+            <span className="text-sm font-semibold text-gray-200">Edit</span>
+          </PrettyRainbowLink>
+        </div>
+      )}
     </>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
 import { CategoryAPI } from "../../../Api/User/CategoryApi";
 import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
 import {
@@ -7,16 +8,10 @@ import {
 } from "../../../components/Prettys/PrettyIcons";
 
 const CategorySelection: React.FC<{
-  categoryArray: CategoryDto[];
-  setedCategories: CategoryDto[];
-  setCategoryArray: React.Dispatch<React.SetStateAction<CategoryDto[]>>;
-  setSetedCategories: React.Dispatch<React.SetStateAction<CategoryDto[]>>;
-}> = ({
-  setSetedCategories,
-  categoryArray,
-  setedCategories,
-  setCategoryArray,
-}) => {
+  picture: PicDto;
+  setPicture: (value: React.SetStateAction<PicDto>) => void;
+}> = ({ picture, setPicture }) => {
+  const [categoryArray, setCategoryArray] = useState<CategoryDto[]>([]);
   const [showCategoryList, setShowCategoryList] = useState(false);
 
   const FetchCategories = async () => {
@@ -28,27 +23,26 @@ const CategorySelection: React.FC<{
   }, []);
 
   return (
-    <div className="">
-      <div className="flex flex-col space-y-1">
-        <span className="font-semibold text-gray-200 text-lg">
-          *Set Categories
-        </span>
-        <div className="w-full flex flex-row bg-white items-center p-1 space-x-3 rounded-sm">
-          <input
-            type="dataList"
-            className="w-full bg-transparent outline-none rounded-sm"
-          />
-          <button onClick={() => setShowCategoryList(!showCategoryList)}>
-            <PrettySmallArrowDown size={20} fill="rgb(244, 114, 182)" />
-          </button>
-        </div>
-        <CategoryList
-          showCategoryList={showCategoryList}
-          categoryArray={categoryArray}
-          setedCategories={setedCategories}
-          setSetedCategories={setSetedCategories}
+    <div className="flex flex-col space-y-1">
+      <span className="font-semibold text-gray-200 text-lg">
+        Set Categories
+      </span>
+      <div className="w-full flex flex-row bg-white items-center p-1 space-x-3 rounded-sm">
+        <input
+          type="dataList"
+          className="w-full bg-transparent outline-none rounded-sm"
         />
+        <button onClick={() => setShowCategoryList(!showCategoryList)}>
+          <PrettySmallArrowDown size={20} fill="rgb(244, 114, 182)" />
+        </button>
       </div>
+      <CategoryList
+        showCategoryList={showCategoryList}
+        categoryArray={categoryArray}
+        setedCategories={picture?.categories}
+        picture={picture}
+        setPicture={setPicture}
+      />
     </div>
   );
 };
@@ -56,13 +50,15 @@ const CategorySelection: React.FC<{
 const CategoryList: React.FC<{
   showCategoryList: boolean;
   categoryArray: CategoryDto[];
-  setedCategories: CategoryDto[];
-  setSetedCategories: React.Dispatch<React.SetStateAction<CategoryDto[]>>;
+  setedCategories: PicDto["categories"];
+  picture: PicDto;
+  setPicture: (value: React.SetStateAction<PicDto>) => void;
 }> = ({
   showCategoryList,
   categoryArray,
   setedCategories,
-  setSetedCategories,
+  picture,
+  setPicture,
 }) => {
   return (
     <div className="flex flex-col space-y-2">
@@ -72,7 +68,13 @@ const CategoryList: React.FC<{
             (category: CategoryDto, categoryIndex: number) => (
               <div
                 onClick={() =>
-                  setSetedCategories([...setedCategories, category])
+                  setPicture({
+                    ...picture,
+                    categories:
+                      picture?.categories?.length > 0
+                        ? [...picture?.categories, category]
+                        : [category],
+                  })
                 }
                 key={categoryIndex}
                 className="text-gray-200 py-2 px-1 cursor-pointer hover:bg-pretty-rough-pink"
@@ -89,10 +91,10 @@ const CategoryList: React.FC<{
             (setedCategory: CategoryDto, setedCategoryIndex: number) => (
               <button
                 onClick={() => {
-                  const updatedArray = setedCategories.filter(
+                  const updatedCategories = setedCategories.filter(
                     (_, i) => i !== setedCategoryIndex
                   );
-                  setSetedCategories(updatedArray);
+                  setPicture({ ...picture, categories: updatedCategories });
                 }}
                 key={setedCategoryIndex}
                 className="relative w-full text-start font-semibold text-white rounded-sm h-[4rem] min-w-[10rem] group"

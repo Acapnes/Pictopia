@@ -1,15 +1,21 @@
+import { CategoryDto } from "../../User/CategoryDtos/category.dto";
 import { UserDto } from "../../User/UserDtos/userDto";
 
 export interface PicDto {
   authorPic: UserDto;
 
   _id: string;
+
   title: string;
+
   description: string;
+
   picture_file: {
     data: Buffer;
     contentType: string;
   };
 
-  hashTags: [string];
+  categories: CategoryDto[];
+
+  hashTags: string[];
 }

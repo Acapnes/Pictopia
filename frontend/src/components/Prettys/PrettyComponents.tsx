@@ -44,7 +44,7 @@ const PrettyRainbowLink: React.FC<{
   children: ReactNode;
   advStyle?: string;
   advChildStyle?: string;
-  href?: string;
+  href: string;
 }> = ({ children, advStyle, advChildStyle, href }) => {
   return (
     <a

@@ -18,8 +18,7 @@ import { useParams } from "react-router-dom";
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const params = useParams<any>();
   const [commentsStatus, setCommentsStatus] = useState(false);
-  const [newCommentAuthorCredentials, setNewCommentAuthorCredentials] =
-    useState<UserDto>(Object);
+  const [detailVisitor, setDetailVisitor] = useState<UserDto>(Object);
 
   const setCurrentComments = usePictureCommentStore(
     (state: any) => state.setCurrentComments
@@ -36,7 +35,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
   const fetchUserCredentialsForNewComment = async () => {
     if (window.localStorage.getItem("access_token"))
-      setNewCommentAuthorCredentials(
+      setDetailVisitor(
         await UserAPI.fetchUserCredentials(
           window.localStorage.getItem("access_token")!
         )
@@ -50,7 +49,10 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
   return (
     <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">
-      <CardAuthorOptions picture={picture} />
+      <CardAuthorOptions
+        authorPic={picture?.authorPic}
+        visitor={detailVisitor}
+      />
       <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5">
         <div className="h-full flex flex-row justify-between space-x-4 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
           <div className="flex flex-col space-y-2 w-full h-full">
@@ -97,14 +99,14 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
           <div className={`${commentsStatus ? "block" : "hidden"} `}>
             <SendComment
               getCommentsById={getCommentsById}
-              author={newCommentAuthorCredentials}
+              author={detailVisitor}
               picture={picture}
             />
           </div>
           <div className={`${commentsStatus ? "block" : "hidden"} pb-5 `}>
             <Comments
               comments={currentComments}
-              author={newCommentAuthorCredentials}
+              author={detailVisitor}
               picture={picture}
             />
           </div>
@@ -118,17 +120,21 @@ export default DetailsCard;
 
 const HashTags: React.FC<{ hashTags: PicDto["hashTags"] }> = ({ hashTags }) => {
   return (
-    <div className="w-full flex flex-row space-x-2 py-2 overflow-x-scroll scrollbar-hide">
-      {hashTags?.map((hashtag: string, hashIndex: number) => (
-        <div key={hashIndex}>
-          <a
-            href={`/search/tags/${hashtag.slice(1, hashtag.length)}`}
-            className="rounded-md border-[1px] border-pretty-rough-pink border-opacity-70 px-2 py-1 text-pretty-pink text-sm"
-          >
-            {hashtag}
-          </a>
+    <>
+      {hashTags?.length > 0 && (
+        <div className="w-full flex flex-row space-x-2 py-2 overflow-x-scroll scrollbar-hide">
+          {hashTags?.map((hashtag: string, hashIndex: number) => (
+            <div key={hashIndex}>
+              <a
+                href={`/search/tags/${hashtag.slice(1, hashtag.length)}`}
+                className="rounded-md border-[1px] border-pretty-rough-pink border-opacity-70 px-2 py-1 text-pretty-pink text-sm"
+              >
+                {hashtag}
+              </a>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 };

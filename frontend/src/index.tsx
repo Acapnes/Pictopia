@@ -12,6 +12,8 @@ import Profile from "./User/Moderation/Profile";
 import SuspenseVeiw from "./components/Views/SuspenseVeiw";
 import CustomToast from "./components/Views/CustomToast";
 import RouteGuard from "./components/Helpers/RouteGuard";
+import Notfound from "./components/Views/NotFound";
+import PictureEdit from "./Picture/Edit/PictureEdit";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,11 +24,13 @@ root.render(
     <Suspense fallback={<SuspenseVeiw />}>
       <CustomToast />
       <Routes>
-        <Route path="*" element={<Pictopia />} />
+        <Route path="*" element={<Notfound />} />
+        <Route path="/explore" element={<Pictopia />} />
         <Route path="/category/:category" element={<Pictopia />} />
         <Route path="/search/:input" element={<Pictopia />} />
         <Route path="/search/tags/:tag" element={<Pictopia />} />
         <Route path="/detail/:id" element={<Details />} />
+        <Route path="/edit/:id" element={<PictureEdit />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -38,7 +42,6 @@ root.render(
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/upload" element={<UploadPic />} />
         </Route>
-
         {/* AuthGuard */}
       </Routes>
     </Suspense>

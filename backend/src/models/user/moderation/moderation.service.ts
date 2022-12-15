@@ -22,6 +22,7 @@ export class ModerationService {
       .findByMongooseId(_id)
       .then(async (funcResult: any) => {
         return {
+          _id: funcResult._id,
           name: funcResult.name,
           email: funcResult.email,
           username: funcResult.username,
