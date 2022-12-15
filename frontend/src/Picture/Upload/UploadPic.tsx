@@ -157,7 +157,7 @@ const SelectPicture: React.FC<{
             </PrettyRainbow>
           </button>
           <p className="text-gray-200 font-light text-sm">
-            Supports with PNG, JPG, JPEG, WEBP
+            Supports with PNG, JPG, JPEG, WEBP, JFIF
           </p>
         </div>
       ) : (

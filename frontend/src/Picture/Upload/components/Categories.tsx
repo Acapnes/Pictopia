@@ -8,9 +8,10 @@ import {
 } from "../../../components/Prettys/PrettyIcons";
 
 const CategorySelection: React.FC<{
+  advStyle?: string;
   picture: PicDto;
   setPicture: (value: React.SetStateAction<PicDto>) => void;
-}> = ({ picture, setPicture }) => {
+}> = ({ picture, setPicture, advStyle }) => {
   const [categoryArray, setCategoryArray] = useState<CategoryDto[]>([]);
   const [showCategoryList, setShowCategoryList] = useState(false);
 
@@ -27,7 +28,9 @@ const CategorySelection: React.FC<{
       <span className="font-semibold text-gray-200 text-lg">
         Set Categories
       </span>
-      <div className="w-full flex flex-row bg-white items-center p-1 space-x-3 rounded-sm">
+      <div
+        className={`w-full flex flex-row bg-white items-center p-1 space-x-3 rounded-sm ${advStyle}`}
+      >
         <input
           type="dataList"
           className="w-full bg-transparent outline-none rounded-sm"
@@ -85,7 +88,7 @@ const CategoryList: React.FC<{
           )}
         </div>
       )}
-      <div className="w-full flex flex-col space-y-2 xl:flex-row xl:space-x-2 xl:space-y-0 overflow-auto scrollbar-hide">
+      <div className="w-full flex flex-col space-y-1 max-h-[21rem] overflow-auto scrollbar-hide">
         {setedCategories?.length > 0 &&
           setedCategories?.map(
             (setedCategory: CategoryDto, setedCategoryIndex: number) => (

@@ -29,7 +29,7 @@ let PicService = class PicService {
             .populate('authorPic');
     }
     async getPicById(id) {
-        return this.picModel.findOne({ _id: id }).populate('authorPic');
+        return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories');
     }
     async createPostWithImage(authorPicId, file, picCreateDto) {
         if (!picCreateDto.title) {

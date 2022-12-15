@@ -27,6 +27,9 @@ let CategoryService = class CategoryService {
     async findCategoryByTitle(title) {
         return this.categoryModel.findOne({ title: title });
     }
+    async searchCategoryByLike(title) {
+        return this.categoryModel.find({ title: { $regex: '.*' + title + '.*', $options: 'i' } });
+    }
     async getCategoryIdByTitle(title) {
         return (await this.categoryModel.findOne({ title: title }))._id;
     }

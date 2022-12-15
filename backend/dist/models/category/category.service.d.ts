@@ -6,6 +6,7 @@ export declare class CategoryService {
     constructor(categoryModel: Model<CategoryDocument>);
     findAll(): Promise<Category[]>;
     findCategoryByTitle(title: string): Promise<Category>;
+    searchCategoryByLike(title: any): Promise<Category[]>;
     getCategoryIdByTitle(title: string): Promise<Category>;
     createCategory(file: any, categoryCreationDto: CategoryCreationDto): Promise<Category & import("mongoose").Document<any, any, any> & {
         _id: import("mongoose").Types.ObjectId;

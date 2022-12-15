@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
+import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyLargeAvatar } from "../../components/Prettys/PrettyElements";
-import { PrettySquareFilledAddIcon } from "../../components/Prettys/PrettyIcons";
+import {
+  PrettySquareFilledAddIcon,
+  PrettyTrashIcon,
+} from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 import DetailsPicture from "../Details/Card/DetailsPicture";
 import CategoryList, {
@@ -23,11 +27,14 @@ const PictureEdit: React.FC<{}> = () => {
     })();
   }, []);
 
+  console.log(picture);
+
   return (
     <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
       <Header />
       <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
         <DetailsPicture picture={picture} />
+        <PictureDelete picture={picture} />
         <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">
           <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5">
             <div className="h-full flex flex-row justify-between space-x-4 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
@@ -43,7 +50,7 @@ const PictureEdit: React.FC<{}> = () => {
                         type="text"
                         defaultValue={picture?.title}
                         className="w-full font-bold text-2xl break-all overflow-y-auto scrollbar-hide first-letter:uppercase
-                      outline-none px-1 py-1.5 bg-gray-200 text-gray-700 border-[1px] border-pretty-pink rounded-sm"
+                      outline-none px-1 py-1.5 bg-extra-light-soft-black text-gray-200 border-[1px] border-pretty-pink rounded-sm"
                       />
                     </div>
                     <div className="flex flex-col space-y-1">
@@ -51,42 +58,30 @@ const PictureEdit: React.FC<{}> = () => {
                       <textarea
                         defaultValue={picture?.description}
                         className="w-full break-all min-h-[10rem] max-h-[20rem] overflow-y-auto  first-letter:uppercase
-                          outline-none px-1 py-1.5 bg-gray-200 text-gray-700 border-[1px] border-pretty-pink rounded-sm"
+                          outline-none px-1 py-1.5 bg-extra-light-soft-black text-gray-200 border-[1px] border-pretty-pink rounded-sm"
                       />
                     </div>
-                    {/* <div className="flex flex-col space-y-1">
-                      <p className="font-bold">Categories</p>
-                      <CategorySelection
-                        categoryArray={picture?.categories}
-                        setedCategories={[]}
-                        setCategoryArray={function (
-                          value: React.SetStateAction<CategoryDto[]>
-                        ): void {
-                          throw new Error("Function not implemented.");
-                        }}
-                        setSetedCategories={function (
-                          value: React.SetStateAction<CategoryDto[]>
-                        ): void {
-                          throw new Error("Function not implemented.");
-                        }}
-                      />
-                    </div> */}
-                    {/* <button
-                      className="bg-red-700 p-1"
-                      onClick={() => {
-                        setPicture({ ...picture, title: "asd" });
-                      }}
-                    >
-                      deneme
-                    </button> */}
+                    <CategorySelection
+                      picture={picture}
+                      setPicture={setPicture}
+                      advStyle="text-gray-200 bg-extra-light-soft-black border-[1px] border-pretty-pink"
+                    />
                     <div className="flex flex-col space-y-1">
                       <p className="font-bold">Hashtags</p>
                       <HashtagAppend
                         picture={picture}
                         setPicture={setPicture}
                         refInput={inputHashtagRef}
-                        advStyle="text-gray-700 bg-gray-200 border-[1px] border-pretty-pink"
+                        advStyle="text-gray-200 bg-extra-light-soft-black border-[1px] border-pretty-pink"
                       />
+                    </div>
+                    <div className="w-full flex justify-end">
+                      <PrettyRainbow
+                        advStyle="rounded-sm"
+                        advChildStyle="rounded-sm py-1 px-2.5"
+                      >
+                        <p>Save</p>
+                      </PrettyRainbow>
                     </div>
                   </div>
                 </div>
@@ -100,3 +95,37 @@ const PictureEdit: React.FC<{}> = () => {
 };
 
 export default PictureEdit;
+
+const PictureDelete: React.FC<{ picture: PicDto }> = ({ picture }) => {
+  const [deleteMenu, setDeleteMenu] = useState(false);
+
+  return (
+    <div className="flex flex-col space-y-1 items-center">
+      {!deleteMenu ? (
+        <PrettyRainbow
+          onclick={() => setDeleteMenu(true)}
+          advStyle="rounded-sm"
+          advChildStyle="rounded-sm py-1 px-2.5 text-gray-200"
+        >
+          <p>Delete Picture</p>
+        </PrettyRainbow>
+      ) : (
+        <div className="flex flex-row space-x-2 items-center">
+          <PrettyRainbow
+            onclick={() => setDeleteMenu(false)}
+            advStyle="rounded-sm"
+            advChildStyle="rounded-sm py-1 px-2.5 text-gray-200"
+          >
+            <p>Cancel</p>
+          </PrettyRainbow>
+          <PrettyRainbow
+            advStyle="rounded-sm"
+            advChildStyle="rounded-sm py-1 px-2.5 text-gray-200"
+          >
+            <p>Delete</p>
+          </PrettyRainbow>
+        </div>
+      )}
+    </div>
+  );
+};

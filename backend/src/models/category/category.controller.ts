@@ -19,8 +19,13 @@ export class CategoryController {
     }
 
     @Post()
-    async getCategoryIdFromTitle(categoryDto: CategoryDto): Promise<Category>{
+    async getCategoryIdFromTitle(@Body() categoryDto: CategoryDto): Promise<Category>{
       return this.categoryService.getCategoryIdByTitle(categoryDto.title);
+    }
+
+    @Post('/search')
+    async searchCategoryByLike(@Body() categorySearch: CategoryDto): Promise<Category[]>{
+      return this.categoryService.searchCategoryByLike(categorySearch.title);
     }
 
     @Post('/create')

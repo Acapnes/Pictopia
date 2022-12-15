@@ -14,6 +14,7 @@ import CustomToast from "./components/Views/CustomToast";
 import RouteGuard from "./components/Helpers/RouteGuard";
 import Notfound from "./components/Views/NotFound";
 import PictureEdit from "./Picture/Edit/PictureEdit";
+import PictureReport from "./Picture/Report/PictureReport";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -31,6 +32,8 @@ root.render(
         <Route path="/search/tags/:tag" element={<Pictopia />} />
         <Route path="/detail/:id" element={<Details />} />
         <Route path="/edit/:id" element={<PictureEdit />} />
+
+        <Route path="/report" element={<PictureReport />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

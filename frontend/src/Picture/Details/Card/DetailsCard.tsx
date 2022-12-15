@@ -50,6 +50,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   return (
     <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">
       <CardAuthorOptions
+        pictureId={picture?._id}
         authorPic={picture?.authorPic}
         visitor={detailVisitor}
       />

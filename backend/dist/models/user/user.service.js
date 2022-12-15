@@ -46,8 +46,7 @@ let UserService = class UserService {
         });
     }
     async findByLikeUsername(username) {
-        return this.userModel
-            .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
+        return this.userModel.find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
             .then((result) => {
             if (!result) {
                 return {

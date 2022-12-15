@@ -7,5 +7,6 @@ export declare class CategoryController {
     getCategories(): Promise<Category[]>;
     getCategoriesByTitle(title: string): Promise<Category>;
     getCategoryIdFromTitle(categoryDto: CategoryDto): Promise<Category>;
+    searchCategoryByLike(categorySearch: CategoryDto): Promise<Category[]>;
     uploadImage(category_picture: any, res: any, req: any, body: any): Promise<Category>;
 }

@@ -88,16 +88,17 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
 };
 
 const CardAuthorOptions: React.FC<{
+  pictureId: PicDto["_id"];
   visitor: UserDto;
   authorPic: PicDto["authorPic"];
-}> = ({ authorPic, visitor }) => {
+}> = ({ authorPic, visitor, pictureId }) => {
   return (
     <>
       {visitor?._id === authorPic?._id && (
         <div className="w-full h-full flex flex-row justify-end items-center">
           {/* Edit Picture */}
           <PrettyRainbowLink
-            href={`/edit`}
+            href={`/edit/${pictureId}`}
             advStyle="rounded-sm cursor-pointer"
             advChildStyle="rounded-sm px-3 py-1 flex flex-row space-x-1 items-center"
           >

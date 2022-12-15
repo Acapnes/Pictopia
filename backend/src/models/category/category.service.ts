@@ -8,7 +8,7 @@ import { Category, CategoryDocument } from 'src/schemas/category.schema';
 @Injectable()
 export class CategoryService {
   constructor(
-    @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>,
+    @InjectModel(Category.name) private categoryModel: Model<CategoryDocument>
   ) {}
 
   async findAll(): Promise<Category[]> {
@@ -17,6 +17,10 @@ export class CategoryService {
 
   async findCategoryByTitle(title: string): Promise<Category> {
     return this.categoryModel.findOne({ title: title });
+  }
+
+  async searchCategoryByLike(title: any): Promise<Category[]> {
+    return this.categoryModel.find({ title: { $regex: '.*' + title + '.*', $options: 'i' }});    
   }
 
   async getCategoryIdByTitle(title: string): Promise<Category> {

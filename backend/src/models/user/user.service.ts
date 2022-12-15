@@ -39,11 +39,8 @@ export class UserService {
     });
   }
 
-  async findByLikeUsername(
-    username: string
-  ): Promise<User[] | ReturnFuncDto | User> {
-    return this.userModel
-      .find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
+  async findByLikeUsername(username: string): Promise<User[] | ReturnFuncDto | User> {
+    return this.userModel.find({ username: { $regex: '.*' + username + '.*', $options: 'i' } })
       .then((result) => {
         if (!result) {
           return {

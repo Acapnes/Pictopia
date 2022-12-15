@@ -30,6 +30,9 @@ let CategoryController = class CategoryController {
     async getCategoryIdFromTitle(categoryDto) {
         return this.categoryService.getCategoryIdByTitle(categoryDto.title);
     }
+    async searchCategoryByLike(categorySearch) {
+        return this.categoryService.searchCategoryByLike(categorySearch.title);
+    }
     async uploadImage(category_picture, res, req, body) {
         const picture = await this.categoryService.createCategory(category_picture, body);
         const prettyResponse = picture.toObject();
@@ -54,10 +57,18 @@ __decorate([
 ], CategoryController.prototype, "getCategoriesByTitle", null);
 __decorate([
     (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [category_dto_1.CategoryDto]),
     __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "getCategoryIdFromTitle", null);
+__decorate([
+    (0, common_1.Post)('/search'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [category_dto_1.CategoryDto]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "searchCategoryByLike", null);
 __decorate([
     (0, common_1.Post)('/create'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('category_picture')),

@@ -19,7 +19,7 @@ export class PicService {
   }
 
   async getPicById(id: mongoose.Types.ObjectId): Promise<Pic> {
-    return this.picModel.findOne({ _id: id }).populate('authorPic');
+    return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories')
   }
 
   async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any,file: any,picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {
