@@ -27,6 +27,7 @@ root.render(
       <Routes>
         <Route path="*" element={<Notfound />} />
         <Route path="/explore" element={<Pictopia />} />
+        <Route path="/" element={<Pictopia />} />
         <Route path="/category/:category" element={<Pictopia />} />
         <Route path="/search/:input" element={<Pictopia />} />
         <Route path="/search/tags/:tag" element={<Pictopia />} />
