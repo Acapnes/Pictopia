@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-
 import Header from "../../Menus/Header";
 import DetailsPicture from "../Details/Card/DetailsPicture";
 import { CategorySelection } from "../Upload/components/Categories";
