@@ -3,16 +3,10 @@ import { useParams } from "react-router-dom";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-import { PrettyLargeAvatar } from "../../components/Prettys/PrettyElements";
-import {
-  PrettySquareFilledAddIcon,
-  PrettyTrashIcon,
-} from "../../components/Prettys/PrettyIcons";
+
 import Header from "../../Menus/Header";
 import DetailsPicture from "../Details/Card/DetailsPicture";
-import CategoryList, {
-  CategorySelection,
-} from "../Upload/components/Categories";
+import { CategorySelection } from "../Upload/components/Categories";
 import { HashtagAppend } from "../Upload/components/Hashtags";
 
 const PictureEdit: React.FC<{}> = () => {
