@@ -184,14 +184,18 @@ const PrettyCustomSizePicture: React.FC<{
   );
 };
 
-const PrettyRotatingArrow: React.FC<{ state: boolean }> = ({ state }) => {
+const PrettyRotatingArrow: React.FC<{
+  state: boolean;
+  size?: number;
+  fill?: string;
+}> = ({ state, size, fill }) => {
   return (
     <div
       className={`flex items-center ${
         state ? "duration-300 -rotate-180" : "duration-300 rotate-0 "
       }`}
     >
-      <PrettySmallArrowDown />
+      <PrettySmallArrowDown size={size} fill={fill} />
     </div>
   );
 };

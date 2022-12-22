@@ -18,8 +18,6 @@ const Details: React.FC<{}> = () => {
     setFetchedPicture();
   }, []);
 
-  console.log(picture);
-
   return (
     <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
       <Header />

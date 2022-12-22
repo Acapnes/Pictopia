@@ -178,13 +178,16 @@ const PrettyWorldIcon = () => {
   );
 };
 
-const PrettyHelpIcon = () => {
+const PrettyHelpIcon: React.FC<{ size?: number; fill?: string }> = ({
+  size,
+  fill,
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      fill="rgb(244,114,182)"
+      width={size || 16}
+      height={size || 16}
+      fill={fill || "rgb(244,114,182)"}
       className="bi bi-info-circle-fill"
       viewBox="0 0 16 16"
     >

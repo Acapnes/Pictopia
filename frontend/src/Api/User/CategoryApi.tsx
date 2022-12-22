@@ -9,6 +9,14 @@ export class CategoryAPI {
       .then(async (resp) => resp.data);
   }
 
+  public static async searchInCategories(
+    inputTitle: string
+  ): Promise<CategoryDto[]> {
+    return await axios
+      .post("http://localhost:3000/category/search", { title: inputTitle })
+      .then(async (resp) => resp.data);
+  }
+
   public static async getCategoryByTitle(title: string): Promise<CategoryDto> {
     return await axios
       .get(`http://localhost:3000/category/${title}`)
