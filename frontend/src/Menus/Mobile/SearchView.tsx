@@ -36,7 +36,7 @@ const SearchView: React.FC<{}> = () => {
   return (
     <div className="min-h-screen min-w-screen bg-soft-black">
       <Header />
-      <div className="w-full h-full flex flex-col space-y-1 items-center pt-3 px-3 text-gray-200">
+      <div className="w-full h-full flex flex-col space-y-2 items-center pt-3 px-3 text-gray-200">
         <p className="font-bold text-xl text-gray-200">Search In Everything</p>
         <PrettyRainbowDiv advStyle="w-full">
           <input
@@ -65,13 +65,17 @@ const SearchView: React.FC<{}> = () => {
             className="w-full h-full bg-transparent text-gray-200 outline-none"
           />
         </PrettyRainbowDiv>
-        <SearchResultMenu
-          inputRef={searchInputRef}
-          searchedUsers={searchedResults[0]}
-          searchedCategories={searchedResults[1]}
-        />
+        <div className="w-full flex flex-col space-y-3">
+          <SearchResultMenu
+            inputRef={searchInputRef}
+            searchedUsers={searchedResults[0]}
+            searchedCategories={searchedResults[1]}
+          />
+          <div className="w-full">
+            <Categories />
+          </div>
+        </div>
       </div>
-      <Categories />
     </div>
   );
 };
@@ -84,7 +88,7 @@ const SearchResultMenu: React.FC<{
   searchedCategories: CategoryDto[];
 }> = ({ inputRef, searchedUsers, searchedCategories }) => {
   return (
-    <div>
+    <div className="w-full">
       {inputRef.current?.value! && (
         <div className="w-full flex flex-col space-y-2 max-h-[50vh]">
           <SearchResults searchInput={inputRef.current?.value!} />
@@ -101,7 +105,7 @@ const Categories: React.FC<{}> = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-1 px-3 pb-3">
+    <div className="flex flex-col space-y-1 pb-3">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row space-x-1">
           <span className="text-pretty-pink">*</span>

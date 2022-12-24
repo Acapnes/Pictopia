@@ -69,7 +69,7 @@ export class UserPictureService {
             message: 'User cannot found by name',
           };
         }
-        return result.savedPictures.slice(
+        return result.savedPictures.reverse().slice(
           userPostedPagination.currentPage * userPostedPagination.postPerPage,
           (userPostedPagination.currentPage + 1) *
             userPostedPagination.postPerPage

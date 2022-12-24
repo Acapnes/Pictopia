@@ -46,6 +46,10 @@ const ProfileSocial: React.FC<{ user: UserDto }> = ({ user }) => {
                 ></div>
               </label>
             </div>
+            <span className="text-sm text-gray-400">
+              When your account is private, only people you approve can see your
+              posted, saved pictures & comments on your profile.
+            </span>
             <div className="flex flex-row items-center space-x-3">
               <span>Notifications</span>
               <label className="inline-flex relative items-center cursor-pointer">
@@ -75,10 +79,6 @@ const ProfileSocial: React.FC<{ user: UserDto }> = ({ user }) => {
                 ></div>
               </label>
             </div>
-            <span className="text-sm text-gray-500">
-              When your account is private, only people you approve can see your
-              posted, saved pictures & comments on your profile.
-            </span>
           </div>
         </div>
       </div>
