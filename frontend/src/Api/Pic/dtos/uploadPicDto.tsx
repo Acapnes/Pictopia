@@ -1,13 +1,15 @@
 import { CategoryDto } from "../../User/CategoryDtos/category.dto";
 
 export interface UploadPicDto {
-  title: string;
+  _id: string;
 
-  picture: any;
+  title?: string;
 
-  description: string;
+  picture?: any;
 
-  categories: CategoryDto[];
+  description?: string;
 
-  hashTags: [string];
+  categories?: CategoryDto[] | string[] | any;
+
+  hashTags?: string[];
 }

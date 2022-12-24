@@ -30,7 +30,7 @@ const Visit: React.FC<{}> = () => {
         <>
           <div className="w-full h-full flex flex-col pb-4 text-gray-200">
             <VisitUserBody user={userVisitCredentials} />
-            <div className="w-full flex flex-row place-content-center text-gray-200 bg-rough-soft-black bg-opacity-95">
+            <div className="w-full flex flex-wrap place-content-center text-gray-200 bg-rough-soft-black bg-opacity-95">
               <VisitLinkComp to={``}>Saved</VisitLinkComp>
               <VisitLinkComp to={`posted`}>Posted</VisitLinkComp>
               <VisitLinkComp to={`comments`}>Comments</VisitLinkComp>
@@ -50,7 +50,7 @@ export default Visit;
 
 const VisitUserBody: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
-    <div className="w-full h-full relative ">
+    <div className="w-full h-full relative border-2 border-t-0 border-extra-light-soft-black">
       <img
         src={`${
           user?.profile_background?.contentType &&
@@ -71,7 +71,6 @@ const VisitUserBody: React.FC<{ user: UserDto }> = ({ user }) => {
             <p className="text-2xl font-bold text-gray-200">{user?.name}</p>
             <p className="text-gray-200">{user?.username}</p>
           </div>
-
           <div className="w-fit flex flex-row justify-center pt-3 items-center space-x-5">
             <VisitUserSocials user={user} />
           </div>
@@ -90,7 +89,7 @@ const VisitLinkComp: React.FC<{ children: ReactNode; to: string }> = ({
   return (
     <Link
       to={to}
-      className={`px-4 py-2.5 flex items-center transition duration-500 ${
+      className={`w-[50%] lg:w-[25%] px-4 py-2.5 flex items-center justify-center transition duration-500 ${
         params["*"] === to
           ? "bg-light-soft-black text-pretty-pink"
           : "hover:text-pretty-pink"
@@ -101,7 +100,7 @@ const VisitLinkComp: React.FC<{ children: ReactNode; to: string }> = ({
   );
 };
 
-export const BackgroundHandler: React.FC<{}> = () => {
+export const BackgroundHandler: React.FC <{}> = () => {
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
 

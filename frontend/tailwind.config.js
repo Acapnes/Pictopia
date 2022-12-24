@@ -14,8 +14,11 @@ module.exports = {
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
         "pretty-yellow": "#FCBA28",
+        "pretty-red": "#f25852",
       },
       screens: {
+        "2xs": "320px",
+        "xs": "425px",
         "3xl": "1920px",
         "4xl": "2160px",
       },

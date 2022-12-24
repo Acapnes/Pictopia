@@ -15,6 +15,7 @@ import RouteGuard from "./components/Helpers/RouteGuard";
 import Notfound from "./components/Views/NotFound";
 import PictureEdit from "./Picture/Edit/PictureEdit";
 import PictureReport from "./Picture/Report/PictureReport";
+import SearchView from "./Menus/Mobile/SearchView";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -33,6 +34,8 @@ root.render(
         <Route path="/search/tags/:tag" element={<Pictopia />} />
         <Route path="/detail/:id" element={<Details />} />
         <Route path="/edit/:id" element={<PictureEdit />} />
+
+        <Route path="/search" element={<SearchView />} />
 
         <Route path="/report" element={<PictureReport />} />
 

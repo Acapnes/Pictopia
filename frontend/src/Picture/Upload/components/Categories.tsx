@@ -50,7 +50,7 @@ const CategorySelection: React.FC<{
           />
         </button>
       </div>
-      <CategoryList
+      <CategoryManagementList
         showCategoryList={showCategoryList}
         categoryArray={categoryArray}
         setedCategories={picture?.categories}
@@ -61,7 +61,7 @@ const CategorySelection: React.FC<{
   );
 };
 
-const CategoryList: React.FC<{
+const CategoryManagementList: React.FC<{
   showCategoryList: boolean;
   categoryArray: CategoryDto[];
   setedCategories: PicDto["categories"];
@@ -164,4 +164,46 @@ const CategoryList: React.FC<{
   );
 };
 
-export { CategorySelection };
+const CategoryShowList: React.FC<{
+  categoryArray: CategoryDto[];
+}> = ({ categoryArray }) => {
+  return (
+    <>
+      {categoryArray?.length > 0 ? (
+        <div className="w-full min-w-[10rem] max-h-[10rem] overflow-auto scrollbar-hide flex flex-wrap items-center ">
+          {categoryArray?.map(
+            (category: CategoryDto, categoryIndex: number) => (
+              <a
+                href={`/category/${category.title.toLocaleLowerCase()}`}
+                key={categoryIndex}
+                className={`relative p-0.5 h-[3rem] min-w-[50%] md:min-w-[33.3%] 2xl:min-w-[25%]
+               4xl:min-w-[20%] group transition duration-150 text-gray-200 cursor-pointer
+               hover:scale-110 rounded-sm `}
+              >
+                <img
+                  src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
+                  className="object-cover h-full w-full opacity-40 rounded-sm"
+                  alt=""
+                />
+                <div className="absolute top-0 right-1/2 translate-x-1/2 translate-y-1/2">
+                  <span className="font-bold text-gray-200">
+                    {category.title}
+                  </span>
+                </div>
+              </a>
+            )
+          )}
+        </div>
+      ) : (
+        <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 rounded-sm">
+          <PrettyErrorIcon size={16} fill={"white"} />
+          <span className="text-gray-200 font-semibold">
+            No Categories Found
+          </span>
+        </div>
+      )}
+    </>
+  );
+};
+
+export { CategorySelection, CategoryManagementList, CategoryShowList };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
+  PrettyErrorIcon,
   PrettyProfileIcon,
   PrettySearchIcon,
   PrettySignIcon,
@@ -112,7 +113,6 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
           )}
         </span>
       </div>
-
       {showSearchMenu && (
         <div className="absolute top-[4rem] w-full shadow-lg">
           <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
@@ -147,36 +147,40 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
 
 export default SearchBar;
 
+export { SearchResults };
+
 const SearchResults: React.FC<{
   searchedUsers: UserDto[];
   searchInput: string;
 }> = ({ searchedUsers, searchInput }) => {
   return (
     <>
-      <div className="flex flex-col space-y-2 px-2 max-h-[60vh] text-gray-200">
-        <a
-          href={`/search/${searchInput}`}
-          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-        >
-          <PrettySearchIcon size={14} />
-          <span className="">
-            Search in pictures
-            <span className="font-bold pl-1">{searchInput}</span>
-          </span>
-        </a>
+      {searchInput && (
+        <div className="flex flex-col space-y-2 px-2 max-h-[60vh] text-gray-200">
+          <a
+            href={`/search/${searchInput}`}
+            className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+          >
+            <PrettySearchIcon size={14} />
+            <span className="">
+              Search in pictures
+              <span className="font-bold pl-1">{searchInput}</span>
+            </span>
+          </a>
 
-        <a
-          href={`/search/tags/${searchInput}`}
-          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-        >
-          <PrettySearchIcon size={14} />
-          <span className="">
-            Search in hashtags
-            <span className="font-bold pl-1">#{searchInput}</span>
-          </span>
-        </a>
-        <SearchMenuUsersGrid searchedUsers={searchedUsers} />
-      </div>
+          <a
+            href={`/search/tags/${searchInput}`}
+            className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+          >
+            <PrettySearchIcon size={14} />
+            <span className="">
+              Search in hashtags
+              <span className="font-bold pl-1">#{searchInput}</span>
+            </span>
+          </a>
+          <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+        </div>
+      )}
     </>
   );
 };
@@ -187,41 +191,50 @@ const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
   return (
     <div className="flex justify-center overflow-y-auto scrollbar-hide">
       <div className="grid grid-cols-1 gap-4 w-full">
-        {searchedUsers?.map((user: UserDto, userIndex: number) => (
-          <a
-            href={`/user/${user.username}`}
-            className="flex flex-row space-x-3 items-center group bg-rough-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
-            key={userIndex}
-          >
-            {user?.avatar?.contentType && user?.avatar?.data ? (
-              <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
-                <img
-                  src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
-                  alt=""
-                  className="rounded-full w-full h-full object-cover p-0.5"
-                />
-              </div>
-            ) : (
-              <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative p-0.5">
-                <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
-                  <PrettyProfileIcon size={24} fill={"white"} />
+        {searchedUsers?.length > 0 ? (
+          searchedUsers?.map((user: UserDto, userIndex: number) => (
+            <a
+              href={`/user/${user.username}`}
+              className="flex flex-row space-x-3 items-center group bg-rough-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
+              key={userIndex}
+            >
+              {user?.avatar?.contentType && user?.avatar?.data ? (
+                <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
+                  <img
+                    src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
+                    alt=""
+                    className="rounded-full w-full h-full object-cover p-0.5"
+                  />
                 </div>
-              </div>
-            )}
+              ) : (
+                <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative p-0.5">
+                  <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
+                    <PrettyProfileIcon size={24} fill={"white"} />
+                  </div>
+                </div>
+              )}
 
-            <div className="w-full flex items-center truncate">
-              <div className="w-full flex flex-row justify-between pr-4 items-center text-gray-200">
-                <div className="w-full flex flex-row space-x-2 ">
-                  <p className="font-bold truncate">{user?.username}</p>
-                  <p className="opacity-50 truncate">{user?.name}</p>
-                </div>
-                <div className="opacity-0 group-hover:opacity-100 duration-200">
-                  <PrettySignIcon size={22} />
+              <div className="w-full flex items-center truncate">
+                <div className="w-full flex flex-row justify-between pr-4 items-center text-gray-200">
+                  <div className="w-full flex flex-row space-x-2 ">
+                    <p className="font-bold truncate">{user?.username}</p>
+                    <p className="opacity-50 truncate">{user?.name}</p>
+                  </div>
+                  <div className="opacity-0 group-hover:opacity-100 duration-200">
+                    <PrettySignIcon size={22} />
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))
+        ) : (
+          <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 rounded-sm">
+            <PrettyErrorIcon size={16} fill={"white"} />
+            <span className="text-gray-200 text-lg font-semibold">
+              No User Found
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

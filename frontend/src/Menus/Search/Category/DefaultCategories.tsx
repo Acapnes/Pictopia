@@ -7,15 +7,19 @@ import { usePictopiaDNDStore } from "../../../components/Zustand/store";
 const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
   defaultCategories,
 }) => {
+  
   const setDefaultCategories = usePictopiaDNDStore(
     (state: any) => state.setDefaultCategories
   );
+
   const setDraggingNumber = usePictopiaDNDStore(
     (state: any) => state.setDraggingNumber
   );
+
   const draggingNumber = usePictopiaDNDStore(
     (state: any) => state.draggingNumber
   );
+
   const favoriteCategories = usePictopiaDNDStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );

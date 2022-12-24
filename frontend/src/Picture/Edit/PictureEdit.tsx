@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { PicAPI } from "../../Api/Pic/PicApi";
+import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
+import { PicManagementAPI } from "../../Api/User/PicManagement";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import Header from "../../Menus/Header";
 import DetailsPicture from "../Details/Card/DetailsPicture";
@@ -41,6 +43,12 @@ const PictureEdit: React.FC<{}> = () => {
                       </p>
                       <input
                         type="text"
+                        onChange={(e) =>
+                          setEditPicture({
+                            ...editPicture,
+                            title: e.target.value,
+                          })
+                        }
                         defaultValue={editPicture?.title}
                         className="w-full font-bold break-all overflow-y-auto scrollbar-hide first-letter:uppercase
                       outline-none px-1 py-1.5 bg-gray-200 text-gray-800 border-[1px] border-pretty-pink rounded-sm"
@@ -49,6 +57,12 @@ const PictureEdit: React.FC<{}> = () => {
                     <div className="flex flex-col space-y-1">
                       <p className="font-bold">Description</p>
                       <textarea
+                        onChange={(e) =>
+                          setEditPicture({
+                            ...editPicture,
+                            description: e.target.value,
+                          })
+                        }
                         defaultValue={editPicture?.description}
                         className="w-full break-all min-h-[10rem] max-h-[20rem] overflow-y-auto  first-letter:uppercase
                           outline-none px-1 py-1.5 bg-gray-200 text-gray-800 border-[1px] border-pretty-pink rounded-sm"
@@ -71,7 +85,13 @@ const PictureEdit: React.FC<{}> = () => {
                     <div className="w-full flex justify-end">
                       <PrettyRainbow
                         onclick={() => {
-                          console.log(editPicture);
+                          PicManagementAPI.updateAuthorsPicture({
+                            _id: editPicture?._id,
+                            title: editPicture?.title,
+                            description: editPicture?.description,
+                            categories: editPicture?.categories?.map((category: CategoryDto)=> category._id),
+                            hashTags: editPicture?.hashTags,
+                          });
                         }}
                         advStyle="rounded-sm"
                         advChildStyle="rounded-sm py-1 px-2.5"
@@ -115,6 +135,10 @@ const PictureDelete: React.FC<{ picture: PicDto }> = ({ picture }) => {
             <p>Cancel</p>
           </PrettyRainbow>
           <PrettyRainbow
+            onclick={() => {
+              PicManagementAPI.deleteAuthorsPicture(picture?._id);
+              setDeleteMenu(false);
+            }}
             advStyle="rounded-sm"
             advChildStyle="rounded-sm py-1 px-2.5 text-gray-200"
           >

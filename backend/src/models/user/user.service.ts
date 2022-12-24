@@ -75,7 +75,7 @@ export class UserService {
   }
 
   async getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['deepLearning']['searched']> {
-    return (await this.userModel.findOne({ _id: _id })).deepLearning.searched.reverse();
+    return (await this.userModel.findOne({ _id: _id })).deepLearning?.searched?.reverse();
   }
 
   async saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string) {

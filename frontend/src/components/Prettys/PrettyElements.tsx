@@ -131,12 +131,12 @@ const PrettyCustomSizeAvatar: React.FC<{
       {MultiFuncs.ParamController([avatar?.contentType, avatar?.data]) ? (
         <div
           style={{ width: `${size}rem`, height: `${size}rem` }}
-          className="flex relative p-0.5 rounded-full"
+          className="flex relative p-0.5 rounded-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]"
         >
           <img
             src={`data:${avatar?.contentType};base64,${avatar?.data}`}
             alt=""
-            className="w-full object-cover rounded-full"
+            className="w-full object-cover rounded-full "
           />
         </div>
       ) : (

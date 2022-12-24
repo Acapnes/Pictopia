@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PicAPI } from "../../../../Api/Pic/PicApi";
 import { PicDto } from "../../../../Api/Pic/dtos/picDto";
 import { AccountAPI } from "../../../../Api/User/AccountApi";
@@ -17,7 +17,10 @@ import { useToastStore } from "../../../../components/Zustand/store";
 import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 
-const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
+const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
+  picture,
+  visitor,
+}) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (
@@ -83,6 +86,12 @@ const CardOptions: React.FC<{ picture: PicDto }> = ({ picture }) => {
         <PrettyAlertIcon size={14} />
         {/* <ReportPopUp /> */}
       </PrettyRainbow>
+
+      <CardAuthorOptions
+        pictureId={picture?._id}
+        authorPic={picture?.authorPic}
+        visitor={visitor}
+      />
     </div>
   );
 };
@@ -95,12 +104,12 @@ const CardAuthorOptions: React.FC<{
   return (
     <>
       {visitor?._id === authorPic?._id && (
-        <div className="w-full h-full flex flex-row justify-end items-center">
+        <div className="h-full flex flex-row justify-end items-center">
           {/* Edit Picture */}
           <PrettyRainbowLink
             href={`/edit/${pictureId}`}
-            advStyle="rounded-sm cursor-pointer"
-            advChildStyle="rounded-sm px-3 py-1 flex flex-row space-x-1 items-center"
+            advStyle="rounded-md cursor-pointer"
+            advChildStyle="rounded-md px-3 py-1 flex flex-row space-x-1 items-center"
           >
             <PrettyLinkIcon size={14} fill="white" />
             <span className="text-sm font-semibold text-gray-200">Edit</span>

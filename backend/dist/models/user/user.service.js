@@ -75,7 +75,8 @@ let UserService = class UserService {
         return this.jwtService.sign({ _id: _id });
     }
     async getUsersLastSearchedList(_id) {
-        return (await this.userModel.findOne({ _id: _id })).deepLearning.searched.reverse();
+        var _a, _b;
+        return (_b = (_a = (await this.userModel.findOne({ _id: _id })).deepLearning) === null || _a === void 0 ? void 0 : _a.searched) === null || _b === void 0 ? void 0 : _b.reverse();
     }
     async saveToLastSearchs(_id, searchText) {
         return await this.userModel.findByIdAndUpdate({ _id: _id }, {

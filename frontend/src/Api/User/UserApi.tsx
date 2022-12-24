@@ -1,5 +1,6 @@
 import axios from "axios";
 import { PicDto } from "../Pic/dtos/picDto";
+import { UserDto } from "./UserDtos/userDto";
 
 export class UserAPI {
   public static async fetchUserCredentials(access_token: string) {
@@ -22,12 +23,11 @@ export class UserAPI {
       .then((resp) => resp.data);
   }
 
-  public static async findUserByUsername(username: string) {
+  public static async findUserByUsername(username: string): Promise<UserDto[]> {
     return await axios
       .post("http://localhost:3000/user/find/", {
         username: username,
       })
       .then((resp) => resp.data);
   }
-
 }

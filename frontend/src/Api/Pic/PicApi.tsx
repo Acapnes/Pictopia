@@ -1,5 +1,4 @@
 import axios from "axios";
-import { MultiFuncs } from "../../components/Functions/MultipleFuncs";
 import { CategoryDto } from "../User/CategoryDtos/category.dto";
 import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
 import { PicDto } from "./dtos/picDto";
@@ -36,10 +35,10 @@ export class PicAPI {
   public static async uploadPicture(uploadPicDto: UploadPicDto, access_token: string):Promise<ReturnFuncDto> {
     const formData = new FormData();
     formData.append("picture", uploadPicDto.picture);
-    formData.append("title", uploadPicDto.title);
-    formData.append("description", uploadPicDto.description);
+    formData.append("title", uploadPicDto.title!);
+    formData.append("description", uploadPicDto.description ? uploadPicDto.description : "");
     
-    uploadPicDto?.categories?.forEach((category:CategoryDto ,categoryIndex:number) => {
+    uploadPicDto?.categories?.forEach((category: CategoryDto, categoryIndex: number) => {
       formData.append(`categories[${categoryIndex}]`, category._id);
     });
     uploadPicDto?.hashTags?.forEach((hashtag,hashtagIndex) => {

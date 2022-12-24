@@ -10,10 +10,11 @@ import {
   PrettyRotatingArrow,
 } from "../../../components/Prettys/PrettyElements";
 import Comments from "../../Comments/Comments";
-import { CardAuthorOptions, CardOptions } from "./components/CardOptions";
+import { CardOptions } from "./components/CardOptions";
 import SendComment from "../../Comments/SendComment";
 import { usePictureCommentStore } from "../../../components/Zustand/store";
 import { useParams } from "react-router-dom";
+import { CategoryShowList } from "../../Upload/components/Categories";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const params = useParams<any>();
@@ -23,6 +24,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const setCurrentComments = usePictureCommentStore(
     (state: any) => state.setCurrentComments
   );
+
   const currentComments = usePictureCommentStore<CommentDto[]>(
     (state: any) => state.currentComments
   );
@@ -49,11 +51,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
 
   return (
     <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">
-      <CardAuthorOptions
-        pictureId={picture?._id}
-        authorPic={picture?.authorPic}
-        visitor={detailVisitor}
-      />
+      <CategoryShowList categoryArray={picture?.categories} />
       <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5">
         <div className="h-full flex flex-row justify-between space-x-4 bg-soft-black bg-opacity-95 p-5 text-gray-200 ">
           <div className="flex flex-col space-y-2 w-full h-full">
@@ -61,7 +59,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
               <div className="items-center">
                 <PrettyLargeAvatar user={picture.authorPic} />
               </div>
-              <div className="flex flex-col">
+              <div className="w-full flex flex-col ">
                 <p className="w-full font-bold text-2xl max-h-[12vh] break-all overflow-y-auto scrollbar-hide first-letter:uppercase">
                   {picture?.title}
                 </p>
@@ -78,10 +76,10 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
               </div>
             )}
             <HashTags hashTags={picture?.hashTags} />
-            <div className="h-fit w-full flex flex-row items-center justify-between">
+            <div className="h-fit w-full flex flex-col-reverse gap-2 md:flex-row items-start justify-between">
               <PrettyRainbow
-                advStyle="rounded-sm "
-                advChildStyle="py-1.5 px-2.5 rounded-sm text-sm"
+                advStyle="rounded-sm min-w-[8rem]"
+                advChildStyle="py-1.5 px-2.5 rounded-sm text-sm min-w-[7rem]"
                 onclick={() => setCommentsStatus(!commentsStatus)}
               >
                 <div className="flex flex-row space-x-1 items-center">
@@ -92,7 +90,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
                   <PrettyRotatingArrow state={commentsStatus} />
                 </div>
               </PrettyRainbow>
-              <CardOptions picture={picture} />
+              <CardOptions picture={picture} visitor={detailVisitor} />
             </div>
           </div>
         </div>
@@ -107,7 +105,7 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
           <div className={`${commentsStatus ? "block" : "hidden"} pb-5 `}>
             <Comments
               comments={currentComments}
-              author={detailVisitor}
+              visitor={detailVisitor}
               picture={picture}
             />
           </div>

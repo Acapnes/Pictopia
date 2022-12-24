@@ -55,6 +55,10 @@ export const usePictureCommentStore = create<usePictureCommentState>((set) => ({
 
   setCurrentComments: (_currentComments: CommentDto[]) =>
     set(() => ({ currentComments: _currentComments })),
+  setCurrentCommentsAfterInsert: (comment: CommentDto[]) =>
+    set((state: any) => ({
+      currentComments: [...state.currentComments, comment],
+    })),
   setCurrentReplies: (_currentReplies: CommentDto[]) =>
     set(() => ({ currentReplies: _currentReplies })),
   setsendReplyViewState: (replyViewState: boolean | number) =>

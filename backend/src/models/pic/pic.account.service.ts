@@ -13,8 +13,10 @@ export class PicAccountService {
     private picService: PicService
   ) {}
 
-  async deleteAuthorsPicture(_id: mongoose.Types.ObjectId,picManageDto: PicManageDto): Promise<ReturnFuncDto> {
-    return await this.picModel.findOneAndDelete({$and: [{ _id: picManageDto._id }, { authorPic: _id }]})
+  async deleteAuthorsPicture(_id: mongoose.Types.ObjectId, picManageDto: PicManageDto): Promise<ReturnFuncDto> {
+    return await this.picModel.findOneAndDelete({
+        $and: [{ _id: picManageDto._id }, { authorPic: _id }],
+      })
       .then(async (picture: any) => {
         if (await this.picService.getPicById(picture._id)) {
           return {
@@ -25,6 +27,26 @@ export class PicAccountService {
         return {
           success: true,
           message: 'Picture has been deleted.',
+        };
+      });
+  }
+
+  async updateAuthorsPicture(_id: mongoose.Types.ObjectId, picManageDto: PicManageDto): Promise<ReturnFuncDto> {
+    return await this.picModel.findOneAndUpdate(
+        { $and: [{ _id: picManageDto?._id }, { authorPic: _id }]},
+        {
+          $set: {
+            title: picManageDto?.title,
+            description: picManageDto?.description,
+            categories: picManageDto?.categories,
+            hashTags: picManageDto?.hashTags,
+          },
+        }
+      )
+      .then(() => {
+        return {
+          success: false,
+          message: 'Picture updated.',
         };
       });
   }

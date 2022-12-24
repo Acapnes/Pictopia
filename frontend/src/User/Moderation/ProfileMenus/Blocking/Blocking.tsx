@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 
 const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
+  const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
+
+  const searchUsers = async (username: string) => {
+    setSearchedUsers(await UserAPI.findUserByUsername(username));
+  };
+
   return (
     <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm">
       <div className="flex flex-col space-y-10 py-5 rounded-sm bg-soft-black">
         <div className="flex flex-col space-y-3 px-5 text-gray-200">
           <div className="flex flex-col space-y-2">
-            <p className="text-2xl font-bold">Blocking</p>
-            <p>
+            <p className="text-xl lg:text-2xl font-bold">Blocking</p>
+            <p className="text-sm lg:text-md ">
               Blocking a user prevents that user from messaging you and
               commenting on your projects and discussion posts. Note that it
               does not remove the user's artwork from the main walls of art
@@ -18,20 +25,23 @@ const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
             </p>
           </div>
           <div className="flex flex-col space-y-2">
-            <p className="font-bold">
-              Search for a user’s name you wish to block
+            <p className="font-bold text-xs md:text-md lg:text-lg">
+              <span className="text-pretty-pink">* </span>
+              Search for a user name you wish to block
             </p>
-            <div className="flex flex-row space-x-2">
+            <div className="flex flex-col space-y-2 items-end">
               <input
                 type="text"
                 name=""
                 id=""
                 className="w-full bg-transparent border-[1.5px] border-pretty-rough-pink text-gray-200 outline-none px-2 py-1.5 rounded-sm"
               />
-              <PrettyRainbow
-                advStyle="px-1 rounded-sm"
-                advChildStyle="rounded-sm"
-              >
+              <div>
+                {searchedUsers?.map((user: UserDto, userIndex: number) => (
+                  <div></div>
+                ))}
+              </div>
+              <PrettyRainbow advStyle="rounded-sm" advChildStyle="rounded-sm">
                 <p>Block</p>
               </PrettyRainbow>
             </div>

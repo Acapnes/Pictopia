@@ -11,20 +11,19 @@ const SendComment: React.FC<{
   picture: PicDto;
 }> = ({ getCommentsById, picture, author }) => {
   const newCommentsRef = useRef<HTMLTextAreaElement>(null);
+  
 
   const postComment = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      await CommentAPI.postCommentToPicture(
-        window.localStorage.getItem("access_token")!,
-        {
-          comment: newCommentsRef?.current?.value!,
-          destPicture: picture?._id,
-        }
-      ).then(() => {
-        getCommentsById();
-        newCommentsRef.current!.value = "";
-      });
-    }
+    await CommentAPI.postCommentToPicture(
+      window.localStorage.getItem("access_token")!,
+      {
+        comment: newCommentsRef?.current?.value!,
+        destPicture: picture?._id,
+      }
+    ).then(() => {
+      getCommentsById();
+      newCommentsRef.current!.value = "";
+    });
   };
 
   return (
@@ -33,9 +32,12 @@ const SendComment: React.FC<{
       <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2.5rem]">
         <textarea
           id="InputNewComment"
+          onKeyDown={(e) => {
+            e.key === "Enter" && postComment();
+          }}
           ref={newCommentsRef}
           className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
-          placeholder="Sıgn new comment"
+          placeholder="Sign new comment"
         />
         <div
           onClick={() => postComment()}

@@ -16,7 +16,8 @@ const HeaderOptions: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
     <div className="w-fit h-full items-center flex relative group">
       <PrettyRainbow
-        advChildStyle="px-0.5"
+        advChildStyle="px-0.5 py-2.5 lg:px-0.5 lg:py-2.5 rounded-sm"
+        advStyle="p-0.5 rounded-sm"
         onclick={() => setShowSettings(!showSettings)}
       >
         <PrettyOptionsIcon fill={"white"} size={18} />
@@ -57,7 +58,6 @@ const HeaderOptionsMenu: React.FC<{ user: UserDto }> = ({ user }) => {
               </button>
             </div>
             <hr />
-
             <HeaderUserOptions user={user} />
           </div>
         </span>

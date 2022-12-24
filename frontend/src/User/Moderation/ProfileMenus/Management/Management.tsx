@@ -17,9 +17,7 @@ const Management: React.FC<{ user: UserDto }> = ({ user }) => {
           </div>
           <ManageEmail email={user?.email} />
         </div>
-
         <hr className="w-full border-pretty-pink" />
-
         <div className="flex flex-col space-y-1 lg:flex-row lg:space-x-5 lg:space-y-0 px-5">
           <div className="w-full lg:w-[20rem] flex flex-col space-y-1 items-center justify-center text-center text-gray-200">
             <p className="text-2xl">Account Password</p>
@@ -27,9 +25,7 @@ const Management: React.FC<{ user: UserDto }> = ({ user }) => {
           </div>
           <ManagePassword email={user?.email} />
         </div>
-
         <hr className="w-full border-pretty-pink" />
-
         <div className="flex flex-col space-y-4 lg:flex-row lg:space-x-5 lg:space-y-0 px-5">
           <div className="w-full lg:w-[20rem] flex flex-col space-y-1 items-center justify-center text-center text-gray-200">
             <p className="text-2xl text-red-500">Account Deletion</p>

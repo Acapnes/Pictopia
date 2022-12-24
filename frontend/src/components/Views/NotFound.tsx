@@ -1,11 +1,9 @@
 import React from "react";
-import Header from "../../Menus/Header";
 import { PrettyBugIcon } from "../Prettys/PrettyIcons";
 
 const Notfound: React.FC<{}> = () => {
   return (
     <div className="min-h-screen min-w-screen w-full h-full bg-soft-black">
-      <Header />
       <div className="flex-auto flex-col h-full w-full items-center pt-10">
         <div className="w-full">
           <p className="text-[8rem] md:text-[10rem] 3xl:text-[12rem] text-gray-200 text-center">

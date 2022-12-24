@@ -158,7 +158,7 @@ const PrettyPictopia = () => {
     <img
       src={`/pictopia_trans.png`}
       alt=""
-      className="w-[8rem] h-[4rem] object-cover"
+      className="w-[5rem] h-[2rem] xl:w-[8rem] xl:h-[4rem] object-cover"
     />
   );
 };
@@ -437,13 +437,16 @@ const PrettySmallArrowUpIcon = (props: any) => {
   );
 };
 
-const PrettyUploadIcon = () => {
+const PrettyUploadIcon: React.FC<{ size?: number; fill?: string }> = ({
+  size,
+  fill,
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="white"
+      width={size || 16}
+      height={size || 16}
+      fill={fill || "currentColor"}
       className="bi bi-cloud-upload-fill"
       viewBox="0 0 16 16"
     >

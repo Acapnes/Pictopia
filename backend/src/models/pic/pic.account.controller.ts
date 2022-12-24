@@ -62,5 +62,10 @@ export class PicAccountController {
     return await this.picAccountService.deleteAuthorsPicture(req.user._id,picManageDto)
   }
 
+  @Post('/update')
+  async updateAuthorsPicture(@Req() req,@Body() picManageDto: PicManageDto): Promise<ReturnFuncDto>{
+    return await this.picAccountService.updateAuthorsPicture(req.user._id,picManageDto)
+  }
+
 }
   

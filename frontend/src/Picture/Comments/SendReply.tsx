@@ -17,6 +17,7 @@ const SendReply: React.FC<{
   const setCurrentReplies = usePictureCommentStore(
     (state: any) => state.setCurrentReplies
   );
+  
   const setsendReplyViewState = usePictureCommentStore(
     (state: any) => state.setsendReplyViewState
   );
@@ -41,12 +42,15 @@ const SendReply: React.FC<{
   return (
     <div className="flex flex-row space-x-2 items-center text-black">
       <PrettyMediumAvatar user={authorReply} rounded={true} />
-      <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2.5rem]">
+      <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2rem]">
         <textarea
+          onKeyDown={(e) => {
+            e.key === "Enter" && postReply();
+          }}
           id="InputNewComment"
           ref={newReplyRef}
-          className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
-          placeholder="Sıgn new comment"
+          className="w-full h-full bg-transparent outline-none flex py-1 resize-none placeholder:font-normal placeholder:text-md"
+          placeholder="Sign new reply"
         />
         <div
           onClick={() => postReply()}

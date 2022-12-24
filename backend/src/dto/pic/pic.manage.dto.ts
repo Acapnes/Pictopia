@@ -15,10 +15,6 @@ export class PicManageDto {
   @IsMongoId()
   _id!: mongoose.Types.ObjectId;
 
-  // @IsNotEmpty()
-  // @IsMongoId()
-  // authorPic!: User;
-
   @IsNotEmpty()
   @IsOptional()
   categories?: Category[];
@@ -41,4 +37,5 @@ export class PicManageDto {
     data: Buffer;
     contentType: string;
   };
+  
 }
