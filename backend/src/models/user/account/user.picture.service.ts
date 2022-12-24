@@ -8,6 +8,7 @@ import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { UserSavedPictureDto } from 'src/dto/user/saved/user.saved.pictures.dto';
 import { UserFindDto } from 'src/dto/user/user.find.dto';
 import { UserDto } from 'src/dto/user/user.dto';
+import { PaginationDto } from 'src/dto/pic/pagination.dto';
 
 @Injectable()
 export class UserPictureService {
@@ -17,11 +18,24 @@ export class UserPictureService {
     private userService: UserService
   ) {}
 
-  async getUsersPostedPictures(userFindDto: UserFindDto): Promise<Pic[] | any> {
+  async getUsersPostedPictures(
+    userPostedPagination: PaginationDto
+  ): Promise<Pic[]> {
     return this.userService
-      .findOneByUsername(userFindDto.username)
+      .findOneByUsername(userPostedPagination.username)
       .then(async (user: UserDto) => {
-        return (await this.picModel.find({ authorPic: user._id }).populate('authorPic')).reverse();
+        return (
+          await this.picModel
+            .find({ authorPic: user._id })
+            .skip(
+              Math.ceil(
+                userPostedPagination.currentPage *
+                  userPostedPagination.postPerPage
+              )
+            )
+            .limit(userPostedPagination.postPerPage)
+            .populate('authorPic')
+        ).reverse();
       });
   }
 
@@ -45,11 +59,8 @@ export class UserPictureService {
       });
   }
 
-  async findUserAndPopulateSavedPics(
-    userFindDto: UserFindDto
-  ): Promise<ReturnFuncDto | Pic[] | Pic | any> {
-    return this.userModel
-      .findOne({ username: userFindDto.username })
+  async findUserAndPopulateSavedPics(userPostedPagination: PaginationDto): Promise<ReturnFuncDto | Pic[]> {
+    return this.userModel.findOne({ username: userPostedPagination.username })
       .populate({ path: 'savedPictures', populate: [{ path: 'authorPic' }] })
       .then((result) => {
         if (!result) {
@@ -58,7 +69,11 @@ export class UserPictureService {
             message: 'User cannot found by name',
           };
         }
-        return result.savedPictures;
+        return result.savedPictures.slice(
+          userPostedPagination.currentPage * userPostedPagination.postPerPage,
+          (userPostedPagination.currentPage + 1) *
+            userPostedPagination.postPerPage
+        );
       });
   }
 

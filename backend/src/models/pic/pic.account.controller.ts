@@ -2,9 +2,8 @@ import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, 
 import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PicManageDto } from 'src/dto/pic/pic.manage.dto';
-import { PicSearchDto } from 'src/dto/pic/pic.search.dto';
+import { PaginationDto } from 'src/dto/pic/pagination.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { SearchInterceptor } from 'src/helpers/interceptors/search.interceptor';
 import { Pic } from 'src/schemas/pic.schema';
 import { PicAccountService } from './pic.account.service';
 import { PicFetchService } from './pic.fetch.service';
@@ -25,8 +24,8 @@ export class PicAccountController {
   }
 
   @Post()
-  async getPicsByPagination(@Body() picSearchDto: PicSearchDto): Promise<Pic[]> {
-    return this.picFetchService.picSearchByCategory(picSearchDto);
+  async getPicsByPagination(@Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
+    return this.picFetchService.picSearchByCategory(picPaginationDto);
   }
 
   @Get('/pretty/:id')
@@ -48,13 +47,13 @@ export class PicAccountController {
   }  
 
   @Post('/category')
-  async searchInPicturesByCategory(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
-    return await this.picFetchService.picSearchByCategory(picSearchDto)
+  async searchInPicturesByCategory(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picFetchService.picSearchByCategory(picPaginationDto)
   }
 
   @Post('/search')
-  async searchInPicturesByInput(@Body() picSearchDto: PicSearchDto): Promise<Pic[]>{
-    return await this.picFetchService.picSearchByInput(picSearchDto)
+  async searchInPicturesByInput(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picFetchService.picSearchByInput(picPaginationDto)
   }
 
   @Post('/delete')

@@ -1,21 +1,21 @@
 import React from "react";
-import { PicAPI } from "../../../../Api/Pic/PicApi";
-import { PicDto } from "../../../../Api/Pic/dtos/picDto";
-import { AccountAPI } from "../../../../Api/User/AccountApi";
+import { PicAPI } from "../../../Api/Pic/PicApi";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { AccountAPI } from "../../../Api/User/AccountApi";
 import {
   PrettyRainbow,
   PrettyRainbowLink,
-} from "../../../../components/Prettys/PrettyComponents";
+} from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyAlertIcon,
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
   PrettyLinkIcon,
   PrettyShareIcon,
-} from "../../../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../../../components/Zustand/store";
-import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
-import { UserDto } from "../../../../Api/User/UserDtos/userDto";
+} from "../../../components/Prettys/PrettyIcons";
+import { useToastStore } from "../../../components/Zustand/store";
+import { ReturnFuncDto } from "../../../Api/Utils/ReturnFuncDto";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
 
 const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
   picture,
@@ -107,7 +107,7 @@ const CardAuthorOptions: React.FC<{
         <div className="h-full flex flex-row justify-end items-center">
           {/* Edit Picture */}
           <PrettyRainbowLink
-            href={`/edit/${pictureId}`}
+            href={`/edit/picture/${pictureId}`}
             advStyle="rounded-md cursor-pointer"
             advChildStyle="rounded-md px-3 py-1 flex flex-row space-x-1 items-center"
           >

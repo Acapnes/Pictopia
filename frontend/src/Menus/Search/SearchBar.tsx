@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
+  PrettyCompassIcon,
   PrettyErrorIcon,
   PrettyProfileIcon,
   PrettySearchIcon,
@@ -10,11 +11,11 @@ import {
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import CurrentCategory from "./Category/CurrentCategory";
 import { usePictopiaDNDStore } from "../../components/Zustand/store";
 import DefaultCategories from "./Category/DefaultCategories";
 import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
+import { useParams } from "react-router-dom";
 
 const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -128,10 +129,10 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
                 <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2 ">
                   <LastSearchs />
                   {searchInputvalue ? (
-                    <SearchResults
-                      searchedUsers={searchedUsers}
-                      searchInput={searchInputvalue}
-                    />
+                    <div className="flex flex-col space-y-3 max-h-[60vh]">
+                      <SearchResults searchInput={searchInputvalue} />
+                      <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+                    </div>
                   ) : (
                     <DefaultCategories defaultCategories={defaultCategories} />
                   )}
@@ -147,40 +148,90 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
 
 export default SearchBar;
 
-export { SearchResults };
+export { SearchResults, SearchMenuUsersGrid };
 
-const SearchResults: React.FC<{
-  searchedUsers: UserDto[];
-  searchInput: string;
-}> = ({ searchedUsers, searchInput }) => {
+const CurrentCategory: React.FC<{}> = () => {
+  const params = useParams() as any;
+  const [currentCategory, setCurrentCategory] = useState<CategoryDto>(Object);
+
+  useEffect(() => {
+    (async () => {
+      if (params.category) {
+        setCurrentCategory(
+          await CategoryAPI.getCategoryByTitle(
+            (await params.category.charAt(0).toLocaleUpperCase()) +
+              params.category.slice(1)
+          )
+        );
+      }
+    })();
+  }, []);
+
   return (
     <>
-      {searchInput && (
-        <div className="flex flex-col space-y-2 px-2 max-h-[60vh] text-gray-200">
-          <a
-            href={`/search/${searchInput}`}
-            className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-          >
-            <PrettySearchIcon size={14} />
-            <span className="">
-              Search in pictures
-              <span className="font-bold pl-1">{searchInput}</span>
-            </span>
-          </a>
-
-          <a
-            href={`/search/tags/${searchInput}`}
-            className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-          >
-            <PrettySearchIcon size={14} />
-            <span className="">
-              Search in hashtags
-              <span className="font-bold pl-1">#{searchInput}</span>
-            </span>
-          </a>
-          <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+      {currentCategory?.title ? (
+        <div className="relative min-w-[25vw] 2xl:min-w-[15vw] text-start font-semibold text-white rounded-sm h-[4rem] cursor-pointer">
+          <img
+            src={`data:${currentCategory?.category_picture_file?.contentType};base64,${currentCategory?.category_picture_file?.data}`}
+            className=" object-cover h-full w-full opacity-80 rounded-sm border-2"
+            alt=""
+          />
+          <div className="absolute top-0 w-full h-full text-start flex flex-row space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+            <div>
+              <PrettyCompassIcon />
+            </div>
+            <p className="my-2 text-gray-300 font-bold text-2xl">
+              {currentCategory?.title}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="relative min-w-[25vw] 2xl:min-w-[15vw] text-start font-semibold text-white rounded-sm h-[4rem]">
+          <img
+            src="/explore.jpg"
+            className=" object-none h-full w-full bg-opacity-60 rounded-sm border-2"
+            alt=""
+          />
+          <div className="absolute top-0 w-full h-full text-start flex flex-row space-x-2 items-center px-4 py-2 rounded-lg duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+            <div>
+              <PrettyCompassIcon />
+            </div>
+            <p className="my-2 text-gray-300 font-bold text-2xl">Explore</p>
+          </div>
         </div>
       )}
+    </>
+  );
+};
+
+const SearchResults: React.FC<{
+  searchInput: string;
+}> = ({ searchInput }) => {
+  return (
+    <>
+      <div className="flex flex-col space-y-2 max-h-[60vh] text-gray-200">
+        <a
+          href={`/search/${searchInput}`}
+          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+        >
+          <PrettySearchIcon size={14} />
+          <span className="">
+            Search in pictures
+            <span className="font-bold pl-1">{searchInput}</span>
+          </span>
+        </a>
+
+        <a
+          href={`/search/tags/${searchInput}`}
+          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
+        >
+          <PrettySearchIcon size={14} />
+          <span className="">
+            Search in hashtags
+            <span className="font-bold pl-1">#{searchInput}</span>
+          </span>
+        </a>
+      </div>
     </>
   );
 };
@@ -199,7 +250,7 @@ const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
               key={userIndex}
             >
               {user?.avatar?.contentType && user?.avatar?.data ? (
-                <div className="z-10 flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
+                <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
                   <img
                     src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
                     alt=""

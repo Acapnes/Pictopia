@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class PicSearchDto {
+export class PaginationDto {
   @IsOptional()
   @IsString()
   category?: string;
@@ -8,6 +8,10 @@ export class PicSearchDto {
   @IsOptional()
   @IsString()
   input?: string;
+
+  @IsOptional()
+  @IsString()
+  username?: string;
 
   @IsNotEmpty()
   @IsNumber()

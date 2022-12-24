@@ -1,5 +1,4 @@
 import axios from "axios";
-import { PicDto } from "../Pic/dtos/picDto";
 import { UserDto } from "./UserDtos/userDto";
 
 export class UserAPI {

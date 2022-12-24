@@ -18,6 +18,7 @@ import { UserPictureService } from './user.picture.service';
 import { UserCategoryService } from './user.category.service';
 import { UserCommentervice } from './user.comment.service';
 import { PrivateGuard } from 'src/helpers/guards/private.guard';
+import { PaginationDto } from 'src/dto/pic/pagination.dto';
 
 @Controller('/user/account')
 export class UserAccountController {
@@ -29,16 +30,14 @@ export class UserAccountController {
 
   @UseGuards(PrivateGuard)
   @Post('/posted')
-  async getUsersPostedPictures(@Body() userFindDto: UserFindDto) {
-    return this.userPictureService.getUsersPostedPictures(userFindDto);
+  async getUsersPostedPictures(@Body() userPostedPagination: PaginationDto) {
+    return this.userPictureService.getUsersPostedPictures(userPostedPagination);
   }
 
   @UseGuards(PrivateGuard)
   @Post('/saved')
-  async getOneUser(
-    @Body() userFindDto: UserFindDto
-  ): Promise<ReturnFuncDto | Pic[] | Pic> {
-    return this.userPictureService.findUserAndPopulateSavedPics(userFindDto);
+  async getOneUser(@Body() userPostedPagination: PaginationDto): Promise<ReturnFuncDto | Pic[]> {
+    return this.userPictureService.findUserAndPopulateSavedPics(userPostedPagination);
   }
 
   @UseGuards(AuthGuard('jwt'))

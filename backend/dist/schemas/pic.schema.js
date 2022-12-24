@@ -34,6 +34,11 @@ __decorate([
     __metadata("design:type", String)
 ], Pic.prototype, "description", void 0);
 __decorate([
+    (0, graphql_1.Field)({ nullable: false }),
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Date)
+], Pic.prototype, "creationDate", void 0);
+__decorate([
     (0, graphql_1.Field)(() => [String], { nullable: true }),
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Array)

@@ -3,10 +3,10 @@ import { Route, Routes, useParams } from "react-router-dom";
 import { UserDto } from "../Api/User/UserDtos/userDto";
 import { useEffect, useState } from "react";
 import Visit from "./Visit/Visit";
-import Notfound from "../components/Views/NotFound";
 import PostedPictures from "./Visit/VisitMenus/PostedPictures";
 import { AccountAPI } from "../Api/User/AccountApi";
 import React from "react";
+import { Notfound } from "../components/Prettys/PrettyViews";
 
 const SavedPictures = React.lazy(
   () => import("./Visit/VisitMenus/SavedPictures")
@@ -28,7 +28,8 @@ const User: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="min-h-screen h-full bg-soft-black">
+    // h-[10rem]
+    <div className="min-h-screen h-full flex flex-col bg-soft-black"> 
       <Header />
       <Routes>
         <Route element={<Visit />}>

@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
-import {
-  PrettyRainbow,
-  PrettyRainbowLink,
-} from "../components/Prettys/PrettyComponents";
+import { PrettyRainbowLink } from "../components/Prettys/PrettyComponents";
 import {
   PrettyPictopia,
   PrettySearchIcon,
@@ -29,7 +26,7 @@ const Header: React.FC<{}> = () => {
 
   return (
     <div className="w-full z-10 sticky top-0 text-sm">
-      <div className="w-full h-header_height flex flex-row justify-between bg-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
+      <div className="w-full h-header_height flex flex-row justify-between bg-rough-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
         <a
           href="/explore"
           className="h-full flex items-center w-fit rounded-md"

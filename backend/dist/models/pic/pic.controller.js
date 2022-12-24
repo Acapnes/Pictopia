@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
-const pic_search_dto_1 = require("../../dto/pic/pic.search.dto");
+const pagination_dto_1 = require("../../dto/pic/pagination.dto");
 const search_interceptor_1 = require("../../helpers/interceptors/search.interceptor");
 const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_service_1 = require("./pic.service");
@@ -26,8 +26,8 @@ let PicController = class PicController {
     async getPics() {
         return this.picsService.findAll();
     }
-    async getPicsByPagination(picSearchDto) {
-        return this.picFetchService.picSearchByCategory(picSearchDto);
+    async getPicsByPagination(picPaginationDto) {
+        return this.picFetchService.picSearchByCategory(picPaginationDto);
     }
     async getPrettyPicById(res, id) {
         const picture = await this.picsService.getPicById(id);
@@ -37,11 +37,11 @@ let PicController = class PicController {
     async getPicById(id) {
         return this.picsService.getPicById(id);
     }
-    async searchInPicturesByCategory(picSearchDto) {
-        return await this.picFetchService.picSearchByCategory(picSearchDto);
+    async searchInPicturesByCategory(picPaginationDto) {
+        return await this.picFetchService.picSearchByCategory(picPaginationDto);
     }
-    async searchInPicturesByInput(picSearchDto) {
-        return await this.picFetchService.picSearchByInput(picSearchDto);
+    async searchInPicturesByInput(picPaginationDto) {
+        return await this.picFetchService.picSearchByInput(picPaginationDto);
     }
 };
 __decorate([
@@ -54,7 +54,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:paramtypes", [pagination_dto_1.PaginationDto]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicsByPagination", null);
 __decorate([
@@ -76,7 +76,7 @@ __decorate([
     (0, common_1.Post)('/category'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:paramtypes", [pagination_dto_1.PaginationDto]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "searchInPicturesByCategory", null);
 __decorate([
@@ -84,7 +84,7 @@ __decorate([
     (0, common_1.Post)('/search'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [pic_search_dto_1.PicSearchDto]),
+    __metadata("design:paramtypes", [pagination_dto_1.PaginationDto]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "searchInPicturesByInput", null);
 PicController = __decorate([

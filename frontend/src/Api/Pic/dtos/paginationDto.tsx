@@ -1,4 +1,4 @@
-export type PicSearchDto = {
+export type PaginationDto = {
   category?: string;
 
   input?: string;

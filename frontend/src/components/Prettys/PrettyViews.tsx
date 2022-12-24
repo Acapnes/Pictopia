@@ -1,4 +1,49 @@
-import React from "react";
+import { useToastStore } from "../Zustand/store";
+import { PrettyBugIcon, PrettyCircleCheckIcon } from "./PrettyIcons";
+
+const CustomToast: React.FC<{}> = () => {
+  const toastState = useToastStore((state: any) => state.toastState);
+  const toastMassage = useToastStore((state: any) => state.toastMassage);
+  return (
+    <>
+      {toastState && (
+        <div
+          className={`fixed top-[7.5rem] right-[3rem] -translatex-1/2 -translate-y-1/2 px-5 py-4 bg-slate-800 bg-opacity-90 z-50 duration-700 fade-out`}
+        >
+          <div className="flex flex-row space-x-3 items-center">
+            <PrettyCircleCheckIcon size={20} fill={"rgb(244, 114, 182)"} />
+            <p className="font-bold text-gray-200">{toastMassage}</p>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Notfound: React.FC<{}> = () => {
+  return (
+    <div className="min-h-screen min-w-screen w-full h-full bg-soft-black">
+      <div className="flex-auto flex-col h-full w-full items-center pt-10">
+        <div className="w-full">
+          <p className="text-[8rem] md:text-[10rem] 3xl:text-[12rem] text-gray-200 text-center">
+            404
+          </p>
+        </div>
+        <div className="w-full h-full flex flex-row space-x-5 items-center justify-center">
+          <PrettyBugIcon size={40} fill={"#f472b6"} />
+          <div className="flex flex-col text-center">
+            <p className="text-xl md:text-2xl 3xl:text-3xl text-gray-200">
+              Something went wrong
+            </p>
+            <p className="text-xl md:text-2xl 3xl:text-3xl text-gray-200">
+              Please try again later
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const SuspenseVeiw: React.FC<{}> = () => {
   return (
@@ -33,4 +78,4 @@ const SuspenseVeiw: React.FC<{}> = () => {
   );
 };
 
-export default SuspenseVeiw;
+export { CustomToast, Notfound, SuspenseVeiw };

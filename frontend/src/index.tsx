@@ -9,13 +9,12 @@ import Register from "./User/Auth/Register";
 import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/User";
 import Profile from "./User/Moderation/Profile";
-import SuspenseVeiw from "./components/Views/SuspenseVeiw";
-import CustomToast from "./components/Views/CustomToast";
-import RouteGuard from "./components/Helpers/RouteGuard";
-import Notfound from "./components/Views/NotFound";
-import PictureEdit from "./Picture/Edit/PictureEdit";
-import PictureReport from "./Picture/Report/PictureReport";
+import PictureEdit from "./Picture/Management/Edit/PictureEdit";
+import PictureReport from "./Picture/Management/Report/PictureReport";
 import SearchView from "./Menus/Mobile/SearchView";
+import ExtendedCategoryEdit from "./Picture/Management/Edit/ExtendedCategoryEdit";
+import { CustomToast, Notfound, SuspenseVeiw } from "./components/Prettys/PrettyViews";
+import { RouteGuard } from "./components/Prettys/PrettyHelpers";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -26,30 +25,31 @@ root.render(
     <Suspense fallback={<SuspenseVeiw />}>
       <CustomToast />
       <Routes>
-        <Route path="*" element={<Notfound />} />
-        <Route path="/explore" element={<Pictopia />} />
         <Route path="/" element={<Pictopia />} />
+        <Route path="/explore" element={<Pictopia />} />
+
         <Route path="/category/:category" element={<Pictopia />} />
         <Route path="/search/:input" element={<Pictopia />} />
         <Route path="/search/tags/:tag" element={<Pictopia />} />
         <Route path="/detail/:id" element={<Details />} />
-        <Route path="/edit/:id" element={<PictureEdit />} />
 
         <Route path="/search" element={<SearchView />} />
-
         <Route path="/report" element={<PictureReport />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         <Route path="/user/:id/*" element={<User />} />
 
         {/* AuthGuard */}
         <Route element={<RouteGuard />}>
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/upload" element={<UploadPic />} />
+          <Route path="/edit/picture/:id" element={<PictureEdit />} />
+          <Route path="/edit/category/" element={<ExtendedCategoryEdit />} />
         </Route>
         {/* AuthGuard */}
+
+        <Route path="*" element={<Notfound />} />
       </Routes>
     </Suspense>
   </BrowserRouter>

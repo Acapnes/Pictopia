@@ -1,6 +1,6 @@
 import React from "react";
-import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
-import Header from "../../Menus/Header";
+import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";
+import Header from "../../../Menus/Header";
 
 const PictureReport: React.FC<{}> = () => {
   return (

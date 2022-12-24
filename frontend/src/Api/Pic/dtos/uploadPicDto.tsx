@@ -9,6 +9,8 @@ export interface UploadPicDto {
 
   description?: string;
 
+  creationDate?: Date;
+
   categories?: CategoryDto[] | string[] | any;
 
   hashTags?: string[];

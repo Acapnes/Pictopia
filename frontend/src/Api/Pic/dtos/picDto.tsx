@@ -10,6 +10,8 @@ export interface PicDto {
 
   description: string;
 
+  creationDate: Date;
+
   picture_file: {
     data: Buffer;
     contentType: string;

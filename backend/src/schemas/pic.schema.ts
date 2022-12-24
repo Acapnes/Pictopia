@@ -22,6 +22,10 @@ export class Pic {
   @Prop({ required: false })
   description: string;
 
+  @Field({ nullable: false })
+  @Prop({ required: true })
+  creationDate: Date;
+
   @Field(() => [String], { nullable: true })
   @Prop({ required: false })
   hashTags: string[];

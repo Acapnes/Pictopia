@@ -46,6 +46,7 @@ const UploadPic: React.FC<{}> = () => {
         picture: uploadPicture!.picture_file,
         title: uploadPicture!.title,
         description: uploadPicture?.description,
+        creationDate: new Date(),
         categories: uploadPicture?.categories,
         hashTags: uploadPicture?.hashTags,
       } as UploadPicDto,

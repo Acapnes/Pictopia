@@ -6,6 +6,8 @@ export class AccountAPI {
     return await axios
       .post("http://localhost:3000/user/account/saved", {
         username: username,
+        currentPage: 0,
+        postPerPage: 20,
       })
       .then((resp) => {
         return resp.data;
@@ -14,7 +16,25 @@ export class AccountAPI {
         return {
           success: false,
           message: err.response.data.message,
-        }
+        };
+      });
+  }
+
+    public static async GetUsersPostedPictures(username: string) {
+    return await axios
+      .post(`http://localhost:3000/user/account/posted`, {
+        username: username,
+        currentPage: 0,
+        postPerPage: 20,
+      })
+      .then((resp) => {
+        return resp.data;
+      })
+      .catch((err: any) => {
+        return {
+          success: false,
+          message: err.response.data.message,
+        };
       });
   }
 
@@ -41,22 +61,6 @@ export class AccountAPI {
     return await axios
       .get(`http://localhost:3000/user/searched/last`)
       .then((resp) => resp.data);
-  }
-
-  public static async GetUsersPostedPictures(username: string) {
-    return await axios
-      .post(`http://localhost:3000/user/account/posted`, {
-        username: username,
-      })
-      .then((resp) => {
-        return resp.data;
-      })
-      .catch((err: any) => {
-        return {
-          success: false,
-          message: err.response.data.message,
-        }
-      });
   }
 
   public static async GetUsersPostedComments(username: string) {

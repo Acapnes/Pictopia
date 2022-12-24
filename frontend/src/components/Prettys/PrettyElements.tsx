@@ -1,11 +1,7 @@
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { MultiFuncs } from "../Functions/MultipleFuncs";
-import {
-  PrettyProfileIcon,
-  PrettyProfilePicture,
-  PrettySmallArrowDown,
-} from "./PrettyIcons";
+import { PrettyProfileIcon, PrettySmallArrowDown } from "./PrettyIcons";
 
 const PrettyLargeAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
   return (

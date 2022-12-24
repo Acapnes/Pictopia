@@ -11,6 +11,8 @@ export class PicDto {
 
   description: string;
 
+  creationDate: Date;
+
   @IsNotEmpty()
   @IsObject()
   picture_file: {

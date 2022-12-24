@@ -2,18 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import Header from "../Header";
-import { SearchResults } from "../Search/SearchBar";
+import { SearchMenuUsersGrid, SearchResults } from "../Search/SearchBar";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
 import { usePictopiaDNDStore } from "../../components/Zustand/store";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
-import { PrettyHelpIcon } from "../../components/Prettys/PrettyIcons";
-import { CategoryAPI } from "../../Api/User/CategoryApi";
+import { PrettyPenIcon } from "../../components/Prettys/PrettyIcons";
 
 const SearchView: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
 
   const [searchedResults, setSearchedResults] = useState<
     UserDto[] | CategoryDto[] | any
@@ -21,8 +18,8 @@ const SearchView: React.FC<{}> = () => {
 
   const searchByInput = async (input: string) => {
     setSearchedResults([
-      await CategoryAPI.searchInCategories(input),
       await UserAPI.findUserByUsername(input),
+      // await CategoryAPI.searchInCategories(input),
     ]);
   };
 
@@ -39,7 +36,7 @@ const SearchView: React.FC<{}> = () => {
   return (
     <div className="min-h-screen min-w-screen bg-soft-black">
       <Header />
-      <div className="w-full h-full flex flex-col space-y-1 items-center pt-5 px-3 text-gray-200">
+      <div className="w-full h-full flex flex-col space-y-1 items-center pt-3 px-3 text-gray-200">
         <p className="font-bold text-xl text-gray-200">Search In Everything</p>
         <PrettyRainbowDiv advStyle="w-full">
           <input
@@ -68,15 +65,12 @@ const SearchView: React.FC<{}> = () => {
             className="w-full h-full bg-transparent text-gray-200 outline-none"
           />
         </PrettyRainbowDiv>
-      </div>
-
-      <div className="p-3">
-        <SearchResults
-          searchedUsers={searchedResults[1]}
-          searchInput={searchInputRef.current?.value!}
+        <SearchResultMenu
+          inputRef={searchInputRef}
+          searchedUsers={searchedResults[0]}
+          searchedCategories={searchedResults[1]}
         />
       </div>
-
       <Categories />
     </div>
   );
@@ -84,16 +78,40 @@ const SearchView: React.FC<{}> = () => {
 
 export default SearchView;
 
+const SearchResultMenu: React.FC<{
+  inputRef: any;
+  searchedUsers: UserDto[];
+  searchedCategories: CategoryDto[];
+}> = ({ inputRef, searchedUsers, searchedCategories }) => {
+  return (
+    <div>
+      {inputRef.current?.value! && (
+        <div className="w-full flex flex-col space-y-2 max-h-[50vh]">
+          <SearchResults searchInput={inputRef.current?.value!} />
+          <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Categories: React.FC<{}> = () => {
   const favoriteCategories = usePictopiaDNDStore(
     (state: any) => state.favoriteCategories
   );
 
   return (
-    <div className="flex flex-col space-y-1 px-3">
-      <div className="flex flex-row space-x-1 items-center">
-        <PrettyHelpIcon />
-        <p className="text-gray-200 font-bold">Favorite Categories</p>
+    <div className="flex flex-col space-y-1 px-3 pb-3">
+      <div className="flex flex-row justify-between items-center">
+        <div className="flex flex-row space-x-1">
+          <span className="text-pretty-pink">*</span>
+          <p className="text-gray-200 font-bold">Favorite Categories</p>
+        </div>
+        <div>
+          <button className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200">
+            <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
+          </button>
+        </div>
       </div>
       {favoriteCategories?.map(
         (category: CategoryDto, categoryIndex: number) => (

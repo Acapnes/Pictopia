@@ -1,8 +1,8 @@
 import axios from "axios";
 import { CategoryDto } from "../User/CategoryDtos/category.dto";
 import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
+import { PaginationDto } from "./dtos/paginationDto";
 import { PicDto } from "./dtos/picDto";
-import { PicSearchDto } from "./dtos/picSearchDto";
 import { UploadPicDto } from "./dtos/uploadPicDto";
 
 export class PicAPI {
@@ -11,19 +11,19 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsByCategory(picSearchDto:PicSearchDto): Promise<PicDto[]> {
+  public static async getPicsByCategory(picPaginationDto: PaginationDto): Promise<PicDto[]> {
     return await axios.post("http://localhost:3000/pics/category",{
-      category: picSearchDto?.category!.charAt(0).toLocaleUpperCase() + picSearchDto?.category!.slice(1),
-      currentPage: picSearchDto.currentPage,
-      postPerPage: picSearchDto.postPerPage
+      category: picPaginationDto?.category!.charAt(0).toLocaleUpperCase() + picPaginationDto?.category!.slice(1),
+      currentPage: picPaginationDto.currentPage,
+      postPerPage: picPaginationDto.postPerPage
     }).then((resp) => resp.data);
   }
 
-  public static async getPicsBySeachInput( picSearchDto: PicSearchDto): Promise<PicDto[]> {
+  public static async getPicsBySeachInput( picPaginationDto: PaginationDto): Promise<PicDto[]> {
     return await axios.post("http://localhost:3000/pics/search",{
-      input: picSearchDto?.input,
-      currentPage: picSearchDto?.currentPage,
-      postPerPage: picSearchDto?.postPerPage
+      input: picPaginationDto?.input,
+      currentPage: picPaginationDto?.currentPage,
+      postPerPage: picPaginationDto?.postPerPage
     }).then((resp) => resp.data);
   }
 
@@ -37,6 +37,7 @@ export class PicAPI {
     formData.append("picture", uploadPicDto.picture);
     formData.append("title", uploadPicDto.title!);
     formData.append("description", uploadPicDto.description ? uploadPicDto.description : "");
+    formData.append("creationDate", uploadPicDto?.creationDate?.toUTCString()!)
     
     uploadPicDto?.categories?.forEach((category: CategoryDto, categoryIndex: number) => {
       formData.append(`categories[${categoryIndex}]`, category._id);

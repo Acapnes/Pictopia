@@ -6,6 +6,7 @@ export declare class Pic {
     authorPic: User;
     title: string;
     description: string;
+    creationDate: Date;
     hashTags: string[];
     picture_file: {
         data: Buffer;

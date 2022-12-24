@@ -2,13 +2,14 @@ import React, { ReactElement, ReactNode, useEffect, useState } from "react";
 import { Link, Outlet, useParams } from "react-router-dom";
 import { AccountAPI } from "../../Api/User/AccountApi";
 import { ModerationAPI } from "../../Api/User/ModerationApi";
+import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
 import {
   PrettyCameraIcon,
   PrettyXIcon,
 } from "../../components/Prettys/PrettyIcons";
-import Notfound from "../../components/Views/NotFound";
+import { Notfound } from "../../components/Prettys/PrettyViews";
 import {} from "./components/PrettySocialButtons";
 import VisitUserSocials from "./components/VisitUserSocials";
 
@@ -24,12 +25,24 @@ const Visit: React.FC<{}> = () => {
     setUserCredentials();
   }, []);
 
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [postPerPage, setPostPerPage] = useState<number>(20);
+
+  const handleScroll = (e: any) => {
+    if (
+      e.target.scrollHeight - e.target.scrollTop <=
+      e.target.clientHeight + 5
+    ) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   return (
     <div>
       {userVisitCredentials?.email ? (
         <>
           <div className="w-full h-full flex flex-col pb-4 text-gray-200">
-            <VisitUserBody user={userVisitCredentials} />
+            <VisitUserBody author={userVisitCredentials} />
             <div className="w-full flex flex-wrap place-content-center text-gray-200 bg-rough-soft-black bg-opacity-95">
               <VisitLinkComp to={``}>Saved</VisitLinkComp>
               <VisitLinkComp to={`posted`}>Posted</VisitLinkComp>
@@ -48,32 +61,30 @@ const Visit: React.FC<{}> = () => {
 
 export default Visit;
 
-const VisitUserBody: React.FC<{ user: UserDto }> = ({ user }) => {
+const VisitUserBody: React.FC<{ author: UserDto }> = ({ author }) => {
   return (
     <div className="w-full h-full relative border-2 border-t-0 border-extra-light-soft-black">
       <img
         src={`${
-          user?.profile_background?.contentType &&
-          user?.profile_background?.data
-            ? `data:${user?.profile_background?.contentType};base64,${user?.profile_background?.data}`
+          author?.profile_background?.contentType &&
+          author?.profile_background?.data
+            ? `data:${author?.profile_background?.contentType};base64,${author?.profile_background?.data}`
             : `/background.png`
         } `}
         alt=""
         className="w-full min-h-[40vh] max-h-[62vh] object-cover opacity-90"
       />
-      <div className="absolute right-7 top-7">
-        <BackgroundHandler />
-      </div>
       <div className="w-full absolute bottom-0 pb-4 bg-gradient-to-t from-light-soft-black">
         <div className="flex flex-col items-center">
-          <PrettyCustomSizeAvatar avatar={user["avatar"]} size={9} />
+          <PrettyCustomSizeAvatar avatar={author["avatar"]} size={9} />
           <div className="flex flex-col items-center">
-            <p className="text-2xl font-bold text-gray-200">{user?.name}</p>
-            <p className="text-gray-200">{user?.username}</p>
+            <p className="text-2xl font-bold text-gray-200">{author?.name}</p>
+            <p className="text-gray-200">{author?.username}</p>
           </div>
           <div className="w-fit flex flex-row justify-center pt-3 items-center space-x-5">
-            <VisitUserSocials user={user} />
+            <VisitUserSocials user={author} />
           </div>
+          <BackgroundHandler author={author} />
         </div>
       </div>
     </div>
@@ -100,7 +111,10 @@ const VisitLinkComp: React.FC<{ children: ReactNode; to: string }> = ({
   );
 };
 
-export const BackgroundHandler: React.FC <{}> = () => {
+export const BackgroundHandler: React.FC<{
+  author: UserDto;
+}> = ({ author }) => {
+  const [visitorCredentials, setVisitorCredentials] = useState<UserDto>(Object);
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -126,30 +140,44 @@ export const BackgroundHandler: React.FC <{}> = () => {
     await changeAvatarFunc(fileUploaded);
   };
 
+  useEffect(() => {
+    (async () => {
+      setVisitorCredentials(
+        await UserAPI.fetchUserCredentials(
+          window.localStorage.getItem("access_token")!
+        )
+      );
+    })();
+  }, []);
+
   return (
     <>
-      <div className="flex flex-col space-y-1.5 items-center text-xs">
-        <button
-          onClick={handleClick}
-          className="flex flex-row space-x-1 items-center border-[1px] border-pretty-pink py-0.5 px-1 bg-rough-soft-black"
-        >
-          <PrettyCameraIcon size={12} />
-          <p className="rounded-sm">Change Background</p>
-        </button>
-        <button
-          onClick={() => removeAvatarFunc()}
-          className="w-fit flex flex-row space-x-1 items-center border-[1px] border-pretty-pink py-0.5 px-1 bg-rough-soft-black"
-        >
-          <PrettyXIcon size={10} />
-          <p className=" rounded-sm">Remove</p>
-        </button>
-      </div>
-      <input
-        type="file"
-        style={{ display: "none" }}
-        ref={hiddenFileInput}
-        onChange={handleChange}
-      />
+      {visitorCredentials?._id === author?._id && (
+        <>
+          <div className="flex flex-row space-x-1.5 items-center text-xs pt-2">
+            <button
+              onClick={handleClick}
+              className="flex flex-row space-x-1 items-center border-[2px] rounded-sm border-rough-soft-black border-opacity-75 py-0.5 px-1 bg-rough-soft-black"
+            >
+              <PrettyCameraIcon size={12} />
+              <p className="rounded-sm">Change Background</p>
+            </button>
+            <button
+              onClick={() => removeAvatarFunc()}
+              className="w-fit flex flex-row space-x-1 items-center border-[2px] rounded-sm border-rough-soft-black border-opacity-75 py-0.5 px-1 bg-rough-soft-black"
+            >
+              <PrettyXIcon size={10} />
+              <p className=" rounded-sm">Remove</p>
+            </button>
+          </div>
+          <input
+            type="file"
+            style={{ display: "none" }}
+            ref={hiddenFileInput}
+            onChange={handleChange}
+          />
+        </>
+      )}
     </>
   );
 };

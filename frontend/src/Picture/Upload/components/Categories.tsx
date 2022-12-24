@@ -16,7 +16,7 @@ const CategorySelection: React.FC<{
 }> = ({ picture, setPicture, advStyle }) => {
   const [categoryArray, setCategoryArray] = useState<CategoryDto[]>([]);
   const [showCategoryList, setShowCategoryList] = useState(false);
-  const [categorySearchInput, setCategorySearchInput] = useState<string>("");
+  const [categorySearchInput, setCategorySearchInput] = useState<string>(""); /// not use ref
 
   useEffect(() => {
     (async () => {

@@ -14,4 +14,4 @@ const RouteGuard: React.FC<{}> = () => {
   );
 };
 
-export default RouteGuard;
+export { RouteGuard };

@@ -10,7 +10,7 @@ import {
   PrettyRotatingArrow,
 } from "../../../components/Prettys/PrettyElements";
 import Comments from "../../Comments/Comments";
-import { CardOptions } from "./components/CardOptions";
+import { CardOptions } from "./CardOptions";
 import SendComment from "../../Comments/SendComment";
 import { usePictureCommentStore } from "../../../components/Zustand/store";
 import { useParams } from "react-router-dom";

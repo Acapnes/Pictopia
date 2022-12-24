@@ -4,6 +4,7 @@ export declare class PicDto {
     authorPic: UserDto;
     title: string;
     description: string;
+    creationDate: Date;
     picture_file: {
         data: Buffer;
         contentType: string;

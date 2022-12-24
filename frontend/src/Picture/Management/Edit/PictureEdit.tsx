@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PicDto } from "../../Api/Pic/dtos/picDto";
-import { PicAPI } from "../../Api/Pic/PicApi";
-import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
-import { PicManagementAPI } from "../../Api/User/PicManagement";
-import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-import Header from "../../Menus/Header";
-import DetailsPicture from "../Details/Card/DetailsPicture";
-import { CategorySelection } from "../Upload/components/Categories";
-import { HashtagAppend } from "../Upload/components/Hashtags";
+import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { PicAPI } from "../../../Api/Pic/PicApi";
+import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { PicManagementAPI } from "../../../Api/User/PicManagement";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
+import Header from "../../../Menus/Header";
+import DetailsPicture from "../../Details/Card/DetailsPicture";
+import { CategorySelection } from "../../Upload/components/Categories";
+import { HashtagAppend } from "../../Upload/components/Hashtags";
 
 const PictureEdit: React.FC<{}> = () => {
   const [editPicture, setEditPicture] = useState<PicDto>(Object);
