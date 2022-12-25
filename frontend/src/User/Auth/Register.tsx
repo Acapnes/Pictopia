@@ -20,6 +20,7 @@ const Register: React.FC<{}> = () => {
       email: userEmailRef.current!.value!,
       password: userPasswordRef.current!.value!,
       username: userNameRef.current!.value!,
+      creationDate: new Date(),
     }).then(
       async (RegisterResp: ReturnFuncDto) =>
         await setToastState(RegisterResp.message)

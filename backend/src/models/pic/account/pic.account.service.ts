@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { PicManageDto } from 'src/dto/pic/pic.manage.dto';
-import { PicService } from './pic.service';
+import { PicService } from '../pic.service';
 
 @Injectable()
 export class PicAccountService {

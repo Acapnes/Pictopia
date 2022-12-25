@@ -1,5 +1,7 @@
+import { Type } from 'class-transformer';
 import {
   IsArray,
+  IsDate,
   IsMongoId,
   IsNotEmpty,
   IsObject,
@@ -17,6 +19,11 @@ export class PicCreateDto {
   @IsNotEmpty()
   @IsArray()
   categories: Category[];
+
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  creationDate: Date;
 
   @IsNotEmpty()
   @IsString()

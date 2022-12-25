@@ -27,6 +27,7 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
     userRegistrationDto.password = await bcrypt.hashSync(userRegistrationDto.password,10);
     
     this.userModel.create(userRegistrationDto);
+    
     return {
       access: true,
       access_token: '',

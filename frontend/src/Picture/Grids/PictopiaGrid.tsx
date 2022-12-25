@@ -5,6 +5,7 @@ import GridMenu from "./GridMenu";
 import React from "react";
 import { Masonry } from "@mui/lab";
 import { useParams } from "react-router-dom";
+import { LoadingAnimation } from "../../components/Prettys/PrettyViews";
 
 const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   currentPage,
@@ -44,8 +45,7 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
     } else {
       setPictures([
         ...pictures,
-        ...(await PicAPI.getPicsByCategory({
-          category: "Explore",
+        ...(await PicAPI.getPicsByExplore({
           currentPage: currentPage,
           postPerPage: postPerPage,
         })),
@@ -57,8 +57,9 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
     fetchAndSetPics();
   }, [currentPage]);
 
+
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="w-full flex flex-col items-center justify-center pb-14">
       <Masonry columns={{ xs: 2, sm: 4, md: 5, lg: 6, xl: 6 }} spacing={2}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
@@ -75,6 +76,7 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
           </div>
         ))}
       </Masonry>
+      {/* <LoadingAnimation /> */}
     </div>
   );
 };

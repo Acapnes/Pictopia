@@ -140,8 +140,8 @@ const PrettyCustomSizeAvatar: React.FC<{
           style={{ width: `${size}rem`, height: `${size}rem` }}
           className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative p-0.5"
         >
-          <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full p-10">
-            <PrettyProfileIcon size={70} fill={"white"} />
+          <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full p-0.5">
+            <PrettyProfileIcon size={size * 8} fill={"white"} />
           </div>
         </div>
       )}

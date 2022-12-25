@@ -92,7 +92,7 @@ const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
 
 const HeaderSmallSearch: React.FC<{}> = () => {
   return (
-    <div className="h-full flex items-center w-fit md:hidden">
+    <div className="h-full flex items-center w-fit lg:hidden">
       <PrettyRainbowLink
         href={"/search"}
         advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"

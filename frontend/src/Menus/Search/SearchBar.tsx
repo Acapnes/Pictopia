@@ -63,7 +63,7 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   );
 
   return (
-    <div className="w-full hidden md:flex md:items-center relative">
+    <div className="w-full hidden lg:flex lg:items-center relative">
       <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-semibold overflow-hidden rounded-sm">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
         <span className=" w-full px-4 md:py-2 sm:py-1 transition-all ease-out bg-gray-900 rounded-sm duration-400 relative">
@@ -131,7 +131,10 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
                   {searchInputvalue ? (
                     <div className="flex flex-col space-y-3 max-h-[60vh]">
                       <SearchResults searchInput={searchInputvalue} />
-                      <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+                      <SearchMenuUsersGrid
+                        searchedUsers={searchedUsers}
+                        size={4}
+                      />
                     </div>
                   ) : (
                     <DefaultCategories defaultCategories={defaultCategories} />
@@ -220,7 +223,6 @@ const SearchResults: React.FC<{
             <span className="font-bold pl-1">{searchInput}</span>
           </span>
         </a>
-
         <a
           href={`/search/tags/${searchInput}`}
           className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
@@ -236,12 +238,15 @@ const SearchResults: React.FC<{
   );
 };
 
-const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
-  searchedUsers,
-}) => {
+const SearchMenuUsersGrid: React.FC<{
+  searchedUsers: UserDto[];
+  size: number;
+}> = ({ searchedUsers, size }) => {
   return (
     <div className="flex justify-center overflow-y-auto scrollbar-hide">
-      <div className="grid grid-cols-1 gap-4 w-full">
+      <div
+        className={`grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2 w-full`}
+      >
         {searchedUsers?.length > 0 ? (
           searchedUsers?.map((user: UserDto, userIndex: number) => (
             <a
@@ -250,7 +255,10 @@ const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
               key={userIndex}
             >
               {user?.avatar?.contentType && user?.avatar?.data ? (
-                <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative">
+                <div
+                  style={{ width: `${size}rem`, height: `${size}rem` }}
+                  className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative"
+                >
                   <img
                     src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
                     alt=""
@@ -258,9 +266,12 @@ const SearchMenuUsersGrid: React.FC<{ searchedUsers: UserDto[] }> = ({
                   />
                 </div>
               ) : (
-                <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full w-[4rem] h-[4rem] relative p-0.5">
+                <div
+                  style={{ width: `${size}rem`, height: `${size}rem` }}
+                  className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative p-0.5"
+                >
                   <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
-                    <PrettyProfileIcon size={24} fill={"white"} />
+                    <PrettyProfileIcon size={size * 8} fill={"white"} />
                   </div>
                 </div>
               )}

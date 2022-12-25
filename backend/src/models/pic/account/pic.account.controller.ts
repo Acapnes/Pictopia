@@ -5,17 +5,17 @@ import { PicManageDto } from 'src/dto/pic/pic.manage.dto';
 import { PaginationDto } from 'src/dto/pic/pagination.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
 import { Pic } from 'src/schemas/pic.schema';
+import { PicService } from '../pic.service';
+import { PicAccountFetchService } from './pic.account.fetch.service';
 import { PicAccountService } from './pic.account.service';
-import { PicFetchService } from './pic.fetch.service';
-import { PicService } from './pic.service';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('/pics/account')
 export class PicAccountController {
   constructor(
     private readonly picsService: PicService,
-    private readonly picFetchService: PicFetchService,
     private readonly picAccountService: PicAccountService,
+    private readonly picAccountFetchService: PicAccountFetchService,
     ) {}
 
   @Get()
@@ -24,8 +24,8 @@ export class PicAccountController {
   }
 
   @Post()
-  async getPicsByPagination(@Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
-    return this.picFetchService.picSearchByCategory(picPaginationDto);
+  async getPicsByPagination(@Req() req, @Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
+    return this.picAccountFetchService.picSearchByCategory(req.user._id,picPaginationDto);
   }
 
   @Get('/pretty/:id')
@@ -46,14 +46,19 @@ export class PicAccountController {
     return await this.picsService.createPostWithImage(req.user,file,body)
   }  
 
+  @Post('/explore')
+  async searchInPicturesByExplore(@Req() req, @Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picAccountFetchService.getPicturesByExplore(req.user._id, picPaginationDto)
+  }
+
   @Post('/category')
-  async searchInPicturesByCategory(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
-    return await this.picFetchService.picSearchByCategory(picPaginationDto)
+  async searchInPicturesByCategory(@Req() req, @Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picAccountFetchService.picSearchByCategory(req.user._id, picPaginationDto)
   }
 
   @Post('/search')
   async searchInPicturesByInput(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
-    return await this.picFetchService.picSearchByInput(picPaginationDto)
+    return await this.picAccountFetchService.picSearchByInput(picPaginationDto)
   }
 
   @Post('/delete')

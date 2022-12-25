@@ -1,5 +1,8 @@
+import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
+  IsDate,
   IsEmail,
   IsMongoId,
   IsNotEmpty,
@@ -7,6 +10,8 @@ import {
   IsString,
 } from 'class-validator';
 import mongoose from 'mongoose';
+import { Category } from 'src/schemas/category.schema';
+import { Pic } from 'src/schemas/pic.schema';
 
 export class UserDto {
   @IsMongoId()
@@ -23,6 +28,11 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   username: string;
+
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  creationDate: Date;
 
   @IsNotEmpty()
   @IsObject()
@@ -46,5 +56,15 @@ export class UserDto {
   settings: {
     privateAccount: boolean;
   };
-  
+
+  @IsArray()
+  favCategories: Category[];
+
+  @IsArray()
+  savedPictures: Pic[];
+
+  @IsObject()
+  deepLearning: {
+    searched: string[];
+  };
 }

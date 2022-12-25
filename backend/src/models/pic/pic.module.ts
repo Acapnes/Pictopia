@@ -7,8 +7,9 @@ import { Pic, PicSchema } from 'src/schemas/pic.schema';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { CategoryService } from '../category/category.service';
 import { UserService } from '../user/user.service';
-import { PicAccountController } from './pic.account.controller';
-import { PicAccountService } from './pic.account.service';
+import { PicAccountController } from './account/pic.account.controller';
+import { PicAccountFetchService } from './account/pic.account.fetch.service';
+import { PicAccountService } from './account/pic.account.service';
 import { PicController } from './pic.controller';
 import { PicFetchService } from './pic.fetch.service';
 import { PicResolver } from './pic.resolver';
@@ -31,6 +32,7 @@ import { PicService } from './pic.service';
     PicService,
     PicFetchService,
     PicAccountService,
+    PicAccountFetchService,
     PicResolver,
     CategoryService,
     UserService,

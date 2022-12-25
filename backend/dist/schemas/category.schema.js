@@ -21,6 +21,11 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "title", void 0);
 __decorate([
+    (0, graphql_1.Field)({ nullable: false }),
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Date)
+], Category.prototype, "creationDate", void 0);
+__decorate([
     (0, graphql_1.Field)(() => picture_file_schema_1.PictureFile, {
         nullable: false,
         defaultValue: { data: null, contentType: null },

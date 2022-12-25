@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { CommentDto } from "../../Api/Comment/dtos/commentDto";
+import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettyMediumAvatar,
@@ -10,11 +11,12 @@ import { usePictureCommentStore } from "../../components/Zustand/store";
 import { CommentAuthorEdit } from "./Comments";
 
 const Replies: React.FC<{
+  destPicture?: PicDto["_id"];
   comment: CommentDto;
   visitor?: UserDto;
   options?: boolean;
   small?: boolean;
-}> = ({ comment, options, small, visitor }) => {
+}> = ({ comment, options, small, visitor, destPicture }) => {
   const sendReplyViewState = usePictureCommentStore(
     (state: any) => state.sendReplyViewState
   );
@@ -38,9 +40,9 @@ const Replies: React.FC<{
               className="w-full h-full flex flex-row space-x-3"
             >
               {small ? (
-                <PrettySmallAvatar user={reply.author} rounded={true} />
+                <PrettySmallAvatar user={reply?.author!} rounded={true} />
               ) : (
-                <PrettyMediumAvatar user={reply.author} rounded={true} />
+                <PrettyMediumAvatar user={reply?.author!} rounded={true} />
               )}
 
               <div className="w-full flex flex-col">
@@ -49,7 +51,7 @@ const Replies: React.FC<{
                     href={`/user/${reply?.author?.username}`}
                     className="font-bold hover:underline select-none"
                   >
-                    {reply?.author.username}
+                    {reply?.author?.username}
                   </a>
                   <span className="w-full font-normal break-all pl-2">
                     {reply?.comment}
@@ -61,7 +63,9 @@ const Replies: React.FC<{
                       {visitor && (
                         <CommentAuthorEdit
                           visitor={visitor}
-                          authorComment={reply?.author}
+                          authorComment={reply?.author!}
+                          destPicture={destPicture!}
+                          commentId={reply?._id!}
                         />
                       )}
                     </div>

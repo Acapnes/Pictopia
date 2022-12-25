@@ -3,6 +3,7 @@ import mongoose, { Document } from 'mongoose';
 import { User } from './user.schema';
 export declare type PicDocument = Pic & Document;
 export declare class Pic {
+    _id?: string;
     authorPic: User;
     title: string;
     description: string;

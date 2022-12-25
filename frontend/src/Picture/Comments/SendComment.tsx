@@ -19,6 +19,7 @@ const SendComment: React.FC<{
       {
         comment: newCommentsRef?.current?.value!,
         destPicture: picture?._id,
+        creationDate: new Date(),
       }
     ).then(() => {
       getCommentsById();

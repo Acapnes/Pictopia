@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsNotEmpty, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class CategoryDto {
   @IsOptional()
@@ -11,4 +12,9 @@ export class CategoryDto {
     data: string;
     contentType: string;
   };
+
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  creationDate: Date;
 }

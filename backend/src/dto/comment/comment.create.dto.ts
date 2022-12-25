@@ -1,4 +1,5 @@
-import { IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsMongoId, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class CommentCreateDto {
@@ -12,4 +13,9 @@ export class CommentCreateDto {
   @IsNotEmpty()
   @IsString()
   comment: string;
+  
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  creationDate: Date;
 }

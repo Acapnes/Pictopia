@@ -4,4 +4,7 @@ export interface UserRegistrationDto {
   email: string;
   
   password: string;
+
+
+  creationDate: Date | string;
 }

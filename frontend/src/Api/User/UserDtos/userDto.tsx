@@ -45,4 +45,6 @@ export interface UserDto {
     privateAccount: boolean;
     notification: boolean;
   };
+
+  creationDate: Date;
 }

@@ -1,5 +1,5 @@
-import { IsArray, IsBoolean, IsDate, IsEmail, IsNotEmpty, IsObject, IsString } from 'class-validator';
-import { PicDto } from '../pic/pic.dto';
+import { Type } from 'class-transformer';
+import { IsBoolean, IsDate,  IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class UserRegistrationDto {
   @IsString()
@@ -12,6 +12,11 @@ export class UserRegistrationDto {
   @IsString()
   @IsNotEmpty()
   username!: string;
+
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
+  creationDate: Date;
 
   avatar?: {
     data: Buffer;

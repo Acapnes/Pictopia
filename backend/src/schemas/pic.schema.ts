@@ -10,6 +10,8 @@ export type PicDocument = Pic & Document;
 @Schema()
 @ObjectType()
 export class Pic {
+  _id?: string;
+
   @Field(() => User)
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   authorPic: User;

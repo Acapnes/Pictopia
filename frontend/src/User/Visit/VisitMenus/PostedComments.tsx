@@ -39,7 +39,7 @@ const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
                       <div className="w-full flex flex-col space-y-3">
                         <div className="w-full h-full flex flex-row space-x-1">
                           <PrettySmallAvatar
-                            user={comment?.author}
+                            user={comment?.author!}
                             rounded={true}
                           />
                           <div className="pt-1.5">

@@ -35,8 +35,7 @@ let CommentService = class CommentService {
         return (await this.commentModel.find({ parentId: _id }).populate('author')).reverse();
     }
     async signComment(_id, commentCreateDto) {
-        return await this.picService
-            .getPicById(commentCreateDto.destPicture)
+        return await this.picService.getPicById(commentCreateDto.destPicture)
             .then(async (resp) => {
             if (!resp) {
                 return {
@@ -48,6 +47,7 @@ let CommentService = class CommentService {
                 author: _id,
                 destPicture: commentCreateDto.destPicture,
                 comment: commentCreateDto.comment,
+                creationDate: commentCreateDto.creationDate
             });
             if (!this.findCommentByMongooseId(newComment._id)) {
                 return {
@@ -84,6 +84,7 @@ let CommentService = class CommentService {
                 destPicture: commentCreateDto.destPicture,
                 parentId: commentCreateDto.parentId,
                 comment: commentCreateDto.comment,
+                creationDate: commentCreateDto.creationDate,
             });
             if (!this.findCommentByMongooseId(newComment._id)) {
                 return {

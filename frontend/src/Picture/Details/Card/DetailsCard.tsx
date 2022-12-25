@@ -60,11 +60,11 @@ const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
                 <PrettyLargeAvatar user={picture.authorPic} />
               </div>
               <div className="w-full flex flex-col ">
-                <p className="w-full font-bold text-2xl max-h-[12vh] break-all overflow-y-auto scrollbar-hide first-letter:uppercase">
+                <p className="w-full font-bold text-2xl max-h-[12vh] break-all overflow-y-auto scrollbar-hide">
                   {picture?.title}
                 </p>
                 {picture?.description?.length <= 50 && (
-                  <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide first-letter:uppercase">
+                  <div className="max-h-[35vh] py-3 break-all overflow-y-auto scrollbar-hide">
                     <p>{picture?.description}</p>
                   </div>
                 )}

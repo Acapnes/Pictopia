@@ -30,6 +30,7 @@ const SendReply: React.FC<{
           comment: newReplyRef?.current?.value!,
           parentId: parentComment?._id,
           destPicture: picture?._id,
+          creationDate: new Date(),
         }
       ).then(async () => {
         newReplyRef.current!.value = "";

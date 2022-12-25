@@ -26,6 +26,7 @@ import { Document } from 'mongoose';
 export declare type CategoryDocument = Category & Document;
 export declare class Category {
     title: string;
+    creationDate: Date;
     category_picture_file: {
         data: string;
         contentType: string;

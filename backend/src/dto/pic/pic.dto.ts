@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsDate, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from 'class-validator';
 import { UserDto } from '../user/user.dto';
 
 export class PicDto {
@@ -9,8 +10,13 @@ export class PicDto {
   @IsString()
   title: string;
 
+  @IsOptional()
+  @IsString()
   description: string;
 
+  @IsNotEmpty()
+  @Type(() => Date)
+  @IsDate()
   creationDate: Date;
 
   @IsNotEmpty()

@@ -22,6 +22,11 @@ export class PicController {
     return this.picFetchService.picSearchByCategory(picPaginationDto);
   }
 
+  @Post('/alias/:id')
+  async getPicsAlias(@Param('id') picture_id, @Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
+    return this.picFetchService.picGetAlias(picture_id, picPaginationDto);
+  }
+
   @Get('/pretty/:id')
   async getPrettyPicById(@Res() res, @Param('id') id): Promise<Pic> {
     const picture = await this.picsService.getPicById(id);
@@ -32,6 +37,11 @@ export class PicController {
   @Get(':id')
   async getPicById( @Param('id') id): Promise<Pic> {
     return this.picsService.getPicById(id);
+  }
+
+  @Post('/explore')
+  async searchInPicturesByExplore(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picFetchService.getPicturesByExplore(picPaginationDto)
   }
 
   @Post('/category')

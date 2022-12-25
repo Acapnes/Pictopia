@@ -12,6 +12,10 @@ export class Category {
   @Prop({ required: true })
   title: string;
 
+  @Field({ nullable: false })
+  @Prop({ required: true })
+  creationDate: Date;
+
   @Field(() => PictureFile, {
     nullable: false,
     defaultValue: { data: null, contentType: null },

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryCreationDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class CategoryCreationDto {
 }
@@ -23,5 +24,11 @@ __decorate([
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
 ], CategoryCreationDto.prototype, "category_picture_file", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_transformer_1.Type)(() => Date),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", Date)
+], CategoryCreationDto.prototype, "creationDate", void 0);
 exports.CategoryCreationDto = CategoryCreationDto;
 //# sourceMappingURL=category.creation.dto.js.map

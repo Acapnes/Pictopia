@@ -26,6 +26,10 @@ export class Comment {
   })
   parentId: string;
 
+  @Field({ nullable: false })
+  @Prop({ required: true })
+  creationDate: Date;
+
   @Field(() => User, { nullable: true })
   @Prop({
     required: false,

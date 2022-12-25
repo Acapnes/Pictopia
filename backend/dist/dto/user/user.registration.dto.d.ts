@@ -3,6 +3,7 @@ export declare class UserRegistrationDto {
     name?: string;
     email: string;
     username: string;
+    creationDate: Date;
     avatar?: {
         data: Buffer;
         contentType: string;

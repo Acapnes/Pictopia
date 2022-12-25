@@ -92,7 +92,7 @@ const SearchResultMenu: React.FC<{
       {inputRef.current?.value! && (
         <div className="w-full flex flex-col space-y-2 max-h-[50vh]">
           <SearchResults searchInput={inputRef.current?.value!} />
-          <SearchMenuUsersGrid searchedUsers={searchedUsers} />
+          <SearchMenuUsersGrid searchedUsers={searchedUsers} size={4} />
         </div>
       )}
     </div>
@@ -111,11 +111,12 @@ const Categories: React.FC<{}> = () => {
           <span className="text-pretty-pink">*</span>
           <p className="text-gray-200 font-bold">Favorite Categories</p>
         </div>
-        <div>
-          <button className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200">
-            <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
-          </button>
-        </div>
+        <a
+          href="/edit/category/"
+          className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
+        >
+          <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
+        </a>
       </div>
       {favoriteCategories?.map(
         (category: CategoryDto, categoryIndex: number) => (

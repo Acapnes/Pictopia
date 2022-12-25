@@ -10,6 +10,7 @@ export declare class User {
     name: string;
     email: string;
     username: string;
+    creationDate: Date;
     avatar: {
         data: Buffer;
         contentType: string;

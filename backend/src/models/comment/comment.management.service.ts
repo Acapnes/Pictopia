@@ -15,8 +15,9 @@ export class CommentManagementService {
 
   async deteleCommentById(_id:mongoose.Types.ObjectId): Promise<ReturnFuncDto> {
     return await this.commentModel.findByIdAndDelete({_id:_id}).then(async(comment: any)=>{
-        return await this.commentModel.findById({_id:comment._id}).then((findResult:any) => {
+        return await this.commentModel.findById({_id:comment._id}).then(async(findResult:any) => {
             if(!findResult){
+              // await this.commentModel.find({_id: comment._id})
                 return{
                     success:true,
                     message:"Comment has been deleted"

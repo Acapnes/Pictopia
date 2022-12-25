@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentCreateDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const mongoose_1 = require("mongoose");
 class CommentCreateDto {
@@ -28,5 +29,11 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CommentCreateDto.prototype, "comment", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_transformer_1.Type)(() => Date),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", Date)
+], CommentCreateDto.prototype, "creationDate", void 0);
 exports.CommentCreateDto = CommentCreateDto;
 //# sourceMappingURL=comment.create.dto.js.map

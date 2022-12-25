@@ -6,6 +6,7 @@ export declare class Comment {
     author: User;
     destPicture: Pic;
     parentId: string;
+    creationDate: Date;
     likedUsers: [mongoose.Schema.Types.ObjectId];
     comment: string;
 }

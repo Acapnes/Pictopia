@@ -8,8 +8,10 @@ export declare class PicController {
     constructor(picsService: PicService, picFetchService: PicFetchService);
     getPics(): Promise<Pic[]>;
     getPicsByPagination(picPaginationDto: PaginationDto): Promise<Pic[]>;
+    getPicsAlias(picture_id: any, picPaginationDto: PaginationDto): Promise<Pic[]>;
     getPrettyPicById(res: any, id: any): Promise<Pic>;
     getPicById(id: any): Promise<Pic>;
+    searchInPicturesByExplore(picPaginationDto: PaginationDto): Promise<Pic[]>;
     searchInPicturesByCategory(picPaginationDto: PaginationDto): Promise<Pic[]>;
     searchInPicturesByInput(picPaginationDto: PaginationDto): Promise<Pic[]>;
 }

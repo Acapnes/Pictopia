@@ -29,6 +29,9 @@ let PicController = class PicController {
     async getPicsByPagination(picPaginationDto) {
         return this.picFetchService.picSearchByCategory(picPaginationDto);
     }
+    async getPicsAlias(picture_id, picPaginationDto) {
+        return this.picFetchService.picGetAlias(picture_id, picPaginationDto);
+    }
     async getPrettyPicById(res, id) {
         const picture = await this.picsService.getPicById(id);
         res.setHeader('Content-type', picture.picture_file.contentType);
@@ -36,6 +39,9 @@ let PicController = class PicController {
     }
     async getPicById(id) {
         return this.picsService.getPicById(id);
+    }
+    async searchInPicturesByExplore(picPaginationDto) {
+        return await this.picFetchService.getPicturesByExplore(picPaginationDto);
     }
     async searchInPicturesByCategory(picPaginationDto) {
         return await this.picFetchService.picSearchByCategory(picPaginationDto);
@@ -58,6 +64,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicsByPagination", null);
 __decorate([
+    (0, common_1.Post)('/alias/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, pagination_dto_1.PaginationDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "getPicsAlias", null);
+__decorate([
     (0, common_1.Get)('/pretty/:id'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Param)('id')),
@@ -72,6 +86,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicById", null);
+__decorate([
+    (0, common_1.Post)('/explore'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [pagination_dto_1.PaginationDto]),
+    __metadata("design:returntype", Promise)
+], PicController.prototype, "searchInPicturesByExplore", null);
 __decorate([
     (0, common_1.Post)('/category'),
     __param(0, (0, common_1.Body)()),

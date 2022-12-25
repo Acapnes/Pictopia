@@ -5,4 +5,5 @@ export declare class CategoryCreationDto {
         data: Buffer;
         contentType: string;
     };
+    creationDate: Date;
 }

@@ -9,8 +9,14 @@ type PictureFile {
 
 type Category {
   title: String!
+  creationDate: DateTime!
   category_picture_file: PictureFile!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type DeepLearning {
   searched: [String!]
@@ -33,6 +39,7 @@ type User {
   name: String
   email: String!
   username: String!
+  creationDate: DateTime!
   avatar: PictureFile!
   profile_background: PictureFile!
   savedPictures: [Pic!]!
@@ -54,15 +61,11 @@ type Pic {
   categories: Category!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Comment {
   author: User!
   destPicture: Pic!
   parentId: Comment
+  creationDate: DateTime!
   likedUsers: User
   comment: String!
 }

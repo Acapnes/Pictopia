@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CommentDto = void 0;
+const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const mongoose_1 = require("mongoose");
 const pic_create_dto_1 = require("../pic/pic.create.dto");
@@ -28,6 +29,10 @@ __decorate([
 ], CommentDto.prototype, "author", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", CommentDto)
+], CommentDto.prototype, "parentId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", pic_create_dto_1.PicCreateDto)
 ], CommentDto.prototype, "destPicture", void 0);
@@ -36,5 +41,11 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CommentDto.prototype, "comment", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Date),
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", Date)
+], CommentDto.prototype, "creationDate", void 0);
 exports.CommentDto = CommentDto;
 //# sourceMappingURL=comment.dto.js.map

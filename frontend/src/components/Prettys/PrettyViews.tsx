@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { useToastStore } from "../Zustand/store";
 import { PrettyBugIcon, PrettyCircleCheckIcon } from "./PrettyIcons";
 
@@ -20,7 +21,7 @@ const CustomToast: React.FC<{}> = () => {
   );
 };
 
-const Notfound: React.FC<{}> = () => {
+const Notfound: React.FC<{ navigatePath?: string }> = ({ navigatePath }) => {
   return (
     <div className="min-h-screen min-w-screen w-full h-full bg-soft-black">
       <div className="flex-auto flex-col h-full w-full items-center pt-10">
@@ -41,6 +42,7 @@ const Notfound: React.FC<{}> = () => {
           </div>
         </div>
       </div>
+      {navigatePath && <Navigate to={navigatePath} />}
     </div>
   );
 };
@@ -78,4 +80,14 @@ const SuspenseVeiw: React.FC<{}> = () => {
   );
 };
 
-export { CustomToast, Notfound, SuspenseVeiw };
+const LoadingAnimation: React.FC<{}> = () => {
+  return (
+    <div className="w-[3rem] h-[2.5rem] flex flex-row">
+      <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+      <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+      <div className="h-full w-full animate-[bounce_1.5s_infinite_300ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+    </div>
+  );
+};
+
+export { CustomToast, Notfound, SuspenseVeiw, LoadingAnimation };

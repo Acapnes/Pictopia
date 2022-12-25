@@ -33,12 +33,8 @@ export class CommentService {
     ).reverse();
   }
 
-  async signComment(
-    _id: mongoose.Types.ObjectId | any,
-    commentCreateDto: CommentCreateDto,
-  ): Promise<ReturnFuncDto> {
-    return await this.picService
-      .getPicById(commentCreateDto.destPicture)
+  async signComment(_id: mongoose.Types.ObjectId | any, commentCreateDto: CommentCreateDto): Promise<ReturnFuncDto> {
+    return await this.picService.getPicById(commentCreateDto.destPicture)
       .then(async (resp) => {
         if (!resp) {
           return {
@@ -51,6 +47,7 @@ export class CommentService {
           author: _id,
           destPicture: commentCreateDto.destPicture,
           comment: commentCreateDto.comment,
+          creationDate: commentCreateDto.creationDate
         });
 
         if (!this.findCommentByMongooseId(newComment._id)) {
@@ -97,6 +94,7 @@ export class CommentService {
           destPicture: commentCreateDto.destPicture,
           parentId: commentCreateDto.parentId,
           comment: commentCreateDto.comment,
+          creationDate: commentCreateDto.creationDate,
         });
 
         if (!this.findCommentByMongooseId(newComment._id)) {

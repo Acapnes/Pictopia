@@ -16,8 +16,9 @@ const pic_schema_1 = require("../../schemas/pic.schema");
 const user_schema_1 = require("../../schemas/user.schema");
 const category_service_1 = require("../category/category.service");
 const user_service_1 = require("../user/user.service");
-const pic_account_controller_1 = require("./pic.account.controller");
-const pic_account_service_1 = require("./pic.account.service");
+const pic_account_controller_1 = require("./account/pic.account.controller");
+const pic_account_fetch_service_1 = require("./account/pic.account.fetch.service");
+const pic_account_service_1 = require("./account/pic.account.service");
 const pic_controller_1 = require("./pic.controller");
 const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_resolver_1 = require("./pic.resolver");
@@ -43,6 +44,7 @@ PicModule = __decorate([
             pic_service_1.PicService,
             pic_fetch_service_1.PicFetchService,
             pic_account_service_1.PicAccountService,
+            pic_account_fetch_service_1.PicAccountFetchService,
             pic_resolver_1.PicResolver,
             category_service_1.CategoryService,
             user_service_1.UserService,

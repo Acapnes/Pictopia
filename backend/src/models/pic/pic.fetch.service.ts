@@ -12,26 +12,19 @@ export class PicFetchService {
     private categoryService: CategoryService
   ) {}
 
-  async getPicturesByCategory(picPaginationDto: PaginationDto): Promise<Pic[]> {
+  async getPicturesByExplore(picPaginationDto: PaginationDto): Promise<Pic[]> {
     return await this.picModel
       .find({})
       .sort({ creationDate: -1 })
-      .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
+      .skip(
+        Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage)
+      )
       .limit(picPaginationDto.postPerPage)
       .populate('authorPic')
-      .populate('categories');
+      .populate('categories')
   }
 
   async picSearchByCategory(picPaginationDto: PaginationDto): Promise<Pic[]> {
-    if (picPaginationDto.category === 'Explore' || picPaginationDto.category === '') {
-      return await this.picModel
-        .find({})
-        .sort({ creationDate: -1 })
-        .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
-        .limit(picPaginationDto.postPerPage)
-        .populate('authorPic')
-        .populate('categories');
-    }
     return await this.categoryService
       .getCategoryIdByTitle(picPaginationDto.category)
       .then((categoryId) => {
@@ -40,7 +33,11 @@ export class PicFetchService {
             categories: { $in: categoryId },
           })
           .sort({ creationDate: -1 })
-          .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
+          .skip(
+            Math.ceil(
+              picPaginationDto.currentPage * picPaginationDto.postPerPage
+            )
+          )
           .limit(picPaginationDto.postPerPage)
           .populate('authorPic')
           .populate('categories');
@@ -48,11 +45,14 @@ export class PicFetchService {
   }
 
   async picSearchByInput(picPaginationDto: PaginationDto): Promise<Pic[]> {
+    console.log(picPaginationDto)
     if (picPaginationDto.input[0] === '#') {
       return this.picModel
         .find({ hashTags: picPaginationDto?.input })
         .sort({ creationDate: -1 })
-        .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
+        .skip(
+          Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage)
+        )
         .limit(picPaginationDto.postPerPage)
         .populate('authorPic')
         .populate('categories');
@@ -60,14 +60,44 @@ export class PicFetchService {
     return this.picModel
       .find({
         $or: [
-          { title: picPaginationDto?.input },
-          { description: picPaginationDto?.input },
+          { title: {$eq:picPaginationDto?.input} },
+          { description: {$eq:picPaginationDto?.input} },
         ],
       })
       .sort({ creationDate: -1 })
-      .skip(Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage))
-      .limit(picPaginationDto.postPerPage)
+
       .populate('authorPic')
       .populate('categories');
+  }
+
+  async picGetAlias(picture_id: string, picPaginationDto: PaginationDto): Promise<Pic[]> {
+    return await this.picModel
+      .findOne({ _id: picture_id })
+      .then(async (picture: Pic) => {
+        return await this.picModel
+          .find({
+            $and: [
+              { _id: { $ne: picture._id } },
+              {
+                $or: [
+                  { title: { $eq: picture.title } },
+                  // { description:  { $eq: picture.description } },
+                  // { authorPic: { $eq: picture.authorPic } },
+                  { categories: { $in: picture.categories } },
+                  { hashTags: { $in: picture.hashTags } },
+                ],
+              },
+            ],
+          })
+          .sort({ creationDate: -1 })
+          .skip(
+            Math.ceil(
+              picPaginationDto.currentPage * picPaginationDto.postPerPage
+            )
+          )
+          .limit(picPaginationDto.postPerPage)
+          .populate('authorPic')
+          .populate('categories');
+      });
   }
 }

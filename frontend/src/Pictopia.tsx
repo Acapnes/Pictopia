@@ -11,10 +11,7 @@ const Pictopia: React.FC<{}> = ({}) => {
   const [postPerPage, setPostPerPage] = useState<number>(20);
 
   const handleScroll = (e: any) => {
-    if (
-      e.target.scrollHeight - e.target.scrollTop <=
-      e.target.clientHeight + 5
-    ) {
+    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -49,11 +46,12 @@ const MobileFavoriteCategories: React.FC<{}> = () => {
               <span className="text-pretty-pink">*</span>
               <p className="text-gray-200 font-bold">Favorite Categories</p>
             </div>
-            <div>
-              <button className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200">
-                <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
-              </button>
-            </div>
+            <a
+              href="/edit/category"
+              className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
+            >
+              <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
+            </a>
           </div>
           <div className="w-full flex flex-row space-x-2 overflow-auto overflow-y-hidden scrollbar-hide">
             {favoriteCategories?.map(

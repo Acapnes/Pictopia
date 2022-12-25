@@ -38,6 +38,11 @@ __decorate([
     __metadata("design:type", String)
 ], Comment.prototype, "parentId", void 0);
 __decorate([
+    (0, graphql_1.Field)({ nullable: false }),
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Date)
+], Comment.prototype, "creationDate", void 0);
+__decorate([
     (0, graphql_1.Field)(() => user_schema_1.User, { nullable: true }),
     (0, mongoose_1.Prop)({
         required: false,

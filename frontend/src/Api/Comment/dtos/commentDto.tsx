@@ -3,8 +3,15 @@ import { UserDto } from "../../User/UserDtos/userDto";
 
 export interface CommentDto {
   _id?: string;
-  author: UserDto;
-  destPicture: PicDto;
+  author?: UserDto;
+  destPicture?: PicDto;
   parentId?: string;
-  comment: string;
+  comment?: string;
+  creationDate?: Date;
 }
+
+export interface CommentManagementDto {
+  _id?: string;
+  destPicture?: string;
+}
+

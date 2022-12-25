@@ -24,6 +24,10 @@ export class User {
   @Field({ nullable: false })
   @Prop({ required: true, unique: true })
   username: string;
+  
+  @Field({ nullable: false })
+  @Prop({ required: true })
+  creationDate: Date;
 
   @Field(() => PictureFile, {
     nullable: false,

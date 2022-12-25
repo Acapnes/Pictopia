@@ -1,9 +1,14 @@
+import { CommentAPI } from "../../Api/Comment/CommentApi";
 import { CommentDto } from "../../Api/Comment/dtos/commentDto";
 import { PicDto } from "../../Api/Pic/dtos/picDto";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { PrettyTrashIcon } from "../../components/Prettys/PrettyIcons";
-import { usePictureCommentStore } from "../../components/Zustand/store";
+import {
+  usePictureCommentStore,
+  useToastStore,
+} from "../../components/Zustand/store";
 import Replies from "./Replies";
 import SendReply from "./SendReply";
 
@@ -21,21 +26,21 @@ const Comments: React.FC<{
 
   return (
     <div className="w-full max-h-[30rem] overflow-auto py-2 scrollbar-hide text-gray-200">
-      {comments.length > 0 ? (
+      {comments?.length > 0 ? (
         <div className="w-full flex flex-col space-y-5">
           {comments?.map((_comment: CommentDto, _commentIndex: number) => (
             <div
               key={_commentIndex}
               className="w-full h-full flex flex-row space-x-3"
             >
-              <PrettyMediumAvatar user={_comment.author} rounded={true} />
+              <PrettyMediumAvatar user={_comment?.author!} rounded={true} />
               <div className="w-full flex flex-col space-y-3">
                 <div className="w-full h-full flex-row">
                   <a
                     href={`/user/${_comment?.author?.username}`}
                     className="font-bold hover:underline select-none"
                   >
-                    {_comment?.author.username}
+                    {_comment?.author?.username}
                   </a>
                   <span className="w-full font-normal break-all pl-2">
                     {_comment?.comment}
@@ -51,7 +56,9 @@ const Comments: React.FC<{
                     <p className="text-sm font-bold cursor-pointer">♥</p>
                     <CommentAuthorEdit
                       visitor={visitor}
-                      authorComment={_comment?.author}
+                      authorComment={_comment?.author!}
+                      destPicture={picture?._id!}
+                      commentId={_comment?._id!}
                     />
                   </div>
                 </div>
@@ -62,7 +69,12 @@ const Comments: React.FC<{
                     picture={picture}
                   />
                 )}
-                <Replies options comment={_comment} visitor={visitor} />
+                <Replies
+                  options
+                  comment={_comment}
+                  visitor={visitor}
+                  destPicture={picture?._id!}
+                />
               </div>
             </div>
           ))}
@@ -82,12 +94,30 @@ export { CommentAuthorEdit };
 const CommentAuthorEdit: React.FC<{
   visitor: UserDto;
   authorComment: UserDto;
-}> = ({ visitor, authorComment }) => {
+  destPicture: string;
+  commentId: string;
+}> = ({ visitor, authorComment, destPicture, commentId }) => {
+  
+  const setToastState = useToastStore((state: any) => state.setToastState);
+
   return (
     <>
       {visitor?._id === authorComment?._id && (
-        <button>
-          <PrettyTrashIcon size={14} fill="rgb(242, 88, 82)" />
+        <button
+          onClick={() => {
+            CommentAPI.deleteCommentOrReply(
+              window.localStorage.getItem("access_token")!,
+              {
+                _id: commentId,
+                destPicture: destPicture,
+              }
+            ).then(
+              async (RegisterResp: ReturnFuncDto) =>
+                await setToastState(RegisterResp.message)
+            );
+          }}
+        >
+          <PrettyTrashIcon size={12} fill="rgb(160, 160, 160)" />
         </button>
       )}
     </>
