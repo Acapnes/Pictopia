@@ -63,29 +63,6 @@ export class PicAccountFetchService {
       });
   }
 
-  async picSearchByCategory(
-    _id: mongoose.Types.ObjectId,
-    picPaginationDto: PaginationDto
-  ): Promise<Pic[] | any> {
-    return await this.categoryService
-      .getCategoryIdByTitle(picPaginationDto.category)
-      .then((categoryId) => {
-        return this.picModel
-          .find({
-            categories: { $in: categoryId },
-          })
-          .sort({ creationDate: -1 })
-          .skip(
-            Math.ceil(
-              picPaginationDto.currentPage * picPaginationDto.postPerPage
-            )
-          )
-          .limit(picPaginationDto.postPerPage)
-          .populate('authorPic')
-          .populate('categories');
-      });
-  }
-
   async picSearchByInput(picPaginationDto: PaginationDto): Promise<Pic[]> {
     if (picPaginationDto.input[0] === '#') {
       return this.picModel
@@ -114,13 +91,8 @@ export class PicAccountFetchService {
       .populate('categories');
   }
 
-  async picGetAlias(
-    picture_id: string,
-    picPaginationDto: PaginationDto
-  ): Promise<Pic[]> {
-    return await this.picModel
-      .findOne({ _id: picture_id })
-      .then(async (picture: Pic) => {
+  async picGetAlias(picture_id: string, picPaginationDto: PaginationDto): Promise<Pic[]> {
+    return await this.picModel.findOne({ _id: picture_id }).then(async (picture: Pic) => {
         return await this.picModel
           .find({
             $and: [

@@ -20,6 +20,7 @@ scalar DateTime
 
 type DeepLearning {
   searched: [String!]
+  recentlyViewed: [String!]
 }
 
 type SecuritySettings {

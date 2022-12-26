@@ -9,7 +9,6 @@ import {
   PrettyUploadIcon,
 } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
-import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { useToastStore } from "../../components/Zustand/store";
 import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
 import { HashtagAppend } from "./components/Hashtags";

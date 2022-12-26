@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
 const pagination_dto_1 = require("../../dto/pic/pagination.dto");
-const search_interceptor_1 = require("../../helpers/interceptors/search.interceptor");
 const pic_fetch_service_1 = require("./pic.fetch.service");
 const pic_service_1 = require("./pic.service");
 let PicController = class PicController {
@@ -101,7 +100,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "searchInPicturesByCategory", null);
 __decorate([
-    (0, common_1.UseInterceptors)(search_interceptor_1.SearchInterceptor),
     (0, common_1.Post)('/search'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

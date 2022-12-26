@@ -49,7 +49,6 @@ export class PicController {
     return await this.picFetchService.picSearchByCategory(picPaginationDto)
   }
 
-  @UseInterceptors(SearchInterceptor)
   @Post('/search')
   async searchInPicturesByInput(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
     return await this.picFetchService.picSearchByInput(picPaginationDto)

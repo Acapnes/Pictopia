@@ -8,6 +8,7 @@ import { Pic } from 'src/schemas/pic.schema';
 import { PicService } from '../pic.service';
 import { PicAccountFetchService } from './pic.account.fetch.service';
 import { PicAccountService } from './pic.account.service';
+import { SearchInterceptor } from 'src/helpers/interceptors/search.interceptor';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('/pics/account')
@@ -21,11 +22,6 @@ export class PicAccountController {
   @Get()
   async getPics(): Promise<Pic[]> {
     return this.picsService.findAll();
-  }
-
-  @Post()
-  async getPicsByPagination(@Req() req, @Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
-    return this.picAccountFetchService.picSearchByCategory(req.user._id,picPaginationDto);
   }
 
   @Get('/pretty/:id')
@@ -51,11 +47,7 @@ export class PicAccountController {
     return await this.picAccountFetchService.getPicturesByExplore(req.user._id, picPaginationDto)
   }
 
-  @Post('/category')
-  async searchInPicturesByCategory(@Req() req, @Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
-    return await this.picAccountFetchService.picSearchByCategory(req.user._id, picPaginationDto)
-  }
-
+  @UseInterceptors(SearchInterceptor)
   @Post('/search')
   async searchInPicturesByInput(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
     return await this.picAccountFetchService.picSearchByInput(picPaginationDto)

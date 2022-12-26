@@ -10,6 +10,10 @@ export class DeepLearning {
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], default: [] })
   searched: string[];
+
+  @Field(() => [String], { nullable: true })
+  @Prop({ type: [String], default: [] })
+  recentlyViewed: string[];
 }
 
 export const SecuritySettingsSchema =
