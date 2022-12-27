@@ -28,8 +28,8 @@ const user_service_1 = require("./user.service");
 const comment_schema_1 = require("../../schemas/comment.schema");
 const user_comment_service_1 = require("./account/user.comment.service");
 const avatar_service_1 = require("./moderation/avatar.service");
-const management_service_1 = require("./moderation/management/management.service");
-const management_controller_1 = require("./moderation/management/management.controller");
+const management_service_1 = require("./management/management.service");
+const management_controller_1 = require("./management/management.controller");
 let UserModule = class UserModule {
     configure(consumer) { }
 };

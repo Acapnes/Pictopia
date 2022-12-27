@@ -13,7 +13,7 @@ exports.PicSchema = exports.Pic = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
+const picture_file_schema_1 = require("./altSchemas/utils/picture.file.schema");
 const category_schema_1 = require("./category.schema");
 const user_schema_1 = require("./user.schema");
 let Pic = class Pic {

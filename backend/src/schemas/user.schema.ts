@@ -1,10 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { PictureFile } from './altSchemas/picture.file.schema';
-import { DeepLearning } from './altSchemas/user.learn.schema';
-import { SecuritySettings } from './altSchemas/user.security.schema';
-import { UserSocials } from './altSchemas/user.socials.schema';
+import { PictureFile } from './altSchemas/utils/picture.file.schema';
+import { DeepLearning } from './altSchemas/user/user.learn.schema';
+import { SecuritySettings } from './altSchemas/user/user.security.schema';
+import { UserSocials } from './altSchemas/user/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 
@@ -24,7 +24,7 @@ export class User {
   @Field({ nullable: false })
   @Prop({ required: true, unique: true })
   username: string;
-  
+
   @Field({ nullable: false })
   @Prop({ required: true })
   creationDate: Date;
@@ -58,7 +58,12 @@ export class User {
   };
 
   @Field(() => [Pic], { nullable: false })
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Pic', required: false })
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Pic',
+    required: false,
+    default: [],
+  })
   savedPictures: Pic[];
 
   @Prop({
@@ -69,16 +74,25 @@ export class User {
   })
   favCategories: Category[];
 
+  @Field(() => [User], { nullable: false })
+  @Prop({
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User',
+    required: false,
+    default: [],
+  })
+  blockedUsers: User[];
+
   @Field(() => DeepLearning, { nullable: true })
-  @Prop({ type: Object, required: false, default: new DeepLearning })
+  @Prop({ type: Object, required: false, default: new DeepLearning()})
   deepLearning: DeepLearning;
 
   @Field(() => UserSocials, { nullable: true })
-  @Prop({ type: Object, required: false, default: new UserSocials })
+  @Prop({ type: Object, required: false, default: new UserSocials() })
   userSocials: UserSocials;
 
   @Field(() => SecuritySettings, { nullable: true })
-  @Prop({ type: Object, required: false, default: new SecuritySettings })
+  @Prop({ type: Object, required: false, default: new SecuritySettings() })
   settings: SecuritySettings;
 
   @Field({ nullable: true })

@@ -100,7 +100,7 @@ export class ManagementService {
       });
   }
 
-  async deleteUserAndConnections(_id: mongoose.Types.ObjectId | any, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto | any> {
+  async deleteUserAndConnections(_id: mongoose.Types.ObjectId | any, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
     return await this.userModel
       .findOneAndDelete({ _id: _id })
       .then(async () => {
@@ -135,6 +135,28 @@ export class ManagementService {
         { _id: _id },
         {
           settings: userUpdateDto.settings,
+        }
+      )
+      .then(async () => {
+        return {
+          success: true,
+          message: 'Your settings has been updated!',
+        };
+      })
+      .catch(() => {
+        return {
+          success: false,
+          message: 'Something went wrong! ',
+        };
+      });
+  }
+
+  async userBlocking(_id: mongoose.Types.ObjectId, userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
+    return await this.userModel
+      .findOneAndUpdate(
+        { _id: _id },
+        {
+          blockedUsers: userUpdateDto.settings,
         }
       )
       .then(async () => {

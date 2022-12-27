@@ -72,6 +72,10 @@ __decorate([
     __metadata("design:type", Array)
 ], UserDto.prototype, "savedPictures", void 0);
 __decorate([
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], UserDto.prototype, "blockedUsers", void 0);
+__decorate([
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
 ], UserDto.prototype, "deepLearning", void 0);

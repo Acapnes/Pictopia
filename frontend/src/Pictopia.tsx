@@ -1,6 +1,6 @@
 import Header from "./Menus/Header";
 import React, { Suspense, useState } from "react";
-import { usePictopiaDNDStore } from "./components/Zustand/store";
+import { usePictopiaAccountStore } from "./components/Zustand/store";
 import { CategoryDto } from "./Api/User/CategoryDtos/category.dto";
 import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
@@ -33,7 +33,7 @@ const Pictopia: React.FC<{}> = ({}) => {
 export default Pictopia;
 
 const MobileFavoriteCategories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaDNDStore(
+  const favoriteCategories = usePictopiaAccountStore(
     (state: any) => state.favoriteCategories
   );
 
@@ -47,7 +47,7 @@ const MobileFavoriteCategories: React.FC<{}> = () => {
               <p className="text-gray-200 font-bold">Favorite Categories</p>
             </div>
             <a
-              href="/edit/category"
+              href="/edit/usage"
               className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
             >
               <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />

@@ -37,7 +37,10 @@ export class UserManagementController {
   }
 
   @Post('/update/settings')
-  async userSettingsUpdate(@Request() req,@Body() userUpdateDto: UserUpdateDto): Promise<ReturnFuncDto> {
+  async userSettingsUpdate(
+    @Request() req,
+    @Body() userUpdateDto: UserUpdateDto
+  ): Promise<ReturnFuncDto> {
     return this.managementService.updateSettings(req.user._id, userUpdateDto);
   }
 
@@ -46,6 +49,20 @@ export class UserManagementController {
     @Request() req,
     @Body() userUpdateDto: UserUpdateDto
   ): Promise<ReturnFuncDto> {
-    return this.managementService.deleteUserAndConnections("634aca571b8e997cd895c3e7", userUpdateDto);
+    return this.managementService.deleteUserAndConnections(
+      '634aca571b8e997cd895c3e7',
+      userUpdateDto
+    );
+  }
+
+  @Post('/block')
+  async userBlocking(
+    @Request() req,
+    @Body() userUpdateDto: UserUpdateDto
+  ): Promise<ReturnFuncDto> {
+    return this.managementService.userBlocking(
+      req.user._id,
+      userUpdateDto
+    );
   }
 }

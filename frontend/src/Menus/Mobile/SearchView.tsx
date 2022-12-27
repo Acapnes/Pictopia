@@ -4,7 +4,7 @@ import { UserDto } from "../../Api/User/UserDtos/userDto";
 import Header from "../Header";
 import { SearchMenuUsersGrid, SearchResults } from "../Search/SearchBar";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
-import { usePictopiaDNDStore } from "../../components/Zustand/store";
+import { usePictopiaAccountStore } from "../../components/Zustand/store";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { PrettyPenIcon } from "../../components/Prettys/PrettyIcons";
 
@@ -100,7 +100,7 @@ const SearchResultMenu: React.FC<{
 };
 
 const Categories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaDNDStore(
+  const favoriteCategories = usePictopiaAccountStore(
     (state: any) => state.favoriteCategories
   );
 
@@ -112,7 +112,7 @@ const Categories: React.FC<{}> = () => {
           <p className="text-gray-200 font-bold">Favorite Categories</p>
         </div>
         <a
-          href="/edit/category/"
+          href="/edit/usage"
           className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
         >
           <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />

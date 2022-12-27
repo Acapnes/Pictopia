@@ -49,7 +49,6 @@ export class PicAccountFetchService {
           .populate('authorPic')
           .populate('categories').then(pictures => {
             allPictures.push(...pictures)
-            console.log(allPictures.length)
             if (pictures.length < 20) {
               return this.picModel
                 .find({ _id: { $nin: allPictures.map(picture => picture._id)}})

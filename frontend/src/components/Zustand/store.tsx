@@ -2,29 +2,52 @@ import create from "zustand";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { CommentDto } from "../../Api/Comment/dtos/commentDto";
 
-interface usePictopiaDNDState {
+interface usePictopiaAccountState {
   draggingNumber: number | null; /// 0 -> default to favorite | 1 -> favorite to default IS DRAGGING
   defaultCategories: CategoryDto[];
   favoriteCategories: CategoryDto[];
+  recentlySearches: string[];
 }
 
-export const usePictopiaDNDStore = create<usePictopiaDNDState>((set) => ({
-  defaultCategories: [],
-  favoriteCategories: [],
-  draggingNumber: null,
+export const usePictopiaAccountStore = create<usePictopiaAccountState>(
+  (set) => ({
+    draggingNumber: null,
+    defaultCategories: [],
+    favoriteCategories: [],
+    recentlySearches: [],
 
-  setDraggingNumber: (_draggingNumber: number) => {
-    set(() => ({ draggingNumber: _draggingNumber }));
-  },
+    setInitialAccountValues: (
+      _defaultCategories: CategoryDto[],
+      _favoriteCategories: CategoryDto[],
+      _recentlySearches: string[]
+    ) => {
+      set(() => ({
+        defaultCategories: _defaultCategories,
+        favoriteCategories: _favoriteCategories,
+        recentlySearches: _recentlySearches,
+      }));
+    },
 
-  setDefaultCategories: (_defaultCategories: CategoryDto[]) => {
-    set(() => ({ defaultCategories: _defaultCategories }));
-  },
+    setDraggingNumber: (_draggingNumber: number) => {
+      set(() => ({ draggingNumber: _draggingNumber }));
+    },
 
-  setFavoriteCategories: (_category: CategoryDto[], _categoryIndex: number) => {
-    set(() => ({ favoriteCategories: _category }));
-  },
-}));
+    setDefaultCategories: (_defaultCategories: CategoryDto[]) => {
+      set(() => ({ defaultCategories: _defaultCategories }));
+    },
+
+    setFavoriteCategories: (
+      _category: CategoryDto[],
+      _categoryIndex: number
+    ) => {
+      set(() => ({ favoriteCategories: _category }));
+    },
+
+    setRecentlySearches: (_recentlySearches: string[]) => {
+      set(() => ({ recentlySearches: _recentlySearches }));
+    },
+  })
+);
 
 interface useToastState {
   toastState: boolean;

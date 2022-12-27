@@ -1,8 +1,8 @@
 /// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
-import { DeepLearning } from './altSchemas/user.learn.schema';
-import { SecuritySettings } from './altSchemas/user.security.schema';
-import { UserSocials } from './altSchemas/user.socials.schema';
+import { DeepLearning } from './altSchemas/user/user.learn.schema';
+import { SecuritySettings } from './altSchemas/user/user.security.schema';
+import { UserSocials } from './altSchemas/user/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 export declare type UserDocument = User & Document;
@@ -21,6 +21,7 @@ export declare class User {
     };
     savedPictures: Pic[];
     favCategories: Category[];
+    blockedUsers: User[];
     deepLearning: DeepLearning;
     userSocials: UserSocials;
     settings: SecuritySettings;

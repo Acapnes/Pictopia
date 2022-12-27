@@ -12,7 +12,7 @@ import Profile from "./User/Moderation/Profile";
 import PictureEdit from "./Picture/Management/Edit/PictureEdit";
 import PictureReport from "./Picture/Management/Report/PictureReport";
 import SearchView from "./Menus/Mobile/SearchView";
-import ExtendedCategoryEdit from "./Picture/Management/Edit/ExtendedCategoryEdit";
+import AccountUsageEdit from "./Picture/Management/Edit/AccountUsageEdit";
 import { CustomToast, Notfound, SuspenseVeiw } from "./components/Prettys/PrettyViews";
 import { RouteGuard } from "./components/Prettys/PrettyHelpers";
 
@@ -45,7 +45,7 @@ root.render(
           <Route path="/profile/*" element={<Profile />} />
           <Route path="/upload" element={<UploadPic />} />
           <Route path="/edit/picture/:id" element={<PictureEdit />} />
-          <Route path="/edit/category/" element={<ExtendedCategoryEdit />} />
+          <Route path="/edit/usage/" element={<AccountUsageEdit />} />
         </Route>
         {/* AuthGuard */}
 

@@ -19,8 +19,8 @@ import { UserService } from './user.service';
 import { Comment, CommentSchema } from 'src/schemas/comment.schema';
 import { UserCommentervice } from './account/user.comment.service';
 import { AvatarService } from './moderation/avatar.service';
-import { ManagementService } from './moderation/management/management.service';
-import { UserManagementController } from './moderation/management/management.controller';
+import { ManagementService } from './management/management.service';
+import { UserManagementController } from './management/management.controller';
 
 @Module({
   imports: [

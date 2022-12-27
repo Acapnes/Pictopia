@@ -6,21 +6,21 @@ import {
   PrettyPenIcon,
   PrettySmallArrowUpIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { usePictopiaDNDStore } from "../../../components/Zustand/store";
+import { usePictopiaAccountStore } from "../../../components/Zustand/store";
 const FavoriteCategories: React.FC<{
   favoriteCategories: CategoryDto[];
   user: UserDto;
 }> = ({ favoriteCategories, user }) => {
-  const setFavoriteCategories = usePictopiaDNDStore(
+  const setFavoriteCategories = usePictopiaAccountStore(
     (state: any) => state.setFavoriteCategories
   );
-  const defaultCategories = usePictopiaDNDStore(
+  const defaultCategories = usePictopiaAccountStore(
     (state: any) => state.defaultCategories
   );
-  const setDraggingNumber = usePictopiaDNDStore(
+  const setDraggingNumber = usePictopiaAccountStore(
     (state: any) => state.setDraggingNumber
   );
-  const draggingNumber = usePictopiaDNDStore(
+  const draggingNumber = usePictopiaAccountStore(
     (state: any) => state.draggingNumber
   );
 
@@ -35,7 +35,7 @@ const FavoriteCategories: React.FC<{
                 <p className="text-gray-200 font-bold">Favorite Categories</p>
               </div>
               <a
-                href="/edit/category"
+                href="/edit/usage"
                 className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
               >
                 <PrettyPenIcon size={14} fill="rgb(244, 114, 182)" />

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategorySchema = exports.Category = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
-const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
+const picture_file_schema_1 = require("./altSchemas/utils/picture.file.schema");
 let Category = class Category {
 };
 __decorate([

@@ -5,26 +5,28 @@ import {
   PrettyHelpIcon,
   PrettySquareFilledAddIcon,
   PrettyTrashIcon,
+  PrettyXIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { usePictopiaDNDStore } from "../../../components/Zustand/store";
+import { usePictopiaAccountStore } from "../../../components/Zustand/store";
 import Header from "../../../Menus/Header";
 
-const CategoryEdit: React.FC<{}> = () => {
+const AccountUsageEdit: React.FC<{}> = () => {
   return (
     <div className="min-h-screen h-full bg-soft-black">
       <Header />
-      <div className="flex flex-col space-y-3 lg:flex-row lg:space-y-0 lg:space-x-3 p-3">
+      <div className="w-full grid grid-cols-1 gap-3 lg:grid-cols-2 p-3">
         <FavoriteMapping />
         <SearchCategoriesMapping />
+        <EditLastSearches />
       </div>
     </div>
   );
 };
 
-export default CategoryEdit;
+export default AccountUsageEdit;
 
 const FavoriteMapping: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaDNDStore(
+  const favoriteCategories = usePictopiaAccountStore(
     (state: any) => state.favoriteCategories
   );
 
@@ -47,7 +49,7 @@ const FavoriteMapping: React.FC<{}> = () => {
 };
 
 const SearchCategoriesMapping: React.FC<{}> = ({}) => {
-  const defaultCategories = usePictopiaDNDStore(
+  const defaultCategories = usePictopiaAccountStore(
     (state: any) => state.defaultCategories
   );
   const [categorySearchInput, setCategorySearchInput] = useState<string>("");
@@ -103,19 +105,19 @@ const CategoryMapping: React.FC<{
   graident?: string;
   AddOrRemove?: boolean;
 }> = ({ categories, icon, graident, AddOrRemove }) => {
-  const setDefaultCategories = usePictopiaDNDStore(
+  const setDefaultCategories = usePictopiaAccountStore(
     (state: any) => state.setDefaultCategories
   );
 
-  const defaultCategories = usePictopiaDNDStore(
+  const defaultCategories = usePictopiaAccountStore(
     (state: any) => state.defaultCategories
   );
 
-  const favoriteCategories = usePictopiaDNDStore(
+  const favoriteCategories = usePictopiaAccountStore(
     (state: any) => state.favoriteCategories
   );
 
-  const setFavoriteCategories = usePictopiaDNDStore(
+  const setFavoriteCategories = usePictopiaAccountStore(
     (state: any) => state.setFavoriteCategories
   );
 
@@ -169,6 +171,39 @@ const CategoryMapping: React.FC<{
           </div>
         </div>
       ))}
+    </div>
+  );
+};
+
+const EditLastSearches: React.FC<{}> = () => {
+  const recentlySearches = usePictopiaAccountStore<string[]>(
+    (state: any) => state.recentlySearches
+  );
+
+  return (
+    <div className="w-full flex flex-col space-y-1">
+      <div className="flex flex-col space-y-0.5">
+        <div className="flex flex-row space-x-1 text-gray-200 font-bold items-center">
+          <PrettyHelpIcon />
+          <p>Recently Searches</p>
+        </div>
+        <p className="text-sm text-gray-400 pl-5">
+          Pictopia determines the images it will recommend to you based on your
+          recent searches.
+        </p>
+      </div>
+
+      <div className="w-full flex flex-col space-y-1.5">
+        {recentlySearches?.map((search: string, searchIndex: number) => (
+          <div
+            key={searchIndex}
+            className="flex flex-row space-x-5 items-center px-1.5 justify-between border-b-[1.5px] border-extra-light-soft-black"
+          >
+            <p className="text-gray-200">{search}</p>
+            <PrettyXIcon size={14} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -45,7 +45,6 @@ export class PicFetchService {
   }
 
   async picSearchByInput(picPaginationDto: PaginationDto): Promise<Pic[]> {
-    console.log(picPaginationDto)
     if (picPaginationDto.input[0] === '#') {
       return this.picModel
         .find({ hashTags: picPaginationDto?.input })

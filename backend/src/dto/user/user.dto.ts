@@ -12,6 +12,7 @@ import {
 import mongoose from 'mongoose';
 import { Category } from 'src/schemas/category.schema';
 import { Pic } from 'src/schemas/pic.schema';
+import { User } from 'src/schemas/user.schema';
 
 export class UserDto {
   @IsMongoId()
@@ -62,6 +63,9 @@ export class UserDto {
 
   @IsArray()
   savedPictures: Pic[];
+
+  @IsArray()
+  blockedUsers: User[];
 
   @IsObject()
   deepLearning: {

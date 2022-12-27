@@ -8,17 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var User_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const picture_file_schema_1 = require("./altSchemas/picture.file.schema");
-const user_learn_schema_1 = require("./altSchemas/user.learn.schema");
-const user_security_schema_1 = require("./altSchemas/user.security.schema");
-const user_socials_schema_1 = require("./altSchemas/user.socials.schema");
+const picture_file_schema_1 = require("./altSchemas/utils/picture.file.schema");
+const user_learn_schema_1 = require("./altSchemas/user/user.learn.schema");
+const user_security_schema_1 = require("./altSchemas/user/user.security.schema");
+const user_socials_schema_1 = require("./altSchemas/user/user.socials.schema");
 const pic_schema_1 = require("./pic.schema");
-let User = class User {
+let User = User_1 = class User {
 };
 __decorate([
     (0, graphql_1.Field)({ nullable: true }),
@@ -66,7 +67,12 @@ __decorate([
 ], User.prototype, "profile_background", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [pic_schema_1.Pic], { nullable: false }),
-    (0, mongoose_1.Prop)({ type: [mongoose_2.default.Schema.Types.ObjectId], ref: 'Pic', required: false }),
+    (0, mongoose_1.Prop)({
+        type: [mongoose_2.default.Schema.Types.ObjectId],
+        ref: 'Pic',
+        required: false,
+        default: [],
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "savedPictures", void 0);
 __decorate([
@@ -79,18 +85,28 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "favCategories", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => [User_1], { nullable: false }),
+    (0, mongoose_1.Prop)({
+        type: [mongoose_2.default.Schema.Types.ObjectId],
+        ref: 'User',
+        required: false,
+        default: [],
+    }),
+    __metadata("design:type", Array)
+], User.prototype, "blockedUsers", void 0);
+__decorate([
     (0, graphql_1.Field)(() => user_learn_schema_1.DeepLearning, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_learn_schema_1.DeepLearning }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_learn_schema_1.DeepLearning() }),
     __metadata("design:type", user_learn_schema_1.DeepLearning)
 ], User.prototype, "deepLearning", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_socials_schema_1.UserSocials, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_socials_schema_1.UserSocials }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_socials_schema_1.UserSocials() }),
     __metadata("design:type", user_socials_schema_1.UserSocials)
 ], User.prototype, "userSocials", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_security_schema_1.SecuritySettings, { nullable: true }),
-    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_security_schema_1.SecuritySettings }),
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_security_schema_1.SecuritySettings() }),
     __metadata("design:type", user_security_schema_1.SecuritySettings)
 ], User.prototype, "settings", void 0);
 __decorate([
@@ -108,7 +124,7 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
-User = __decorate([
+User = User_1 = __decorate([
     (0, mongoose_1.Schema)(),
     (0, graphql_1.ObjectType)()
 ], User);

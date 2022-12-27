@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
+  PrettyCheckIcon,
   PrettyCompassIcon,
   PrettyErrorIcon,
+  PrettyHelpIcon,
+  PrettyPenIcon,
   PrettyProfileIcon,
   PrettySearchIcon,
   PrettySignIcon,
   PrettySmallArrowUpIcon,
+  PrettyXIcon,
 } from "../../components/Prettys/PrettyIcons";
 import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
 import { CategoryAPI } from "../../Api/User/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import { usePictopiaDNDStore } from "../../components/Zustand/store";
+import { usePictopiaAccountStore } from "../../components/Zustand/store";
 import DefaultCategories from "./Category/DefaultCategories";
 import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
@@ -26,39 +30,39 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
     setSearchedUsers(await UserAPI.findUserByUsername(username));
   };
 
-  const setDefaultCategories = usePictopiaDNDStore(
+  const setDefaultCategories = usePictopiaAccountStore(
     (state: any) => state.setDefaultCategories
   );
-  const setFavoriteCategories = usePictopiaDNDStore(
-    (state: any) => state.setFavoriteCategories
-  );
 
-  const FetchCategories = async () => {
-    window.localStorage.getItem("access_token");
-    if (window.localStorage.getItem("access_token")) {
-      setFavoriteCategories(
-        await CategoryAPI.getUserFavoriteCategories(
-          window.localStorage.getItem("access_token")!
-        )
-      );
-      setDefaultCategories(
-        await CategoryAPI.getAllCategoriesByDevidedUserFavorites(
-          window.localStorage.getItem("access_token")!
-        )
-      );
-    } else {
-      setDefaultCategories(await CategoryAPI.getAllCategories());
-    }
-  };
+  const setInitialAccountValues = usePictopiaAccountStore(
+    (state: any) => state.setInitialAccountValues
+  );
 
   useEffect(() => {
-    FetchCategories();
+    (async () => {
+      if (window.localStorage.getItem("access_token")) {
+        setInitialAccountValues(
+          await CategoryAPI.getAllCategoriesByDevidedUserFavorites(
+            window.localStorage.getItem("access_token")!
+          ),
+          await CategoryAPI.getUserFavoriteCategories(
+            window.localStorage.getItem("access_token")!
+          ),
+          await AccountAPI.GetUsersLastSearchedList(
+            window.localStorage.getItem("access_token")!
+          )
+        );
+      } else {
+        setDefaultCategories(await CategoryAPI.getAllCategories());
+      }
+    })();
   }, []);
 
-  const defaultCategories = usePictopiaDNDStore<CategoryDto[]>(
+  const defaultCategories = usePictopiaAccountStore<CategoryDto[]>(
     (state: any) => state.defaultCategories
   );
-  const favoriteCategories = usePictopiaDNDStore<CategoryDto[]>(
+
+  const favoriteCategories = usePictopiaAccountStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
 
@@ -303,44 +307,43 @@ const SearchMenuUsersGrid: React.FC<{
 };
 
 const LastSearchs: React.FC<{}> = () => {
-  const [lastSearches, setLastSearches] = useState<UserDto["lastSearched"]>([]);
-
-  const getLastSearches = async () => {
-    if (window.localStorage.getItem("access_token")) {
-      setLastSearches(
-        await AccountAPI.GetUsersLastSearchedList(
-          window.localStorage.getItem("access_token")!
-        )
-      );
-    }
-  };
-
-  useEffect(() => {
-    getLastSearches();
-  }, []);
+  const recentlySearches = usePictopiaAccountStore<string[]>(
+    (state: any) => state.recentlySearches
+  );
 
   return (
     <>
-      {lastSearches.length > 0 && (
-        <div className="flex flex-wrap items-center h-fit pb-1.5 px-1.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
-          {lastSearches.map((search, searchIndex) => (
-            <div
-              key={searchIndex}
-              className="bg-slate-800 rounded-sm mx-1.5 mb-1.5 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-sm text-center duration-300"
-            >
-              <a
-                href={
-                  search[0] === "#"
-                    ? `/search/tags/${search.slice(1, search.length)}`
-                    : `/search/${search}`
-                }
+      {recentlySearches.length > 0 && (
+        <div className="flex flex-col space-y-1">
+          <div className="flex flex-row space-x-1 items-center">
+            <PrettyHelpIcon />
+            <p className="text-gray-200 font-bold">Recently Searched</p>
+            <a href="/edit/usage" className="pl-1">
+              <PrettyPenIcon size={12} fill="rgb(244,114,182)" />
+            </a>
+          </div>
+          <div className="w-full flex flex-wrap items-center h-fit pb-1.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
+            {recentlySearches.map((search: string, searchIndex: number) => (
+              <div
+                key={searchIndex}
+                className="bg-slate-800 rounded-sm mr-1.5 mb-1 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-sm text-center duration-300"
               >
-                <div className="px-2.5 py-2">
-                  <span>{search}</span>
+                <div className="flex flex-row space-x-2 px-1.5 py-1">
+                  <a
+                    href={
+                      search[0] === "#"
+                        ? `/search/tags/${search.slice(1, search.length)}`
+                        : `/search/${search}`
+                    }
+                  >
+                    <div className="">
+                      <span>{search}</span>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>

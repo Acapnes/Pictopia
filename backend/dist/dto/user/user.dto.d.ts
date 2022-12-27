@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 import { Category } from 'src/schemas/category.schema';
 import { Pic } from 'src/schemas/pic.schema';
+import { User } from 'src/schemas/user.schema';
 export declare class UserDto {
     _id: mongoose.Types.ObjectId;
     name: string;
@@ -20,6 +21,7 @@ export declare class UserDto {
     };
     favCategories: Category[];
     savedPictures: Pic[];
+    blockedUsers: User[];
     deepLearning: {
         searched: string[];
     };
