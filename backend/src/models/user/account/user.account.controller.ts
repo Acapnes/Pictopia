@@ -19,16 +19,29 @@ import { UserCategoryService } from './user.category.service';
 import { UserCommentervice } from './user.comment.service';
 import { PrivateGuard } from 'src/helpers/guards/private.guard';
 import { PaginationDto } from 'src/dto/pic/pagination.dto';
+import { UserService } from '../user.service';
+import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
+import { UserAccountService } from './user.account.service';
+import { User } from 'src/schemas/user.schema';
 
 @Controller('/user/account')
 export class UserAccountController {
   constructor(
     private userPictureService: UserPictureService,
     private userCategoryService: UserCategoryService,
-    private userCommentervice: UserCommentervice
+    private userCommentervice: UserCommentervice,
+    private userAccountService: UserAccountService
   ) {}
 
-  @UseGuards(PrivateGuard)
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/credentials')
+  async fetchUserCredentials(
+    @Request() req
+  ): Promise<UserCredentialsDto | ReturnFuncDto> {
+    return this.userAccountService.fetchUserCredentialsWithToken(req.user);
+  }
+
+  // @UseGuards(PrivateGuard)
   @Post('/posted')
   async getUsersPostedPictures(@Body() userPostedPagination: PaginationDto) {
     return this.userPictureService.getUsersPostedPictures(userPostedPagination);
@@ -36,8 +49,12 @@ export class UserAccountController {
 
   @UseGuards(PrivateGuard)
   @Post('/saved')
-  async getOneUser(@Body() userPostedPagination: PaginationDto): Promise<ReturnFuncDto | Pic[]> {
-    return this.userPictureService.findUserAndPopulateSavedPics(userPostedPagination);
+  async getOneUser(
+    @Body() userPostedPagination: PaginationDto
+  ): Promise<ReturnFuncDto | Pic[]> {
+    return this.userPictureService.findUserAndPopulateSavedPics(
+      userPostedPagination
+    );
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -113,5 +130,17 @@ export class UserAccountController {
     @Body() userFindDto: UserFindDto
   ): Promise<ReturnFuncDto | Pic[]> {
     return this.userCommentervice.findUserGetComments(userFindDto);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('recently/searched')
+  async getUsersSearchedList(@Request() req): Promise<User['deepLearning']['lastSearches']> {
+    return this.userAccountService.getUsersLastSearchedList(req.user._id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('recently/searched/delete')
+  async deleteUsersSearched(@Request() req, @Body() searchText: any): Promise<ReturnFuncDto> {
+    return this.userAccountService.deleteFromLastSearches(req.user._id, searchText.searchText);
   }
 }

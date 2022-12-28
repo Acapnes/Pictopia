@@ -33,18 +33,18 @@ export class SearchInterceptor implements NestInterceptor {
             await this.userModel.findOneAndUpdate(
               { _id: user?._id },
               {
-                $addToSet: { 'deepLearning.searched': req?.input },
+                $addToSet: { 'deepLearning.lastSearches': req?.input },
               }
             );
             await this.userModel
               .findOne({ _id: user?._id })
               .then(async (findedUser: UserDto & User) => {
-                if (findedUser?.deepLearning?.searched.length >= 12) {
+                if (findedUser?.deepLearning?.lastSearches.length >= 12) {
                   await this.userModel.findOneAndUpdate(
                     { _id: user?._id },
                     {
                       $pop: {
-                        'deepLearning.searched': -1,
+                        'deepLearning.lastSearches': -1,
                       },
                     }
                   );

@@ -21,6 +21,7 @@ import { UserCommentervice } from './account/user.comment.service';
 import { AvatarService } from './moderation/avatar.service';
 import { ManagementService } from './management/management.service';
 import { UserManagementController } from './management/management.controller';
+import { UserAccountService } from './account/user.account.service';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { UserManagementController } from './management/management.controller';
     UserPictureService,
     UserCategoryService,
     UserCommentervice,
+    UserAccountService,
     AvatarService,
     ManagementService,
     UserResolver,

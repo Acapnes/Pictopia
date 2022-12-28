@@ -14,24 +14,20 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
 const user_find_dto_1 = require("../../dto/user/user.find.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
-    constructor(usersService) {
-        this.usersService = usersService;
+    constructor(userService) {
+        this.userService = userService;
     }
     async getUsers() {
-        return this.usersService.findAll();
+        return this.userService.findAll();
     }
     async getUserProfileVeriables(username) {
-        return this.usersService.findOneByUsername(username);
+        return this.userService.findOneByUsername(username);
     }
     async userFindByUsername(UserFindDto) {
-        return this.usersService.findByLikeUsername(UserFindDto.username);
-    }
-    async getUsersSearchedList(req) {
-        return this.usersService.getUsersLastSearchedList(req.user._id);
+        return this.userService.findByLikeUsername(UserFindDto.username);
     }
 };
 __decorate([
@@ -54,14 +50,6 @@ __decorate([
     __metadata("design:paramtypes", [user_find_dto_1.UserFindDto]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "userFindByUsername", null);
-__decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Get)('/searched/last'),
-    __param(0, (0, common_1.Req)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "getUsersSearchedList", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

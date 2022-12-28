@@ -23,6 +23,12 @@ export declare class UserDto {
     savedPictures: Pic[];
     blockedUsers: User[];
     deepLearning: {
-        searched: string[];
+        lastSearches: string[];
     };
+    userSocials: userSocialsInterface[];
+}
+export declare class userSocialsInterface {
+    index: number;
+    platform: string;
+    url: string;
 }

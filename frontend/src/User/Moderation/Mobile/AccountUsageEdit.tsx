@@ -1,13 +1,18 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { CategoryAPI } from "../../../Api/User/CategoryApi";
-import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { AccountAPI } from "../../../Api/User/AccountApi";
+import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
+import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
+import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import {
   PrettyHelpIcon,
   PrettySquareFilledAddIcon,
   PrettyTrashIcon,
   PrettyXIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { usePictopiaAccountStore } from "../../../components/Zustand/store";
+import {
+  usePictopiaPublicAccountStore,
+  useToastStore,
+} from "../../../components/Zustand/store";
 import Header from "../../../Menus/Header";
 
 const AccountUsageEdit: React.FC<{}> = () => {
@@ -26,7 +31,7 @@ const AccountUsageEdit: React.FC<{}> = () => {
 export default AccountUsageEdit;
 
 const FavoriteMapping: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaAccountStore(
+  const favoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.favoriteCategories
   );
 
@@ -49,7 +54,7 @@ const FavoriteMapping: React.FC<{}> = () => {
 };
 
 const SearchCategoriesMapping: React.FC<{}> = ({}) => {
-  const defaultCategories = usePictopiaAccountStore(
+  const defaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.defaultCategories
   );
   const [categorySearchInput, setCategorySearchInput] = useState<string>("");
@@ -105,19 +110,19 @@ const CategoryMapping: React.FC<{
   graident?: string;
   AddOrRemove?: boolean;
 }> = ({ categories, icon, graident, AddOrRemove }) => {
-  const setDefaultCategories = usePictopiaAccountStore(
+  const setDefaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setDefaultCategories
   );
 
-  const defaultCategories = usePictopiaAccountStore(
+  const defaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.defaultCategories
   );
 
-  const favoriteCategories = usePictopiaAccountStore(
+  const favoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.favoriteCategories
   );
 
-  const setFavoriteCategories = usePictopiaAccountStore(
+  const setFavoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setFavoriteCategories
   );
 
@@ -176,34 +181,50 @@ const CategoryMapping: React.FC<{
 };
 
 const EditLastSearches: React.FC<{}> = () => {
-  const recentlySearches = usePictopiaAccountStore<string[]>(
-    (state: any) => state.recentlySearches
+  const lastSearches = usePictopiaPublicAccountStore<string[]>(
+    (state: any) => state.lastSearches
   );
+  const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (
-    <div className="w-full flex flex-col space-y-1">
-      <div className="flex flex-col space-y-0.5">
-        <div className="flex flex-row space-x-1 text-gray-200 font-bold items-center">
-          <PrettyHelpIcon />
-          <p>Recently Searches</p>
-        </div>
-        <p className="text-sm text-gray-400 pl-5">
-          Pictopia determines the images it will recommend to you based on your
-          recent searches.
-        </p>
-      </div>
-
-      <div className="w-full flex flex-col space-y-1.5">
-        {recentlySearches?.map((search: string, searchIndex: number) => (
-          <div
-            key={searchIndex}
-            className="flex flex-row space-x-5 items-center px-1.5 justify-between border-b-[1.5px] border-extra-light-soft-black"
-          >
-            <p className="text-gray-200">{search}</p>
-            <PrettyXIcon size={14} />
+    <>
+      {lastSearches?.length > 0 && (
+        <div className="w-full flex flex-col space-y-1">
+          <div className="flex flex-col space-y-0.5">
+            <div className="flex flex-row space-x-1 text-gray-200 font-bold items-center">
+              <PrettyHelpIcon />
+              <p>Recently Searches</p>
+            </div>
+            <p className="text-sm text-gray-400 first-letter:pl-5">
+              Pictopia determines the images it will recommend to you based on
+              your recent searches.
+            </p>
           </div>
-        ))}
-      </div>
-    </div>
+          <div className="w-full flex flex-col space-y-1.5 ">
+            {lastSearches?.map((search: string, searchIndex: number) => (
+              <button
+                onClick={() => {
+                  AccountAPI.DeleteUserLastSearched(
+                    window.localStorage.getItem("access_token")!,
+                    search
+                  ).then(
+                    async (loginResp: ReturnFuncDto) =>
+                      await setToastState(loginResp.message)
+                  );
+                }}
+                key={searchIndex}
+                className="w-fit max-w-[100%] truncate flex flex-row space-x-5 px-1.5 py-1.5 bg-extra-light-soft-black
+            hover:bg-rough-soft-black transition duration-300 rounded-sm group"
+              >
+                <p className="text-gray-200 truncate">{search}</p>
+                <div className="h-full px-1.5 rounded-sm flex items-center group-hover:bg-2xl-extra-light-soft-black">
+                  <PrettyTrashIcon size={16} fill="white" />
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };

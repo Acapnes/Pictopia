@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CommentAPI } from "../../Api/Comment/CommentApi";
-import { CommentDto } from "../../Api/Comment/dtos/commentDto";
-import { PicDto } from "../../Api/Pic/dtos/picDto";
+import { CommentDto } from "../../Api/Comment/commentDtos";
+import { PicDto } from "../../Api/Pic/picDtos";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettyMediumAvatar,
@@ -22,13 +22,15 @@ const Replies: React.FC<{
   );
   const [replies, setReplies] = useState<CommentDto[]>();
 
-  const getReplies = async () => {
-    setReplies(await CommentAPI.getCommentReplies(comment));
-  };
+  const currentComments = usePictureCommentStore<CommentDto[]>(
+    (state: any) => state.currentComments
+  );
 
   useEffect(() => {
-    getReplies();
-  }, [sendReplyViewState]);
+    (async () => {
+      setReplies(await CommentAPI.getCommentReplies(comment));
+    })();
+  }, [sendReplyViewState, currentComments]);
 
   return (
     <div className="w-full">
@@ -79,5 +81,6 @@ const Replies: React.FC<{
     </div>
   );
 };
+
 
 export default Replies;

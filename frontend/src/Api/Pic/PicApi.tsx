@@ -1,9 +1,7 @@
 import axios from "axios";
-import { CategoryDto } from "../User/CategoryDtos/category.dto";
-import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
-import { PaginationDto } from "./dtos/paginationDto";
-import { PicDto } from "./dtos/picDto";
-import { UploadPicDto } from "./dtos/uploadPicDto";
+import { CategoryDto } from "../User/Category/categoryDtos";
+import { ReturnFuncDto } from "../Utils/UtilsDtos";
+import { PaginationDto, PicDto, UploadPicDto } from "./picDtos";
 
 export class PicAPI {
   public static async getAllPics(): Promise<PicDto[]> {
@@ -40,6 +38,13 @@ export class PicAPI {
   }
 
   public static async getPicsBySeachInput(picPaginationDto: PaginationDto): Promise<PicDto[]> {
+    if(window.localStorage.getItem('access_token')){
+      return await axios.post("http://localhost:3000/pics/account/search",{
+        input: picPaginationDto?.input,
+        currentPage: picPaginationDto?.currentPage,
+        postPerPage: picPaginationDto?.postPerPage
+      }).then((resp) => resp.data);
+    }
     return await axios.post("http://localhost:3000/pics/search",{
       input: picPaginationDto?.input,
       currentPage: picPaginationDto?.currentPage,

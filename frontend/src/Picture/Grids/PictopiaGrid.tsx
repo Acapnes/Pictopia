@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { PicDto } from "../../Api/Pic/dtos/picDto";
+import { PicDto } from "../../Api/Pic/picDtos";
 import { PicAPI } from "../../Api/Pic/PicApi";
-import GridMenu from "./GridMenu";
 import React from "react";
 import { Masonry } from "@mui/lab";
 import { useParams } from "react-router-dom";
-import { LoadingAnimation } from "../../components/Prettys/PrettyViews";
+import { GridMenu } from "./Grids";
 
 const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
   currentPage,

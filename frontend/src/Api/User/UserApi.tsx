@@ -4,7 +4,7 @@ import { UserDto } from "./UserDtos/userDto";
 export class UserAPI {
   public static async fetchUserCredentials(access_token: string) {
     if (!localStorage.getItem("access_token")) return;
-    return await fetch("http://localhost:3000/user/profile/credentials", {
+    return await fetch("http://localhost:3000/user/account/credentials", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

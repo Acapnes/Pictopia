@@ -18,24 +18,23 @@ export class PicAccountFetchService {
 
   async getPicturesByExplore(_id: mongoose.Types.ObjectId, picPaginationDto: PaginationDto): Promise<Pic[]> {
     return await this.userModel.findOne({ _id: _id }).then(async (user: UserDto) => {
-      const filter = { $or: [] } as any;
-      const allPictures = [];
+      const filter = user.deepLearning.lastSearches?.length > 0  || user.favCategories?.length > 0 ? { $or: [] } : {} as any;
 
-        if (user.deepLearning.searched?.length > 0) {
-          filter.$or.push({ hashTags: { $in: user.deepLearning.searched } });
-          filter.$or.push({ title: { $in: user.deepLearning.searched } });
+        if (user.deepLearning.lastSearches?.length > 0) {
+          filter.$or.push({ hashTags: { $in: user.deepLearning.lastSearches } });
+          filter.$or.push({ title: { $in: user.deepLearning.lastSearches } });
         }
 
         if (user.favCategories?.length > 0) {
           filter.$or.push({ categories: { $in: user.favCategories } });
         }
 
-        if (user.savedPictures.length > 0) {
-          const savedPictureTitles = await this.picModel
-            .find({ _id: { $in: user.savedPictures }})
-            .select('title');
-          filter.$or.push({ title: { $in: savedPictureTitles.map(picture => picture.title) } });
-        }
+        // if (user.savedPictures.length > 0) {
+        //   const savedPictureTitles = await this.picModel
+        //     .find({ _id: { $in: user.savedPictures }})
+        //     .select('title');
+        //   filter.$or.push({ title: { $in: savedPictureTitles.map(picture => picture.title) } });
+        // }
 
         return await this.picModel
           .find(filter)
@@ -47,18 +46,7 @@ export class PicAccountFetchService {
           )
           .limit(picPaginationDto.postPerPage)
           .populate('authorPic')
-          .populate('categories').then(pictures => {
-            allPictures.push(...pictures)
-            if (pictures.length < 20) {
-              return this.picModel
-                .find({ _id: { $nin: allPictures.map(picture => picture._id)}})
-                .limit(20 - pictures.length)
-                .then(remainingPictures => {
-                  return pictures.concat(remainingPictures);
-                });
-            }
-            return pictures;
-          });
+          .populate('categories')
       });
   }
 
@@ -88,34 +76,5 @@ export class PicAccountFetchService {
       .limit(picPaginationDto.postPerPage)
       .populate('authorPic')
       .populate('categories');
-  }
-
-  async picGetAlias(picture_id: string, picPaginationDto: PaginationDto): Promise<Pic[]> {
-    return await this.picModel.findOne({ _id: picture_id }).then(async (picture: Pic) => {
-        return await this.picModel
-          .find({
-            $and: [
-              { _id: { $ne: picture._id } },
-              {
-                $or: [
-                  { title: { $eq: picture.title } },
-                  // { description:  { $eq: picture.description } },
-                  // { authorPic: { $eq: picture.authorPic } },
-                  { categories: { $in: picture.categories } },
-                  { hashTags: { $in: picture.hashTags } },
-                ],
-              },
-            ],
-          })
-          .sort({ creationDate: -1 })
-          .skip(
-            Math.ceil(
-              picPaginationDto.currentPage * picPaginationDto.postPerPage
-            )
-          )
-          .limit(picPaginationDto.postPerPage)
-          .populate('authorPic')
-          .populate('categories');
-      });
   }
 }

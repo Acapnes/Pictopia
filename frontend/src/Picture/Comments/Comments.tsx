@@ -1,8 +1,8 @@
 import { CommentAPI } from "../../Api/Comment/CommentApi";
-import { CommentDto } from "../../Api/Comment/dtos/commentDto";
-import { PicDto } from "../../Api/Pic/dtos/picDto";
+import { CommentDto } from "../../Api/Comment/commentDtos";
+import { PicDto } from "../../Api/Pic/picDtos";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { PrettyTrashIcon } from "../../components/Prettys/PrettyIcons";
 import {
@@ -10,7 +10,7 @@ import {
   useToastStore,
 } from "../../components/Zustand/store";
 import Replies from "./Replies";
-import SendReply from "./SendReply";
+import { SendReply } from "./SendComment";
 
 const Comments: React.FC<{
   comments: CommentDto[];
@@ -20,6 +20,7 @@ const Comments: React.FC<{
   const setsendReplyViewState = usePictureCommentStore(
     (state: any) => state.setsendReplyViewState
   );
+  
   const sendReplyViewState = usePictureCommentStore(
     (state: any) => state.sendReplyViewState
   );
@@ -89,6 +90,7 @@ const Comments: React.FC<{
 };
 
 export default Comments;
+
 export { CommentAuthorEdit };
 
 const CommentAuthorEdit: React.FC<{

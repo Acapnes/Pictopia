@@ -9,7 +9,7 @@ export type SecuritySettingsDocument = DeepLearning & Document;
 export class DeepLearning {
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], default: [] })
-  searched: string[];
+  lastSearches: string[];
 
   @Field(() => [String], { nullable: true })
   @Prop({ type: [String], default: [] })

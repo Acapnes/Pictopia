@@ -7,6 +7,7 @@ import { SecuritySettings } from './altSchemas/user/user.security.schema';
 import { UserSocials } from './altSchemas/user/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
+import { userSocialsInterface } from 'src/dto/user/user.dto';
 
 export type UserDocument = User & Document;
 
@@ -57,7 +58,7 @@ export class User {
     contentType: string;
   };
 
-  @Field(() => [Pic], { nullable: false })
+  @Field(() => [Pic], { nullable: false, defaultValue: [] })
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Pic',
@@ -66,6 +67,7 @@ export class User {
   })
   savedPictures: Pic[];
 
+  @Field(() => [Category], { nullable: true, defaultValue: [] })
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Category',
@@ -74,7 +76,7 @@ export class User {
   })
   favCategories: Category[];
 
-  @Field(() => [User], { nullable: false })
+  @Field(() => [User], { nullable: true, defaultValue: [] })
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'User',
@@ -83,23 +85,39 @@ export class User {
   })
   blockedUsers: User[];
 
-  @Field(() => DeepLearning, { nullable: true })
-  @Prop({ type: Object, required: false, default: new DeepLearning()})
+  @Field(() => DeepLearning, {
+    nullable: true,
+    defaultValue: new DeepLearning(),
+  })
+  @Prop({ type: Object, required: false, default: new DeepLearning() })
   deepLearning: DeepLearning;
 
-  @Field(() => UserSocials, { nullable: true })
-  @Prop({ type: Object, required: false, default: new UserSocials() })
-  userSocials: UserSocials;
+  // @Field(() => UserSocials, { nullable: true, defaultValue: new UserSocials() })
+  // @Prop({ type: Object, required: false, default: new UserSocials() })
+  // userSocials: UserSocials;
 
-  @Field(() => SecuritySettings, { nullable: true })
+  // @Field(() => [], { nullable: true, defaultValue: [] })
+  @Prop({ type: [], required: false, default: [] })
+  userSocials: [
+    {
+      index: number;
+      platform: string;
+      url: string;
+    }
+  ];
+
+  @Field(() => SecuritySettings, {
+    nullable: true,
+    defaultValue: new SecuritySettings(),
+  })
   @Prop({ type: Object, required: false, default: new SecuritySettings() })
   settings: SecuritySettings;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: false })
   @Prop({ required: false, default: false })
   confrimed: boolean;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, defaultValue: '' })
   @Prop({ required: false, default: '' })
   bio: string;
 

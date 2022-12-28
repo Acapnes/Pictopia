@@ -1,6 +1,6 @@
 import { Masonry } from "@mui/lab";
 import React, { useEffect, useState } from "react";
-import { CommentDto } from "../../../Api/Comment/dtos/commentDto";
+import { CommentDto } from "../../../Api/Comment/commentDtos";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";

@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserDto = void 0;
+exports.userSocialsInterface = exports.UserDto = void 0;
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 const mongoose_1 = require("mongoose");
@@ -79,5 +79,27 @@ __decorate([
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
 ], UserDto.prototype, "deepLearning", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], UserDto.prototype, "userSocials", void 0);
 exports.UserDto = UserDto;
+class userSocialsInterface {
+}
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], userSocialsInterface.prototype, "index", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], userSocialsInterface.prototype, "platform", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUrl)(),
+    __metadata("design:type", String)
+], userSocialsInterface.prototype, "url", void 0);
+exports.userSocialsInterface = userSocialsInterface;
 //# sourceMappingURL=user.dto.js.map

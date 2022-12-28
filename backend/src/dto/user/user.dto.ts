@@ -6,8 +6,11 @@ import {
   IsEmail,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsObject,
+  IsOptional,
   IsString,
+  IsUrl,
 } from 'class-validator';
 import mongoose from 'mongoose';
 import { Category } from 'src/schemas/category.schema';
@@ -69,6 +72,23 @@ export class UserDto {
 
   @IsObject()
   deepLearning: {
-    searched: string[];
+    lastSearches: string[];
   };
+
+  @IsArray()
+  userSocials: userSocialsInterface[];
+}
+
+export class userSocialsInterface {
+  @IsNotEmpty()
+  @IsNumber()
+  index: number;
+
+  @IsNotEmpty()
+  @IsString()
+  platform: string;
+
+  @IsNotEmpty()
+  @IsUrl()
+  url: string;
 }

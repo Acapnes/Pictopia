@@ -8,28 +8,22 @@ import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly usersService: UserService) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get()
   async getUsers(): Promise<User[]> {
-    return this.usersService.findAll();
+    return this.userService.findAll();
   }
-  
+
   @Get('/:username')
   async getUserProfileVeriables(
     @Param('username') username: string,
   ): Promise<User | ReturnFuncDto | UserDto> {
-    return this.usersService.findOneByUsername(username);
+    return this.userService.findOneByUsername(username);
   }
 
   @Post('/find')
   async userFindByUsername(@Body() UserFindDto: UserFindDto) {
-    return this.usersService.findByLikeUsername(UserFindDto.username);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get('/searched/last')
-  async getUsersSearchedList(@Req() req): Promise<User['deepLearning']['searched']> {
-    return this.usersService.getUsersLastSearchedList(req.user._id);
+    return this.userService.findByLikeUsername(UserFindDto.username);
   }
 }

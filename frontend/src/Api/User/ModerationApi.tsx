@@ -1,7 +1,5 @@
 import axios from "axios";
-import { UserDto } from "./UserDtos/userDto";
-import { UserUpdateDto } from "./UserDtos/userSimpleUpdateDto";
-import { UserSocialsDto } from "./UserDtos/userSocialsDto";
+import { UserDto, UserUpdateDto } from "./UserDtos/userDto";
 
 export class ModerationAPI {
   public static async userEditProfile(
@@ -37,14 +35,21 @@ export class ModerationAPI {
       .then((resp) => resp.data);
   }
 
-  public static async setUserSocials(
-    access_token: string,
-    userSocialsDto: UserSocialsDto
-  ) {
+  public static async pushUserSocials(access_token: string, userSocialsDto: UserDto['userSocials'][0]) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .post(
         `http://localhost:3000/user/profile/socials/update/`,
+        userSocialsDto
+      )
+      .then((resp) => resp.data);
+  }
+
+  public static async deleteUserSocial(access_token: string, userSocialsDto: UserDto['userSocials'][0]) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .post(
+        `http://localhost:3000/user/profile/socials/delete/`,
         userSocialsDto
       )
       .then((resp) => resp.data);

@@ -30,6 +30,7 @@ const user_comment_service_1 = require("./account/user.comment.service");
 const avatar_service_1 = require("./moderation/avatar.service");
 const management_service_1 = require("./management/management.service");
 const management_controller_1 = require("./management/management.controller");
+const user_account_service_1 = require("./account/user.account.service");
 let UserModule = class UserModule {
     configure(consumer) { }
 };
@@ -60,6 +61,7 @@ UserModule = __decorate([
             user_picture_service_1.UserPictureService,
             user_category_service_1.UserCategoryService,
             user_comment_service_1.UserCommentervice,
+            user_account_service_1.UserAccountService,
             avatar_service_1.AvatarService,
             management_service_1.ManagementService,
             user_resolver_1.UserResolver,

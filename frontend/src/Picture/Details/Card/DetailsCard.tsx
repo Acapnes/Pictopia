@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import { CommentAPI } from "../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../Api/Comment/dtos/commentDto";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { CommentDto } from "../../../Api/Comment/commentDtos";
+import { PicDto } from "../../../Api/Pic/picDtos";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
+import {
+  PrettyRainbow,
+  PrettyRainbowDiv,
+} from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyLargeAvatar,
   PrettyRotatingArrow,
 } from "../../../components/Prettys/PrettyElements";
 import Comments from "../../Comments/Comments";
 import { CardOptions } from "./CardOptions";
-import SendComment from "../../Comments/SendComment";
 import { usePictureCommentStore } from "../../../components/Zustand/store";
 import { useParams } from "react-router-dom";
 import { CategoryShowList } from "../../Upload/components/Categories";
+import { SendComment } from "../../Comments/SendComment";
+import { PrettyErrorIcon } from "../../../components/Prettys/PrettyIcons";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const params = useParams<any>();

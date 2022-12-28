@@ -15,8 +15,4 @@ export declare class UserService {
     findOneByUsername(username: string): Promise<ReturnFuncDto | User | UserDto>;
     findByMongooseId(_id: mongoose.Types.ObjectId): Promise<ReturnFuncDto | User | UserDto>;
     generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string>;
-    getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['deepLearning']['searched']>;
-    saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string): Promise<User & mongoose.Document<any, any, any> & {
-        _id: mongoose.Types.ObjectId;
-    }>;
 }

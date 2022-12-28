@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
-  PrettyCheckIcon,
   PrettyCompassIcon,
   PrettyErrorIcon,
   PrettyHelpIcon,
@@ -10,12 +9,11 @@ import {
   PrettySearchIcon,
   PrettySignIcon,
   PrettySmallArrowUpIcon,
-  PrettyXIcon,
 } from "../../components/Prettys/PrettyIcons";
-import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
-import { CategoryAPI } from "../../Api/User/CategoryApi";
+import { CategoryDto } from "../../Api/User/Category/categoryDtos";
+import { CategoryAPI } from "../../Api/User/Category/CategoryApi";
 import { UserAPI } from "../../Api/User/UserApi";
-import { usePictopiaAccountStore } from "../../components/Zustand/store";
+import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
 import DefaultCategories from "./Category/DefaultCategories";
 import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
@@ -30,11 +28,11 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
     setSearchedUsers(await UserAPI.findUserByUsername(username));
   };
 
-  const setDefaultCategories = usePictopiaAccountStore(
+  const setDefaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setDefaultCategories
   );
 
-  const setInitialAccountValues = usePictopiaAccountStore(
+  const setInitialAccountValues = usePictopiaPublicAccountStore(
     (state: any) => state.setInitialAccountValues
   );
 
@@ -58,11 +56,11 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
     })();
   }, []);
 
-  const defaultCategories = usePictopiaAccountStore<CategoryDto[]>(
+  const defaultCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
     (state: any) => state.defaultCategories
   );
 
-  const favoriteCategories = usePictopiaAccountStore<CategoryDto[]>(
+  const favoriteCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
 
@@ -155,7 +153,7 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
 
 export default SearchBar;
 
-export { SearchResults, SearchMenuUsersGrid };
+export { SearchResults, SearchMenuUsersGrid, LastSearchs };
 
 const CurrentCategory: React.FC<{}> = () => {
   const params = useParams() as any;
@@ -307,13 +305,13 @@ const SearchMenuUsersGrid: React.FC<{
 };
 
 const LastSearchs: React.FC<{}> = () => {
-  const recentlySearches = usePictopiaAccountStore<string[]>(
-    (state: any) => state.recentlySearches
+  const lastSearches = usePictopiaPublicAccountStore<string[]>(
+    (state: any) => state.lastSearches
   );
 
   return (
     <>
-      {recentlySearches.length > 0 && (
+      {lastSearches?.length > 0 && (
         <div className="flex flex-col space-y-1">
           <div className="flex flex-row space-x-1 items-center">
             <PrettyHelpIcon />
@@ -322,8 +320,8 @@ const LastSearchs: React.FC<{}> = () => {
               <PrettyPenIcon size={12} fill="rgb(244,114,182)" />
             </a>
           </div>
-          <div className="w-full flex flex-wrap items-center h-fit pb-1.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
-            {recentlySearches.map((search: string, searchIndex: number) => (
+          <div className="w-full flex flex-wrap items-center h-fit px-1 pb-0.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
+            {lastSearches?.map((search: string, searchIndex: number) => (
               <div
                 key={searchIndex}
                 className="bg-slate-800 rounded-sm mr-1.5 mb-1 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-sm text-center duration-300"

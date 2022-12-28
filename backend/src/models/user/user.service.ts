@@ -5,6 +5,7 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/dto/user/user.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
+import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 
 @Injectable()
 export class UserService {
@@ -72,20 +73,5 @@ export class UserService {
 
   async generateLoginToken(_id: mongoose.Types.ObjectId): Promise<string> {
     return this.jwtService.sign({ _id: _id });
-  }
-
-  async getUsersLastSearchedList(_id: mongoose.Types.ObjectId): Promise<User['deepLearning']['searched']> {
-    return (await this.userModel.findOne({ _id: _id })).deepLearning?.searched?.reverse();
-  }
-
-  async saveToLastSearchs(_id: mongoose.Types.ObjectId, searchText: string) {
-    return await this.userModel.findByIdAndUpdate(
-      { _id: _id },
-      {
-        $push: {
-          lastSearchs: searchText,
-        },
-      }
-    );
   }
 }

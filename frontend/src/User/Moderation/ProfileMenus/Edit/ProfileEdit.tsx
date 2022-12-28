@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../../Api/Utils/UtilsDtos";
 import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,
@@ -139,10 +139,10 @@ const ProfileAvatar: React.FC<{ avatar: UserDto["avatar"] }> = ({ avatar }) => {
 
   return (
     <div className="max-h-[60vh] flex-auto flex flex-col space-y-4 items-center">
-      <div className="w-fit flex flex-col relative space-y-2">
+      <div className="w-full flex flex-col items-center relative space-y-2">
         <p className="font-bold text-gray-200">Avatar</p>
         {avatar?.data || avatar?.contentType ? (
-          <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 relative">
+          <div className="w-fit bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 relative">
             {changeAvatar ? (
               <img
                 src={`${imageURL}`}
@@ -153,22 +153,22 @@ const ProfileAvatar: React.FC<{ avatar: UserDto["avatar"] }> = ({ avatar }) => {
               <img
                 src={`data:${avatar?.contentType};base64,${avatar?.data}`}
                 alt=""
-                className="object-contain rounded-sm max-h-[50vh]"
+                className="w-fit object-contain rounded-sm max-h-[50vh] bg-soft-black"
               />
             )}
           </div>
         ) : (
-          <div className="h-full flex justify-center items-center ">
+          <div className="h-full w-full flex justify-center items-center">
             {changeAvatar ? (
               <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm shadow-lg p-0.5 relative">
                 <img
                   src={`${imageURL}`}
                   alt=""
-                  className="object-contain rounded-sm max-h-[30rem]"
+                  className="object-contain rounded-sm w-full max-h-[30rem] bg-soft-black"
                 />
               </div>
             ) : (
-              <div className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm min-w-[18rem] h-[18rem] relative p-0.5">
+              <div className=" flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm w-full min-h-[10rem] h-full relative p-0.5">
                 <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-sm">
                   <PrettyProfileIcon size={70} fill={"white"} />
                 </div>

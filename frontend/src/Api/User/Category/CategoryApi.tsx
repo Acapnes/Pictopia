@@ -1,6 +1,6 @@
 import axios from "axios";
-import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
-import { CategoryDto } from "./CategoryDtos/category.dto";
+import { ReturnFuncDto } from "../../Utils/UtilsDtos";
+import { CategoryDto } from "./categoryDtos";
 
 export class CategoryAPI {
   public static async getAllCategories(): Promise<CategoryDto[]> {

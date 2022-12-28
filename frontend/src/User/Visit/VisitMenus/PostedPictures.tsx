@@ -1,11 +1,11 @@
 import { Masonry } from "@mui/lab";
 import React, { useEffect, useState } from "react";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { PicDto } from "../../../Api/Pic/picDtos";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import { PrettyLockIcon } from "../../../components/Prettys/PrettyIcons";
-import GridMenu from "../../../Picture/Grids/GridMenu";
+import { GridMenu } from "../../../Picture/Grids/Grids";
 
 const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
   user,

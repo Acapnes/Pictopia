@@ -1,5 +1,5 @@
 import React, { ReactHTMLElement } from "react";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { PicDto } from "../../../Api/Pic/picDtos";
 import {
   PrettySquareFilledAddIcon,
   PrettyXIcon,

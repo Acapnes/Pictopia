@@ -1,6 +1,6 @@
 import axios from "axios";
-import { UploadPicDto } from "../Pic/dtos/uploadPicDto";
-import { ReturnFuncDto } from "../Utils/ReturnFuncDto";
+import { UploadPicDto } from "../Pic/picDtos";
+import { ReturnFuncDto } from "../Utils/UtilsDtos";
 
 export class PicManagementAPI {
   public static async updateAuthorsPicture(picManagementDto: UploadPicDto) {

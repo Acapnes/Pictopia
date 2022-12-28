@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ModerationAPI } from "../../../../../Api/User/ModerationApi";
 import { UserDto } from "../../../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../../../Api/Utils/UtilsDtos";
 import { PrettyRainbow } from "../../../../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../../../components/Zustand/store";

@@ -9,10 +9,10 @@ import Register from "./User/Auth/Register";
 import UploadPic from "./Picture/Upload/UploadPic";
 import User from "./User/User";
 import Profile from "./User/Moderation/Profile";
-import PictureEdit from "./Picture/Management/Edit/PictureEdit";
-import PictureReport from "./Picture/Management/Report/PictureReport";
+import PictureEdit from "./Picture/Management/PictureEdit";
+import PictureReport from "./Picture/Management/PictureReport";
 import SearchView from "./Menus/Mobile/SearchView";
-import AccountUsageEdit from "./Picture/Management/Edit/AccountUsageEdit";
+import AccountUsageEdit from "./User/Moderation/Mobile/AccountUsageEdit";
 import { CustomToast, Notfound, SuspenseVeiw } from "./components/Prettys/PrettyViews";
 import { RouteGuard } from "./components/Prettys/PrettyHelpers";
 

@@ -2,10 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import Header from "../Header";
-import { SearchMenuUsersGrid, SearchResults } from "../Search/SearchBar";
+import {
+  LastSearchs,
+  SearchMenuUsersGrid,
+  SearchResults,
+} from "../Search/SearchBar";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
-import { usePictopiaAccountStore } from "../../components/Zustand/store";
-import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
+import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
+import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "../../components/Prettys/PrettyIcons";
 
 const SearchView: React.FC<{}> = () => {
@@ -71,6 +75,7 @@ const SearchView: React.FC<{}> = () => {
             searchedUsers={searchedResults[0]}
             searchedCategories={searchedResults[1]}
           />
+          <LastSearchs />
           <div className="w-full">
             <Categories />
           </div>
@@ -100,7 +105,7 @@ const SearchResultMenu: React.FC<{
 };
 
 const Categories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaAccountStore(
+  const favoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.favoriteCategories
   );
 

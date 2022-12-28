@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PicDto } from "../Pic/dtos/picDto";
+import { PicDto } from "../Pic/picDtos";
 
 export class AccountAPI {
   public static async getSavedPicturesOfUser(username: string) {
@@ -20,7 +20,7 @@ export class AccountAPI {
       });
   }
 
-    public static async GetUsersPostedPictures(username: string) {
+  public static async GetUsersPostedPictures(username: string) {
     return await axios
       .post(`http://localhost:3000/user/account/posted`, {
         username: username,
@@ -59,8 +59,23 @@ export class AccountAPI {
   public static async GetUsersLastSearchedList(access_token: string) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .get(`http://localhost:3000/user/searched/last`)
+      .get(`http://localhost:3000/user/account/recently/searched`)
       .then((resp) => resp.data);
+  }
+
+  public static async DeleteUserLastSearched(
+    access_token: string,
+    searchText: string
+  ) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    return await axios
+      .post(`http://localhost:3000/user/account/recently/searched/delete`, {
+        searchText: searchText,
+      })
+      .then((resp) => {
+        console.log(resp.data);
+        return resp.data;
+      });
   }
 
   public static async GetUsersPostedComments(username: string) {

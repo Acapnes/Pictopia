@@ -2,7 +2,6 @@
 import mongoose, { Document } from 'mongoose';
 import { DeepLearning } from './altSchemas/user/user.learn.schema';
 import { SecuritySettings } from './altSchemas/user/user.security.schema';
-import { UserSocials } from './altSchemas/user/user.socials.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
 export declare type UserDocument = User & Document;
@@ -23,7 +22,13 @@ export declare class User {
     favCategories: Category[];
     blockedUsers: User[];
     deepLearning: DeepLearning;
-    userSocials: UserSocials;
+    userSocials: [
+        {
+            index: number;
+            platform: string;
+            url: string;
+        }
+    ];
     settings: SecuritySettings;
     confrimed: boolean;
     bio: string;

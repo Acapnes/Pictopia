@@ -1,7 +1,7 @@
 import Header from "./Menus/Header";
 import React, { Suspense, useState } from "react";
-import { usePictopiaAccountStore } from "./components/Zustand/store";
-import { CategoryDto } from "./Api/User/CategoryDtos/category.dto";
+import { usePictopiaPublicAccountStore } from "./components/Zustand/store";
+import { CategoryDto } from "./Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
@@ -33,7 +33,7 @@ const Pictopia: React.FC<{}> = ({}) => {
 export default Pictopia;
 
 const MobileFavoriteCategories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaAccountStore(
+  const favoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.favoriteCategories
   );
 

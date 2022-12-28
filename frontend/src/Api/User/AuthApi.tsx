@@ -1,5 +1,4 @@
-import { UserRegistrationDto } from "./UserDtos/userRegistrationDto";
-import { UserValidationDto } from "./UserDtos/userValidationDto";
+import { UserRegistrationDto, UserValidationDto } from "./UserDtos/userDto";
 
 export class AuthAPI {
   public static async userLogin(userValidationDto: UserValidationDto) {

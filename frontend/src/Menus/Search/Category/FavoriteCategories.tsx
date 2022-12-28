@@ -1,26 +1,26 @@
 import React from "react";
-import { CategoryAPI } from "../../../Api/User/CategoryApi";
-import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
+import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import {
   PrettyPenIcon,
   PrettySmallArrowUpIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { usePictopiaAccountStore } from "../../../components/Zustand/store";
+import { usePictopiaPublicAccountStore } from "../../../components/Zustand/store";
 const FavoriteCategories: React.FC<{
   favoriteCategories: CategoryDto[];
   user: UserDto;
 }> = ({ favoriteCategories, user }) => {
-  const setFavoriteCategories = usePictopiaAccountStore(
+  const setFavoriteCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setFavoriteCategories
   );
-  const defaultCategories = usePictopiaAccountStore(
+  const defaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.defaultCategories
   );
-  const setDraggingNumber = usePictopiaAccountStore(
+  const setDraggingNumber = usePictopiaPublicAccountStore(
     (state: any) => state.setDraggingNumber
   );
-  const draggingNumber = usePictopiaAccountStore(
+  const draggingNumber = usePictopiaPublicAccountStore(
     (state: any) => state.draggingNumber
   );
 
@@ -64,7 +64,7 @@ const FavoriteCategories: React.FC<{
                   }
                 );
               }}
-              className="min-h-[50vh] h-full relative"
+              className="min-h-[57vh] h-full relative"
             >
               <FavoriteDropHelper
                 categoryLength={favoriteCategories.length}

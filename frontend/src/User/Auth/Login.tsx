@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
-import ActionlessGrid from "./ActionlessGrid";
 import { useToastStore } from "../../components/Zustand/store";
-import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { AuthAPI } from "../../Api/User/AuthApi";
+import { ActionlessGrid } from "../../Picture/Grids/Grids";
 
 const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,6 +41,9 @@ const Login: React.FC<{}> = () => {
               User Login
             </p>
             <input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") userLogin();
+              }}
               ref={userEmailRef}
               type="text"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
@@ -48,6 +51,9 @@ const Login: React.FC<{}> = () => {
             />
             <div className="flex flex-row items-center lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") userLogin();
+                }}
                 ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"

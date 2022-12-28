@@ -1,6 +1,6 @@
 import React from "react";
 import { PicAPI } from "../../../Api/Pic/PicApi";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { PicDto } from "../../../Api/Pic/picDtos";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import {
   PrettyRainbow,
@@ -14,7 +14,7 @@ import {
   PrettyShareIcon,
 } from "../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../components/Zustand/store";
-import { ReturnFuncDto } from "../../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 
 const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
-import ActionlessGrid from "./ActionlessGrid";
-import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { useToastStore } from "../../components/Zustand/store";
 import { AuthAPI } from "../../Api/User/AuthApi";
+import { ActionlessGrid } from "../../Picture/Grids/Grids";
 
 const Register: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,12 +47,18 @@ const Register: React.FC<{}> = () => {
               User Register
             </p>
             <input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") userRegister();
+              }}
               ref={userNameRef}
               type="text"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
               placeholder="Username"
             />
             <input
+              onKeyDown={(e) => {
+                if (e.key === "Enter") userRegister();
+              }}
               ref={userEmailRef}
               type="email"
               className="outline-none px-3 py-4 text-lg lg:w-[20rem] md:w-[20rem] w-[15rem]"
@@ -61,6 +67,9 @@ const Register: React.FC<{}> = () => {
 
             <div className="flex flex-row items-center lg:w-[20rem] md:w-[20rem] w-[15rem] bg-white">
               <input
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") userRegister();
+                }}
                 ref={userPasswordRef}
                 type={showPassword ? "text" : "password"}
                 className="outline-none px-3 py-4 text-lg w-full"

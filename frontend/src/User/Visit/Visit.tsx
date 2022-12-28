@@ -10,8 +10,7 @@ import {
   PrettyXIcon,
 } from "../../components/Prettys/PrettyIcons";
 import { Notfound } from "../../components/Prettys/PrettyViews";
-import {} from "./components/PrettySocialButtons";
-import VisitUserSocials from "./components/VisitUserSocials";
+import { PrettySocialButton } from "../../components/Prettys/PrettySocialButtons";
 
 const Visit: React.FC<{}> = () => {
   const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
@@ -63,7 +62,7 @@ export default Visit;
 
 const VisitUserBody: React.FC<{ author: UserDto }> = ({ author }) => {
   return (
-    <div className="w-full h-full relative border-2 border-t-0 border-extra-light-soft-black">
+    <div className="w-full h-full relative">
       <img
         src={`${
           author?.profile_background?.contentType &&
@@ -76,13 +75,31 @@ const VisitUserBody: React.FC<{ author: UserDto }> = ({ author }) => {
       />
       <div className="w-full absolute bottom-0 pb-4 bg-gradient-to-t from-light-soft-black">
         <div className="flex flex-col items-center">
-          <PrettyCustomSizeAvatar avatar={author["avatar"]} size={9} />
+          <PrettyCustomSizeAvatar avatar={author["avatar"]} size={8} />
           <div className="flex flex-col items-center">
-            <p className="text-2xl font-bold text-gray-200">{author?.name}</p>
-            <p className="text-gray-200">{author?.username}</p>
+            <p className="text-xl md:text-2xl font-bold text-gray-200">
+              {author?.name}
+            </p>
+            <p className="text-sm md:text-md text-gray-200">
+              {author?.username}
+            </p>
           </div>
           <div className="w-fit flex flex-row justify-center pt-3 items-center space-x-5">
-            <VisitUserSocials user={author} />
+            <div className="flex flex-wrap gap-2 items-center justify-center">
+              {author?.userSocials?.map(
+                (social: UserDto["userSocials"][0], socialIndex: number) => (
+                  <div key={socialIndex}>
+                    <PrettySocialButton
+                      showUrl={false}
+                      socialUrl={social.url!}
+                      platform={social.platform!}
+                      socialIndex={social.index!}
+                    ></PrettySocialButton>
+                  </div>
+                  // <div key={socialIndex}>{social.platform}</div>
+                )
+              )}
+            </div>
           </div>
           <BackgroundHandler author={author} />
         </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
+import { PicDto } from "../../../Api/Pic/picDtos";
 import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";
 import { PrettyErrorIcon } from "../../../components/Prettys/PrettyIcons";
 

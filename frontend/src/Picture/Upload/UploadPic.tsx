@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
-import { UploadPicDto } from "../../Api/Pic/dtos/uploadPicDto";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import {
   PrettyPictureIcon,
@@ -10,10 +9,10 @@ import {
 } from "../../components/Prettys/PrettyIcons";
 import Header from "../../Menus/Header";
 import { useToastStore } from "../../components/Zustand/store";
-import { ReturnFuncDto } from "../../Api/Utils/ReturnFuncDto";
+import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { HashtagAppend } from "./components/Hashtags";
 import { CategorySelection } from "./components/Categories";
-import { PicDto } from "../../Api/Pic/dtos/picDto";
+import { PicDto, UploadPicDto } from "../../Api/Pic/picDtos";
 
 const UploadPic: React.FC<{}> = () => {
   const setToastState = useToastStore((state: any) => state.setToastState);

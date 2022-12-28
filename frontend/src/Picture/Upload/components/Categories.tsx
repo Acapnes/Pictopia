@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { PicDto } from "../../../Api/Pic/dtos/picDto";
-import { CategoryAPI } from "../../../Api/User/CategoryApi";
-import { CategoryDto } from "../../../Api/User/CategoryDtos/category.dto";
+import { PicDto } from "../../../Api/Pic/picDtos";
+import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
+import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
 import { PrettyRotatingArrow } from "../../../components/Prettys/PrettyElements";
 import {
   PrettyErrorIcon,
@@ -28,6 +28,16 @@ const CategorySelection: React.FC<{
       } else setCategoryArray(await CategoryAPI.getAllCategories());
     })();
   }, [categorySearchInput]);
+
+  useEffect(() => {
+    (async () => {
+      setCategoryArray(
+        categoryArray.filter(
+          (category) => !picture.categories.includes(category)
+        )
+      );
+    })();
+  }, [picture.categories]);
 
   return (
     <div className="flex flex-col space-y-1">

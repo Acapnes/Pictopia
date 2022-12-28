@@ -2,9 +2,9 @@ import React from "react";
 import {
   PrettyRainbowDiv,
   PrettyTip,
-} from "../../../components/Prettys/PrettyComponents";
-import { PrettyAlertIcon } from "../../../components/Prettys/PrettyIcons";
-import Header from "../../../Menus/Header";
+} from "../../components/Prettys/PrettyComponents";
+import { PrettyAlertIcon } from "../../components/Prettys/PrettyIcons";
+import Header from "../../Menus/Header";
 
 const PictureReport: React.FC<{}> = () => {
   return (

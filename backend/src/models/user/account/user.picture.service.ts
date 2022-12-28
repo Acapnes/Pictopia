@@ -120,13 +120,8 @@ export class UserPictureService {
       });
   }
 
-  async removeSavedPicture(
-    _id: mongoose.Types.ObjectId,
-    userSavedPictureDto: UserSavedPictureDto
-  ): Promise<ReturnFuncDto> {
-    return await this.userService
-      .findByMongooseId(_id)
-      .then(async (funcResult: any) => {
+  async removeSavedPicture(_id: mongoose.Types.ObjectId, userSavedPictureDto: UserSavedPictureDto): Promise<ReturnFuncDto> {
+    return await this.userService.findByMongooseId(_id).then(async (funcResult: any) => {
         if (funcResult.success !== false) {
           return await this.userModel
             .findOneAndUpdate(

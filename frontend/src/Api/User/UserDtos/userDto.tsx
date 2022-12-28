@@ -19,17 +19,7 @@ export interface UserDto {
     contentType: string;
   };
 
-  userSocials: {
-    instagram?: string;
-
-    github?: string;
-
-    steam?: string;
-
-    discord?: string;
-
-    linkedin?: string;
-  };
+  userSocials: userSocialsInterface[];
 
   savedPictures: string[];
 
@@ -47,4 +37,40 @@ export interface UserDto {
   };
 
   creationDate: Date;
+}
+
+interface userSocialsInterface {
+  index?: number;
+  platform?: string;
+  url?: string;
+}
+
+export interface UserRegistrationDto {
+  username: string;
+
+  email: string;
+
+  password: string;
+
+  creationDate: Date | string;
+}
+
+export interface UserUpdateDto {
+  email?: string;
+  newEmail?: string;
+
+  password?: string;
+  newPassword?: string;
+
+  name?: string;
+
+  username?: string;
+
+  bio?: string;
+}
+
+export interface UserValidationDto {
+  email: string;
+
+  password: string;
 }

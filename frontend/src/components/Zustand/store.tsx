@@ -1,30 +1,31 @@
 import create from "zustand";
-import { CategoryDto } from "../../Api/User/CategoryDtos/category.dto";
-import { CommentDto } from "../../Api/Comment/dtos/commentDto";
+import { CategoryDto } from "../../Api/User/Category/categoryDtos";
+import { CommentDto } from "../../Api/Comment/commentDtos";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
 
 interface usePictopiaAccountState {
   draggingNumber: number | null; /// 0 -> default to favorite | 1 -> favorite to default IS DRAGGING
   defaultCategories: CategoryDto[];
   favoriteCategories: CategoryDto[];
-  recentlySearches: string[];
+  lastSearches: string[];
 }
 
-export const usePictopiaAccountStore = create<usePictopiaAccountState>(
+export const usePictopiaPublicAccountStore = create<usePictopiaAccountState>(
   (set) => ({
     draggingNumber: null,
     defaultCategories: [],
     favoriteCategories: [],
-    recentlySearches: [],
+    lastSearches: [],
 
     setInitialAccountValues: (
       _defaultCategories: CategoryDto[],
       _favoriteCategories: CategoryDto[],
-      _recentlySearches: string[]
+      lastSearches: string[]
     ) => {
       set(() => ({
         defaultCategories: _defaultCategories,
         favoriteCategories: _favoriteCategories,
-        recentlySearches: _recentlySearches,
+        lastSearches: lastSearches,
       }));
     },
 
@@ -43,8 +44,28 @@ export const usePictopiaAccountStore = create<usePictopiaAccountState>(
       set(() => ({ favoriteCategories: _category }));
     },
 
-    setRecentlySearches: (_recentlySearches: string[]) => {
-      set(() => ({ recentlySearches: _recentlySearches }));
+    setRecentlySearches: (lastSearches: string[]) => {
+      set(() => ({ lastSearches: lastSearches }));
+    },
+  })
+);
+
+interface usePictopiaProfileState {
+  profileSocials: UserDto["userSocials"];
+}
+
+export const usePictopiaPublicProfileStore = create<usePictopiaProfileState>(
+  (set) => ({
+    profileSocials: [],
+
+    setInitialProfileValues: (_socials: UserDto["userSocials"]) => {
+      set(() => ({
+        profileSocials: _socials,
+      }));
+    },
+
+    setProfileSocials: (_socials: UserDto["userSocials"]) => {
+      set(() => ({ profileSocials: _socials }));
     },
   })
 );

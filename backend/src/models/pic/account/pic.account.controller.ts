@@ -9,6 +9,7 @@ import { PicService } from '../pic.service';
 import { PicAccountFetchService } from './pic.account.fetch.service';
 import { PicAccountService } from './pic.account.service';
 import { SearchInterceptor } from 'src/helpers/interceptors/search.interceptor';
+import { PicFetchService } from '../pic.fetch.service';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('/pics/account')
@@ -17,6 +18,7 @@ export class PicAccountController {
     private readonly picsService: PicService,
     private readonly picAccountService: PicAccountService,
     private readonly picAccountFetchService: PicAccountFetchService,
+    private readonly picFetchService: PicFetchService
     ) {}
 
   @Get()
@@ -51,6 +53,11 @@ export class PicAccountController {
   @Post('/search')
   async searchInPicturesByInput(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
     return await this.picAccountFetchService.picSearchByInput(picPaginationDto)
+  }
+
+  @Post('/category')
+  async searchInPicturesByCategory(@Body() picPaginationDto: PaginationDto): Promise<Pic[]>{
+    return await this.picFetchService.picSearchByCategory(picPaginationDto)
   }
 
   @Post('/delete')

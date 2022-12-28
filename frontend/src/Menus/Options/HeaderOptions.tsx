@@ -37,7 +37,7 @@ export default HeaderOptions;
 const HeaderOptionsMenu: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
     <div className="absolute top-[2.25rem] -right-0 lg:right-0 z-20 rounded-sm">
-      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center  overflow-hidden rounded-sm">
+      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center  overflow-hidden rounded-sm ">
         <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
         <span className="w-full relative bg-soft-black rounded-sm duration-400">
           <div className="w-full flex flex-col overflow-auto scroll space-y-3 scrollbar-hide whitespace-nowrap">

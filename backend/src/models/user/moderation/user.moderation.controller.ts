@@ -12,8 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ReturnAuthDto } from 'src/dto/returns/return.auth.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
-import { UserSocialsDto } from 'src/dto/user/utils/user.socials.dto';
+import { UserDto } from 'src/dto/user/user.dto';
 import { AvatarService } from './avatar.service';
 import { ModerationService } from './moderation.service';
 
@@ -57,17 +56,15 @@ export class UserModerationController {
     return this.avatarService.removeBackground(req.user._id);
   }
 
-  @Get('/credentials')
-  async fetchUserCredentials(
-    @Request() req
-  ): Promise<UserCredentialsDto | ReturnFuncDto> {
-    return this.moderationService.fetchUserCredentialsWithToken(req.user);
+  @Get('/socials')
+  async userFetchSocials(@Request() req): Promise<ReturnFuncDto | any> {
+    return this.moderationService.userFetchSocials(req.user._id);
   }
 
   @Post('/socials/update')
   async userSocialsUpdate(
     @Request() req,
-    @Body() userSocialsDto: UserSocialsDto
+    @Body() userSocialsDto: UserDto['userSocials'][0]
   ): Promise<ReturnFuncDto> {
     return this.moderationService.userUpdateSocials(
       req.user._id,
@@ -75,8 +72,12 @@ export class UserModerationController {
     );
   }
 
-  @Get('/socials')
-  async userFetchSocials(@Request() req): Promise<ReturnFuncDto | any> {
-    return this.moderationService.userFetchSocials(req.user._id);
+  @Post('/socials/delete')
+  async userSocialsDelete(
+    @Request() req,
+    @Body() userSocialsDto: UserDto['userSocials'][0]
+  ): Promise<ReturnFuncDto> {
+    return this.moderationService.userDeleteSocial(req.user._id,userSocialsDto);
   }
+
 }

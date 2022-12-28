@@ -9,8 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
 const category_module_1 = require("./models/category/category.module");
 const comment_module_1 = require("./models/comment/comment.module");
 const pic_module_1 = require("./models/pic/pic.module");
@@ -33,8 +31,8 @@ AppModule = __decorate([
             comment_module_1.CommentModule,
             category_module_1.CategoryModule,
         ],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        controllers: [],
+        providers: [],
     })
 ], AppModule);
 exports.AppModule = AppModule;
