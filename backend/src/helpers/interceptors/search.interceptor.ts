@@ -33,7 +33,7 @@ export class SearchInterceptor implements NestInterceptor {
             await this.userModel.findOneAndUpdate(
               { _id: user?._id },
               {
-                $addToSet: { 'deepLearning.lastSearches': req?.input },
+                $addToSet: { 'deepLearning.lastSearches': req?.input.toLowerCase() },
               }
             );
             await this.userModel

@@ -16,12 +16,23 @@ export class PicAccountFetchService {
     private categoryService: CategoryService
   ) {}
 
-  async getPicturesByExplore(_id: mongoose.Types.ObjectId, picPaginationDto: PaginationDto): Promise<Pic[]> {
-    return await this.userModel.findOne({ _id: _id }).then(async (user: UserDto) => {
-      const filter = user.deepLearning.lastSearches?.length > 0  || user.favCategories?.length > 0 ? { $or: [] } : {} as any;
+  async getPicturesByExplore(
+    _id: mongoose.Types.ObjectId,
+    picPaginationDto: PaginationDto
+  ): Promise<Pic[]> {
+    return await this.userModel
+      .findOne({ _id: _id })
+      .then(async (user: UserDto) => {
+        const filter =
+          user.deepLearning.lastSearches?.length > 0 ||
+          user.favCategories?.length > 0
+            ? { $or: [] }
+            : ({} as any);
 
         if (user.deepLearning.lastSearches?.length > 0) {
-          filter.$or.push({ hashTags: { $in: user.deepLearning.lastSearches } });
+          filter.$or.push({
+            hashTags: { $in: user.deepLearning.lastSearches },
+          });
           filter.$or.push({ title: { $in: user.deepLearning.lastSearches } });
         }
 
@@ -46,14 +57,17 @@ export class PicAccountFetchService {
           )
           .limit(picPaginationDto.postPerPage)
           .populate('authorPic')
-          .populate('categories')
+          .populate('categories');
       });
   }
 
   async picSearchByInput(picPaginationDto: PaginationDto): Promise<Pic[]> {
+    console.log("girdi")
     if (picPaginationDto.input[0] === '#') {
       return this.picModel
-        .find({ hashTags: picPaginationDto?.input })
+        .find({
+          hashTags: { $regex: new RegExp(picPaginationDto?.input, 'i') },
+        })
         .sort({ creationDate: -1 })
         .skip(
           Math.ceil(picPaginationDto.currentPage * picPaginationDto.postPerPage)
@@ -65,8 +79,8 @@ export class PicAccountFetchService {
     return this.picModel
       .find({
         $or: [
-          { title: picPaginationDto?.input },
-          { description: picPaginationDto?.input },
+          { title: { $regex: new RegExp(picPaginationDto?.input, 'i') } },
+          { description: { $regex: new RegExp(picPaginationDto?.input, 'i') } },
         ],
       })
       .sort({ creationDate: -1 })

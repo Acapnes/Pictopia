@@ -14,7 +14,7 @@ export class CategoryController {
     }
 
     @Get('/:title')
-    async getCategoriesByTitle(@Param('title') title:string): Promise<Category> {
+    async getCategoriesByTitle(@Param('title') title: string): Promise<Category> {
       return this.categoryService.findCategoryByTitle(title);
     }
 
