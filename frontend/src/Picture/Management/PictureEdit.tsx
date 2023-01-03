@@ -22,6 +22,7 @@ const PictureEdit: React.FC<{}> = () => {
     })();
   }, []);
 
+
   return (
     <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
       <Header />

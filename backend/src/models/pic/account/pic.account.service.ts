@@ -45,7 +45,7 @@ export class PicAccountService {
       )
       .then(() => {
         return {
-          success: false,
+          success: true,
           message: 'Picture updated.',
         };
       });

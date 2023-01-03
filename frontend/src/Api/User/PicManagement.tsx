@@ -8,6 +8,7 @@ export class PicManagementAPI {
       .post("http://localhost:3000/pics/account/update", picManagementDto)
       .then((resp) => resp.data);
   }
+  
   public static async deleteAuthorsPicture(
     pictureId: UploadPicDto["_id"]
   ): Promise<ReturnFuncDto> {

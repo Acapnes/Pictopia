@@ -1,4 +1,4 @@
-import React, { ReactHTMLElement } from "react";
+import React from "react";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import {
   PrettySquareFilledAddIcon,
@@ -16,8 +16,8 @@ const HashtagAppend: React.FC<{
       ...picture,
       hashTags:
         picture?.hashTags?.length > 0
-          ? [...picture?.hashTags, refInput.current!.value]
-          : [refInput.current!.value],
+          ? [...picture?.hashTags, `#${refInput.current!.value}`]
+          : [`#${refInput.current!.value}`],
     });
     refInput.current.value = "";
   };
