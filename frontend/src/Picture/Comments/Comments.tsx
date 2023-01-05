@@ -20,13 +20,13 @@ const Comments: React.FC<{
   const setsendReplyViewState = usePictureCommentStore(
     (state: any) => state.setsendReplyViewState
   );
-  
+
   const sendReplyViewState = usePictureCommentStore(
     (state: any) => state.sendReplyViewState
   );
 
   return (
-    <div className="w-full max-h-[30rem] overflow-auto py-2 scrollbar-hide text-gray-200">
+    <div className="w-full max-h-[30rem] overflow-auto py-2 scrollbar-hide text-gray-200 text-sm">
       {comments?.length > 0 ? (
         <div className="w-full flex flex-col space-y-5">
           {comments?.map((_comment: CommentDto, _commentIndex: number) => (
@@ -48,13 +48,17 @@ const Comments: React.FC<{
                   </span>
                   <div className="flex flex-row space-x-2.5 items-center">
                     <p className="text-sm text-gray-400">1h</p>
-                    <p
-                      onClick={() => setsendReplyViewState(_commentIndex)}
-                      className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer"
-                    >
-                      Reply
-                    </p>
-                    <p className="text-sm font-bold cursor-pointer">♥</p>
+                    {visitor?.email && (
+                      <div className="flex flex-row space-x-2.5">
+                        <p
+                          onClick={() => setsendReplyViewState(_commentIndex)}
+                          className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer"
+                        >
+                          Reply
+                        </p>
+                        <p className="text-sm font-bold cursor-pointer">♥</p>
+                      </div>
+                    )}
                     <CommentAuthorEdit
                       visitor={visitor}
                       authorComment={_comment?.author!}
@@ -99,7 +103,6 @@ const CommentAuthorEdit: React.FC<{
   destPicture: string;
   commentId: string;
 }> = ({ visitor, authorComment, destPicture, commentId }) => {
-  
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (

@@ -61,7 +61,6 @@ const Replies: React.FC<{
                   {options && (
                     <div className="flex flex-row space-x-1">
                       <p className="text-sm text-gray-400">1h</p>
-                      <p className="text-sm font-bold cursor-pointer">♥</p>
                       {visitor && (
                         <CommentAuthorEdit
                           visitor={visitor}
@@ -81,6 +80,5 @@ const Replies: React.FC<{
     </div>
   );
 };
-
 
 export default Replies;

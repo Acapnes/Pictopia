@@ -4,10 +4,7 @@ import { CommentDto } from "../../../Api/Comment/commentDtos";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import {
-  PrettyRainbow,
-  PrettyRainbowDiv,
-} from "../../../components/Prettys/PrettyComponents";
+import { PrettyRainbow } from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyLargeAvatar,
   PrettyRotatingArrow,
@@ -18,7 +15,6 @@ import { usePictureCommentStore } from "../../../components/Zustand/store";
 import { useParams } from "react-router-dom";
 import { CategoryShowList } from "../../Upload/components/Categories";
 import { SendComment } from "../../Comments/SendComment";
-import { PrettyErrorIcon } from "../../../components/Prettys/PrettyIcons";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const params = useParams<any>();

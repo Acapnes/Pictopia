@@ -12,12 +12,12 @@ const PrettyLargeAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
       ]) ? (
         <a href={`/user/${user?.username}`} className="rounded-full">
           <div
-            className={`h-fit w-[6rem] flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm`}
+            className={`h-fit w-[6rem] flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5`}
           >
             <img
               src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
               alt=""
-              className={`rounded-sm w-full h-full p-[0.12rem] max-w-[6rem]`}
+              className={`rounded-sm w-full h-full p-[0.12rem] max-w-[6rem] bg-soft-black`}
             />
           </div>
         </a>

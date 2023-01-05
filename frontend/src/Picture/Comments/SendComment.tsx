@@ -29,9 +29,9 @@ const SendComment: React.FC<{
   };
 
   return (
-    <div className="flex flex-row space-x-2 items-center text-black">
+    <div className="flex flex-row space-x-2 items-center text-black text-sm">
       <PrettyMediumAvatar user={author} rounded={true} />
-      <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2.5rem]">
+      <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2rem]">
         <textarea
           id="InputNewComment"
           onKeyDown={(e) => {
@@ -39,10 +39,12 @@ const SendComment: React.FC<{
           }}
           ref={newCommentsRef}
           className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
-          placeholder="Sign new comment"
+          placeholder={
+            author?.email ? "Sign new comment" : "Sign in for send new comments"
+          }
         />
         <div
-          onClick={() => postComment()}
+          onClick={() => author?.email && postComment()}
           className="h-full flex items-center px-2 hover:bg-pretty-pink hover:bg-opacity-40 cursor-pointer"
         >
           <PrettySend size={18} fill="rgb(244, 114, 182)" />
@@ -62,7 +64,7 @@ const SendReply: React.FC<{
   const setCurrentReplies = usePictureCommentStore(
     (state: any) => state.setCurrentReplies
   );
-  
+
   const setsendReplyViewState = usePictureCommentStore(
     (state: any) => state.setsendReplyViewState
   );
@@ -90,12 +92,12 @@ const SendReply: React.FC<{
       <PrettyMediumAvatar user={authorReply} rounded={true} />
       <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2rem]">
         <textarea
+          id="InputNewComment"
           onKeyDown={(e) => {
             e.key === "Enter" && postReply();
           }}
-          id="InputNewComment"
           ref={newReplyRef}
-          className="w-full h-full bg-transparent outline-none flex py-1 resize-none placeholder:font-normal placeholder:text-md"
+          className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
           placeholder="Sign new reply"
         />
         <div
