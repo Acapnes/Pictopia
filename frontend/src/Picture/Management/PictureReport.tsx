@@ -10,7 +10,6 @@ const PictureReport: React.FC<{}> = () => {
   return (
     <div className="min-w-screen min-h-screen bg-soft-black text-gray-200">
       <div className="min-h-screen flex flex-col items-center">
-        <Header />
         <div className="w-full max-w-[52rem] lg:my-10 flex-auto flex flex-col bg-gradient-to-br from-pretty-yellow to-pretty-rough-pink p-0.5 rounded-sm cursor-default">
           <div className="flex-auto h-full w-full bg-rough-soft-black bg-opacity-[97.5%]">
             <div className="w-full flex flex-col  px-5 py-4 space-y-5">

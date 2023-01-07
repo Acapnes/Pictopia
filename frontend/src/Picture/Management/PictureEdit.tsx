@@ -25,7 +25,6 @@ const PictureEdit: React.FC<{}> = () => {
 
   return (
     <div className="min-h-screen w-full h-full flex flex-col bg-soft-black">
-      <Header />
       <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
         <DetailsPicture picture={editPicture} />
         <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">

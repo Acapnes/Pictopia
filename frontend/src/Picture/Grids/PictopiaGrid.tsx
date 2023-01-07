@@ -5,11 +5,9 @@ import React from "react";
 import { Masonry } from "@mui/lab";
 import { useParams } from "react-router-dom";
 import { GridMenu } from "./Grids";
+import { usePicturePaginationStore } from "../../components/Zustand/store";
 
-const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
-  currentPage,
-  postPerPage,
-}) => {
+const PictopiaGrid: React.FC<{}> = () => {
   const [pictures, setPictures] = useState<PicDto[]>([]);
   const params = useParams();
 
@@ -51,6 +49,13 @@ const PictopiaGrid: React.FC<{ currentPage: number; postPerPage: number }> = ({
       ]);
     }
   };
+
+  const currentPage = usePicturePaginationStore(
+    (state: any) => state.currentPage
+  );
+  const postPerPage = usePicturePaginationStore(
+    (state: any) => state.postPerPage
+  );
 
   useEffect(() => {
     fetchAndSetPics();

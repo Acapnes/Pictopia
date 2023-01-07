@@ -108,3 +108,17 @@ export const usePictureCommentStore = create<usePictureCommentState>((set) => ({
   setsendReplyViewState: (replyViewState: boolean | number) =>
     set(() => ({ sendReplyViewState: replyViewState })),
 }));
+
+interface usePicturePaginationState {
+  currentPage: number;
+  postPerPage: number;
+}
+export const usePicturePaginationStore = create<usePicturePaginationState>(
+  (set) => ({
+    currentPage: 0,
+    postPerPage: 20,
+
+    setCurrentPage: () =>
+      set((state) => ({ currentPage: state.currentPage + 1 })),
+  })
+);

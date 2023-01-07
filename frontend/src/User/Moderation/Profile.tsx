@@ -27,7 +27,6 @@ const Profile: React.FC<{}> = () => {
 
   return (
     <div className="min-h-screen h-full bg-soft-black">
-      <Header />
       <div className="w-full h-full flex justify-center p-3">
         <div className="w-[70rem] h-full flex flex-col">
           <ProfileSelections />

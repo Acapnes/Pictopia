@@ -32,7 +32,6 @@ const User: React.FC<{}> = () => {
   return (
     // h-[10rem]
     <div className="min-h-screen h-full flex flex-col bg-soft-black">
-      <Header />
       <Routes>
         <Route element={<Visit />}>
           <Route

@@ -62,7 +62,6 @@ export class PicAccountFetchService {
   }
 
   async picSearchByInput(picPaginationDto: PaginationDto): Promise<Pic[]> {
-    console.log("girdi")
     if (picPaginationDto.input[0] === '#') {
       return this.picModel
         .find({

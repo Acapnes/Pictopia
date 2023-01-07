@@ -1,30 +1,17 @@
-import Header from "./Menus/Header";
-import React, { Suspense, useState } from "react";
+import React, { Suspense } from "react";
 import { usePictopiaPublicAccountStore } from "./components/Zustand/store";
 import { CategoryDto } from "./Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
+
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [postPerPage, setPostPerPage] = useState<number>(20);
-
-  const handleScroll = (e: any) => {
-    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
   return (
-    <div
-      onScroll={(e) => handleScroll(e)}
-      className="min-h-screen h-[10rem] flex flex-col space-y-3 bg-soft-black overflow-y-auto overflow-x-hidden"
-    >
-      <Header />
+    <div className="min-h-screen flex flex-col space-y-3 bg-soft-black ">
       <MobileFavoriteCategories />
       <Suspense fallback={<SuspenseVeiw />}>
-        <PictopiaGrid currentPage={currentPage} postPerPage={postPerPage} />
+        <PictopiaGrid />
       </Suspense>
     </div>
   );
@@ -39,7 +26,7 @@ const MobileFavoriteCategories: React.FC<{}> = () => {
 
   return (
     <>
-      {window.innerWidth < 1024 && (
+      {window.localStorage.getItem("access_token") && (
         <div className="flex flex-col space-y-1 px-2.5 lg:hidden">
           <div className="flex flex-row justify-between items-center px-0.5">
             <div className="flex flex-row space-x-1">
@@ -75,6 +62,11 @@ const MobileFavoriteCategories: React.FC<{}> = () => {
                   </div>
                 </div>
               )
+            )}
+            {favoriteCategories?.length <= 0 && (
+              <button className="w-full bg-pretty-yellow py-1.5 px-2.5 rounded-sm font-bold">
+                <p>Insert favorite categories</p>
+              </button>
             )}
           </div>
         </div>

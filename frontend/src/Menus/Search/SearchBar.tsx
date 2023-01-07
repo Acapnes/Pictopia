@@ -1,5 +1,5 @@
 import React from "react";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettyCompassIcon,
@@ -116,9 +116,7 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
                 <div className="h-full w-full flex flex-col space-y-2.5">
                   <LastSearchs />
                   <SearchDefaultSuggests searchInput={searchInputvalue!} />
-                  <Suspense fallback={<p>Loading..</p>}>
-                    <SearchUsers searchInput={searchInputvalue!} size={4} />
-                  </Suspense>
+                  <SearchUsers searchInput={searchInputvalue!} size={4} />
                   <DefaultCategories />
                 </div>
               </div>

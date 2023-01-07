@@ -19,10 +19,7 @@ const SearchView: React.FC<{}> = () => {
   >([]);
 
   const searchByInput = async (input: string) => {
-    setSearchedResults([
-      await UserAPI.findUserByUsername(input),
-      // await CategoryAPI.searchInCategories(input),
-    ]);
+    setSearchedResults([await UserAPI.findUserByUsername(input)]);
   };
 
   const initFetchCredentials = async () => {
@@ -37,7 +34,6 @@ const SearchView: React.FC<{}> = () => {
 
   return (
     <div className="min-h-screen min-w-screen bg-soft-black">
-      <Header />
       <div className="w-full h-full flex flex-col space-y-2 items-center pt-3 px-3 text-gray-200">
         <p className="font-bold text-xl text-gray-200">Search In Everything</p>
         <PrettyRainbowDiv advStyle="w-full">

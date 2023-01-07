@@ -12,6 +12,7 @@ import SearchBar from "./Search/SearchBar";
 import HeaderOptions from "./Options/HeaderOptions";
 import { Outlet } from "react-router-dom";
 import { PrettyMediumAvatar } from "../components/Prettys/PrettyElements";
+import { usePicturePaginationStore } from "../components/Zustand/store";
 
 const Header: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -24,21 +25,36 @@ const Header: React.FC<{}> = () => {
     initFetchCredentials();
   }, []);
 
+  const setCurrentPage = usePicturePaginationStore(
+    (state: any) => state.setCurrentPage
+  );
+
+  const handleScroll = (e: any) => {
+    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
+      setCurrentPage();
+    }
+  };
+
   return (
-    <div className="w-full z-10 sticky top-0 text-sm">
-      <div className="w-full h-header_height flex flex-row justify-between bg-rough-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
-        <a
-          href="/explore"
-          className="h-full flex items-center w-fit rounded-md"
-        >
-          <PrettyPictopia />
-        </a>
-        <SearchBar user={userCredentials} />
-        <div className="flex flex-row space-x-1.5 items-center">
-          <HeaderSmallSearch />
-          <PrettyHeaderUploadPicture />
-          <HeaderAccount user={userCredentials} />
-          <HeaderOptions user={userCredentials} />
+    <div
+      onScroll={(e) => handleScroll(e)}
+      className="min-h-screen h-[10rem] overflow-y-auto overflow-x-hidden"
+    >
+      <div className="w-full z-10 sticky top-0 text-sm">
+        <div className="w-full h-header_height flex flex-row justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
+          <a
+            href="/explore"
+            className="h-full flex items-center w-fit rounded-md"
+          >
+            <PrettyPictopia />
+          </a>
+          <SearchBar user={userCredentials} />
+          <div className="flex flex-row space-x-1.5 items-center">
+            <HeaderSmallSearch />
+            <PrettyHeaderUploadPicture />
+            <HeaderAccount user={userCredentials} />
+            <HeaderOptions user={userCredentials} />
+          </div>
         </div>
       </div>
       <Outlet />
