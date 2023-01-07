@@ -37,10 +37,12 @@ const Router: React.FC<{}> = () => {
 
           <Route path="/user/:id/*" element={<User />} />
 
+          <Route path="/upload" element={<UploadPic />} />
+
           {/* AuthGuard */}
           <Route element={<RouteGuard />}>
             <Route path="/profile/*" element={<Profile />} />
-            <Route path="/upload" element={<UploadPic />} />
+
             <Route path="/edit/picture/:id" element={<PictureEdit />} />
             <Route path="/edit/usage/" element={<AccountUsageEdit />} />
           </Route>

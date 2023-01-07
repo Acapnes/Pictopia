@@ -71,10 +71,10 @@ const PrettyHeaderUploadPicture = () => {
       advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"
       advStyle="p-0.5 rounded-sm"
     >
-      <div className="flex flex-row">
-        <span className="text-white hidden lg:block pr-1.5">Upload</span>
+      <div className="flex flex-row items-center">
+        <span className="text-white hidden md:block pr-1.5">Upload</span>
         <div className="flex items-end">
-          <PrettyUploadIcon size={15} fill={"white"} />
+          <PrettyUploadIcon size={16} fill={"white"} />
         </div>
       </div>
     </PrettyRainbowLink>
@@ -92,12 +92,12 @@ const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
           advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"
           advStyle="p-0.5 rounded-sm"
         >
-          <div className="flex flex-row">
-            <span className="text-white hidden xs:block pr-1.5 whitespace-nowrap">
+          <div className="flex flex-row items-center">
+            <span className="text-white hidden md:block pr-1.5 whitespace-nowrap">
               SIGN IN
             </span>
             <div className="flex items-end">
-              <PrettySignIcon size={18} fill={"white"} />
+              <PrettySignIcon size={16} fill={"white"} />
             </div>
           </div>
         </PrettyRainbowLink>
@@ -111,10 +111,10 @@ const HeaderSmallSearch: React.FC<{}> = () => {
     <div className="h-full flex items-center w-fit lg:hidden">
       <PrettyRainbowLink
         href={"/search"}
-        advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"
+        advChildStyle="px-1.5 py-2.5 md:px-3 md:py-3 rounded-sm"
         advStyle="p-0.5 rounded-sm"
       >
-        <PrettySearchIcon fill={"white"} size={15} />
+        <PrettySearchIcon fill={"white"} size={16} />
       </PrettyRainbowLink>
     </div>
   );

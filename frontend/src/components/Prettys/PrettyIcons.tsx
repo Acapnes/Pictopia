@@ -476,13 +476,16 @@ const PrettyCircleCheckIcon = (props: any) => {
   );
 };
 
-const PrettyAlertIcon = (props: any) => {
+const PrettyAlertIcon: React.FC<{ size?: number; fill?: string }> = ({
+  size,
+  fill,
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={props.size}
-      height={props.size}
-      fill="white"
+      width={size || 16}
+      height={size || 16}
+      fill={fill || "white"}
       className="bi bi-exclamation-octagon-fill"
       viewBox="0 0 16 16"
     >

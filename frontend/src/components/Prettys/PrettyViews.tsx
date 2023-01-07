@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useToastStore } from "../Zustand/store";
-import { PrettyBugIcon, PrettyCircleCheckIcon } from "./PrettyIcons";
+import { PrettyAlertIcon, PrettyBugIcon } from "./PrettyIcons";
 
 const CustomToast: React.FC<{}> = () => {
   const toastState = useToastStore((state: any) => state.toastState);
@@ -9,11 +9,14 @@ const CustomToast: React.FC<{}> = () => {
     <>
       {toastState && (
         <div
-          className={`fixed top-[7.5rem] right-[3rem] -translatex-1/2 -translate-y-1/2 px-5 py-4 bg-slate-800 bg-opacity-90 z-50 duration-700 fade-out`}
+          className={`max-w-[90vw] min-w-[15rem] overflow-y-auto fixed top-[7.5rem] left-1/2 -translate-y-1/2 -translate-x-1/2 px-3 py-3.5
+           bg-slate-800 bg-opacity-90 z-50 duration-700 fade-out `}
         >
           <div className="flex flex-row space-x-3 items-center">
-            <PrettyCircleCheckIcon size={20} fill={"rgb(244, 114, 182)"} />
-            <p className="font-bold text-gray-200">{toastMassage}</p>
+            <div className="min-w-[1.25rem] w-fit">
+              <PrettyAlertIcon size={20} fill={"rgb(244, 114, 182)"} />
+            </div>
+            <p className="font-bold text-gray-200 break-all">{toastMassage}</p>
           </div>
         </div>
       )}

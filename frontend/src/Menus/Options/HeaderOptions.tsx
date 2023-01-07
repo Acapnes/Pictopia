@@ -20,7 +20,7 @@ const HeaderOptions: React.FC<{ user: UserDto }> = ({ user }) => {
         advStyle="p-0.5 rounded-sm"
         onclick={() => setShowSettings(!showSettings)}
       >
-        <PrettyOptionsIcon fill={"white"} size={18} />
+        <PrettyOptionsIcon fill={"white"} size={16} />
       </PrettyRainbow>
 
       {showSettings && (

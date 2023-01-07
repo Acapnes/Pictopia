@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
 import { useState } from "react";
 import { PicAPI } from "../../Api/Pic/PicApi";
-import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
+import {
+  PrettyRainbow,
+  PrettyTip,
+} from "../../components/Prettys/PrettyComponents";
 import {
   PrettyPictureIcon,
   PrettyTrashIcon,
   PrettyUploadIcon,
 } from "../../components/Prettys/PrettyIcons";
-import Header from "../../Menus/Header";
 import { useToastStore } from "../../components/Zustand/store";
 import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { HashtagAppend } from "./components/Hashtags";
@@ -39,6 +41,10 @@ const UploadPic: React.FC<{}> = () => {
   };
 
   const uploadPictureFunction = async () => {
+    if (!window.localStorage.getItem("access_token")) {
+      await setToastState("PleaseloginbeforePleasoginbeforePleasloginbefore");
+      return;
+    }
     await PicAPI.uploadPicture(
       {
         picture: uploadPicture!.picture_file,
@@ -56,9 +62,14 @@ const UploadPic: React.FC<{}> = () => {
   };
 
   return (
-    <div className="min-h-screen w-full h-full bg-soft-black flex flex-col md:pb-3">
-      <div className="w-full flex items-center justify-center pt-5">
-        <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
+    <div className="min-h-screen w-full bg-soft-black flex flex-col md:pb-3">
+      <div className="w-full flex flex-col space-y-2.5 items-center justify-center pt-5">
+        {!window.localStorage.getItem("access_token") && (
+          <div className="max-w-[50rem]">
+            <PrettyTip text="Please log in before send new pictures" />
+          </div>
+        )}
+        <div className="w-full max-w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
           <div className="w-full flex flex-col space-y-2 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
             <div className="flex flex-col space-y-2">
               <span className="font-semibold text-gray-200 text-lg">
