@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { UserAPI } from "../../../../Api/User/UserApi";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../../../components/Prettys/PrettyComponents";
 import { PrettyCheckIcon } from "../../../../components/Prettys/PrettyIcons";
-import { SearchMenuUsersGrid } from "../../../../Menus/Search/SearchBar";
+import SearchUsers from "../../../../Menus/Search/Searches/SearchUsers";
 
 const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
-  const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
+  const [searchInputvalue, setSearchInputvalue] = useState<string>();
 
   return (
     <div className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm">
@@ -30,13 +28,7 @@ const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
             <div className="flex flex-col space-y-2 items-end">
               <div className="w-full flex flex-row items-center space-x-1 pr-1.5 border-[1.5px] border-pretty-rough-pink">
                 <input
-                  onChange={async (e) => {
-                    if (e.target.value.length > 0) {
-                      setSearchedUsers(
-                        await UserAPI.findUserByUsername(e.target.value)
-                      );
-                    }
-                  }}
+                  onChange={(e) => setSearchInputvalue(e.target.value)}
                   type="text"
                   className="w-full bg-transparent  text-gray-200 outline-none px-2 py-1.5 rounded-sm"
                 />
@@ -48,7 +40,7 @@ const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
                 </button>
               </div>
               <div className="w-full">
-                <SearchMenuUsersGrid searchedUsers={searchedUsers} size={3} />
+                <SearchUsers searchInput={searchInputvalue!} size={3} />
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
-const Pictopia: React.FC<{}> = ({}) => {
+const Pictopia: React.FC<{}> = () => {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [postPerPage, setPostPerPage] = useState<number>(20);
 

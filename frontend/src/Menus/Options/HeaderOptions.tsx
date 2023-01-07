@@ -75,7 +75,7 @@ const HeaderUserOptions: React.FC<{ user: UserDto }> = ({ user }) => {
             href="/profile"
             className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-5 py-2 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30"
           >
-            <p className="my-2 text-gray-300 font-bold">Profile</p>
+            <p className="my-2 text-gray-300">Profile</p>
             <div>
               <PrettyProfileIcon size={22} fill={"rgb(244,114,182)"} />
             </div>

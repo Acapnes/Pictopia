@@ -1,32 +1,27 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { Suspense, useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
   PrettyCompassIcon,
-  PrettyErrorIcon,
-  PrettyHelpIcon,
-  PrettyPenIcon,
-  PrettyProfileIcon,
   PrettySearchIcon,
-  PrettySignIcon,
   PrettySmallArrowUpIcon,
 } from "../../components/Prettys/PrettyIcons";
 import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { CategoryAPI } from "../../Api/User/Category/CategoryApi";
-import { UserAPI } from "../../Api/User/UserApi";
 import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
 import DefaultCategories from "./Category/DefaultCategories";
 import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
 import { useParams } from "react-router-dom";
+import { LastSearchs } from "./Account/AccountBar";
+import { SearchDefaultSuggests } from "./SearchResult";
+import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
+
+const SearchUsers = React.lazy(() => import("./Searches/SearchUsers"));
 
 const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
-  const [searchedUsers, setSearchedUsers] = useState<UserDto[]>([]);
-
-  const searchUsers = async (username: string) => {
-    setSearchedUsers(await UserAPI.findUserByUsername(username));
-  };
 
   const setDefaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setDefaultCategories
@@ -56,91 +51,75 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
     })();
   }, []);
 
-  const defaultCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
-    (state: any) => state.defaultCategories
-  );
-
   const favoriteCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
 
   return (
     <div className="w-full hidden lg:flex lg:items-center relative">
-      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center font-semibold overflow-hidden rounded-sm">
-        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-        <span className=" w-full px-4 md:py-2 sm:py-1 transition-all ease-out bg-gray-900 rounded-sm duration-400 relative">
-          <div
-            onClick={() => setShowSearchMenu(true)}
-            className="flex flex-row justify-between space-x-2"
-          >
-            <div className="h-full flex items-center mt-[0.25rem]">
-              <PrettySearchIcon fill={"white"} />
-            </div>
-            <input
-              onKeyDown={(e) => {
-                if (
-                  e.key === "Enter" &&
-                  searchInputvalue?.length &&
-                  searchInputvalue?.length > 0
-                ) {
-                  if (searchInputvalue[0] === "#") {
-                    window.location.href = `/search/tags/${searchInputvalue.slice(
-                      1,
-                      searchInputvalue.length
-                    )}`;
-                  } else {
-                    window.location.href = `/search/${searchInputvalue}`;
-                  }
-                }
-              }}
-              autoComplete="off"
-              id="SearchInput"
-              onChange={(e) => {
-                setSearchInputvalue(e.target.value);
-                if (e.target.value) {
-                  searchUsers(e.target.value);
-                }
-              }}
-              type="text"
-              placeholder="Search by type in pictures & hashtags & users..."
-              className="outline-none bg-transparent text-gray-100 w-full placeholder:font-semibold"
-            />
+      <PrettyRainbowDiv advStyle="w-full" advChildStyle="w-full">
+        <div
+          onClick={() => setShowSearchMenu(true)}
+          className="flex flex-row justify-between space-x-2"
+        >
+          <div className="h-full flex items-center mt-[0.25rem]">
+            <PrettySearchIcon fill={"white"} />
           </div>
-          {showSearchMenu && (
-            <div
-              onClick={() => setShowSearchMenu(false)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
-            >
-              <PrettySmallArrowUpIcon size={18} />
-            </div>
-          )}
-        </span>
-      </div>
+          <input
+            onKeyDown={(e) => {
+              if (
+                e.key === "Enter" &&
+                searchInputvalue?.length &&
+                searchInputvalue?.length > 0
+              ) {
+                if (searchInputvalue[0] === "#") {
+                  window.location.href = `/search/tags/${searchInputvalue.slice(
+                    1,
+                    searchInputvalue.length
+                  )}`;
+                } else {
+                  window.location.href = `/search/${searchInputvalue}`;
+                }
+              }
+            }}
+            autoComplete="off"
+            id="SearchInput"
+            onChange={(e) => {
+              setSearchInputvalue(e.target.value);
+            }}
+            type="text"
+            placeholder="Search by type in pictures & hashtags & users..."
+            className="outline-none bg-transparent text-gray-100 w-full placeholder:font-semibold"
+          />
+        </div>
+        {showSearchMenu && (
+          <div
+            onClick={() => setShowSearchMenu(false)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
+          >
+            <PrettySmallArrowUpIcon size={18} />
+          </div>
+        )}
+      </PrettyRainbowDiv>
       {showSearchMenu && (
         <div className="absolute top-[4rem] w-full shadow-lg">
-          <div className="w-full p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-            <div className=" w-full p-3.5 bg-soft-black  rounded-sm relative">
-              <div className="w-full flex flex-row space-x-2">
-                <div className="flex flex-col space-y-2 w-fit">
+          <div className="w-full h-fit p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+            <div className=" w-full p-3.5 bg-soft-black rounded-sm relative">
+              <div className="w-full flex flex-row space-x-2 max-h-[50vh] overflow-y-auto scrollbar-hide">
+                <div className="min-w-[25vw] 2xl:min-w-[15vw] max-w-[25vw] 2xl:max-w-[15vw] flex flex-col space-y-2.5 w-fit sticky top-0 resiza">
                   <CurrentCategory />
                   <FavoriteCategories
                     favoriteCategories={favoriteCategories}
                     user={user}
                   />
                 </div>
-                <div className="min-h-[60vh] h-full w-full flex flex-col space-y-2 ">
+                <div className="h-full w-full flex flex-col space-y-2.5">
                   <LastSearchs />
-                  {searchInputvalue ? (
-                    <div className="flex flex-col space-y-3 max-h-[60vh]">
-                      <SearchResults searchInput={searchInputvalue} />
-                      <SearchMenuUsersGrid
-                        searchedUsers={searchedUsers}
-                        size={4}
-                      />
-                    </div>
-                  ) : (
-                    <DefaultCategories defaultCategories={defaultCategories} />
-                  )}
+                  <SearchDefaultSuggests searchInput={searchInputvalue!} />
+                  <Suspense fallback={<p>Loading..</p>}>
+                    <SearchUsers searchInput={searchInputvalue!} size={4} />
+                  </Suspense>
+                  <DefaultCategories />
                 </div>
               </div>
             </div>
@@ -152,8 +131,6 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
 };
 
 export default SearchBar;
-
-export { SearchResults, SearchMenuUsersGrid, LastSearchs };
 
 const CurrentCategory: React.FC<{}> = () => {
   const params = useParams() as any;
@@ -175,7 +152,7 @@ const CurrentCategory: React.FC<{}> = () => {
   return (
     <>
       {currentCategory?.title ? (
-        <div className="relative min-w-[25vw] 2xl:min-w-[15vw] text-start font-semibold text-white rounded-sm h-[4rem] cursor-pointer">
+        <div className="relative text-start font-semibold text-white rounded-sm h-[4rem] cursor-pointer">
           <img
             src={`data:${currentCategory?.category_picture_file?.contentType};base64,${currentCategory?.category_picture_file?.data}`}
             className=" object-cover h-full w-full opacity-80 rounded-sm border-2"
@@ -202,145 +179,6 @@ const CurrentCategory: React.FC<{}> = () => {
               <PrettyCompassIcon />
             </div>
             <p className="my-2 text-gray-300 font-bold text-2xl">Explore</p>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};
-
-const SearchResults: React.FC<{
-  searchInput: string;
-}> = ({ searchInput }) => {
-  return (
-    <>
-      <div className="flex flex-col space-y-2 max-h-[60vh] text-gray-200">
-        <a
-          href={`/search/${searchInput}`}
-          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-        >
-          <PrettySearchIcon size={14} />
-          <span className="">
-            Search in pictures
-            <span className="font-bold pl-1">{searchInput}</span>
-          </span>
-        </a>
-        <a
-          href={`/search/tags/${searchInput}`}
-          className="flex flex-row space-x-1.5 py-1.5 bg-light-soft-black px-2 rounded-md items-center"
-        >
-          <PrettySearchIcon size={14} />
-          <span className="">
-            Search in hashtags
-            <span className="font-bold pl-1">#{searchInput}</span>
-          </span>
-        </a>
-      </div>
-    </>
-  );
-};
-
-const SearchMenuUsersGrid: React.FC<{
-  searchedUsers: UserDto[];
-  size: number;
-}> = ({ searchedUsers, size }) => {
-  return (
-    <div className="flex justify-center overflow-y-auto scrollbar-hide">
-      <div
-        className={`grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2 w-full`}
-      >
-        {searchedUsers?.length > 0 ? (
-          searchedUsers?.map((user: UserDto, userIndex: number) => (
-            <a
-              href={`/user/${user.username}`}
-              className="flex flex-row space-x-3 items-center group bg-rough-soft-black bg-opacity-0 hover:bg-opacity-90 duration-300 rounded-l-full cursor-pointer"
-              key={userIndex}
-            >
-              {user?.avatar?.contentType && user?.avatar?.data ? (
-                <div
-                  style={{ width: `${size}rem`, height: `${size}rem` }}
-                  className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative"
-                >
-                  <img
-                    src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
-                    alt=""
-                    className="rounded-full w-full h-full object-cover p-0.5"
-                  />
-                </div>
-              ) : (
-                <div
-                  style={{ width: `${size}rem`, height: `${size}rem` }}
-                  className="bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-full relative p-0.5"
-                >
-                  <div className="w-full h-full flex items-center justify-center bg-soft-black rounded-full">
-                    <PrettyProfileIcon size={size * 8} fill={"white"} />
-                  </div>
-                </div>
-              )}
-
-              <div className="w-full flex items-center truncate">
-                <div className="w-full flex flex-row justify-between pr-4 items-center text-gray-200">
-                  <div className="w-full flex flex-row space-x-2 ">
-                    <p className="font-bold truncate">{user?.username}</p>
-                    <p className="opacity-50 truncate">{user?.name}</p>
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 duration-200">
-                    <PrettySignIcon size={22} />
-                  </div>
-                </div>
-              </div>
-            </a>
-          ))
-        ) : (
-          <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 rounded-sm">
-            <PrettyErrorIcon size={16} fill={"white"} />
-            <span className="text-gray-200 text-lg font-semibold">
-              No User Found
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const LastSearchs: React.FC<{}> = () => {
-  const lastSearches = usePictopiaPublicAccountStore<string[]>(
-    (state: any) => state.lastSearches
-  );
-
-  return (
-    <>
-      {lastSearches?.length > 0 && (
-        <div className="flex flex-col space-y-1">
-          <div className="flex flex-row space-x-1 items-center">
-            <PrettyHelpIcon />
-            <p className="text-gray-200 font-bold">Recently Searched</p>
-            <a href="/edit/usage" className="pl-1">
-              <PrettyPenIcon size={12} fill="rgb(244,114,182)" />
-            </a>
-          </div>
-          <div className="w-full flex flex-wrap items-center h-fit px-1 pb-0.5 border-b-2 border-pretty-pink max-h-[7.5rem] overflow-y-auto scrollbar-hide">
-            {lastSearches?.map((search: string, searchIndex: number) => (
-              <div
-                key={searchIndex}
-                className="bg-slate-800 rounded-sm mr-1.5 mb-1 hover:bg-pretty-pink bg-opacity-100 hover:bg-opacity-90 text-pretty-pink hover:text-gray-100 font-semibold text-sm text-center duration-300"
-              >
-                <div className="flex flex-row space-x-2 px-1.5 py-1">
-                  <a
-                    href={
-                      search[0] === "#"
-                        ? `/search/tags/${search.slice(1, search.length)}`
-                        : `/search/${search}`
-                    }
-                  >
-                    <div className="">
-                      <span>{search}</span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       )}

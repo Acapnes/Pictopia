@@ -58,7 +58,7 @@ const UploadPic: React.FC<{}> = () => {
   return (
     <div className="min-h-screen w-full h-full bg-soft-black flex flex-col md:pb-3">
       <Header />
-      <div className="w-full flex-auto flex items-center justify-center pt-5">
+      <div className="w-full flex items-center justify-center pt-5">
         <div className="w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
           <div className="w-full flex flex-col space-y-2 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
             <div className="flex flex-col space-y-2">
@@ -118,7 +118,7 @@ const UploadPic: React.FC<{}> = () => {
                 <PrettyRainbow>
                   <div className="flex flex-row space-x-1.5 items-center">
                     <span className="text-gray-200">Send</span>
-                    <PrettyUploadIcon />
+                    <PrettyUploadIcon fill={"white"} />
                   </div>
                 </PrettyRainbow>
               </button>

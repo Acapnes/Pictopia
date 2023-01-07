@@ -5,27 +5,35 @@ import { PicDto } from "../../Api/Pic/picDtos";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyMediumAvatar } from "../../components/Prettys/PrettyElements";
 import { PrettySend } from "../../components/Prettys/PrettyIcons";
-import { usePictureCommentStore } from "../../components/Zustand/store";
+import {
+  usePictureCommentStore,
+  useToastStore,
+} from "../../components/Zustand/store";
 
 const SendComment: React.FC<{
   getCommentsById: Function;
   author: UserDto;
   picture: PicDto;
 }> = ({ getCommentsById, picture, author }) => {
+  const setToastState = useToastStore((state: any) => state.setToastState);
   const newCommentsRef = useRef<HTMLTextAreaElement>(null);
 
   const postComment = async () => {
-    await CommentAPI.postCommentToPicture(
-      window.localStorage.getItem("access_token")!,
-      {
-        comment: newCommentsRef?.current?.value!,
-        destPicture: picture?._id,
-        creationDate: new Date(),
-      }
-    ).then(() => {
-      getCommentsById();
-      newCommentsRef.current!.value = "";
-    });
+    if (author?.email) {
+      await CommentAPI.postCommentToPicture(
+        window.localStorage.getItem("access_token")!,
+        {
+          comment: newCommentsRef?.current?.value!,
+          destPicture: picture?._id,
+          creationDate: new Date(),
+        }
+      ).then(() => {
+        getCommentsById();
+        newCommentsRef.current!.value = "";
+      });
+    } else {
+      await setToastState("Please login before");
+    }
   };
 
   return (
@@ -44,7 +52,7 @@ const SendComment: React.FC<{
           }
         />
         <div
-          onClick={() => author?.email && postComment()}
+          onClick={() => postComment()}
           className="h-full flex items-center px-2 hover:bg-pretty-pink hover:bg-opacity-40 cursor-pointer"
         >
           <PrettySend size={18} fill="rgb(244, 114, 182)" />

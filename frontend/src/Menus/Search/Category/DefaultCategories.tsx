@@ -4,10 +4,11 @@ import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
 import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
 import { usePictopiaPublicAccountStore } from "../../../components/Zustand/store";
 
-const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
-  defaultCategories,
-}) => {
-  
+const DefaultCategories: React.FC<{}> = () => {
+  const defaultCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
+    (state: any) => state.defaultCategories
+  );
+
   const setDefaultCategories = usePictopiaPublicAccountStore(
     (state: any) => state.setDefaultCategories
   );
@@ -28,19 +29,25 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
     <div
       className="w-full flex flex-auto"
       onDragOver={(e) => draggingNumber !== 0 && e.preventDefault()}
-      onDrop={async(droppedCategory) => {
-        const category = JSON.parse(droppedCategory.dataTransfer.getData("category")) as CategoryDto;
-        const categoryIndex = JSON.parse(droppedCategory.dataTransfer.getData("categoryIndex")) as number;
-        await CategoryAPI.RemoveFavoriteCategory(category._id).then(async (resp) => {
-          if (resp.success) {
-            setDefaultCategories([...defaultCategories, category]);
-            favoriteCategories.splice(categoryIndex, 1);
-            return;
+      onDrop={async (droppedCategory) => {
+        const category = JSON.parse(
+          droppedCategory.dataTransfer.getData("category")
+        ) as CategoryDto;
+        const categoryIndex = JSON.parse(
+          droppedCategory.dataTransfer.getData("categoryIndex")
+        ) as number;
+        await CategoryAPI.RemoveFavoriteCategory(category._id).then(
+          async (resp) => {
+            if (resp.success) {
+              setDefaultCategories([...defaultCategories, category]);
+              favoriteCategories.splice(categoryIndex, 1);
+              return;
+            }
           }
-        });
+        );
       }}
     >
-      <div className="w-full max-h-[60vh] overflow-y-auto scrollbar-hide">
+      <div className="w-full overflow-y-auto scrollbar-hide">
         <div className="flex justify-center">
           <Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 5 }} spacing={1}>
             {defaultCategories.map(
@@ -51,7 +58,7 @@ const DefaultCategories: React.FC<{ defaultCategories: CategoryDto[] }> = ({
                   }
                   draggable={true}
                   onDragStart={(event: React.DragEvent<HTMLButtonElement>) => {
-                    setDraggingNumber(0)
+                    setDraggingNumber(0);
                     event.dataTransfer.setData(
                       "category",
                       JSON.stringify(category)

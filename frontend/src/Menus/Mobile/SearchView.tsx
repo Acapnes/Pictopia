@@ -2,15 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import Header from "../Header";
-import {
-  LastSearchs,
-  SearchMenuUsersGrid,
-  SearchResults,
-} from "../Search/SearchBar";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
 import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
 import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "../../components/Prettys/PrettyIcons";
+import { SearchDefaultSuggests } from "../Search/SearchResult";
+import { LastSearchs } from "../Search/Account/AccountBar";
+import SearchUsers from "../Search/Searches/SearchUsers";
 
 const SearchView: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -96,8 +94,8 @@ const SearchResultMenu: React.FC<{
     <div className="w-full">
       {inputRef.current?.value! && (
         <div className="w-full flex flex-col space-y-2 max-h-[50vh]">
-          <SearchResults searchInput={inputRef.current?.value!} />
-          <SearchMenuUsersGrid searchedUsers={searchedUsers} size={4} />
+          <SearchDefaultSuggests searchInput={inputRef.current?.value!} />
+          <SearchUsers searchInput={inputRef.current?.value!} size={4} />
         </div>
       )}
     </div>
