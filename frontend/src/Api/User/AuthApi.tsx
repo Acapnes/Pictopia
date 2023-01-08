@@ -1,3 +1,4 @@
+import { ReturnFuncDto } from "../Utils/UtilsDtos";
 import { UserRegistrationDto, UserValidationDto } from "./UserDtos/userDto";
 
 export class AuthAPI {
@@ -23,7 +24,7 @@ export class AuthAPI {
     return data;
   }
 
-  public static async userRegister(userRegistrationDto: UserRegistrationDto) {
+  public static async userRegister(userRegistrationDto: UserRegistrationDto): Promise<ReturnFuncDto> {
     const resp = await fetch("http://localhost:3000/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ export class AuthAPI {
 
     if (resp.status === (400 || 404 || 500))
       return {
-        access: false,
+        success: false,
         message: data.message[0],
       };
 

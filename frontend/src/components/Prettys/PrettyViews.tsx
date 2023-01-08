@@ -95,14 +95,4 @@ const SuspenseVeiw: React.FC<{ text?: string; main?: boolean }> = ({
   );
 };
 
-const LoadingAnimation: React.FC<{}> = () => {
-  return (
-    <div className="w-[3rem] h-[2.5rem] flex flex-row">
-      <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-      <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-      <div className="h-full w-full animate-[bounce_1.5s_infinite_300ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-    </div>
-  );
-};
-
-export { CustomToast, Notfound, SuspenseVeiw, LoadingAnimation };
+export { CustomToast, Notfound, SuspenseVeiw };

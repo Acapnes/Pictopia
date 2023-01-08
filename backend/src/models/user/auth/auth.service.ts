@@ -18,12 +18,21 @@ export class AuthService {constructor(@InjectModel(User.name) private userModel:
   async createUser(userRegistrationDto: UserRegistrationDto): Promise<ReturnAuthDto> {
     const checkEmail = await this.userService.findByEmail(userRegistrationDto.email) as ReturnFuncDto;
     if (checkEmail.success != false)
-      return {
+    return {
+      access: false,
+      access_token: '',
+      message: 'This email already been used',
+    };
+
+    let passwordCheck = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+    if(!userRegistrationDto.password.match(passwordCheck)){
+      return{
         access: false,
         access_token: '',
-        message: 'This email already been used',
-      };
-
+        message: 'Password must be within the specified conditions',
+      }
+    }
+    
     userRegistrationDto.password = await bcrypt.hashSync(userRegistrationDto.password,10);
     
     this.userModel.create(userRegistrationDto);

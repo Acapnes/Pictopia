@@ -9,9 +9,11 @@ import { usePicturePaginationStore } from "../../components/Zustand/store";
 
 const PictopiaGrid: React.FC<{}> = () => {
   const [pictures, setPictures] = useState<PicDto[]>([]);
+  const [picturesLoading, setPicturesLoading] = useState<boolean>(false);
   const params = useParams();
 
   const fetchAndSetPics = async () => {
+    setPicturesLoading(true);
     if (params?.category) {
       setPictures([
         ...pictures,
@@ -48,6 +50,7 @@ const PictopiaGrid: React.FC<{}> = () => {
         })),
       ]);
     }
+    setPicturesLoading(false);
   };
 
   const currentPage = usePicturePaginationStore(
@@ -58,11 +61,11 @@ const PictopiaGrid: React.FC<{}> = () => {
   );
 
   useEffect(() => {
-    fetchAndSetPics();
+    !picturesLoading && fetchAndSetPics();
   }, [currentPage]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center pb-14 px-1">
+    <div className="w-full flex flex-col items-center justify-center pb-32 pt-3 px-1">
       <Masonry columns={{ xs: 2, sm: 4, md: 5, lg: 6, xl: 6 }} spacing={2}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
@@ -79,9 +82,26 @@ const PictopiaGrid: React.FC<{}> = () => {
           </div>
         ))}
       </Masonry>
-      {/* <LoadingAnimation /> */}
+      {picturesLoading && <LoadingAnimation />}
     </div>
   );
 };
 
 export default PictopiaGrid;
+
+const LoadingAnimation: React.FC<{}> = () => {
+  return (
+    <div className="flex flex-row">
+      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_300ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+      </div>
+      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_400ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_500ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_600ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+      </div>
+    </div>
+  );
+};

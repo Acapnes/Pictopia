@@ -10,7 +10,7 @@ const Pictopia: React.FC<{}> = () => {
   return (
     <div className="flex flex-auto flex-col space-y-3">
       <MobileFavoriteCategories />
-      <Suspense fallback={<SuspenseVeiw />}>
+      <Suspense fallback={<SuspenseVeiw text="Pictures" />}>
         <PictopiaGrid />
       </Suspense>
     </div>
