@@ -7,22 +7,18 @@ import {
   PrettyHelpIcon,
   PrettySquareFilledAddIcon,
   PrettyTrashIcon,
-  PrettyXIcon,
 } from "../../../components/Prettys/PrettyIcons";
 import {
   usePictopiaPublicAccountStore,
   useToastStore,
 } from "../../../components/Zustand/store";
-import Header from "../../../Menus/Header";
 
 const AccountUsageEdit: React.FC<{}> = () => {
   return (
-    <div className="min-h-screen h-full bg-soft-black">
-      <div className="w-full grid grid-cols-1 gap-3 lg:grid-cols-2 p-3">
-        <FavoriteMapping />
-        <SearchCategoriesMapping />
-        <EditLastSearches />
-      </div>
+    <div className="w-full grid grid-cols-1 gap-3 lg:grid-cols-2 p-3">
+      <FavoriteMapping />
+      <SearchCategoriesMapping />
+      <EditLastSearches />
     </div>
   );
 };

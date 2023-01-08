@@ -20,7 +20,7 @@ const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <>
       {postedComments.length > 0 && (
         <div className="flex flex-col items-center px-2 pb-2">
           <Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 4 }} spacing={2}>
@@ -63,7 +63,7 @@ const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
           </Masonry>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

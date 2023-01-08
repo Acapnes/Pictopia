@@ -28,11 +28,10 @@ const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
         }
       );
     })();
-    
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <>
       {postedPictures?.length > 0 && (
         <div className="flex flex-col items-center bg-soft-black bg-opacity-95 px-4 pb-4">
           <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 6 }} spacing={2}>
@@ -58,7 +57,7 @@ const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
           <p className="text-gray-200 font-bold text-3xl">PRIVATE ACCOUNT</p>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

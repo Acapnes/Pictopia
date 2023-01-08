@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import {
@@ -9,15 +9,23 @@ import {
 import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { CategoryAPI } from "../../Api/User/Category/CategoryApi";
 import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
-import DefaultCategories from "./Category/DefaultCategories";
-import FavoriteCategories from "./Category/FavoriteCategories";
 import { AccountAPI } from "../../Api/User/AccountApi";
 import { useParams } from "react-router-dom";
 import { LastSearchs } from "./Account/AccountBar";
 import { SearchDefaultSuggests } from "./SearchResult";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
+import { SuspenseVeiw } from "../../components/Prettys/PrettyViews";
+// import SearchUsers from "./Searches/SearchUsers";
+// import FavoriteCategories from "./Category/FavoriteCategories";
+// import DefaultCategories from "./Category/DefaultCategories";
 
 const SearchUsers = React.lazy(() => import("./Searches/SearchUsers"));
+const FavoriteCategories = React.lazy(
+  () => import("./Category/FavoriteCategories")
+);
+const DefaultCategories = React.lazy(
+  () => import("./Category/DefaultCategories")
+);
 
 const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -105,19 +113,23 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
         <div className="absolute top-[4rem] w-full shadow-lg">
           <div className="w-full h-fit p-0.5 inline-flex items-center justify-center overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
             <div className=" w-full p-3.5 bg-soft-black rounded-sm relative">
-              <div className="w-full flex flex-row space-x-2 max-h-[50vh] overflow-y-auto scrollbar-hide">
+              <div className="w-full flex flex-row space-x-2 max-h-[55vh] overflow-y-auto scrollbar-hide">
                 <div className="min-w-[25vw] 2xl:min-w-[15vw] max-w-[25vw] 2xl:max-w-[15vw] flex flex-col space-y-2.5 w-fit sticky top-0 resiza">
-                  <CurrentCategory />
-                  <FavoriteCategories
-                    favoriteCategories={favoriteCategories}
-                    user={user}
-                  />
+                  <Suspense fallback={<SuspenseVeiw text="Category Panel" />}>
+                    <CurrentCategory />
+                    <FavoriteCategories
+                      favoriteCategories={favoriteCategories}
+                      user={user}
+                    />
+                  </Suspense>
                 </div>
                 <div className="h-full w-full flex flex-col space-y-2.5">
-                  <LastSearchs />
-                  <SearchDefaultSuggests searchInput={searchInputvalue!} />
-                  <SearchUsers searchInput={searchInputvalue!} size={4} />
-                  <DefaultCategories />
+                  <Suspense fallback={<SuspenseVeiw />}>
+                    <LastSearchs />
+                    <SearchDefaultSuggests searchInput={searchInputvalue!} />
+                    <SearchUsers searchInput={searchInputvalue!} size={4} />
+                    <DefaultCategories />
+                  </Suspense>
                 </div>
               </div>
             </div>

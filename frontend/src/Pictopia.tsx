@@ -8,7 +8,7 @@ const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
   return (
-    <div className="min-h-screen flex flex-col space-y-3 bg-soft-black ">
+    <div className="flex flex-auto flex-col space-y-3">
       <MobileFavoriteCategories />
       <Suspense fallback={<SuspenseVeiw />}>
         <PictopiaGrid />

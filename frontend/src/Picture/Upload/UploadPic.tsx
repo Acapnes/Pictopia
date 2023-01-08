@@ -62,7 +62,7 @@ const UploadPic: React.FC<{}> = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-soft-black flex flex-col md:pb-3">
+    <div className="flex flex-col md:pb-3">
       <div className="w-full flex flex-col space-y-2.5 items-center justify-center pt-5">
         {!window.localStorage.getItem("access_token") && (
           <div className="max-w-[50rem]">

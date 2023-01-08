@@ -50,9 +50,16 @@ const Notfound: React.FC<{ navigatePath?: string }> = ({ navigatePath }) => {
   );
 };
 
-const SuspenseVeiw: React.FC<{}> = () => {
+const SuspenseVeiw: React.FC<{ text?: string; main?: boolean }> = ({
+  text,
+  main,
+}) => {
   return (
-    <div className="min-h-screen w-full flex justify-center bg-soft-black">
+    <div
+      className={`w-full flex-auto flex justify-center bg-soft-black ${
+        main && "min-h-screen"
+      }`}
+    >
       <div className="flex flex-col space-y-3 h-fit w-fit items-center mt-10">
         <div role="status">
           <svg
@@ -73,8 +80,13 @@ const SuspenseVeiw: React.FC<{}> = () => {
           </svg>
           <span className="sr-only">Loading...</span>
         </div>
-        <div className="w-full h-full flex flex-row space-x-5 items-center">
-          <p className="text-xl md:text-2xl 3xl:text-3xl text-gray-200">
+        <div className="w-full h-full flex flex-col items-center">
+          {text && (
+            <p className="text-xl md:text-2xl 3xl:text-3xl text-gray-200">
+              {text}
+            </p>
+          )}
+          <p className="text-lg md:text-xl 3xl:text-2xl text-gray-200">
             Loading Please Wait...
           </p>
         </div>

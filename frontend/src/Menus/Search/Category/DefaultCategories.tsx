@@ -47,7 +47,7 @@ const DefaultCategories: React.FC<{}> = () => {
         );
       }}
     >
-      <div className="w-full overflow-y-auto scrollbar-hide">
+      <div className="w-full">
         <div className="flex justify-center">
           <Masonry columns={{ xs: 1, sm: 1, md: 2, lg: 3, xl: 5 }} spacing={1}>
             {defaultCategories.map(

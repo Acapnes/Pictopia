@@ -30,6 +30,7 @@ const Header: React.FC<{}> = () => {
   );
 
   const handleScroll = (e: any) => {
+    console.log("asd");
     if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
       setCurrentPage();
     }
@@ -38,7 +39,7 @@ const Header: React.FC<{}> = () => {
   return (
     <div
       onScroll={(e) => handleScroll(e)}
-      className="min-h-screen h-[10rem] overflow-y-auto overflow-x-hidden"
+      className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black"
     >
       <div className="w-full z-10 sticky top-0 text-sm">
         <div className="w-full h-header_height flex flex-row justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">

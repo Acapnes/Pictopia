@@ -4,7 +4,6 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-import Header from "../../Menus/Header";
 import Blocking from "./ProfileMenus/Blocking/Blocking";
 import ProfileEdit from "./ProfileMenus/Edit/ProfileEdit";
 import AccountDeletion from "./ProfileMenus/Management/components/AccountDeletion";
@@ -26,27 +25,25 @@ const Profile: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="min-h-screen h-full bg-soft-black">
-      <div className="w-full h-full flex justify-center p-3">
-        <div className="w-[70rem] h-full flex flex-col">
-          <ProfileSelections />
-          <Routes>
-            <Route index element={<ProfileEdit user={userCredentials} />} />
-            <Route
-              path="social"
-              element={<ProfileSocial user={userCredentials} />}
-            />
-            <Route
-              path="management"
-              element={<Management user={userCredentials} />}
-            />
-            <Route
-              path="blocking"
-              element={<Blocking user={userCredentials} />}
-            />
-            <Route path="deletion" element={<AccountDeletion />} />
-          </Routes>
-        </div>
+    <div className="w-full h-full flex justify-center p-3">
+      <div className="w-[70rem] h-full flex flex-col">
+        <ProfileSelections />
+        <Routes>
+          <Route index element={<ProfileEdit user={userCredentials} />} />
+          <Route
+            path="social"
+            element={<ProfileSocial user={userCredentials} />}
+          />
+          <Route
+            path="management"
+            element={<Management user={userCredentials} />}
+          />
+          <Route
+            path="blocking"
+            element={<Blocking user={userCredentials} />}
+          />
+          <Route path="deletion" element={<AccountDeletion />} />
+        </Routes>
       </div>
     </div>
   );

@@ -33,46 +33,44 @@ const SearchView: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="min-h-screen min-w-screen bg-soft-black">
-      <div className="w-full h-full flex flex-col space-y-2 items-center pt-3 px-3 text-gray-200">
-        <p className="font-bold text-xl text-gray-200">Search In Everything</p>
-        <PrettyRainbowDiv advStyle="w-full">
-          <input
-            onKeyDown={(e) => {
-              if (
-                e.key === "Enter" &&
-                searchInputRef.current?.value?.length &&
-                searchInputRef.current?.value?.length > 0
-              ) {
-                if (searchInputRef.current?.value[0] === "#") {
-                  window.location.href = `/search/tags/${searchInputRef.current?.value.slice(
-                    1,
-                    searchInputRef.current?.value.length
-                  )}`;
-                } else {
-                  window.location.href = `/search/${searchInputRef.current?.value}`;
-                }
+    <div className="w-full h-full flex flex-col space-y-2 items-center pt-3 px-3 text-gray-200">
+      <p className="font-bold text-xl text-gray-200">Search In Everything</p>
+      <PrettyRainbowDiv advStyle="w-full">
+        <input
+          onKeyDown={(e) => {
+            if (
+              e.key === "Enter" &&
+              searchInputRef.current?.value?.length &&
+              searchInputRef.current?.value?.length > 0
+            ) {
+              if (searchInputRef.current?.value[0] === "#") {
+                window.location.href = `/search/tags/${searchInputRef.current?.value.slice(
+                  1,
+                  searchInputRef.current?.value.length
+                )}`;
+              } else {
+                window.location.href = `/search/${searchInputRef.current?.value}`;
               }
-            }}
-            onChange={() => {
-              searchInputRef.current?.value! &&
-                searchByInput(searchInputRef.current?.value!);
-            }}
-            ref={searchInputRef}
-            type="text"
-            className="w-full h-full bg-transparent text-gray-200 outline-none"
-          />
-        </PrettyRainbowDiv>
-        <div className="w-full flex flex-col space-y-3">
-          <SearchResultMenu
-            inputRef={searchInputRef}
-            searchedUsers={searchedResults[0]}
-            searchedCategories={searchedResults[1]}
-          />
-          <LastSearchs />
-          <div className="w-full">
-            <Categories />
-          </div>
+            }
+          }}
+          onChange={() => {
+            searchInputRef.current?.value! &&
+              searchByInput(searchInputRef.current?.value!);
+          }}
+          ref={searchInputRef}
+          type="text"
+          className="w-full h-full bg-transparent text-gray-200 outline-none"
+        />
+      </PrettyRainbowDiv>
+      <div className="w-full flex flex-col space-y-3">
+        <SearchResultMenu
+          inputRef={searchInputRef}
+          searchedUsers={searchedResults[0]}
+          searchedCategories={searchedResults[1]}
+        />
+        <LastSearchs />
+        <div className="w-full">
+          <Categories />
         </div>
       </div>
     </div>

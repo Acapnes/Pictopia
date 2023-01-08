@@ -17,7 +17,7 @@ import User from "../User/User";
 
 const Router: React.FC<{}> = () => {
   return (
-    <Suspense fallback={<SuspenseVeiw />}>
+    <Suspense fallback={<SuspenseVeiw main />}>
       <Routes>
         {/* Authentication */}
         <Route path="/login" element={<Login />} />

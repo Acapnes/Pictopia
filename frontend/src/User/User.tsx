@@ -31,37 +31,35 @@ const User: React.FC<{}> = () => {
 
   return (
     // h-[10rem]
-    <div className="min-h-screen h-full flex flex-col bg-soft-black">
-      <Routes>
-        <Route element={<Visit />}>
-          <Route
-            index
-            element={
-              <SavedPictures user={userVisitCredentials!} params={params} />
-            }
-          />
-          <Route
-            path="posted"
-            element={
-              <PostedPictures user={userVisitCredentials!} params={params} />
-            }
-          />
-          <Route
-            path="comments"
-            element={
-              <PostedComments user={userVisitCredentials!} params={params} />
-            }
-          />
-          <Route
-            path="followers"
-            element={
-              <SavedPictures user={userVisitCredentials!} params={params} />
-            }
-          />
-          <Route path="*" element={<Notfound />} />
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route element={<Visit />}>
+        <Route
+          index
+          element={
+            <SavedPictures user={userVisitCredentials!} params={params} />
+          }
+        />
+        <Route
+          path="posted"
+          element={
+            <PostedPictures user={userVisitCredentials!} params={params} />
+          }
+        />
+        <Route
+          path="comments"
+          element={
+            <PostedComments user={userVisitCredentials!} params={params} />
+          }
+        />
+        <Route
+          path="followers"
+          element={
+            <SavedPictures user={userVisitCredentials!} params={params} />
+          }
+        />
+        <Route path="*" element={<Notfound />} />
+      </Route>
+    </Routes>
   );
 };
 

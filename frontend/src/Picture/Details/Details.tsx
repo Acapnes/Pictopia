@@ -36,13 +36,13 @@ const Details: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="min-h-screen w-full h-full flex flex-col bg-soft-black overflow-x-hidden">
-      <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
+    <>
+      <div className="flex flex-col space-y-4 justify-center items-center px-2 py-10">
         <DetailsPicture picture={picture} />
         <DetailsCard picture={picture} />
       </div>
       <AliasGrid alias={alias} />
-    </div>
+    </>
   );
 };
 

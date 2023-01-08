@@ -83,7 +83,7 @@ const GridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
               />
             </div>
             <div className="w-full">
-              <p className="truncate break-all font-bold text-white">
+              <p className="truncate break-all font-bold text-white text-sm">
                 {picture?.title}
               </p>
             </div>
