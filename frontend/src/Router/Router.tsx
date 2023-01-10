@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { RouteGuard } from "../components/Prettys/PrettyHelpers";
+import RouteGuard from "../components/Helpers/RouteGuard";
 import { Notfound, SuspenseVeiw } from "../components/Prettys/PrettyViews";
 import Header from "../Menus/Header";
 import SearchView from "../Menus/Mobile/SearchView";
@@ -42,7 +42,6 @@ const Router: React.FC<{}> = () => {
           {/* AuthGuard */}
           <Route element={<RouteGuard />}>
             <Route path="/profile/*" element={<Profile />} />
-
             <Route path="/edit/picture/:id" element={<PictureEdit />} />
             <Route path="/edit/usage/" element={<AccountUsageEdit />} />
           </Route>

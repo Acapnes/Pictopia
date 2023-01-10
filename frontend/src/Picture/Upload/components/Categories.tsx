@@ -174,13 +174,11 @@ const CategoryManagementList: React.FC<{
   );
 };
 
-const CategoryShowList: React.FC<{
-  categoryArray: CategoryDto[];
-}> = ({ categoryArray }) => {
+const CategoryShowList: React.FC<{categoryArray: CategoryDto[]}> = ({ categoryArray }) => {
   return (
     <>
       {categoryArray?.length > 0 ? (
-        <div className="w-full min-w-[10rem] max-h-[10rem] overflow-auto scrollbar-hide flex flex-wrap items-center ">
+        <div className="w-full min-w-[10rem] max-h-[10rem] overflow-auto scrollbar-hide flex flex-wrap items-center justify-center">
           {categoryArray?.map(
             (category: CategoryDto, categoryIndex: number) => (
               <a
@@ -205,8 +203,7 @@ const CategoryShowList: React.FC<{
           )}
         </div>
       ) : (
-        <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 rounded-sm">
-          <PrettyErrorIcon size={16} fill={"white"} />
+        <div className="w-full flex items-center justify-center py-2.5">
           <span className="text-gray-200 font-semibold">
             No Categories Found
           </span>

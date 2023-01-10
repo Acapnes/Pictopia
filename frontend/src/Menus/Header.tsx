@@ -30,7 +30,6 @@ const Header: React.FC<{}> = () => {
   );
 
   const handleScroll = (e: any) => {
-    console.log("asd");
     if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
       setCurrentPage();
     }
@@ -42,19 +41,21 @@ const Header: React.FC<{}> = () => {
       className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black"
     >
       <div className="w-full z-10 sticky top-0 text-sm">
-        <div className="w-full h-header_height flex flex-row justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2 border-b-[2px] border-light-soft-black">
-          <a
-            href="/explore"
-            className="h-full flex items-center w-fit rounded-md"
-          >
-            <PrettyPictopia />
-          </a>
-          <SearchBar user={userCredentials} />
-          <div className="flex flex-row space-x-1.5 items-center">
-            <HeaderSmallSearch />
-            <PrettyHeaderUploadPicture />
-            <HeaderAccount user={userCredentials} />
-            <HeaderOptions user={userCredentials} />
+        <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5">
+          <div className="w-full h-header_height flex flex-row justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2">
+            <a
+              href="/explore"
+              className="h-full flex items-center w-fit rounded-md"
+            >
+              <PrettyPictopia />
+            </a>
+            <SearchBar user={userCredentials} />
+            <div className="flex flex-row space-x-1.5 items-center">
+              <HeaderSmallSearch />
+              <PrettyHeaderUploadPicture />
+              <HeaderAccount user={userCredentials} />
+              <HeaderOptions user={userCredentials} />
+            </div>
           </div>
         </div>
       </div>

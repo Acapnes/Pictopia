@@ -3,11 +3,14 @@ import { UserRegistrationDto, UserValidationDto } from "./UserDtos/userDto";
 
 export class AuthAPI {
   public static async userLogin(userValidationDto: UserValidationDto) {
-    const resp = await fetch("http://localhost:3000/signin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userValidationDto),
-    });
+    const resp = await fetch(
+      `${process.env.REACT_APP_BASE_BACKEND_URL}/signin`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userValidationDto),
+      }
+    );
 
     const data = await resp.json();
 
@@ -25,11 +28,14 @@ export class AuthAPI {
   }
 
   public static async userRegister(userRegistrationDto: UserRegistrationDto): Promise<ReturnFuncDto> {
-    const resp = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userRegistrationDto),
-    });
+    const resp = await fetch(
+      `${process.env.REACT_APP_BASE_BACKEND_URL}/signup`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userRegistrationDto),
+      }
+    );
 
     const data = await resp.json();
 

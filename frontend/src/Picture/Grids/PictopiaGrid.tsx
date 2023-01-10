@@ -56,6 +56,7 @@ const PictopiaGrid: React.FC<{}> = () => {
   const currentPage = usePicturePaginationStore(
     (state: any) => state.currentPage
   );
+
   const postPerPage = usePicturePaginationStore(
     (state: any) => state.postPerPage
   );
@@ -65,7 +66,7 @@ const PictopiaGrid: React.FC<{}> = () => {
   }, [currentPage]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center pb-32 pt-3 px-1">
+    <div className="w-full flex flex-col items-center justify-center pb-32 pt-4 px-1">
       <Masonry columns={{ xs: 2, sm: 4, md: 5, lg: 6, xl: 6 }} spacing={2}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
@@ -88,6 +89,8 @@ const PictopiaGrid: React.FC<{}> = () => {
 };
 
 export default PictopiaGrid;
+
+export { LoadingAnimation };
 
 const LoadingAnimation: React.FC<{}> = () => {
   return (

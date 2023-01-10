@@ -16,7 +16,11 @@ const CustomToast: React.FC<{}> = () => {
             <div className="min-w-[1.25rem] w-fit">
               <PrettyAlertIcon size={20} fill={"rgb(244, 114, 182)"} />
             </div>
-            <p className="font-bold text-gray-200 break-all">{toastMassage}</p>
+            <div className="w-full text-center">
+              <p className="font-bold text-gray-200 break-all">
+                {toastMassage}
+              </p>
+            </div>
           </div>
         </div>
       )}

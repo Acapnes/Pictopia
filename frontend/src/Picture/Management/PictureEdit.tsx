@@ -5,10 +5,9 @@ import { PicAPI } from "../../Api/Pic/PicApi";
 import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { PicManagementAPI } from "../../Api/User/PicManagement";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-import Header from "../../Menus/Header";
 import { CategorySelection } from "../Upload/components/Categories";
 import { HashtagAppend } from "../Upload/components/Hashtags";
-import { DetailsPicture } from "../Details/Details";
+import DetailsPicture from "../Details/Card/DetailsPicture";
 
 const PictureEdit: React.FC<{}> = () => {
   const [editPicture, setEditPicture] = useState<PicDto>(Object);

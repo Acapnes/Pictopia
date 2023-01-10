@@ -35,8 +35,8 @@ const Login: React.FC<{}> = () => {
           <ActionlessGrid />
         </div>
 
-        <div className="fixed z-20 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-soft-black drop-shadow-xl p-12 shadow-3xl rounded-sm">
-          <div className="relative space-y-5 flex flex-col ">
+        <div className="fixed z-20 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-soft-black drop-shadow-xl p-10 shadow-3xl rounded-sm">
+          <div className="relative space-y-5 flex flex-col items-center">
             <p className="text-4xl text-center text-gray-200 mt-3">
               User Login
             </p>
