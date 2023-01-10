@@ -27,21 +27,28 @@ const Details: React.FC<{}> = () => {
   useEffect(() => {
     (async () => {
       setPicture(await PicAPI.getDetailPic(params?.id));
+      setAliasLoading(true);
+      setAlias(
+        await PicAPI.getPicsAlias(params?.id, {
+          currentPage: currentPage,
+          postPerPage: postPerPage,
+        })
+      );
+      setAliasLoading(false);
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      if (!aliasLoading) {
+      if (!aliasLoading && currentPage > 0) {
         setAliasLoading(true);
-
-        setAlias(
-          await PicAPI.getPicsAlias(params?.id, {
+        setAlias([
+          ...alias,
+          ...(await PicAPI.getPicsAlias(params?.id, {
             currentPage: currentPage,
             postPerPage: postPerPage,
-          })
-        );
-
+          })),
+        ]);
         setAliasLoading(false);
       }
     })();
