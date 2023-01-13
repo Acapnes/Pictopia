@@ -6,7 +6,7 @@ export class ModerationAPI {
     access_token: string,
     userUpdateDto: UserUpdateDto
   ) {
-    const resp = await fetch("http://localhost:3000/user/profile/update", {
+    const resp = await fetch(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,13 +25,13 @@ export class ModerationAPI {
 
   public static async userChangeEmail(access_token: string,userUpdateDto: UserUpdateDto) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios.post(`http://localhost:3000/user/profile/update/email`, userUpdateDto)
+    return await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/update/email`, userUpdateDto)
       .then((resp) => resp.data);
   }
 
   public static async userChangePassword(access_token: string, userUpdateDto: UserUpdateDto) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    return await axios.post(`http://localhost:3000/user/profile/update/password`, userUpdateDto)
+    return await axios.post(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/update/password`, userUpdateDto)
       .then((resp) => resp.data);
   }
 
@@ -39,7 +39,7 @@ export class ModerationAPI {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .post(
-        `http://localhost:3000/user/profile/socials/update/`,
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/socials/update/`,
         userSocialsDto
       )
       .then((resp) => resp.data);
@@ -49,7 +49,7 @@ export class ModerationAPI {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .post(
-        `http://localhost:3000/user/profile/socials/delete/`,
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/socials/delete/`,
         userSocialsDto
       )
       .then((resp) => resp.data);
@@ -61,12 +61,12 @@ export class ModerationAPI {
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/avatar/`, formData)
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/avatar/`, formData)
       .then((resp) => resp.data);
   }
 
   public static async removeUserAvatar(access_token: string) {
-    return await fetch("http://localhost:3000/user/profile/avatar/remove", {
+    return await fetch(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/avatar/remove`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,12 +84,12 @@ export class ModerationAPI {
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/background/`, formData)
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/background/`, formData)
       .then((resp) => resp.data);
   }
 
   public static async removeUserBackground(access_token: string) {
-    return await fetch("http://localhost:3000/user/profile/background/remove", {
+    return await fetch(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/background/remove`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export class ModerationAPI {
   ) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/user/profile/update/settings`, {
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/profile/update/settings`, {
         email: "www@gmail.com",
         password: "www",
         settings: updateDto,

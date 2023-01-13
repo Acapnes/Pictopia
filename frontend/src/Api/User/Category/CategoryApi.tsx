@@ -5,7 +5,7 @@ import { CategoryDto } from "./categoryDtos";
 export class CategoryAPI {
   public static async getAllCategories(): Promise<CategoryDto[]> {
     return await axios
-      .get("http://localhost:3000/category/")
+      .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/category/`)
       .then(async (resp) => resp.data);
   }
 
@@ -13,13 +13,15 @@ export class CategoryAPI {
     inputTitle: string
   ): Promise<CategoryDto[]> {
     return await axios
-      .post("http://localhost:3000/category/search", { title: inputTitle })
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/category/search`, {
+        title: inputTitle,
+      })
       .then(async (resp) => resp.data);
   }
 
   public static async getCategoryByTitle(title: string): Promise<CategoryDto> {
     return await axios
-      .get(`http://localhost:3000/category/${title}`)
+      .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/category/${title}`)
       .then(async (resp) => resp.data);
   }
 
@@ -28,7 +30,7 @@ export class CategoryAPI {
   ): Promise<CategoryDto[]> {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .get("http://localhost:3000/user/account/category/")
+      .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/account/category/`)
       .then((resp) => resp.data);
   }
 
@@ -37,7 +39,9 @@ export class CategoryAPI {
   ): Promise<CategoryDto[]> {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .get("http://localhost:3000/user/account/category/devided")
+      .get(
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/user/account/category/devided`
+      )
       .then((resp) => resp.data);
   }
 
@@ -45,9 +49,12 @@ export class CategoryAPI {
     category_id: string
   ): Promise<ReturnFuncDto> {
     return await axios
-      .post(`http://localhost:3000/user/account/category/add`, {
-        category_id: category_id,
-      })
+      .post(
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/user/account/category/add`,
+        {
+          category_id: category_id,
+        }
+      )
       .then((resp) => resp.data);
   }
 
@@ -55,9 +62,12 @@ export class CategoryAPI {
     category_id: string
   ): Promise<ReturnFuncDto> {
     return await axios
-      .post(`http://localhost:3000/user/account/category/remove`, {
-        category_id: category_id,
-      })
+      .post(
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/user/account/category/remove`,
+        {
+          category_id: category_id,
+        }
+      )
       .then((resp) => resp.data);
   }
 }

@@ -59,7 +59,7 @@ export class PicAPI {
   public static async getPicsBySeachInput(picPaginationDto: PaginationDto): Promise<PicDto[]> {
     if (window.localStorage.getItem("access_token")) {
       return await axios
-        .post("http://localhost:3000/pics/account/search", {
+        .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/account/search`, {
           input: picPaginationDto?.input,
           currentPage: picPaginationDto?.currentPage,
           postPerPage: picPaginationDto?.postPerPage,
@@ -67,7 +67,7 @@ export class PicAPI {
         .then((resp) => resp.data);
     }
     return await axios
-      .post("http://localhost:3000/pics/search", {
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/search`, {
         input: picPaginationDto?.input,
         currentPage: picPaginationDto?.currentPage,
         postPerPage: picPaginationDto?.postPerPage,
@@ -106,13 +106,13 @@ export class PicAPI {
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
-      .post(`http://localhost:3000/pics/account/create/`, formData)
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/account/create/`, formData)
       .then((resp) => resp.data);
   }
 
   public static async getPicsByBlob(picDto: PicDto) {
     return await axios
-      .get(`http://localhost:3000/pics/pretty/${picDto?._id}`, {
+      .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/pretty/${picDto?._id}`, {
         responseType: "blob",
       })
       .then((resp) => resp.data);
