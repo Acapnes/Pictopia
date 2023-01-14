@@ -3,16 +3,15 @@ import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
 import { PrettyRainbowLink } from "../components/Prettys/PrettyComponents";
 import {
+  PrettyLeftBarIcon,
   PrettyPictopia,
-  PrettySearchIcon,
   PrettySignIcon,
   PrettyUploadIcon,
 } from "../components/Prettys/PrettyIcons";
 import SearchBar from "./Search/SearchBar";
 import HeaderOptions from "./Options/HeaderOptions";
 import { Outlet } from "react-router-dom";
-import { PrettyMediumAvatar } from "../components/Prettys/PrettyElements";
-import { usePicturePaginationStore } from "../components/Zustand/store";
+import { usePictopiaPublicDrawerStore, usePicturePaginationStore } from "../components/Zustand/store";
 
 const Header: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -40,22 +39,18 @@ const Header: React.FC<{}> = () => {
       onScroll={(e) => handleScroll(e)}
       className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black"
     >
-      <div className="w-full z-10 sticky top-0 text-sm">
-        <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5">
-          <div className="w-full h-header_height flex flex-row justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2">
-            <a
-              href="/explore"
-              className="h-full flex items-center w-fit rounded-md"
-            >
-              <PrettyPictopia />
-            </a>
+      <div className="w-full z-10 sticky top-0 bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5 text-sm">
+        <div className="w-full flex flex-row space-x-5 justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2.5">
+          <div className="flex flex-row space-x-1.5 items-center">
+            <PrettyPictopia />
+          </div>
+          <div className="w-full flex items-center">
             <SearchBar user={userCredentials} />
-            <div className="flex flex-row space-x-1.5 items-center">
-              <HeaderSmallSearch />
-              <PrettyHeaderUploadPicture />
-              <HeaderAccount user={userCredentials} />
-              <HeaderOptions user={userCredentials} />
-            </div>
+          </div>
+          <div className="flex flex-row space-x-1.5 items-center">
+            <PrettyHeaderUploadPicture />
+            <HeaderSignIn user={userCredentials} />
+            <HeaderOptions user={userCredentials} />
           </div>
         </div>
       </div>
@@ -66,10 +61,10 @@ const Header: React.FC<{}> = () => {
 
 export default Header;
 
-const PrettyHeaderUploadPicture = () => {
+const PrettyHeaderUploadPicture: React.FC<{}> = () => {
   return (
     <PrettyRainbowLink
-      href={"/upload"}
+      href="/upload"
       advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"
       advStyle="p-0.5 rounded-sm"
     >
@@ -83,14 +78,12 @@ const PrettyHeaderUploadPicture = () => {
   );
 };
 
-const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
+const HeaderSignIn: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
     <div className="flex items-center">
-      {user?.email ? (
-        <PrettyMediumAvatar user={user} rounded={true} />
-      ) : (
+      {!user && (
         <PrettyRainbowLink
-          href={"/login"}
+          href="/login"
           advChildStyle="px-1.5 py-2.5 lg:px-3 lg:py-2 rounded-sm"
           advStyle="p-0.5 rounded-sm"
         >
@@ -104,20 +97,6 @@ const HeaderAccount: React.FC<{ user: UserDto }> = ({ user }) => {
           </div>
         </PrettyRainbowLink>
       )}
-    </div>
-  );
-};
-
-const HeaderSmallSearch: React.FC<{}> = () => {
-  return (
-    <div className="h-full flex items-center w-fit lg:hidden">
-      <PrettyRainbowLink
-        href={"/search"}
-        advChildStyle="px-1.5 py-2.5 md:px-3 md:py-3 rounded-sm"
-        advStyle="p-0.5 rounded-sm"
-      >
-        <PrettySearchIcon fill={"white"} size={16} />
-      </PrettyRainbowLink>
     </div>
   );
 };

@@ -3,19 +3,25 @@ import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { CommentDto } from "../../Api/Comment/commentDtos";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 
-interface usePictopiaAccountState {
+interface usePictopiaDrawerState {
+  drawerState: boolean;
   draggingNumber: number | null; /// 0 -> default to favorite | 1 -> favorite to default IS DRAGGING
   defaultCategories: CategoryDto[];
   favoriteCategories: CategoryDto[];
   lastSearches: string[];
 }
 
-export const usePictopiaPublicAccountStore = create<usePictopiaAccountState>(
+export const usePictopiaPublicDrawerStore = create<usePictopiaDrawerState>(
   (set) => ({
+    drawerState: false,
     draggingNumber: null,
     defaultCategories: [],
     favoriteCategories: [],
     lastSearches: [],
+
+    setDrawerState: () => {
+      set((state: any) => ({ drawerState: !state.drawerState }));
+    },
 
     setInitialAccountValues: (
       _defaultCategories: CategoryDto[],

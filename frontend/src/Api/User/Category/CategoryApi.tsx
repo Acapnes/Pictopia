@@ -9,9 +9,7 @@ export class CategoryAPI {
       .then(async (resp) => resp.data);
   }
 
-  public static async searchInCategories(
-    inputTitle: string
-  ): Promise<CategoryDto[]> {
+  public static async searchInCategories(inputTitle: string): Promise<CategoryDto[]> {
     return await axios
       .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/category/search`, {
         title: inputTitle,
@@ -25,9 +23,7 @@ export class CategoryAPI {
       .then(async (resp) => resp.data);
   }
 
-  public static async getUserFavoriteCategories(
-    access_token: string
-  ): Promise<CategoryDto[]> {
+  public static async getUserFavoriteCategories(access_token: string): Promise<CategoryDto[]> {
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
     return await axios
       .get(`${process.env.REACT_APP_BASE_BACKEND_URL}/user/account/category/`)

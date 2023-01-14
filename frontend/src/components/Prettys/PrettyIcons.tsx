@@ -155,11 +155,56 @@ const PrettySettingSlidersIcon = (props: any) => {
 
 const PrettyPictopia = () => {
   return (
-    <img
-      src={`/pictopia_trans.png`}
-      alt=""
-      className="w-[5rem] h-[2rem] xl:w-[8rem] xl:h-[4rem] object-cover"
-    />
+    <a
+      href="/explore"
+      className="h-full flex items-center w-fit rounded-md px-3 overflow-hidden"
+    >
+      <img
+        src={`/pictopia_trans.png`}
+        alt=""
+        className="min-w-[8rem] w-[8rem] xl:w-[8rem] object-contain hover:scale-[120%] transition duration-500"
+      />
+    </a>
+  );
+};
+
+const PrettyLeftBarIcon: React.FC<{ size?: number; fill?: string }> = ({
+  size,
+  fill,
+}) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 20}
+      height={size || 20}
+      fill={fill || "rgb(244,114,182)"}
+      className="bi bi-layout-sidebar-inset"
+      viewBox="0 0 16 16"
+    >
+      <path d="M14 2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z" />
+      <path d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
+    </svg>
+  );
+};
+
+const PrettyRotatingFilledArrowIcon: React.FC<{
+  size?: number;
+  fill?: string;
+  state: boolean;
+}> = ({ size, fill, state }) => {
+  return (
+    <div className={`duration-300 ${state ? "rotate-180" : "rotate-0"}`}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size || 20}
+        height={size || 20}
+        fill={fill || "white"}
+        className="bi bi-arrow-right-circle-fill"
+        viewBox="0 0 16 16"
+      >
+        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+      </svg>
+    </div>
   );
 };
 
@@ -301,18 +346,43 @@ const PrettySend: React.FC<{
   );
 };
 
-const PrettyCompassIcon = () => {
+const PrettyCompassIcon: React.FC<{
+  size?: number;
+  fill?: string;
+}> = ({ size, fill }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      fill="rgb(244,114,182)"
+      width={size || 16}
+      height={size || 16}
+      fill={fill || "rgb(244,114,182)"}
       className="bi bi-compass"
       viewBox="0 0 16 16"
     >
       <path d="M8 16.016a7.5 7.5 0 0 0 1.962-14.74A1 1 0 0 0 9 0H7a1 1 0 0 0-.962 1.276A7.5 7.5 0 0 0 8 16.016zm6.5-7.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
       <path d="m6.94 7.44 4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z" />
+    </svg>
+  );
+};
+
+const PrettyRandomIcon: React.FC<{
+  size?: number;
+  fill?: string;
+}> = ({ size, fill }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 16}
+      height={size || 16}
+      fill={fill || "currentColor"}
+      className="bi bi-shuffle"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fillRule="evenodd"
+        d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"
+      />
+      <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z" />
     </svg>
   );
 };
@@ -644,4 +714,7 @@ export {
   PrettySquareFilledAddIcon,
   PrettyShareIcon,
   PrettyLockIcon,
+  PrettyLeftBarIcon,
+  PrettyRandomIcon,
+  PrettyRotatingFilledArrowIcon,
 };

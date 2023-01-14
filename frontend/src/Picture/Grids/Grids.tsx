@@ -67,9 +67,9 @@ const GridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
   return (
     <a href={`/detail/${picture?._id}`}>
       <div
-        className="absolute bottom-0 w-full h-full transition duration-500 ease-in-out border-[2.5px]
-         border-pretty-rough-pink border-opacity-95 bg-gradient-to-t from-light-soft-black to-transparent text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-50
-          group-hover:opacity-90 group-hover:shadow-lg rounded-sm"
+        className="absolute bottom-0 w-full h-full transition duration-500 ease-in-out bg-gradient-to-t
+        from-light-soft-black to-transparent text-white opacity-0 bg-opacity-0 group-hover:bg-opacity-50
+        group-hover:opacity-90 group-hover:shadow-lg rounded-sm"
       >
         <div className="w-full h-full flex flex-col">
           <div className="absolute bottom-0 w-full h-fit flex flex-col py-2 px-4 space-y-1">

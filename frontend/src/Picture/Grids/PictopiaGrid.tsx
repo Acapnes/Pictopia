@@ -67,17 +67,17 @@ const PictopiaGrid: React.FC<{}> = () => {
 
   return (
     <div className="w-full flex flex-col items-center justify-center pb-32 pt-4 px-1">
-      <Masonry columns={{ xs: 2, sm: 4, md: 5, lg: 6, xl: 6 }} spacing={2}>
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={2}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
-            className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-105"
+            className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-[105%] overflow-hidden"
             key={picIndex}
           >
             <img
               loading="lazy"
               src={`data:${pic?.picture_file?.contentType};base64,${pic?.picture_file?.data}`}
               alt=""
-              className="min-w-full rounded-sm"
+              className="min-w-full rounded-sm  "
             />
             <GridMenu picture={pic} />
           </div>

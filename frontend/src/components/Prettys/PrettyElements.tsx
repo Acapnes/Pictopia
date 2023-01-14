@@ -132,7 +132,7 @@ const PrettyCustomSizeAvatar: React.FC<{
           <img
             src={`data:${avatar?.contentType};base64,${avatar?.data}`}
             alt=""
-            className="w-full object-cover rounded-full "
+            className="w-full object-cover rounded-full"
           />
         </div>
       ) : (

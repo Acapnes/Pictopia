@@ -1,26 +1,30 @@
 import React, { Suspense } from "react";
-import { usePictopiaPublicAccountStore } from "./components/Zustand/store";
+import { usePictopiaPublicDrawerStore } from "./components/Zustand/store";
 import { CategoryDto } from "./Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
+import CategoriesBar from "./Menus/CategoriesBar/CategoriesBar";
 
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
   return (
-    <div className="flex flex-auto flex-col space-y-3">
-      <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
-        <MobileFavoriteCategories />
-        <PictopiaGrid />
-      </Suspense>
-    </div>
+    <>
+      <div className="flex flex-auto flex-col space-y-3">
+        <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
+          {/* <MobileFavoriteCategories /> */}
+          <CategoriesBar />
+          <PictopiaGrid />
+        </Suspense>
+      </div>
+    </>
   );
 };
 
 export default Pictopia;
 
 const MobileFavoriteCategories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaPublicAccountStore(
+  const favoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.favoriteCategories
   );
 

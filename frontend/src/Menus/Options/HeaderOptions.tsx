@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
+import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
 import {
   PrettyHelpIcon,
   PrettyLogOut,
@@ -14,20 +15,25 @@ const HeaderOptions: React.FC<{ user: UserDto }> = ({ user }) => {
   const [showSettings, setShowSettings] = useState(false);
 
   return (
-    <div className="w-fit h-full items-center flex relative group">
-      <PrettyRainbow
-        advChildStyle="px-0.5 py-2.5 lg:px-0.5 lg:py-2.5 rounded-sm"
-        advStyle="p-0.5 rounded-sm"
-        onclick={() => setShowSettings(!showSettings)}
-      >
-        <PrettyOptionsIcon fill={"white"} size={16} />
-      </PrettyRainbow>
-
-      {showSettings && (
-        <div className="absolute w-full flex items-start shadow-lg">
-          <HeaderOptionsMenu user={user} />
-        </div>
-      )}
+    <div className="w-fit h-full flex flex-col justify-end items-center relative group">
+      <div className="flex items-center">
+        {user ? (
+          <a href={`/user/${user?.username}`}>
+            <PrettyCustomSizeAvatar avatar={user?.avatar} size={2.75} />
+          </a>
+        ) : (
+          <PrettyRainbow
+            advChildStyle="px-0.5 py-2.5 lg:px-0.5 lg:py-2.5 rounded-sm"
+            advStyle="p-0.5 rounded-sm"
+            onclick={() => setShowSettings(!showSettings)}
+          >
+            <PrettyOptionsIcon fill={"white"} size={16} />
+          </PrettyRainbow>
+        )}
+      </div>
+      <div className="absolute w-full">
+        <HeaderOptionsMenu user={user} />
+      </div>
     </div>
   );
 };
@@ -36,31 +42,26 @@ export default HeaderOptions;
 
 const HeaderOptionsMenu: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
-    <div className="absolute top-[2.25rem] -right-0 lg:right-0 z-20 rounded-sm">
-      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center  overflow-hidden rounded-sm ">
-        <span className="w-full h-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] absolute"></span>
-        <span className="w-full relative bg-soft-black rounded-sm duration-400">
-          <div className="w-full flex flex-col overflow-auto scroll space-y-3 scrollbar-hide whitespace-nowrap">
-            <div className="flex flex-col">
-              <button className="w-full h-full text-start flex flex-row justify-between space-x-5 items-center px-5 py-1.5 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
-                <p className="my-2 text-gray-300 whitespace-nowarp">
-                  About Pictopia
-                </p>
-                <div>
-                  <PrettyWorldIcon />
-                </div>
-              </button>
-              <button className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-5 py-1.5 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
-                <p className="my-2 text-gray-300 whitespace-nowarp">Help</p>
-                <div>
-                  <PrettyHelpIcon />
-                </div>
-              </button>
-            </div>
-            <hr />
-            <HeaderUserOptions user={user} />
+    <div className="absolute top-0 -right-0 lg:right-0 z-20 rounded-sm hidden group-hover:block hover:block pt-1">
+      <div className="relative w-full h-fit p-0.5 inline-flex items-center justify-center  overflow-hidden rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+        <div className="w-full flex flex-col overflow-auto scroll space-y-3 scrollbar-hide whitespace-nowrap bg-rough-soft-black rounded-sm">
+          <div className="flex flex-col">
+            <button className="w-full h-full text-start flex flex-row justify-between space-x-5 items-center px-5 py-1.5 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+              <p className="my-2 text-gray-300 whitespace-nowarp">
+                About Pictopia
+              </p>
+              <div>
+                <PrettyWorldIcon />
+              </div>
+            </button>
+            <button className="w-full h-full text-start flex flex-row justify-between space-x-2 items-center px-5 py-1.5 duration-300 hover:bg-[#f472b6] hover:bg-opacity-30">
+              <p className="my-2 text-gray-300 whitespace-nowarp">Help</p>
+              <PrettyHelpIcon />
+            </button>
           </div>
-        </span>
+          <hr className="border-pretty-pink border-opacity-75" />
+          <HeaderUserOptions user={user} />
+        </div>
       </div>
     </div>
   );

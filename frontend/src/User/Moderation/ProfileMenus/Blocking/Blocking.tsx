@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { PrettyCheckIcon } from "../../../../components/Prettys/PrettyIcons";
-import SearchUsers from "../../../../Menus/Search/Searches/SearchUsers";
 
 const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
@@ -39,9 +38,9 @@ const Blocking: React.FC<{ user: UserDto }> = ({ user }) => {
                   <PrettyCheckIcon size={18} />
                 </button>
               </div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <SearchUsers searchInput={searchInputvalue!} size={3} />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

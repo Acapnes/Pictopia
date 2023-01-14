@@ -1,14 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import Header from "../Header";
 import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
-import { usePictopiaPublicAccountStore } from "../../components/Zustand/store";
+import { usePictopiaPublicDrawerStore } from "../../components/Zustand/store";
 import { CategoryDto } from "../../Api/User/Category/categoryDtos";
 import { PrettyPenIcon } from "../../components/Prettys/PrettyIcons";
-import { SearchDefaultSuggests } from "../Search/SearchResult";
-import { LastSearchs } from "../Search/Account/AccountBar";
-import SearchUsers from "../Search/Searches/SearchUsers";
 
 const SearchView: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -63,12 +59,6 @@ const SearchView: React.FC<{}> = () => {
         />
       </PrettyRainbowDiv>
       <div className="w-full flex flex-col space-y-3">
-        <SearchResultMenu
-          inputRef={searchInputRef}
-          searchedUsers={searchedResults[0]}
-          searchedCategories={searchedResults[1]}
-        />
-        <LastSearchs />
         <div className="w-full">
           <Categories />
         </div>
@@ -79,25 +69,8 @@ const SearchView: React.FC<{}> = () => {
 
 export default SearchView;
 
-const SearchResultMenu: React.FC<{
-  inputRef: any;
-  searchedUsers: UserDto[];
-  searchedCategories: CategoryDto[];
-}> = ({ inputRef, searchedUsers, searchedCategories }) => {
-  return (
-    <div className="w-full">
-      {inputRef.current?.value! && (
-        <div className="w-full flex flex-col space-y-2 max-h-[50vh]">
-          <SearchDefaultSuggests searchInput={inputRef.current?.value!} />
-          <SearchUsers searchInput={inputRef.current?.value!} size={4} />
-        </div>
-      )}
-    </div>
-  );
-};
-
 const Categories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaPublicAccountStore(
+  const favoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.favoriteCategories
   );
 

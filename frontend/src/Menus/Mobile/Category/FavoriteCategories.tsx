@@ -6,21 +6,21 @@ import {
   PrettyPenIcon,
   PrettySmallArrowUpIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { usePictopiaPublicAccountStore } from "../../../components/Zustand/store";
+import { usePictopiaPublicDrawerStore } from "../../../components/Zustand/store";
 const FavoriteCategories: React.FC<{
   favoriteCategories: CategoryDto[];
   user: UserDto;
 }> = ({ favoriteCategories, user }) => {
-  const setFavoriteCategories = usePictopiaPublicAccountStore(
+  const setFavoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.setFavoriteCategories
   );
-  const defaultCategories = usePictopiaPublicAccountStore(
+  const defaultCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.defaultCategories
   );
-  const setDraggingNumber = usePictopiaPublicAccountStore(
+  const setDraggingNumber = usePictopiaPublicDrawerStore(
     (state: any) => state.setDraggingNumber
   );
-  const draggingNumber = usePictopiaPublicAccountStore(
+  const draggingNumber = usePictopiaPublicDrawerStore(
     (state: any) => state.draggingNumber
   );
 

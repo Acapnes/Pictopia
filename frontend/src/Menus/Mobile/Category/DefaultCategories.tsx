@@ -2,26 +2,26 @@ import { Masonry } from "@mui/lab";
 import React from "react";
 import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
 import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
-import { usePictopiaPublicAccountStore } from "../../../components/Zustand/store";
+import { usePictopiaPublicDrawerStore } from "../../../components/Zustand/store";
 
 const DefaultCategories: React.FC<{}> = () => {
-  const defaultCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
+  const defaultCategories = usePictopiaPublicDrawerStore<CategoryDto[]>(
     (state: any) => state.defaultCategories
   );
 
-  const setDefaultCategories = usePictopiaPublicAccountStore(
+  const setDefaultCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.setDefaultCategories
   );
 
-  const setDraggingNumber = usePictopiaPublicAccountStore(
+  const setDraggingNumber = usePictopiaPublicDrawerStore(
     (state: any) => state.setDraggingNumber
   );
 
-  const draggingNumber = usePictopiaPublicAccountStore(
+  const draggingNumber = usePictopiaPublicDrawerStore(
     (state: any) => state.draggingNumber
   );
 
-  const favoriteCategories = usePictopiaPublicAccountStore<CategoryDto[]>(
+  const favoriteCategories = usePictopiaPublicDrawerStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
 

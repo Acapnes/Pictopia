@@ -9,7 +9,7 @@ import {
   PrettyTrashIcon,
 } from "../../../components/Prettys/PrettyIcons";
 import {
-  usePictopiaPublicAccountStore,
+  usePictopiaPublicDrawerStore,
   useToastStore,
 } from "../../../components/Zustand/store";
 
@@ -26,7 +26,7 @@ const AccountUsageEdit: React.FC<{}> = () => {
 export default AccountUsageEdit;
 
 const FavoriteMapping: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaPublicAccountStore(
+  const favoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.favoriteCategories
   );
 
@@ -49,7 +49,7 @@ const FavoriteMapping: React.FC<{}> = () => {
 };
 
 const SearchCategoriesMapping: React.FC<{}> = ({}) => {
-  const defaultCategories = usePictopiaPublicAccountStore(
+  const defaultCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.defaultCategories
   );
   const [categorySearchInput, setCategorySearchInput] = useState<string>("");
@@ -105,19 +105,19 @@ const CategoryMapping: React.FC<{
   graident?: string;
   AddOrRemove?: boolean;
 }> = ({ categories, icon, graident, AddOrRemove }) => {
-  const setDefaultCategories = usePictopiaPublicAccountStore(
+  const setDefaultCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.setDefaultCategories
   );
 
-  const defaultCategories = usePictopiaPublicAccountStore(
+  const defaultCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.defaultCategories
   );
 
-  const favoriteCategories = usePictopiaPublicAccountStore(
+  const favoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.favoriteCategories
   );
 
-  const setFavoriteCategories = usePictopiaPublicAccountStore(
+  const setFavoriteCategories = usePictopiaPublicDrawerStore(
     (state: any) => state.setFavoriteCategories
   );
 
@@ -176,7 +176,7 @@ const CategoryMapping: React.FC<{
 };
 
 const EditLastSearches: React.FC<{}> = () => {
-  const lastSearches = usePictopiaPublicAccountStore<string[]>(
+  const lastSearches = usePictopiaPublicDrawerStore<string[]>(
     (state: any) => state.lastSearches
   );
   const setToastState = useToastStore((state: any) => state.setToastState);
