@@ -10,35 +10,37 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsByExplore(picPaginationDto: PaginationDto): Promise<PicDto[]> {
+  public static async getPicsByExplore(
+    picPaginationDto: PaginationDto
+  ): Promise<PicDto[]> {
     if (window.localStorage.getItem("access_token")) {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${window.localStorage.getItem("access_token")}`;
       return await axios
-        .post(
-          `${process.env.REACT_APP_BASE_BACKEND_URL}/pics/account/explore`,
-          {
-            currentPage: picPaginationDto.currentPage,
-            postPerPage: picPaginationDto.postPerPage,
-          }
-        )
+        .post(`http://localhost:3000/pics/account/explore`, {
+          currentPage: picPaginationDto.currentPage,
+          postPerPage: picPaginationDto.postPerPage,
+        })
         .then((resp) => resp.data);
     }
     return await axios
-      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/explore`, {
+      .post(`http://localhost:3000/pics/explore`, {
         currentPage: picPaginationDto.currentPage,
         postPerPage: picPaginationDto.postPerPage,
       })
       .then((resp) => resp.data);
   }
 
-  public static async getPicsByCategory(picPaginationDto: PaginationDto): Promise<PicDto[]> {
+  public static async getPicsByCategory(
+    picPaginationDto: PaginationDto
+  ): Promise<PicDto[]> {
     if (window.localStorage.getItem("access_token")) {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${window.localStorage.getItem("access_token")}`;
-      return await axios.post(
+      return await axios
+        .post(
           `${process.env.REACT_APP_BASE_BACKEND_URL}/pics/account/category`,
           {
             category:
@@ -61,7 +63,9 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsBySeachInput(picPaginationDto: PaginationDto): Promise<PicDto[]> {
+  public static async getPicsBySeachInput(
+    picPaginationDto: PaginationDto
+  ): Promise<PicDto[]> {
     if (window.localStorage.getItem("access_token")) {
       axios.defaults.headers.common[
         "Authorization"
@@ -89,7 +93,10 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsAlias(_id: string, picPaginationDto: PaginationDto): Promise<PicDto[]> {
+  public static async getPicsAlias(
+    _id: string,
+    picPaginationDto: PaginationDto
+  ): Promise<PicDto[]> {
     return await axios
       .post(
         `${process.env.REACT_APP_BASE_BACKEND_URL}/pics/alias/${_id}`,
@@ -98,7 +105,10 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async uploadPicture(uploadPicDto: UploadPicDto, access_token: string): Promise<ReturnFuncDto> {
+  public static async uploadPicture(
+    uploadPicDto: UploadPicDto,
+    access_token: string
+  ): Promise<ReturnFuncDto> {
     const formData = new FormData();
     formData.append("picture", uploadPicDto.picture);
     formData.append("title", uploadPicDto.title!);

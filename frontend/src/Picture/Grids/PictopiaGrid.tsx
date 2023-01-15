@@ -65,9 +65,10 @@ const PictopiaGrid: React.FC<{}> = () => {
     !picturesLoading && fetchAndSetPics();
   }, [currentPage]);
 
+
   return (
-    <div className="w-full flex flex-col items-center justify-center pb-32 pt-4 px-1">
-      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={2}>
+    <div className="w-full flex flex-col items-center justify-center pb-32">
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
             className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-[105%] overflow-hidden"
@@ -94,7 +95,7 @@ export { LoadingAnimation };
 
 const LoadingAnimation: React.FC<{}> = () => {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row pt-4">
       <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
         <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
         <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>

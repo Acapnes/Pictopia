@@ -1,19 +1,15 @@
 import React, { Suspense } from "react";
-import { usePictopiaPublicDrawerStore } from "./components/Zustand/store";
-import { CategoryDto } from "./Api/User/Category/categoryDtos";
-import { PrettyPenIcon } from "./components/Prettys/PrettyIcons";
+import { useParams } from "react-router-dom";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
-import CategoriesBar from "./Menus/CategoriesBar/CategoriesBar";
 
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
   return (
     <>
-      <div className="flex flex-auto flex-col space-y-3">
+      <div className="flex flex-auto flex-col space-y-4">
         <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
-          {/* <MobileFavoriteCategories /> */}
-          <CategoriesBar />
+          <PictopiaManagementPanel />
           <PictopiaGrid />
         </Suspense>
       </div>
@@ -23,58 +19,73 @@ const Pictopia: React.FC<{}> = () => {
 
 export default Pictopia;
 
-const MobileFavoriteCategories: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaPublicDrawerStore(
-    (state: any) => state.favoriteCategories
-  );
-
+const PictopiaManagementPanel: React.FC<{}> = () => {
+  const params = useParams() as any;
   return (
-    <>
-      {window.localStorage.getItem("access_token") && (
-        <div className="flex flex-col space-y-1 px-2.5 lg:hidden">
-          <div className="flex flex-row justify-between items-center px-0.5">
-            <div className="flex flex-row space-x-1">
-              <span className="text-pretty-pink">*</span>
-              <p className="text-gray-200 font-bold">Favorite Categories</p>
-            </div>
-            <a
-              href="/edit/usage"
-              className="px-1.5 py-1 rounded-sm focus:bg-extra-light-soft-black transition duration-200"
-            >
-              <PrettyPenIcon size={12} fill="rgb(244, 114, 182)" />
-            </a>
-          </div>
-          <div className="w-full flex flex-row space-x-2 overflow-auto overflow-y-hidden scrollbar-hide">
-            {favoriteCategories?.map(
-              (category: CategoryDto, categoryIndex: any) => (
-                <div
-                  onClick={() =>
-                    (window.location.href = `/category/${category.title.toLocaleLowerCase()}`)
-                  }
-                  key={categoryIndex}
-                  className="relative w-full mb-1.5 text-start font-semibold text-white rounded-sm h-[3rem] min-w-[7.5rem] cursor-pointer"
-                >
-                  <img
-                    src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
-                    className="object-cover h-full w-full opacity-75 rounded-sm"
-                    alt=""
-                  />
-                  <div className="absolute top-0 w-full h-full flex flex-row space-x-2 items-center justify-center px-4 py-2 rounded-sm duration-300 bg-light-soft-black hover:bg-rough-soft-black bg-opacity-30 hover:bg-opacity-50">
-                    <p className="my-2 text-gray-200 font-bold text-lg">
-                      {category?.title}
-                    </p>
-                  </div>
-                </div>
-              )
-            )}
-            {favoriteCategories?.length <= 0 && (
-              <button className="w-full bg-pretty-yellow py-1.5 px-2.5 rounded-sm font-bold">
-                <p>Insert favorite categories</p>
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-    </>
+    <div className="w-full flex flex-row px-3 items-center justify-between">
+      <div className="flex flex-row space-x-1 items-center">
+        <p className="font-bold text-pretty-rough-yellow text-xl">
+          {params?.category ? params.category.toUpperCase() : "Explore"}
+        </p>
+        <button className="mt-1 duration-300 hover:rotate-180">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={18}
+            height={18}
+            fill={"white"}
+            className="bi bi-arrow-clockwise"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
+            />
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+          </svg>
+        </button>
+      </div>
+      <div className="flex flex-row space-x-5 text-gray-200">
+        <button className="border-b-2 pb-2 px-2 font-semibold">Popular</button>
+        <button className="border-b-2 pb-2 px-2 font-semibold">Fresh</button>
+      </div>
+      <div className=" flex flex-row space-x-1">
+        <button className="border-[1px] rounded-sm px-1.5 py-0.5 border-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="white"
+            className="bi bi-grid-3x3-gap"
+            viewBox="0 0 16 16"
+          >
+            <path d="M4 2v2H2V2h2zm1 12v-2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm5 10v-2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V7a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zm0-5V2a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1zM9 2v2H7V2h2zm5 0v2h-2V2h2zM4 7v2H2V7h2zm5 0v2H7V7h2zm5 0h-2v2h2V7zM4 12v2H2v-2h2zm5 0v2H7v-2h2zm5 0v2h-2v-2h2zM12 1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zm-1 6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zm1 4a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-2z" />
+          </svg>
+        </button>
+        <button className="border-[1px] rounded-sm px-1.5 py-0.5 border-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="white"
+            className="bi bi-grid-3x2"
+            viewBox="0 0 16 16"
+          >
+            <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5v-8zM1.5 3a.5.5 0 0 0-.5.5V7h4V3H1.5zM5 8H1v3.5a.5.5 0 0 0 .5.5H5V8zm1 0v4h4V8H6zm4-1V3H6v4h4zm1 1v4h3.5a.5.5 0 0 0 .5-.5V8h-4zm0-1h4V3.5a.5.5 0 0 0-.5-.5H11v4z" />
+          </svg>
+        </button>
+        <button className="border-[1px] rounded-sm px-1.5 py-0.5 border-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="white"
+            className="bi bi-layout-sidebar"
+            viewBox="0 0 16 16"
+          >
+            <path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm5-1v12h9a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H5zM4 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h2V2z" />
+          </svg>
+        </button>
+      </div>
+    </div>
   );
 };

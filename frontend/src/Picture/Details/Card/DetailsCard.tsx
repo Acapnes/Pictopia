@@ -9,12 +9,12 @@ import {
   PrettyLargeAvatar,
   PrettyRotatingArrow,
 } from "../../../components/Prettys/PrettyElements";
-import Comments from "../../Comments/Comments";
+import Comments from "../Comments/Comments";
 import { CardOptions } from "./CardOptions";
 import { usePictureCommentStore } from "../../../components/Zustand/store";
 import { useParams } from "react-router-dom";
 import { CategoryShowList } from "../../Upload/components/Categories";
-import { SendComment } from "../../Comments/SendComment";
+import { SendComment } from "../Comments/SendComment";
 
 const DetailsCard: React.FC<{ picture: PicDto }> = ({ picture }) => {
   const params = useParams<any>();

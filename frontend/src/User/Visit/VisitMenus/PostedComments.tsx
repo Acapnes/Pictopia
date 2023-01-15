@@ -5,7 +5,7 @@ import { AccountAPI } from "../../../Api/User/AccountApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";
 import { PrettySmallAvatar } from "../../../components/Prettys/PrettyElements";
-import Replies from "../../../Picture/Comments/Replies";
+import Replies from "../../../Picture/Details/Comments/Replies";
 
 const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
   user,

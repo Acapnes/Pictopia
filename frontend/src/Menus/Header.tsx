@@ -3,15 +3,15 @@ import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
 import { PrettyRainbowLink } from "../components/Prettys/PrettyComponents";
 import {
-  PrettyLeftBarIcon,
   PrettyPictopia,
   PrettySignIcon,
   PrettyUploadIcon,
 } from "../components/Prettys/PrettyIcons";
-import SearchBar from "./Search/SearchBar";
 import HeaderOptions from "./Options/HeaderOptions";
 import { Outlet } from "react-router-dom";
-import { usePictopiaPublicDrawerStore, usePicturePaginationStore } from "../components/Zustand/store";
+import { usePicturePaginationStore } from "../components/Zustand/store";
+import CategoryBar from "./CategoryBar/CategoryBar";
+import SearchBar from "./Search/SearchBar";
 
 const Header: React.FC<{}> = () => {
   const [userCredentials, setUserCredentials] = useState<UserDto>(Object);
@@ -39,20 +39,23 @@ const Header: React.FC<{}> = () => {
       onScroll={(e) => handleScroll(e)}
       className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black"
     >
-      <div className="w-full z-10 sticky top-0 bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5 text-sm">
-        <div className="w-full flex flex-row space-x-5 justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2.5">
-          <div className="flex flex-row space-x-1.5 items-center">
-            <PrettyPictopia />
-          </div>
-          <div className="w-full flex items-center">
-            <SearchBar user={userCredentials} />
-          </div>
-          <div className="flex flex-row space-x-1.5 items-center">
-            <PrettyHeaderUploadPicture />
-            <HeaderSignIn user={userCredentials} />
-            <HeaderOptions user={userCredentials} />
+      <div className="w-full z-10 sticky top-0 flex flex-col">
+        <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5 text-sm">
+          <div className="w-full flex flex-row space-x-5 justify-between bg-extra-rough-soft-black bg-opacity-95 px-3 py-2.5">
+            <div className="flex flex-row space-x-1.5 items-center">
+              <PrettyPictopia />
+            </div>
+            <div className="w-full flex items-center">
+              <SearchBar user={userCredentials} />
+            </div>
+            <div className="flex flex-row space-x-1.5 items-center">
+              <PrettyHeaderUploadPicture />
+              <HeaderSignIn user={userCredentials} />
+              <HeaderOptions user={userCredentials} />
+            </div>
           </div>
         </div>
+        <CategoryBar />
       </div>
       <Outlet />
     </div>

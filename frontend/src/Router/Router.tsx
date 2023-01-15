@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import RouteGuard from "../components/Helpers/RouteGuard";
 import { Notfound, SuspenseVeiw } from "../components/Prettys/PrettyViews";
 import Header from "../Menus/Header";
-import SearchView from "../Menus/Mobile/SearchView";
 import Pictopia from "../Pictopia";
 import Details from "../Picture/Details/Details";
 import PictureEdit from "../Picture/Management/PictureEdit";
@@ -26,19 +25,16 @@ const Router: React.FC<{}> = () => {
         <Route element={<Header />}>
           <Route path="/" element={<Pictopia />} />
           <Route path="/explore" element={<Pictopia />} />
-
           <Route path="/category/:category" element={<Pictopia />} />
           <Route path="/search/:input" element={<Pictopia />} />
           <Route path="/search/tags/:tag" element={<Pictopia />} />
+        </Route>
+
+        <Route element={<Header />}>
           <Route path="/detail/:id" element={<Details />} />
-
-          <Route path="/search" element={<SearchView />} />
           <Route path="/report" element={<PictureReport />} />
-
           <Route path="/user/:id/*" element={<User />} />
-
           <Route path="/upload" element={<UploadPic />} />
-
           {/* AuthGuard */}
           <Route element={<RouteGuard />}>
             <Route path="/profile/*" element={<Profile />} />
