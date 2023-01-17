@@ -88,23 +88,25 @@ export const useToastStore = create<useToastState>((set) => ({
 }));
 
 interface usePictureCommentState {
-  currentComments: CommentDto[];
-  currentReplies: CommentDto[];
+  comments: CommentDto[];
+  replies: CommentDto[];
   sendReplyViewState: boolean | number;
 }
 export const usePictureCommentStore = create<usePictureCommentState>((set) => ({
-  currentComments: [],
-  currentReplies: [],
+  comments: [],
+  replies: [],
   sendReplyViewState: false,
 
-  setCurrentComments: (_currentComments: CommentDto[]) =>
-    set(() => ({ currentComments: _currentComments })),
-  setCurrentCommentsAfterInsert: (comment: CommentDto[]) =>
+  setComments: (_comments: CommentDto[]) =>
+    set(() => ({ comments: _comments })),
+
+  setCommentsAfterInsert: (_comment: CommentDto[]) =>
     set((state: any) => ({
-      currentComments: [...state.currentComments, comment],
+      comments: [...state.comments, _comment],
     })),
-  setCurrentReplies: (_currentReplies: CommentDto[]) =>
-    set(() => ({ currentReplies: _currentReplies })),
+
+  setReplies: (_replies: CommentDto[]) => set(() => ({ replies: _replies })),
+
   setsendReplyViewState: (replyViewState: boolean | number) =>
     set(() => ({ sendReplyViewState: replyViewState })),
 }));

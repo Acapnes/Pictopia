@@ -18,14 +18,14 @@ export class PicAPI {
         "Authorization"
       ] = `Bearer ${window.localStorage.getItem("access_token")}`;
       return await axios
-        .post(`http://localhost:3000/pics/account/explore`, {
+        .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/account/explore`, {
           currentPage: picPaginationDto.currentPage,
           postPerPage: picPaginationDto.postPerPage,
         })
         .then((resp) => resp.data);
     }
     return await axios
-      .post(`http://localhost:3000/pics/explore`, {
+      .post(`${process.env.REACT_APP_BASE_BACKEND_URL}/pics/explore`, {
         currentPage: picPaginationDto.currentPage,
         postPerPage: picPaginationDto.postPerPage,
       })

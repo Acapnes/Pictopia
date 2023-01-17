@@ -3,7 +3,10 @@ import { CommentAPI } from "../../../Api/Comment/CommentApi";
 import { CommentDto } from "../../../Api/Comment/commentDtos";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { PrettyMediumAvatar } from "../../../components/Prettys/PrettyElements";
+import {
+  PrettyCustomSizeAvatar,
+  PrettyMediumAvatar,
+} from "../../../components/Prettys/PrettyElements";
 import { PrettySend } from "../../../components/Prettys/PrettyIcons";
 import {
   usePictureCommentStore,
@@ -11,15 +14,14 @@ import {
 } from "../../../components/Zustand/store";
 
 const SendComment: React.FC<{
-  getCommentsById: Function;
-  author: UserDto;
+  visitor: UserDto;
   picture: PicDto;
-}> = ({ getCommentsById, picture, author }) => {
+}> = ({ picture, visitor }) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
   const newCommentsRef = useRef<HTMLTextAreaElement>(null);
 
   const postComment = async () => {
-    if (author?.email) {
+    if (visitor?.email) {
       await CommentAPI.postCommentToPicture(
         window.localStorage.getItem("access_token")!,
         {
@@ -28,7 +30,7 @@ const SendComment: React.FC<{
           creationDate: new Date(),
         }
       ).then(() => {
-        getCommentsById();
+        // getCommentsById();
         newCommentsRef.current!.value = "";
       });
     } else {
@@ -38,7 +40,7 @@ const SendComment: React.FC<{
 
   return (
     <div className="flex flex-row space-x-2 items-center text-black text-sm">
-      <PrettyMediumAvatar user={author} rounded={true} />
+      <PrettyMediumAvatar user={visitor} rounded={true} />
       <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2rem]">
         <textarea
           id="InputNewComment"
@@ -48,7 +50,7 @@ const SendComment: React.FC<{
           ref={newCommentsRef}
           className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
           placeholder={
-            author?.email ? "Sign new comment" : "Sign in for send new comments"
+            visitor?.email ? "Sign new comment" : "Sign in for send new comments"
           }
         />
         <div
@@ -97,7 +99,13 @@ const SendReply: React.FC<{
 
   return (
     <div className="flex flex-row space-x-2 items-center text-black">
-      <PrettyMediumAvatar user={authorReply} rounded={true} />
+      <PrettyCustomSizeAvatar
+        avatar={{
+          data: authorReply?.avatar?.data,
+          contentType: authorReply?.avatar?.contentType,
+        }}
+        size={2.75}
+      />
       <div className="w-full flex flex-row pl-1 bg-gray-200 h-[2rem]">
         <textarea
           id="InputNewComment"

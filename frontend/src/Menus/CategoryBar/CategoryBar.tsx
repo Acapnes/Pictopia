@@ -41,19 +41,23 @@ const CategoryBar: React.FC<{}> = () => {
   }, []);
 
   const params = useParams() as any;
-
+  
   return (
-    <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-      <div className="w-full h-full min-h-[4.5rem] flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-3  px-4 py-2 text-white bg-soft-black relative">
-        <Suspense fallback={<SuspenseVeiw />}>
-          <CustomizeCategories
-            favoriteCategories={favoriteCategories}
-            allCategories={allCategories}
-          />
-          <FavoriteCategories favoriteCategories={favoriteCategories} />
-        </Suspense>
-      </div>
-    </div>
+    <>
+      {!params && (
+        <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
+          <div className="w-full h-full min-h-[4.5rem] flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-3  px-4 py-2 text-white bg-soft-black relative">
+            <Suspense fallback={<SuspenseVeiw />}>
+              <CustomizeCategories
+                favoriteCategories={favoriteCategories}
+                allCategories={allCategories}
+              />
+              <FavoriteCategories favoriteCategories={favoriteCategories} />
+            </Suspense>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

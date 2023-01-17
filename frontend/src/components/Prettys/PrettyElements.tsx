@@ -17,7 +17,7 @@ const PrettyLargeAvatar: React.FC<{ user: UserDto }> = ({ user }) => {
             <img
               src={`data:${user?.avatar?.contentType};base64,${user?.avatar?.data}`}
               alt=""
-              className={`rounded-sm w-full h-full p-[0.12rem] max-w-[6rem] bg-soft-black`}
+              className={`rounded-sm w-full h-full max-w-[6rem] bg-soft-black`}
             />
           </div>
         </a>
@@ -121,18 +121,21 @@ const PrettySmallAvatar: React.FC<{ user: UserDto; rounded: boolean }> = ({
 const PrettyCustomSizeAvatar: React.FC<{
   avatar: UserDto["avatar"];
   size: number;
-}> = ({ avatar, size }) => {
+  bordered?: boolean;
+}> = ({ avatar, size, bordered }) => {
   return (
     <div className="w-fit">
       {MultiFuncs.ParamController([avatar?.contentType, avatar?.data]) ? (
         <div
           style={{ width: `${size}rem`, height: `${size}rem` }}
-          className="flex relative p-0.5 rounded-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6]"
+          className={`flex relative rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] ${
+            bordered && "p-0.5"
+          }`}
         >
           <img
             src={`data:${avatar?.contentType};base64,${avatar?.data}`}
             alt=""
-            className="w-full object-cover rounded-full"
+            className="w-full object-cover rounded-sm"
           />
         </div>
       ) : (

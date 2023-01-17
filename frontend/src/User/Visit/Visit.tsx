@@ -24,18 +24,6 @@ const Visit: React.FC<{}> = () => {
     setUserCredentials();
   }, []);
 
-  const [currentPage, setCurrentPage] = useState<number>(0);
-  const [postPerPage, setPostPerPage] = useState<number>(20);
-
-  const handleScroll = (e: any) => {
-    if (
-      e.target.scrollHeight - e.target.scrollTop <=
-      e.target.clientHeight + 5
-    ) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
   return (
     <div>
       {userVisitCredentials?.email ? (
@@ -96,7 +84,6 @@ const VisitUserBody: React.FC<{ author: UserDto }> = ({ author }) => {
                       socialIndex={social.index!}
                     ></PrettySocialButton>
                   </div>
-                  // <div key={socialIndex}>{social.platform}</div>
                 )
               )}
             </div>

@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
 
 const PrettyRainbow: React.FC<{
   children: ReactNode;

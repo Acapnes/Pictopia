@@ -7,7 +7,7 @@ import { PicManagementAPI } from "../../Api/User/PicManagement";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { CategorySelection } from "../Upload/components/Categories";
 import { HashtagAppend } from "../Upload/components/Hashtags";
-import DetailsPicture from "../Details/Card/DetailsPicture";
+import DetailsPicture from "../Details/Card/DetailsBody";
 
 const PictureEdit: React.FC<{}> = () => {
   const [editPicture, setEditPicture] = useState<PicDto>(Object);
@@ -23,7 +23,7 @@ const PictureEdit: React.FC<{}> = () => {
 
   return (
     <div className="min-h-[70vh] flex flex-col space-y-4 justify-center items-center px-2 py-10">
-      <DetailsPicture picture={editPicture} />
+      <DetailsPicture />
       <div className="w-full lg:max-w-[60vw] 3xl:max-w-[50vw] mb-10 flex flex-col space-y-1">
         <div className="w-full flex flex-row justify-between px-0.5">
           <p className="font-bold text-2xl text-gray-200">Edit Picture</p>

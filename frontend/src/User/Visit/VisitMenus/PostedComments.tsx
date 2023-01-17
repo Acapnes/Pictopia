@@ -51,9 +51,9 @@ const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
                             </span>
                           </div>
                         </div>
-                        <div className="pl-5">
-                          <Replies small comment={comment} />
-                        </div>
+                        {/* <div className="pl-5">
+                          <Replies />
+                        </div> */}
                       </div>
                     </div>
                   </div>

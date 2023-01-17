@@ -1,21 +1,18 @@
-import React from "react";
-import { PicAPI } from "../../../Api/Pic/PicApi";
+import React, { ReactNode } from "react";
 import { PicDto } from "../../../Api/Pic/picDtos";
-import { AccountAPI } from "../../../Api/User/AccountApi";
+import { PrettyRainbowLink } from "../../../components/Prettys/PrettyComponents";
 import {
-  PrettyRainbow,
-  PrettyRainbowLink,
-} from "../../../components/Prettys/PrettyComponents";
-import {
-  PrettyAlertIcon,
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
+  PrettyHorizontalOptionsIcon,
   PrettyLinkIcon,
   PrettyShareIcon,
 } from "../../../components/Prettys/PrettyIcons";
 import { useToastStore } from "../../../components/Zustand/store";
-import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { AccountAPI } from "../../../Api/User/AccountApi";
+import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
+import { PicAPI } from "../../../Api/Pic/PicApi";
 
 const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
   picture,
@@ -24,74 +21,72 @@ const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (
-    <div className="h-full flex flex-row justify-between items-center space-x-2">
-      {/* Download Picture */}
-      <PrettyRainbow
-        onclick={async () => {
-          PicAPI.getPicsByBlob(picture).then((resp) => {
-            const url = window.URL.createObjectURL(new Blob([resp]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", "picture.jpg"); //or any other extension
-            document.body.appendChild(link);
-            link.click();
-          });
-        }}
-        advStyle="rounded-md flex items-center cursor-pointer"
-        advChildStyle="rounded-md px-2"
-      >
-        <PrettyDownloadIcon size={14} />
-      </PrettyRainbow>
+    <div className="flex flex-row justify-between items-center font-bold font-mono">
+      <div className="flex flex-row space-x-5">
+        {/* Save Picture */}
+        <button
+          onClick={async () => {
+            if (window.localStorage.getItem("access_token")) {
+              await AccountAPI.savedPicturesToUserAlbum(
+                window.localStorage.getItem("access_token")!,
+                picture
+              ).then(
+                async (loginResp: ReturnFuncDto) =>
+                  await setToastState(loginResp.message)
+              );
+            }
+          }}
+          className="flex flex-row space-x-1 items-center hover:text-pretty-rough-yellow duration-300"
+        >
+          <PrettyBookMarksIcon size={20} />
+          <p className="whitespace-nowrap">Save Picture</p>
+        </button>
+      </div>
 
-      {/* Save to Album */}
-      <PrettyRainbow
-        advStyle="rounded-md cursor-pointer"
-        advChildStyle="rounded-md px-2"
-        onclick={async () => {
-          if (window.localStorage.getItem("access_token")) {
-            await AccountAPI.savedPicturesToUserAlbum(
-              window.localStorage.getItem("access_token")!,
-              picture
-            ).then(
-              async (loginResp: ReturnFuncDto) =>
-                await setToastState(loginResp.message)
-            );
-          }
-        }}
-      >
-        <PrettyBookMarksIcon size={14} />
-      </PrettyRainbow>
+      <div className="flex flex-row space-x-4">
+        {/* Share Picture */}
+        <button
+          onClick={async () => {
+            if (navigator.share) {
+              navigator.share({
+                text: `Hey look at this! \n ${picture?.title}`,
+                url: "",
+              });
+            }
+          }}
+          className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300 pr-1"
+        >
+          <PrettyShareIcon size={20} />
+        </button>
 
-      {/* Share Picture */}
-      <PrettyRainbow
-        advStyle="cursor-pointer  rounded-md"
-        advChildStyle="rounded-md px-2"
-        onclick={() => {
-          if (navigator.share) {
-            navigator.share({
-              text: `Hey look at this! \n ${picture?.title}`,
-              url: "",
+        {/* Download Picture */}
+        <button
+          onClick={async () => {
+            PicAPI.getPicsByBlob(picture).then((resp) => {
+              const url = window.URL.createObjectURL(new Blob([resp]));
+              const link = document.createElement("a");
+              link.href = url;
+              link.setAttribute("download", "picture.jpg"); //or any other extension
+              document.body.appendChild(link);
+              link.click();
             });
-          }
-        }}
-      >
-        <PrettyShareIcon size={14} />
-      </PrettyRainbow>
+          }}
+          className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300"
+        >
+          <PrettyDownloadIcon size={24} />
+        </button>
 
-      {/* Report Picture */}
-      <PrettyRainbowLink
-        href="/report"
-        advStyle="rounded-md flex items-center cursor-pointer"
-        advChildStyle="rounded-md px-2"
-      >
-        <PrettyAlertIcon size={14} />
-      </PrettyRainbowLink>
+        {/* More */}
+        <button className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300">
+          <PrettyHorizontalOptionsIcon size={24} />
+        </button>
 
-      <CardAuthorOptions
-        pictureId={picture?._id}
-        authorPic={picture?.authorPic}
-        visitor={visitor}
-      />
+        <CardAuthorOptions
+          pictureId={picture?._id}
+          authorPic={picture?.authorPic}
+          visitor={visitor}
+        />
+      </div>
     </div>
   );
 };
@@ -104,17 +99,13 @@ const CardAuthorOptions: React.FC<{
   return (
     <>
       {visitor?._id === authorPic?._id && (
-        <div className="h-full flex flex-row justify-end items-center">
-          {/* Edit Picture */}
-          <PrettyRainbowLink
-            href={`/edit/picture/${pictureId}`}
-            advStyle="rounded-md cursor-pointer"
-            advChildStyle="rounded-md px-3 py-1 flex flex-row space-x-1 items-center"
-          >
-            <PrettyLinkIcon size={14} fill="white" />
-            <span className="text-sm font-semibold text-gray-200">Edit</span>
-          </PrettyRainbowLink>
-        </div>
+        <a
+          href={`/edit/${pictureId}`}
+          className="h-full flex flex-row space-x-1 items-center text-pretty-pink hover:text-pretty-rough-pink duration-300"
+        >
+          <span className="whitespace-nowrap">Edit Picture</span>
+          <PrettyLinkIcon size={20} />
+        </a>
       )}
     </>
   );

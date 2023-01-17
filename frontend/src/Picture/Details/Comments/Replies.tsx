@@ -4,6 +4,7 @@ import { CommentDto } from "../../../Api/Comment/commentDtos";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import {
+  PrettyCustomSizeAvatar,
   PrettyMediumAvatar,
   PrettySmallAvatar,
 } from "../../../components/Prettys/PrettyElements";
@@ -15,8 +16,7 @@ const Replies: React.FC<{
   comment: CommentDto;
   visitor?: UserDto;
   options?: boolean;
-  small?: boolean;
-}> = ({ comment, options, small, visitor, destPicture }) => {
+}> = ({ comment, options, visitor, destPicture }) => {
   const sendReplyViewState = usePictureCommentStore(
     (state: any) => state.sendReplyViewState
   );
@@ -41,11 +41,13 @@ const Replies: React.FC<{
               key={replyIndex}
               className="w-full h-full flex flex-row space-x-3"
             >
-              {small ? (
-                <PrettySmallAvatar user={reply?.author!} rounded={true} />
-              ) : (
-                <PrettyMediumAvatar user={reply?.author!} rounded={true} />
-              )}
+              <PrettyCustomSizeAvatar
+                avatar={{
+                  data: reply?.author?.avatar?.data!,
+                  contentType: reply?.author?.avatar?.contentType!,
+                }}
+                size={3}
+              />
 
               <div className="w-full flex flex-col">
                 <div className="w-full h-full flex-row">

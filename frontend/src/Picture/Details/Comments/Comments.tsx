@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { CommentAPI } from "../../../Api/Comment/CommentApi";
 import { CommentDto } from "../../../Api/Comment/commentDtos";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
-import { PrettyMediumAvatar } from "../../../components/Prettys/PrettyElements";
+import {
+  PrettyCustomSizeAvatar,
+  PrettyMediumAvatar,
+} from "../../../components/Prettys/PrettyElements";
 import { PrettyTrashIcon } from "../../../components/Prettys/PrettyIcons";
 import {
   usePictureCommentStore,
@@ -13,10 +18,9 @@ import Replies from "./Replies";
 import { SendReply } from "./SendComment";
 
 const Comments: React.FC<{
-  comments: CommentDto[];
   visitor: UserDto;
   picture: PicDto;
-}> = ({ comments, visitor, picture }) => {
+}> = ({ visitor, picture }) => {
   const setsendReplyViewState = usePictureCommentStore(
     (state: any) => state.setsendReplyViewState
   );
@@ -25,71 +29,96 @@ const Comments: React.FC<{
     (state: any) => state.sendReplyViewState
   );
 
+  const setComments = usePictureCommentStore((state: any) => state.setComments);
+
+  const comments = usePictureCommentStore<CommentDto[]>(
+    (state: any) => state.comments
+  );
+
+  useEffect(() => {
+    (async () => {
+      setComments(
+        await CommentAPI.getCommentsOfPicture(params.id?.toString()!)
+      );
+    })();
+  }, []);
+
+  const params = useParams<any>();
+
   return (
-    <div className="w-full max-h-[30rem] overflow-auto py-2 scrollbar-hide text-gray-200 text-sm">
-      {comments?.length > 0 ? (
-        <div className="w-full flex flex-col space-y-5">
-          {comments?.map((_comment: CommentDto, _commentIndex: number) => (
-            <div
-              key={_commentIndex}
-              className="w-full h-full flex flex-row space-x-3"
-            >
-              <PrettyMediumAvatar user={_comment?.author!} rounded={true} />
-              <div className="w-full flex flex-col space-y-3">
-                <div className="w-full h-full flex-row">
-                  <a
-                    href={`/user/${_comment?.author?.username}`}
-                    className="font-bold hover:underline select-none"
-                  >
-                    {_comment?.author?.username}
-                  </a>
-                  <span className="w-full font-normal break-all pl-2">
-                    {_comment?.comment}
-                  </span>
-                  <div className="flex flex-row space-x-2.5 items-center">
-                    <p className="text-sm text-gray-400">1h</p>
-                    {visitor?.email && (
-                      <div className="flex flex-row space-x-2.5">
-                        <p
-                          onClick={() => setsendReplyViewState(_commentIndex)}
-                          className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer"
-                        >
-                          Reply
-                        </p>
-                        <p className="text-sm font-bold cursor-pointer">♥</p>
+    <>
+      {comments?.length > 0 && (
+        <div className="w-full flex items-center justify-center overflow-auto scrollbar-hide text-sm">
+          <div className="w-[80%] flex flex-col space-y-4">
+            {comments?.map((_comment: CommentDto, _commentIndex: number) => (
+              <div key={_commentIndex} className="flex flex-col space-y-2.5">
+                <div className="w-full h-full flex flex-row space-x-3">
+                  <PrettyCustomSizeAvatar
+                    avatar={{
+                      data: _comment?.author?.avatar?.data!,
+                      contentType: _comment?.author?.avatar?.contentType!,
+                    }}
+                    size={3.75}
+                  />
+                  <div className="w-full flex flex-col justify-center space-y-3">
+                    <div className="w-full flex-row">
+                      <a
+                        href={`/user/${_comment?.author?.username}`}
+                        className="font-bold hover:underline select-none"
+                      >
+                        {_comment?.author?.username}
+                      </a>
+                      <span className="w-full font-normal break-all pl-2">
+                        {_comment?.comment}
+                      </span>
+                      <div className="flex flex-row space-x-2.5 items-center">
+                        <p className="text-sm text-gray-400">1h</p>
+                        {visitor?.email && (
+                          <div className="flex flex-row space-x-2.5">
+                            <p
+                              onClick={() =>
+                                setsendReplyViewState(_commentIndex)
+                              }
+                              className="text-sm font-bold text-pretty-pink hover:text-pretty-rough-pink duration-200 cursor-pointer"
+                            >
+                              Reply
+                            </p>
+                            <p className="text-sm font-bold cursor-pointer">
+                              ♥
+                            </p>
+                          </div>
+                        )}
+                        <CommentAuthorEdit
+                          visitor={visitor}
+                          authorComment={_comment?.author!}
+                          destPicture={picture?._id!}
+                          commentId={_comment?._id!}
+                        />
                       </div>
-                    )}
-                    <CommentAuthorEdit
-                      visitor={visitor}
-                      authorComment={_comment?.author!}
-                      destPicture={picture?._id!}
-                      commentId={_comment?._id!}
-                    />
+                    </div>
                   </div>
                 </div>
-                {sendReplyViewState === _commentIndex && (
-                  <SendReply
-                    authorReply={visitor}
-                    parentComment={_comment}
-                    picture={picture}
+                <div className="flex flex-col space-y-2 pl-10">
+                  {sendReplyViewState === _commentIndex && (
+                    <SendReply
+                      authorReply={visitor}
+                      parentComment={_comment}
+                      picture={picture}
+                    />
+                  )}
+                  <Replies
+                    options
+                    comment={_comment}
+                    visitor={visitor}
+                    destPicture={picture?._id!}
                   />
-                )}
-                <Replies
-                  options
-                  comment={_comment}
-                  visitor={visitor}
-                  destPicture={picture?._id!}
-                />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="w-full text-center text-gray-500 font-semibold">
-          No Comments Avaliable
+            ))}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

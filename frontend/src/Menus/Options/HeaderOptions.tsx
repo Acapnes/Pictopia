@@ -19,7 +19,11 @@ const HeaderOptions: React.FC<{ user: UserDto }> = ({ user }) => {
       <div className="flex items-center">
         {user ? (
           <a href={`/user/${user?.username}`}>
-            <PrettyCustomSizeAvatar avatar={user?.avatar} size={2.75} />
+            <PrettyCustomSizeAvatar
+              avatar={user?.avatar}
+              size={2.5}
+              bordered
+            />
           </a>
         ) : (
           <PrettyRainbow
