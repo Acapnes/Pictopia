@@ -41,7 +41,7 @@ const CategoryBar: React.FC<{}> = () => {
   }, []);
 
   const params = useParams() as any;
-  
+
   return (
     <>
       {!params && (

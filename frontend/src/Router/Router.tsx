@@ -10,9 +10,8 @@ import PictureReport from "../Picture/Management/PictureReport";
 import UploadPic from "../Picture/Upload/UploadPic";
 import Login from "../User/Auth/Login";
 import Register from "../User/Auth/Register";
-import AccountUsageEdit from "../User/Moderation/Mobile/AccountUsageEdit";
 import Profile from "../User/Moderation/Profile";
-import User from "../User/User";
+import UserRouter from "./UserRouter";
 
 const Router: React.FC<{}> = () => {
   return (
@@ -33,18 +32,19 @@ const Router: React.FC<{}> = () => {
         <Route element={<Header />}>
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/report" element={<PictureReport />} />
-          <Route path="/user/:id/*" element={<User />} />
+          <Route path="/user/:id/*" element={<UserRouter />} />
           <Route path="/upload" element={<UploadPic />} />
+          
           {/* AuthGuard */}
           <Route element={<RouteGuard />}>
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/edit/picture/:id" element={<PictureEdit />} />
-            <Route path="/edit/usage/" element={<AccountUsageEdit />} />
           </Route>
         </Route>
 
         {/* Exception Handler Veiw */}
         <Route path="*" element={<Notfound />} />
+        <Route path="/error" element={<Notfound />} />
       </Routes>
     </Suspense>
   );

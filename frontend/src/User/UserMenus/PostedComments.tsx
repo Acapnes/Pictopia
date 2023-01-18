@@ -1,11 +1,11 @@
 import { Masonry } from "@mui/lab";
 import React, { useEffect, useState } from "react";
-import { CommentDto } from "../../../Api/Comment/commentDtos";
-import { AccountAPI } from "../../../Api/User/AccountApi";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { PrettyRainbowDiv } from "../../../components/Prettys/PrettyComponents";
-import { PrettySmallAvatar } from "../../../components/Prettys/PrettyElements";
-import Replies from "../../../Picture/Details/Comments/Replies";
+import { CommentDto } from "../../Api/Comment/commentDtos";
+import { AccountAPI } from "../../Api/User/AccountApi";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { PrettyRainbowDiv } from "../../components/Prettys/PrettyComponents";
+import { PrettySmallAvatar } from "../../components/Prettys/PrettyElements";
+import Replies from "../../Picture/Details/Comments/Replies";
 
 const PostedComments: React.FC<{ user: UserDto; params: any }> = ({
   user,

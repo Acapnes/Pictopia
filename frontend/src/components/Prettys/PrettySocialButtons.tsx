@@ -26,8 +26,8 @@ const PrettySocialButton: React.FC<{
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
+            width="20"
+            height="20"
             fill="White"
             className="bi bi-instagram"
             viewBox="0 0 16 16"
@@ -39,8 +39,8 @@ const PrettySocialButton: React.FC<{
         return (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
+            width="20"
+            height="20"
             fill="white"
             className="bi bi-github"
             viewBox="0 0 16 16"
@@ -49,23 +49,18 @@ const PrettySocialButton: React.FC<{
           </svg>
         );
       default:
-        return <PrettyWorldIcon size={18} fill={"white"} />;
+        return <PrettyWorldIcon size={20} fill={"white"} />;
     }
   };
 
   return (
-    <div
-      className={`flex flex-row justify-between text-blue-400 border-gray-400 ${
-        border && " border-b-[1.5px] pb-2"
-      }`}
-    >
+    <div className="flex flex-row justify-between text-blue-400 pr-1.5 pb-1.5">
       <div className="flex flex-row space-x-3 items-center truncate">
         <a
           href={`//${socialUrl}`}
-          className={`h-fit w-fit min-w-[2.2rem] inline-flex items-center justify-center font-bold overflow-hidden group rounded-md p-0.5
-           bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] group-hover:from-[#ff00c6] group-hover:via-[#ff5478] group-hover:to-[#ff8a05]`}
+          className="h-fit w-fit inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
         >
-          <div className="w-full h-full bg-soft-black rounded-md p-1.5 lg:p-2 flex items-center justify-center">
+          <div className="w-full h-full rounded-md flex items-center justify-center">
             {SocialSVGSelector()}
           </div>
         </a>
