@@ -15,30 +15,21 @@ import {
   PrettyCameraIcon,
   PrettyXIcon,
 } from "../components/Prettys/PrettyIcons";
+import { PrettySocialButton } from "../components/Prettys/PrettySocialButtons";
 import { SuspenseVeiw } from "../components/Prettys/PrettyViews";
 
 const User: React.FC<{ user: UserDto }> = ({ user }) => {
-  const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
-  const params = useParams() as any;
-
-  useEffect(() => {
-    (async () => {
-      setUserVisitCredentials(
-        await AccountAPI.VisitProfileFetchUser(params.id)
-      );
-    })();
-  }, []);
-
   return (
     <>
-      {!user?.email && <Navigate to={"/error"} />}
-      <div>
-        <div className="w-full h-full flex flex-col">
-          <UserPanel author={userVisitCredentials!} />
-          <div className="flex flex-col-reverse md:flex-row pt-5">
-            <UserMenus author={userVisitCredentials!} />
-            <UserInfo author={userVisitCredentials!} />
-          </div>
+      <div className="flex flex-col space-y-16 pb-10">
+        <UserBackground author={user}>
+          <UserPanel author={user} />
+          <UserMenus author={user} />
+        </UserBackground>
+        <div className="px-20">
+          <Suspense fallback={<SuspenseVeiw />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </>
@@ -47,9 +38,12 @@ const User: React.FC<{ user: UserDto }> = ({ user }) => {
 
 export default User;
 
-const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
+const UserBackground: React.FC<{ author: UserDto; children: ReactNode }> = ({
+  author,
+  children,
+}) => {
   return (
-    <div className="w-full h-full relative ">
+    <div className="w-full h-full relative">
       <img
         src={`${
           author?.profile_background?.contentType &&
@@ -60,79 +54,112 @@ const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
         alt=""
         className="w-full h-[35vh] object-cover opacity-50"
       />
-      <div className="h-full w-full absolute flex justify-center top-0 left-0">
-        <div className="h-full w-full md:w-[90%] px-5 py-10 flex flex-col space-y-3 justify-end">
-          <div className="flex flex-row items-center space-x-4">
-            <PrettyCustomSizeAvatar avatar={author?.avatar} size={7} />
-            <div className="flex flex-col space-y-2.5">
-              <p className="text-2xl md:text-[2.75rem] font-extrabold text-gray-200">
-                {author?.name}
-              </p>
-              <p className="text-lg md:text-xl text-gray-200">
-                {author?.username}
-              </p>
-            </div>
+      {children}
+    </div>
+  );
+};
+
+const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
+  return (
+    <div className="h-full w-full absolute flex flex-col items-center top-0 left-0">
+      <div className="h-full w-full md:w-[90%] px-5 py-14 flex flex-col space-y-3 justify-end">
+        <div className="flex flex-row items-center space-x-4">
+          <PrettyCustomSizeAvatar avatar={author?.avatar} size={7} />
+          <div className="flex flex-col space-y-2.5">
+            <p className="text-2xl md:text-[2.75rem] font-extrabold text-gray-200">
+              {author?.name}
+            </p>
+            <p className="text-lg md:text-xl text-gray-200">
+              {author?.username}
+            </p>
           </div>
-          <div className="flex flex-row space-x-1.5">
-            <div className="flex flex-row space-x-1">
-              <p className=" font-extrabold text-gray-300">175</p>
-              <p className=" font-extrabold text-gray-300">Followers</p>
-            </div>
-            <p className=" font-extrabold text-gray-300"> | </p>
-            <div className="flex flex-row space-x-1">
-              <p className=" font-extrabold text-gray-300">23</p>
-              <p className=" font-extrabold text-gray-300">Posted</p>
-            </div>
-          </div>
-          {/* <div className="flex flex-wrap ">
-            {author?.userSocials?.map(
-              (social: UserDto["userSocials"][0], socialIndex: number) => (
-                <div key={socialIndex}>
-                  <PrettySocialButton
-                    showUrl={false}
-                    socialUrl={social.url!}
-                    platform={social.platform!}
-                    socialIndex={social.index!}
-                  ></PrettySocialButton>
-                </div>
-              )
-            )}
-          </div> */}
         </div>
-        {/* <BackgroundHandler author={author} /> */}
+        <div className="flex flex-row space-x-1.5">
+          <div className="flex flex-row space-x-1">
+            <p className="font-extrabold text-gray-300">175</p>
+            <p className="font-extrabold text-gray-300">Followers</p>
+          </div>
+          <p className="font-extrabold text-gray-300"> | </p>
+          <div className="flex flex-row space-x-1">
+            <p className="font-extrabold text-gray-300">23</p>
+            <p className="font-extrabold text-gray-300">Posted</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-const UserInfo: React.FC<{ author: UserDto }> = ({ author }) => {
-  return (
-    <div className="w-full md:w-[50%] flex flex-col">
-      <div>{author?.username}</div>
-    </div>
-  );
-};
+{
+  /* <div className="flex flex-row justify-between items-center space-x-[3rem] ">
+<div className="flex flex-wrap space-x-4">
+  {author?.userSocials?.map(
+    (social: UserDto["userSocials"][0], socialIndex: number) => (
+      <div key={socialIndex}>
+        <PrettySocialButton
+          showUrl={false}
+          socialUrl={social.url!}
+          platform={social.platform!}
+          socialIndex={social.index!}
+        ></PrettySocialButton>
+      </div>
+    )
+  )}
+</div>
+</div> */
+}
 
 const UserMenus: React.FC<{ author: UserDto }> = ({ author }) => {
   return (
-    <div className="w-full flex flex-col space-y-3 items-center justify-center">
-      <div className="flex flex-row space-x-5">
-        <LinkComp to="saved">
-          <p>Saved</p>
-        </LinkComp>
-        <LinkComp to="posted">
-          <p>Posts</p>
-        </LinkComp>
-        <LinkComp to="comments">
-          <p>Comments</p>
-        </LinkComp>
-        <LinkComp to="followers">
-          <p>Followers</p>
-        </LinkComp>
+    <div className="w-full h-full flex items-end justify-end relative">
+      <div className="absolute -top-[1.75rem] left-0 lg:px-20 w-full flex justify-center">
+        <div className="w-full bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] lg:p-0.5 lg:rounded-sm">
+          <div className="w-full flex flex-col lg:flex-row justify-between px-[3rem] py-3.5 bg-soft-black lg:rounded-sm overflow-x-auto">
+            <div className="w-full flex flex-row space-x-[5rem]">
+              <LinkComp to="saved">
+                <p>Home</p>
+              </LinkComp>
+              <LinkComp to="posted">
+                <p>Gallery</p>
+              </LinkComp>
+              <LinkComp to="comments">
+                <p>Favorites</p>
+              </LinkComp>
+              <LinkComp to="followers">
+                <p>Followers</p>
+              </LinkComp>
+            </div>
+            <div className="w-full flex flex-row lg:justify-end space-x-[5rem]">
+              <LinkComp to="saved">
+                <p>Home</p>
+              </LinkComp>
+              <LinkComp to="posted">
+                <p>Gallery</p>
+              </LinkComp>
+              <LinkComp to="comments">
+                <p>Favorites</p>
+              </LinkComp>
+              <LinkComp to="followers">
+                <p>Followers</p>
+              </LinkComp>
+            </div>
+            <div className="w-full flex flex-row lg:justify-end space-x-[5rem]">
+              <LinkComp to="saved">
+                <p>Home</p>
+              </LinkComp>
+              <LinkComp to="posted">
+                <p>Gallery</p>
+              </LinkComp>
+              <LinkComp to="comments">
+                <p>Favorites</p>
+              </LinkComp>
+              <LinkComp to="followers">
+                <p>Followers</p>
+              </LinkComp>
+            </div>
+          </div>
+        </div>
       </div>
-      <Suspense fallback={<SuspenseVeiw />}>
-        <Outlet />
-      </Suspense>
     </div>
   );
 };
@@ -147,9 +174,9 @@ const LinkComp: React.FC<{ children: ReactNode; to: string }> = ({
     <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
       <Link
         to={to}
-        className={`bg-soft-black px-3 flex items-center justify-center transition duration-500 text-gray-300 font-bold ${
+        className={`flex items-center justify-center transition duration-500 text-gray-300 font-bold bg-soft-black ${
           params["*"] !== to && "pb-0.5"
-        } `}
+        }  `}
       >
         {children}
       </Link>

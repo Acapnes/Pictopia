@@ -46,13 +46,15 @@ const DetailsPicture: React.FC<{}> = () => {
       <div className="flex flex-col space-y-5 w-full md:w-[70%] h-full pt-3">
         <CardOptions picture={picture} visitor={visitor} />
         <div className="flex flex-row space-x-4 ">
-          <PrettyCustomSizeAvatar
-            avatar={{
-              data: picture?.authorPic?.avatar?.data,
-              contentType: picture?.authorPic?.avatar?.contentType,
-            }}
-            size={5}
-          />
+          <a href={`/user/${picture?.authorPic?.username}`}>
+            <PrettyCustomSizeAvatar
+              avatar={{
+                data: picture?.authorPic?.avatar?.data,
+                contentType: picture?.authorPic?.avatar?.contentType,
+              }}
+              size={5}
+            />
+          </a>
           <div className="w-full flex flex-col justify-center ">
             <p className="w-full font-bold text-3xl max-h-[12vh] break-all overflow-y-auto scrollbar-hide">
               {picture?.title}

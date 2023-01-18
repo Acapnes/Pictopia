@@ -54,7 +54,7 @@ const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
               });
             }
           }}
-          className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300 pr-1"
+          className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300 pr-1 hover:scale-[135%]"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -67,7 +67,7 @@ const PictopiaGrid: React.FC<{}> = () => {
 
 
   return (
-    <div className="w-full flex flex-col items-center justify-center pb-32">
+    <div className="w-full flex flex-col items-center justify-center">
       <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
@@ -84,7 +84,7 @@ const PictopiaGrid: React.FC<{}> = () => {
           </div>
         ))}
       </Masonry>
-      {picturesLoading && <LoadingAnimation />}
+      {/* {picturesLoading && <LoadingAnimation />} */}
     </div>
   );
 };
@@ -95,7 +95,7 @@ export { LoadingAnimation };
 
 const LoadingAnimation: React.FC<{}> = () => {
   return (
-    <div className="flex flex-row pt-4">
+    <div className="flex flex-row">
       <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
         <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
         <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>

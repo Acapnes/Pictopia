@@ -54,7 +54,7 @@ const PrettySocialButton: React.FC<{
   };
 
   return (
-    <div className="flex flex-row justify-between text-blue-400 pr-1.5 pb-1.5">
+    <div className="flex flex-row justify-between text-blue-400">
       <div className="flex flex-row space-x-3 items-center truncate">
         <a
           href={`//${socialUrl}`}
