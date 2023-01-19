@@ -15,7 +15,6 @@ import {
   PrettyCameraIcon,
   PrettyXIcon,
 } from "../components/Prettys/PrettyIcons";
-import { PrettySocialButton } from "../components/Prettys/PrettySocialButtons";
 import { SuspenseVeiw } from "../components/Prettys/PrettyViews";
 
 const User: React.FC<{ user: UserDto }> = ({ user }) => {

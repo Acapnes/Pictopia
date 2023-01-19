@@ -1,6 +1,6 @@
 import { UserDto } from "../../Api/User/UserDtos/userDto";
 
-const PrettyEyeIcon: React.FC<{
+export const PrettyEyeIcon: React.FC<{
   show: boolean;
   fill?: string;
   size?: number;
@@ -166,7 +166,7 @@ const PrettySettingSlidersIcon = (props: any) => {
   );
 };
 
-const PrettyPictopia = () => {
+export const PrettyPictopia = () => {
   return (
     <a
       href="/explore"
@@ -697,7 +697,6 @@ export {
   PrettyPictureIcon,
   PrettySmallArrowDown,
   PrettyProfilePicture,
-  PrettyEyeIcon,
   PrettyPenIcon,
   PrettyDownloadIcon,
   PrettySend,
@@ -707,7 +706,6 @@ export {
   PrettyOptionsIcon,
   PrettySearchIcon,
   PrettyLogOut,
-  PrettyPictopia,
   PrettyWorldIcon,
   PrettyCompassIcon,
   PrettyCheckIcon,

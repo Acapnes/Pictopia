@@ -19,18 +19,14 @@ const Home: React.FC<{ user: UserDto }> = ({ user }) => {
     <div className="flex flex-col space-y-10">
       <div className="flex flex-col space-y-5">
         <p className="text-xl font-bold text-gray-200">Portfolio</p>
-        <div className="flex flex-row overflow-x-auto">
+        <div className="flex flex-row space-x-3 overflow-x-auto whitespace-nowrap">
           {postedPictures?.map((picture: PicDto, pictureIndex: number) => (
-            <div
-              className="group relative w-full flex flex-col justify-center items-center max-h-[5rem] "
+            <img
               key={pictureIndex}
-            >
-              <img
-                src={`data:${picture.picture_file.contentType};base64,${picture.picture_file.data}`}
-                alt=""
-                className="min-w-full object-cover"
-              />
-            </div>
+              src={`data:${picture.picture_file.contentType};base64,${picture.picture_file.data}`}
+              alt=""
+              className="h-[12rem] object-cover"
+            />
           ))}
         </div>
       </div>
