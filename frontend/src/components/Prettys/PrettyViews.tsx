@@ -60,7 +60,7 @@ const SuspenseVeiw: React.FC<{ text?: string; main?: boolean }> = ({
 }) => {
   return (
     <div
-      className={`w-full flex-auto flex justify-center bg-soft-black ${
+      className={`w-full flex-auto flex justify-center ${
         main && "min-h-screen"
       }`}
     >

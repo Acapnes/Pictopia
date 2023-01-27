@@ -79,12 +79,8 @@ export class PicFetchService {
       .populate('categories');
   }
 
-  async picGetAlias(
-    picture_id: string,
-    picPaginationDto: PaginationDto
-  ): Promise<Pic[]> {
-    return await this.picModel
-      .findOne({ _id: picture_id })
+  async picGetAlias(picture_id: string): Promise<Pic[]> {
+    return await this.picModel.findOne({ _id: picture_id })
       .then(async (picture: Pic) => {
         return await this.picModel
           .find({
@@ -102,12 +98,7 @@ export class PicFetchService {
             ],
           })
           .sort({ creationDate: -1 })
-          .skip(
-            Math.ceil(
-              picPaginationDto.currentPage * picPaginationDto.postPerPage
-            )
-          )
-          .limit(picPaginationDto.postPerPage)
+          .limit(10)
           .populate('authorPic')
           .populate('categories');
       });

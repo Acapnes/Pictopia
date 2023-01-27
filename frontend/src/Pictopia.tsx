@@ -1,19 +1,39 @@
 import React, { Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
+import { usePicturePaginationStore } from "./components/Zustand/store";
+import CategoryBar from "./Menus/CategoryBar/CategoryBar";
+import Header from "./Menus/Header";
 
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
+  const setCurrentPage = usePicturePaginationStore(
+    (state: any) => state.setCurrentPage
+  );
+
+  const handleScroll = (e: any) => {
+    if (e.target.scrollHeight - e.target.scrollTop <= e.target.clientHeight) {
+      setCurrentPage();
+    }
+  };
+
   return (
-    <>
-      <div className="flex flex-auto flex-col space-y-4">
-        <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
-          <PictopiaManagementPanel />
-          <PictopiaGrid />
-        </Suspense>
+    <div
+      onScroll={(e) => handleScroll(e)}
+      className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black font-mono"
+    >
+      <div className="flex flex-auto flex-col pb-4 bg-soft-black">
+        <Header />
+        <CategoryBar />
+        <div className="pt-4">
+          <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
+            <PictopiaManagementPanel />
+            <PictopiaGrid />
+          </Suspense>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -22,7 +42,7 @@ export default Pictopia;
 const PictopiaManagementPanel: React.FC<{}> = () => {
   const params = useParams() as any;
   return (
-    <div className="w-full flex flex-row px-3 items-center justify-between">
+    <div className="w-full flex flex-row px-3 pb-5 items-center justify-between">
       <div className="flex flex-row space-x-1 items-center">
         <p className="font-bold text-pretty-rough-yellow text-xl">
           {params?.category ? params.category.toUpperCase() : "Explore"}

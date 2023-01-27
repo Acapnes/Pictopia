@@ -7,7 +7,7 @@ import { PicManagementAPI } from "../../Api/User/PicManagement";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { CategorySelection } from "../Upload/components/Categories";
 import { HashtagAppend } from "../Upload/components/Hashtags";
-import DetailsPicture from "../Details/Card/DetailsBody";
+import DetailsPicture from "../Details/Body/DetailsBody";
 
 const PictureEdit: React.FC<{}> = () => {
   const [editPicture, setEditPicture] = useState<PicDto>(Object);

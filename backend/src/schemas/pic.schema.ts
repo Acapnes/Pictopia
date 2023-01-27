@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, Root } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
 import { PictureFile } from './altSchemas/utils/picture.file.schema';
@@ -24,7 +24,7 @@ export class Pic {
   @Prop({ required: false })
   description: string;
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   @Prop({ required: true })
   creationDate: Date;
 
@@ -46,13 +46,14 @@ export class Pic {
     contentType: string;
   };
 
-  @Field(() => Category, { nullable: false })
+  @Field(() => [Category], { nullable: true, defaultValue: [] })
   @Prop({
     type: [mongoose.Schema.Types.ObjectId],
     ref: 'Category',
-    required: true,
+    required: false,
+    default: [],
   })
-  categories: mongoose.Schema.Types.ObjectId[];
+  categories: Category[];
 }
 
 export const PicSchema = SchemaFactory.createForClass(Pic);

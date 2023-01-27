@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { PicDto } from "../../Api/Pic/picDtos";
 
 const PrettyRainbow: React.FC<{
   children: ReactNode;
@@ -77,4 +78,40 @@ const PrettyTip: React.FC<{ text: string; advStyle?: string }> = ({
   );
 };
 
-export { PrettyRainbow, PrettyRainbowDiv, PrettyRainbowLink, PrettyTip };
+const ScalePicture: React.FC<{
+  picture: PicDto["picture_file"];
+  modalState: boolean;
+  setModalState: (value: React.SetStateAction<boolean>) => void;
+}> = ({ picture, modalState, setModalState }) => {
+  return (
+    <>
+      {modalState && (
+        <div
+          onClick={() => {
+            setModalState(false);
+          }}
+          className="z-20 fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center cursor-zoom-out"
+        >
+          <div className="fixed inset-0 transition-opacity">
+            <div className="absolute inset-0 bg-rough-soft-black bg-opacity-95"></div>
+          </div>
+          <div className="z-30 rounded-lg overflow-hidden shadow-xl transform transition-all w-screen h-screen flex items-center justify-center px-20 py-20">
+            <img
+              src={`data:${picture?.contentType};base64,${picture?.data}`}
+              alt=""
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+// İçerisinde sadece büyük bir resim olacak resime tıklanınca bir şey olmayacak ama çevresine tıklanınca modal'ın kapanması gerekiyor
+export {
+  PrettyRainbow,
+  PrettyRainbowDiv,
+  PrettyRainbowLink,
+  PrettyTip,
+  ScalePicture,
+};

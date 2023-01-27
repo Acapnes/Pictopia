@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res,} from '@nestjs/common';
 import { PaginationDto } from 'src/dto/pic/pagination.dto';
-import { SearchInterceptor } from 'src/helpers/interceptors/search.interceptor';
 import { Pic } from 'src/schemas/pic.schema';
 import { PicFetchService } from './pic.fetch.service';
 import { PicService } from './pic.service';
@@ -23,8 +22,8 @@ export class PicController {
   }
 
   @Post('/alias/:id')
-  async getPicsAlias(@Param('id') picture_id, @Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
-    return this.picFetchService.picGetAlias(picture_id, picPaginationDto);
+  async getPicsAlias(@Param('id') picture_id): Promise<Pic[]> {
+    return this.picFetchService.picGetAlias(picture_id);
   }
 
   @Get('/pretty/:id')

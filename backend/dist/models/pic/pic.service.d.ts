@@ -7,5 +7,6 @@ export declare class PicService {
     constructor(picModel: Model<PicDocument>);
     findAll(): Promise<Pic[]>;
     getPicById(id: mongoose.Types.ObjectId): Promise<Pic>;
+    getPicByStringId(id: string): Promise<Pic>;
     createPostWithImage(authorPicId: mongoose.Types.ObjectId | any, file: any, picCreateDto: PicCreateDto): Promise<ReturnFuncDto>;
 }

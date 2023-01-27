@@ -4,7 +4,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Pic, PicDocument } from 'src/schemas/pic.schema';
 import { PicCreateDto } from 'src/dto/pic/pic.create.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserDto } from 'src/dto/user/user.dto';
 
 @Injectable()
 export class PicService {
@@ -15,11 +14,15 @@ export class PicService {
       .find({})
       .skip(Math.random() * 10)
       .limit(30)
-      .populate('authorPic');
+      .populate('authorPic').populate('categories');
   }
 
   async getPicById(id: mongoose.Types.ObjectId): Promise<Pic> {
     return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories')
+  }
+
+  async getPicByStringId(id: string): Promise<Pic> {
+    return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories');
   }
 
   async createPostWithImage(authorPicId: mongoose.Types.ObjectId | any,file: any, picCreateDto: PicCreateDto): Promise<ReturnFuncDto> {

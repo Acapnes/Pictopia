@@ -6,9 +6,9 @@ import { PictureFile } from './altSchemas/utils/picture.file.schema';
 export type CategoryDocument = Category & Document;
 
 @Schema()
-@ObjectType('Category')
+@ObjectType()
 export class Category {
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   @Prop({ required: true })
   title: string;
 

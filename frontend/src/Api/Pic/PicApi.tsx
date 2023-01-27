@@ -93,12 +93,10 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsAlias(_id: string, picPaginationDto: PaginationDto): Promise<PicDto[]> {
+  public static async getPicsAlias(_id: string): Promise<PicDto[]> {
     return await axios
       .post(
-        `${process.env.REACT_APP_BASE_BACKEND_URL}/pics/alias/${_id}`,
-        picPaginationDto
-      )
+        `${process.env.REACT_APP_BASE_BACKEND_URL}/pics/alias/${_id}`)
       .then(async(resp) =>  await resp.data);
   }
 

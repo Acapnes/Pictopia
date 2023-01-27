@@ -80,10 +80,7 @@ export class AccountAPI {
           searchText: searchText,
         }
       )
-      .then((resp) => {
-        console.log(resp.data);
-        return resp.data;
-      });
+      .then((resp) => resp.data);
   }
 
   public static async GetUsersPostedComments(username: string) {

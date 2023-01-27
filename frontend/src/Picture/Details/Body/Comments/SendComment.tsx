@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
-import { CommentAPI } from "../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../Api/Comment/commentDtos";
-import { PicDto } from "../../../Api/Pic/picDtos";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { CommentAPI } from "../../../../Api/Comment/CommentApi";
+import { CommentDto } from "../../../../Api/Comment/commentDtos";
+import { PicDto } from "../../../../Api/Pic/picDtos";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import {
   PrettyCustomSizeAvatar,
   PrettyMediumAvatar,
-} from "../../../components/Prettys/PrettyElements";
-import { PrettySend } from "../../../components/Prettys/PrettyIcons";
+} from "../../../../components/Prettys/PrettyElements";
+import { PrettySend } from "../../../../components/Prettys/PrettyIcons";
 import {
   usePictureCommentStore,
   useToastStore,
-} from "../../../components/Zustand/store";
+} from "../../../../components/Zustand/store";
 
 const SendComment: React.FC<{
   visitor: UserDto;

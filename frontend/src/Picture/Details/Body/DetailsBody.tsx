@@ -7,13 +7,15 @@ import { UserAPI } from "../../../Api/User/UserApi";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { PrettyCustomSizeAvatar } from "../../../components/Prettys/PrettyElements";
 import { PrettyCameraIcon } from "../../../components/Prettys/PrettyIcons";
-import Comments from "../Comments/Comments";
-import { SendComment } from "../Comments/SendComment";
+import Comments from "./Comments/Comments";
+import { SendComment } from "./Comments/SendComment";
 import { CardOptions } from "./CardOptions";
+import { ScalePicture } from "../../../components/Prettys/PrettyComponents";
 
 const DetailsPicture: React.FC<{}> = () => {
   const params = useParams() as any;
   const [picture, setPicture] = useState<PicDto>(Object);
+  const [pictureScaleState, setPictureScaleState] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -35,14 +37,19 @@ const DetailsPicture: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col space-y-3 items-center text-gray-200 font-mono">
+    <div className="w-full flex flex-col space-y-3 items-center pt-10 text-gray-200 font-mono">
       <img
+        onClick={() => setPictureScaleState(true)}
         src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
         alt=""
-        className="object-contain rounded-sm"
+        className="object-contain rounded-sm cursor-zoom-in"
+      />
+      <ScalePicture
+        picture={picture?.picture_file}
+        modalState={pictureScaleState}
+        setModalState={setPictureScaleState}
       />
       <CategoryShowList categoryArray={picture?.categories} />
-
       <div className="flex flex-col space-y-5 w-full md:w-[70%] h-full pt-3">
         <CardOptions picture={picture} visitor={visitor} />
         <div className="flex flex-row space-x-4 ">
@@ -94,10 +101,6 @@ const DetailsPicture: React.FC<{}> = () => {
               <p className="font-semibold">8.67 MB</p>
             </div>
           </div>
-          {/* <div className="flex flex-row justify-between">
-            <p className="font-bold">Image Size:</p>
-            <p></p>
-          </div> */}
         </div>
         <SendComment visitor={visitor} picture={picture} />
         <Comments visitor={visitor} picture={picture} />

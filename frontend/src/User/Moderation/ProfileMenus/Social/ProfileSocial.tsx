@@ -157,7 +157,6 @@ const AddSocial: React.FC<{ user: UserDto }> = ({ user }) => {
         updateSocial!
       ).then(async (loginResp: ReturnFuncDto) => {
         await setToastState(loginResp.message);
-        console.log(loginResp.success);
         if (loginResp.success === true)
           setProfileSocials([...profileSocials, updateSocial]);
       });

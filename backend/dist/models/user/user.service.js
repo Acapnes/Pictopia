@@ -24,7 +24,7 @@ let UserService = class UserService {
         this.jwtService = jwtService;
     }
     async findAll() {
-        return this.userModel.find().populate('savedPictures').exec();
+        return this.userModel.find().populate('savedPictures').populate('favCategories').exec();
     }
     async findOne() {
         return this.userModel.findOne({});

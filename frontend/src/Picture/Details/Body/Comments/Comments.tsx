@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CommentAPI } from "../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../Api/Comment/commentDtos";
-import { PicDto } from "../../../Api/Pic/picDtos";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
+import { CommentAPI } from "../../../../Api/Comment/CommentApi";
+import { CommentDto } from "../../../../Api/Comment/commentDtos";
+import { PicDto } from "../../../../Api/Pic/picDtos";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../../../Api/Utils/UtilsDtos";
 import {
   PrettyCustomSizeAvatar,
   PrettyMediumAvatar,
-} from "../../../components/Prettys/PrettyElements";
-import { PrettyTrashIcon } from "../../../components/Prettys/PrettyIcons";
+} from "../../../../components/Prettys/PrettyElements";
+import { PrettyTrashIcon } from "../../../../components/Prettys/PrettyIcons";
 import {
   usePictureCommentStore,
   useToastStore,
-} from "../../../components/Zustand/store";
+} from "../../../../components/Zustand/store";
 import Replies from "./Replies";
 import { SendReply } from "./SendComment";
 

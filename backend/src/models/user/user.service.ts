@@ -15,7 +15,7 @@ export class UserService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find().populate('savedPictures').exec();
+    return this.userModel.find().populate('savedPictures').populate('favCategories').exec();
   }
 
   async findOne(): Promise<User> {

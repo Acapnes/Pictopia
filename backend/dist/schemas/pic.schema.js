@@ -34,7 +34,7 @@ __decorate([
     __metadata("design:type", String)
 ], Pic.prototype, "description", void 0);
 __decorate([
-    (0, graphql_1.Field)({ nullable: false }),
+    (0, graphql_1.Field)({ nullable: true }),
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Date)
 ], Pic.prototype, "creationDate", void 0);
@@ -56,11 +56,12 @@ __decorate([
     __metadata("design:type", Object)
 ], Pic.prototype, "picture_file", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => category_schema_1.Category, { nullable: false }),
+    (0, graphql_1.Field)(() => [category_schema_1.Category], { nullable: true, defaultValue: [] }),
     (0, mongoose_1.Prop)({
         type: [mongoose_2.default.Schema.Types.ObjectId],
         ref: 'Category',
-        required: true,
+        required: false,
+        default: [],
     }),
     __metadata("design:type", Array)
 ], Pic.prototype, "categories", void 0);

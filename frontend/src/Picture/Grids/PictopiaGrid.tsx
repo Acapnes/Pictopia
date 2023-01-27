@@ -65,7 +65,6 @@ const PictopiaGrid: React.FC<{}> = () => {
     !picturesLoading && fetchAndSetPics();
   }, [currentPage]);
 
-
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>

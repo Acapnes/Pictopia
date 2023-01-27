@@ -26,9 +26,12 @@ let PicService = class PicService {
             .find({})
             .skip(Math.random() * 10)
             .limit(30)
-            .populate('authorPic');
+            .populate('authorPic').populate('categories');
     }
     async getPicById(id) {
+        return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories');
+    }
+    async getPicByStringId(id) {
         return this.picModel.findOne({ _id: id }).populate('authorPic').populate('categories');
     }
     async createPostWithImage(authorPicId, file, picCreateDto) {

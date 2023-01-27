@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CommentAPI } from "../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../Api/Comment/commentDtos";
-import { PicDto } from "../../../Api/Pic/picDtos";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { CommentAPI } from "../../../../Api/Comment/CommentApi";
+import { CommentDto } from "../../../../Api/Comment/commentDtos";
+import { PicDto } from "../../../../Api/Pic/picDtos";
+import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import {
   PrettyCustomSizeAvatar,
   PrettyMediumAvatar,
   PrettySmallAvatar,
-} from "../../../components/Prettys/PrettyElements";
-import { usePictureCommentStore } from "../../../components/Zustand/store";
+} from "../../../../components/Prettys/PrettyElements";
+import { usePictureCommentStore } from "../../../../components/Zustand/store";
 import { CommentAuthorEdit } from "./Comments";
 
 const Replies: React.FC<{

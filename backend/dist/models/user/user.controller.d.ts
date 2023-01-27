@@ -8,5 +8,5 @@ export declare class UserController {
     constructor(userService: UserService);
     getUsers(): Promise<User[]>;
     getUserProfileVeriables(username: string): Promise<User | ReturnFuncDto | UserDto>;
-    userFindByUsername(UserFindDto: UserFindDto): Promise<User | User[] | ReturnFuncDto>;
+    userFindByUsername(UserFindDto: UserFindDto): Promise<User | ReturnFuncDto | User[]>;
 }

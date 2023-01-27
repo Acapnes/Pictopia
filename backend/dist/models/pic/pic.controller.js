@@ -28,8 +28,8 @@ let PicController = class PicController {
     async getPicsByPagination(picPaginationDto) {
         return this.picFetchService.picSearchByCategory(picPaginationDto);
     }
-    async getPicsAlias(picture_id, picPaginationDto) {
-        return this.picFetchService.picGetAlias(picture_id, picPaginationDto);
+    async getPicsAlias(picture_id) {
+        return this.picFetchService.picGetAlias(picture_id);
     }
     async getPrettyPicById(res, id) {
         const picture = await this.picsService.getPicById(id);
@@ -65,9 +65,8 @@ __decorate([
 __decorate([
     (0, common_1.Post)('/alias/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, pagination_dto_1.PaginationDto]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PicController.prototype, "getPicsAlias", null);
 __decorate([
