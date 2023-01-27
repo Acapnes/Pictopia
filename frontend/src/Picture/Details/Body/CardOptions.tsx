@@ -14,10 +14,11 @@ import { AccountAPI } from "../../../Api/User/AccountApi";
 import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import { PicAPI } from "../../../Api/Pic/PicApi";
 
-const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
-  picture,
-  visitor,
-}) => {
+const CardOptions: React.FC<{
+  picture: PicDto;
+  visitor: UserDto;
+  setModalState: (value: React.SetStateAction<boolean>) => void;
+}> = ({ picture, visitor, setModalState }) => {
   const setToastState = useToastStore((state: any) => state.setToastState);
 
   return (
@@ -47,21 +48,16 @@ const CardOptions: React.FC<{ picture: PicDto; visitor: UserDto }> = ({
         {/* Full-Screen Href */}
         <a
           href={`/pictures/${picture?._id}`}
-          className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300 pr-1 hover:scale-[135%]"
+          className="group flex flex-row space-x-1 items-center pr-1"
         >
-          <PrettyLinkIcon size={20} />
+          <div className="duration-500 group-hover:translate-x-1 group-hover:-translate-y-1">
+            <PrettyLinkIcon size={20} />
+          </div>
         </a>
 
         {/* Full-Screen PopUp */}
         <button
-          onClick={async () => {
-            if (navigator.share) {
-              navigator.share({
-                text: `Hey look at this! \n ${picture?.title}`,
-                url: "",
-              });
-            }
-          }}
+          onClick={() => setModalState(true)}
           className="flex flex-row space-x-1 items-center hover:text-pretty-pink duration-300 pr-1 hover:scale-[135%]"
         >
           <svg

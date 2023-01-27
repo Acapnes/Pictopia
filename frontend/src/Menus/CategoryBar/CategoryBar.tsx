@@ -100,7 +100,7 @@ export const CustomizeCategories: React.FC<{
 }> = ({ favoriteCategories, allCategories }) => {
   return (
     <div className="w-fit h-full flex flex-col space-y-5 justify-end items-center relative group bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] pb-0.5">
-      <div className="h-full flex flex-row items-center space-x-2.5 bg-soft-black pb-0.5">
+      <div className="h-full flex flex-row items-center space-x-2.5 bg-soft-black pb-0.5 pr-1.5">
         <div className="bg-pretty-rough-yellow p-1.5 rounded-sm">
           <PrettyCompassIcon size={24} fill="black" />
         </div>

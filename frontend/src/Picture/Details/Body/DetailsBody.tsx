@@ -37,7 +37,7 @@ const DetailsPicture: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col space-y-3 items-center pt-10 text-gray-200 font-mono">
+    <div className="w-full flex flex-col space-y-3 items-center py-10 pr-3 text-gray-200 font-mono">
       <img
         onClick={() => setPictureScaleState(true)}
         src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
@@ -51,7 +51,7 @@ const DetailsPicture: React.FC<{}> = () => {
       />
       <CategoryShowList categoryArray={picture?.categories} />
       <div className="flex flex-col space-y-5 w-full md:w-[70%] h-full pt-3">
-        <CardOptions picture={picture} visitor={visitor} />
+        <CardOptions picture={picture} visitor={visitor} setModalState={setPictureScaleState} />
         <div className="flex flex-row space-x-4 ">
           <a href={`/user/${picture?.authorPic?.username}`}>
             <PrettyCustomSizeAvatar

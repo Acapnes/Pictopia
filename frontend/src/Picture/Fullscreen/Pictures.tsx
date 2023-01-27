@@ -15,7 +15,7 @@ const Pictures: React.FC<{}> = () => {
     }
   `;
 
-  const { data, loading, error } = useQuery(GET_PIC_BY_ID, {
+  const { data } = useQuery(GET_PIC_BY_ID, {
     variables: {
       id: params?.id,
     },

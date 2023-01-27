@@ -129,7 +129,7 @@ const PrettyCustomSizeAvatar: React.FC<{
         <div
           style={{ width: `${size}rem`, height: `${size}rem` }}
           className={`flex relative rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] ${
-            bordered && "p-0.5"
+            bordered && "p-[0.05rem]"
           }`}
         >
           <img

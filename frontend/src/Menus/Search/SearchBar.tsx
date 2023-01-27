@@ -12,7 +12,7 @@ const SearchBar: React.FC<{ user: UserDto }> = ({ user }) => {
   const [searchInputvalue, setSearchInputvalue] = useState<string>();
 
   return (
-    <div className="w-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-0.5 rounded-sm flex flex-col justify-end relative group">
+    <div className="w-full bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-[0.05rem] rounded-sm flex flex-col justify-end relative group">
       <div className="w-full h-full flex flex-col justify-end relative group">
         <div className="w-full bg-rough-soft-black flex flex-row justify-between space-x-2 px-3 py-1.5 rounded-sm">
           <div className="h-full flex items-center mt-[0.25rem]">
