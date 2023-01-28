@@ -8,9 +8,6 @@ import {
   PrettyUploadIcon,
 } from "../components/Prettys/PrettyIcons";
 import HeaderOptions from "./Options/HeaderOptions";
-import { Outlet } from "react-router-dom";
-import { usePicturePaginationStore } from "../components/Zustand/store";
-import CategoryBar from "./CategoryBar/CategoryBar";
 import SearchBar from "./Search/SearchBar";
 
 const Header: React.FC<{}> = () => {

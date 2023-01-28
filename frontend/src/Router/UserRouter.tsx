@@ -11,9 +11,6 @@ const SavedPictures = React.lazy(
 const PostedPictures = React.lazy(
   () => import("../User/UserMenus/PostedPictures")
 );
-const PostedComments = React.lazy(
-  () => import("../User/UserMenus/PostedComments")
-);
 const User = React.lazy(() => import("../User/User"));
 
 const UserRouter: React.FC<{}> = () => {
@@ -45,7 +42,7 @@ const UserRouter: React.FC<{}> = () => {
           <Route
             path="comments"
             element={
-              <PostedComments user={userVisitCredentials!} params={params} />
+              <PostedPictures user={userVisitCredentials!} params={params} />
             }
           />
           <Route

@@ -9,13 +9,13 @@ import {
   PrettyProfileIcon,
   PrettyTrashIcon,
 } from "../../../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../../../components/Zustand/store";
+import { useAlertStore } from "../../../../components/Zustand";
 
 const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputBio, setInputBio] = useState("");
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   const simpleUpdateProfile = async () => {
     await ModerationAPI.userEditProfile(
@@ -100,7 +100,7 @@ const ProfileEdit: React.FC<{ user: UserDto }> = ({ user }) => {
 export default ProfileEdit;
 
 const ProfileAvatar: React.FC<{ avatar: UserDto["avatar"] }> = ({ avatar }) => {
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
   const [imageURL, setImageURL] = useState<any>("null");
   const hiddenFileInput =
     React.useRef() as React.MutableRefObject<HTMLInputElement>;

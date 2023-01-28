@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { useToastStore } from "../Zustand/store";
+import { useAlertStore } from "../Zustand";
 import { PrettyAlertIcon, PrettyBugIcon } from "./PrettyIcons";
 
 const CustomToast: React.FC<{}> = () => {
-  const toastState = useToastStore((state: any) => state.toastState);
-  const toastMassage = useToastStore((state: any) => state.toastMassage);
+  const toastState = useAlertStore((state: any) => state.toastState);
+  const toastMassage = useAlertStore((state: any) => state.toastMassage);
   return (
     <>
       {toastState && (

@@ -7,15 +7,13 @@ import {
   PrettySmallArrowDown,
 } from "../../../../components/Prettys/PrettyIcons";
 import { ReturnFuncDto } from "../../../../Api/Utils/UtilsDtos";
-import {
-  usePictopiaPublicProfileStore,
-  useToastStore,
-} from "../../../../components/Zustand/store";
+import { useProfileStore } from "../../../../components/Zustand/ProfileStore";
+import { useAlertStore } from "../../../../components/Zustand";
 
 const ProfileSocial: React.FC<{ user: UserDto }> = ({ user }) => {
   const [userSettings, setUserSettings] = useState<UserDto["settings"]>(Object);
 
-  const setProfileSocials = usePictopiaPublicProfileStore(
+  const setProfileSocials = useProfileStore(
     (state: any) => state.setProfileSocials
   );
 
@@ -111,9 +109,7 @@ const UserSocialList: React.FC<{
   showUrl: boolean;
   column?: boolean;
 }> = ({ column, showUrl }) => {
-  const profileSocials = usePictopiaPublicProfileStore(
-    (state: any) => state.profileSocials
-  );
+  const profileSocials = useProfileStore((state: any) => state.profileSocials);
 
   return (
     <div
@@ -140,13 +136,11 @@ const UserSocialList: React.FC<{
 const AddSocial: React.FC<{ user: UserDto }> = ({ user }) => {
   const [updateSocial, setUpdateSocial] = useState<UserDto["userSocials"][0]>();
 
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
-  const profileSocials = usePictopiaPublicProfileStore(
-    (state: any) => state.profileSocials
-  );
+  const profileSocials = useProfileStore((state: any) => state.profileSocials);
 
-  const setProfileSocials = usePictopiaPublicProfileStore(
+  const setProfileSocials = useProfileStore(
     (state: any) => state.setProfileSocials
   );
 

@@ -2,8 +2,9 @@ import React from "react";
 import { ModerationAPI } from "../../Api/User/ModerationApi";
 import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { PrettySend, PrettyTrashIcon, PrettyWorldIcon } from "./PrettyIcons";
-import { usePictopiaPublicProfileStore, useToastStore } from "../Zustand/store";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { useProfileStore } from "../Zustand/ProfileStore";
+import { useAlertStore } from "../Zustand";
 
 const PrettySocialButton: React.FC<{
   advStyle?: string;
@@ -13,13 +14,13 @@ const PrettySocialButton: React.FC<{
   showUrl: boolean;
   border?: boolean;
 }> = ({ socialUrl, showUrl, platform, socialIndex, border }) => {
-  const profileSocials = usePictopiaPublicProfileStore(
+  const profileSocials = useProfileStore(
     (state: any) => state.profileSocials
   );
-  const setProfileSocials = usePictopiaPublicProfileStore(
+  const setProfileSocials = useProfileStore(
     (state: any) => state.setProfileSocials
   );
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
   const SocialSVGSelector = () => {
     switch (platform.toLowerCase()) {
       case "instagram":

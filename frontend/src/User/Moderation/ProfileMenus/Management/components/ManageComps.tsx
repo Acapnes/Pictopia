@@ -4,12 +4,12 @@ import { UserDto } from "../../../../../Api/User/UserDtos/userDto";
 import { ReturnFuncDto } from "../../../../../Api/Utils/UtilsDtos";
 import { PrettyRainbow } from "../../../../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../../../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../../../../components/Zustand/store";
+import { useAlertStore } from "../../../../../components/Zustand";
 
 const ManageEmail: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
   const userNewEmailRef = useRef<HTMLInputElement>(null);
   const userPasswordRef = useRef<HTMLInputElement>(null);
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   const changeEmail = async () => {
     await ModerationAPI.userChangeEmail(
@@ -74,7 +74,7 @@ const ManageEmail: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
 const ManagePassword: React.FC<{ email: UserDto["email"] }> = ({ email }) => {
   const userCurrentPassword = useRef<HTMLInputElement>(null);
   const userNewPassword = useRef<HTMLInputElement>(null);
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   const changePassword = async () => {
     await ModerationAPI.userChangePassword(
@@ -161,7 +161,6 @@ const PasswordInput: React.FC<{
 };
 
 export { ManageEmail, ManagePassword, DeleteAccount, PasswordInput };
-  function setToastState(message: string): any {
-    throw new Error("Function not implemented.");
-  }
-
+function setToastState(message: string): any {
+  throw new Error("Function not implemented.");
+}

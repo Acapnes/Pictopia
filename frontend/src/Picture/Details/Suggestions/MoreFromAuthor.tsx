@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PicAPI } from "../../../Api/Pic/PicApi";
 import { PicDto } from "../../../Api/Pic/picDtos";
-import { GridMenu } from "../../Grids/Grids";
 
 const MoreFromAuthor: React.FC<{}> = () => {
   const [alias, setAlias] = useState<PicDto[]>([]);

@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { PicAPI } from "../../../Api/Pic/PicApi";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { PrettySmallArrowDown } from "../../../components/Prettys/PrettyIcons";
-import { usePicturePaginationStore } from "../../../components/Zustand/store";
 import { GridMenu } from "../../Grids/Grids";
 import { gql, useQuery } from "@apollo/client";
 

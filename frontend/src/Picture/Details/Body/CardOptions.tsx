@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { PicDto } from "../../../Api/Pic/picDtos";
-import { PrettyRainbowLink } from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
@@ -8,18 +7,18 @@ import {
   PrettyLinkIcon,
   PrettyShareIcon,
 } from "../../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../../components/Zustand/store";
 import { UserDto } from "../../../Api/User/UserDtos/userDto";
 import { AccountAPI } from "../../../Api/User/AccountApi";
 import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
 import { PicAPI } from "../../../Api/Pic/PicApi";
+import { useAlertStore } from "../../../components/Zustand";
 
 const CardOptions: React.FC<{
   picture: PicDto;
   visitor: UserDto;
   setModalState: (value: React.SetStateAction<boolean>) => void;
 }> = ({ picture, visitor, setModalState }) => {
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   return (
     <div className="flex flex-row justify-between items-center font-bold font-mono">

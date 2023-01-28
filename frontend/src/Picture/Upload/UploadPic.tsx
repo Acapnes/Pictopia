@@ -10,14 +10,14 @@ import {
   PrettyTrashIcon,
   PrettyUploadIcon,
 } from "../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../components/Zustand/store";
 import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { HashtagAppend } from "./components/Hashtags";
 import { CategorySelection } from "./components/Categories";
 import { PicDto, UploadPicDto } from "../../Api/Pic/picDtos";
+import { useAlertStore } from "../../components/Zustand";
 
 const UploadPic: React.FC<{}> = () => {
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   const inputHashtagRef = useRef<HTMLInputElement>(null);
 

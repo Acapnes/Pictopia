@@ -1,14 +1,14 @@
 import React, { Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
-import { usePicturePaginationStore } from "./components/Zustand/store";
+import { usePaginationStore } from "./components/Zustand";
 import CategoryBar from "./Menus/CategoryBar/CategoryBar";
 import Header from "./Menus/Header";
 
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
 
 const Pictopia: React.FC<{}> = () => {
-  const setCurrentPage = usePicturePaginationStore(
+  const setCurrentPage = usePaginationStore(
     (state: any) => state.setCurrentPage
   );
 

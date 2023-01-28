@@ -10,22 +10,22 @@ import {
 } from "../../components/Prettys/PrettyIcons";
 
 import { SuspenseVeiw } from "../../components/Prettys/PrettyViews";
-import { usePictopiaPublicDrawerStore } from "../../components/Zustand/store";
+import { useAccountCategoryStore } from "../../components/Zustand/AccountCategoryStore";
 
 const CategoryBar: React.FC<{}> = () => {
-  const favoriteCategories = usePictopiaPublicDrawerStore<CategoryDto[]>(
+  const favoriteCategories = useAccountCategoryStore<CategoryDto[]>(
     (state: any) => state.favoriteCategories
   );
 
-  const setFavoriteCategories = usePictopiaPublicDrawerStore(
+  const setFavoriteCategories = useAccountCategoryStore(
     (state: any) => state.setFavoriteCategories
   );
 
-  const allCategories = usePictopiaPublicDrawerStore(
+  const allCategories = useAccountCategoryStore(
     (state: any) => state.allCategories
   );
 
-  const setAllCategories = usePictopiaPublicDrawerStore(
+  const setAllCategories = useAccountCategoryStore(
     (state: any) => state.setAllCategories
   );
 

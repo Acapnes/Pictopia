@@ -37,7 +37,7 @@ const DetailsPicture: React.FC<{}> = () => {
   }, []);
 
   return (
-    <div className="w-full flex flex-col space-y-3 items-center py-10 pr-3 text-gray-200 font-mono">
+    <div className="w-full flex flex-col space-y-3 items-center pt-5 pb-10 pr-3 text-gray-200 font-mono">
       <img
         onClick={() => setPictureScaleState(true)}
         src={`data:${picture?.picture_file?.contentType};base64,${picture?.picture_file?.data}`}
@@ -67,7 +67,7 @@ const DetailsPicture: React.FC<{}> = () => {
               {picture?.title}
             </p>
             <div className="flex flex-row items-center space-x-1">
-              <p className="text-gray-400 text-sm">by</p>
+              <p className="text-gray-400 text-xs">from</p>
               <p className="font-bold text-md">
                 {picture?.authorPic?.username}
               </p>

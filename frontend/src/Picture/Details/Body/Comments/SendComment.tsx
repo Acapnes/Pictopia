@@ -9,15 +9,15 @@ import {
 } from "../../../../components/Prettys/PrettyElements";
 import { PrettySend } from "../../../../components/Prettys/PrettyIcons";
 import {
+  useAlertStore,
   usePictureCommentStore,
-  useToastStore,
-} from "../../../../components/Zustand/store";
+} from "../../../../components/Zustand";
 
 const SendComment: React.FC<{
   visitor: UserDto;
   picture: PicDto;
 }> = ({ picture, visitor }) => {
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
   const newCommentsRef = useRef<HTMLTextAreaElement>(null);
 
   const postComment = async () => {
@@ -50,7 +50,9 @@ const SendComment: React.FC<{
           ref={newCommentsRef}
           className="w-full h-full bg-transparent outline-none flex py-1.5 resize-none placeholder:font-normal placeholder:text-md"
           placeholder={
-            visitor?.email ? "Sign new comment" : "Sign in for send new comments"
+            visitor?.email
+              ? "Sign new comment"
+              : "Sign in for send new comments"
           }
         />
         <div

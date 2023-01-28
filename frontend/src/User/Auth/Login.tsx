@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import { PrettyEyeIcon } from "../../components/Prettys/PrettyIcons";
-import { useToastStore } from "../../components/Zustand/store";
 import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import { AuthAPI } from "../../Api/User/AuthApi";
 import { ActionlessGrid } from "../../Picture/Grids/Grids";
+import { useAlertStore } from "../../components/Zustand";
 
 const Login: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
   const userEmailRef = useRef<HTMLInputElement>(null);
   const userPasswordRef = useRef<HTMLInputElement>(null);
 
-  const setToastState = useToastStore((state: any) => state.setToastState);
+  const setToastState = useAlertStore((state: any) => state.setToastState);
 
   const userLogin = async () => {
     await AuthAPI.userLogin({
