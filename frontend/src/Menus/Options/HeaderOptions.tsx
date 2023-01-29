@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettyRainbow } from "../../components/Prettys/PrettyComponents";
-import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
+import { PrettyCustomSizeAvatar, PrettyRainbow } from "../../components/Prettys/PrettyComponents";
 import {
   PrettyHelpIcon,
   PrettyLogOut,

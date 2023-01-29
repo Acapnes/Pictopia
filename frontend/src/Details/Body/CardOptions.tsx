@@ -1,17 +1,17 @@
 import React from "react";
-import { PicDto } from "../../../Api/Pic/picDtos";
+import { PicAPI } from "../../Api/Pic/PicApi";
+import { PicDto } from "../../Api/Pic/picDtos";
+import { AccountAPI } from "../../Api/User/AccountApi";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../Api/Utils/UtilsDtos";
 import {
   PrettyBookMarksIcon,
   PrettyDownloadIcon,
   PrettyHorizontalOptionsIcon,
   PrettyLinkIcon,
   PrettyShareIcon,
-} from "../../../components/Prettys/PrettyIcons";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { AccountAPI } from "../../../Api/User/AccountApi";
-import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
-import { PicAPI } from "../../../Api/Pic/PicApi";
-import { useAlertStore } from "../../../components/Zustand";
+} from "../../components/Prettys/PrettyIcons";
+import { useAlertStore } from "../../components/Zustand";
 
 const CardOptions: React.FC<{
   picture: PicDto;

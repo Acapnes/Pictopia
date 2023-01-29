@@ -62,15 +62,15 @@ const UploadPic: React.FC<{}> = () => {
   };
 
   return (
-    <div className="flex flex-col md:pb-3">
-      <div className="w-full flex flex-col space-y-2.5 items-center justify-center pt-5">
+    <div className="flex flex-col xl:pb-3">
+      <div className="w-full flex flex-col space-y-2.5 items-center justify-center">
         {!window.localStorage.getItem("access_token") && (
           <div className="max-w-[50rem]">
             <PrettyTip text="Please log in before send new pictures" />
           </div>
         )}
         <div className="w-full max-w-[50rem] bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm p-0.5">
-          <div className="w-full flex flex-col space-y-2 px-5 pb-6 pt-4 bg-soft-black rounded-sm">
+          <div className="w-full flex flex-col space-y-2 px-5 pb-4 pt-4 bg-soft-black rounded-sm">
             <div className="flex flex-col space-y-2">
               <span className="font-semibold text-gray-200 text-lg">
                 *Title
@@ -125,7 +125,7 @@ const UploadPic: React.FC<{}> = () => {
             </div>
             <div className="w-full flex justify-end flex-row space-x-4 items-center">
               <button onClick={() => uploadPictureFunction()}>
-                <PrettyRainbow>
+                <PrettyRainbow advChildStyle="px-2.5 py-1">
                   <div className="flex flex-row space-x-1.5 items-center">
                     <span className="text-gray-200">Send</span>
                     <PrettyUploadIcon fill={"white"} />
@@ -139,7 +139,7 @@ const UploadPic: React.FC<{}> = () => {
           type="file"
           style={{ display: "none" }}
           ref={hiddenFileInput}
-          accept="image/jpg, image/jpeg, image/png, image/webp, image/jfif"
+          accept="image/jpg, image/jpeg, image/png, image/webp, image/jfif, image/gif"
           onChange={handleChange}
         />
       </div>
@@ -161,7 +161,7 @@ const SelectPicture: React.FC<{
           <PrettyPictureIcon fill="white" size={40} />
           <p className="text-gray-200 ">Choose a picture to upload</p>
           <button onClick={() => handleClick()} className="outline-none">
-            <PrettyRainbow>
+            <PrettyRainbow advChildStyle="px-2.5 py-1.5">
               <span className="text-gray-200">Choose a File...</span>
             </PrettyRainbow>
           </button>
@@ -170,22 +170,12 @@ const SelectPicture: React.FC<{
           </p>
         </div>
       ) : (
-        <div className="relative">
-          <img
-            id="UploadPicture"
-            src={imageURL}
-            alt=""
-            className="object-contain rounded-sm max-h-[100vh]"
-          />
-          <button
-            onClick={() => setImageURL("null")}
-            className="absolute top-1 right-1 "
-          >
-            <PrettyRainbow advChildStyle="px-2 py-2">
-              <PrettyTrashIcon fill={"white"} size={14} />
-            </PrettyRainbow>
-          </button>
-        </div>
+        <img
+          id="UploadPicture"
+          src={imageURL}
+          alt=""
+          className="object-contain rounded-sm max-h-[100vh]"
+        />
       )}
     </div>
   );

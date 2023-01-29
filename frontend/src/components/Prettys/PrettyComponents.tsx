@@ -1,5 +1,8 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { PicDto } from "../../Api/Pic/picDtos";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+import { MultiFuncs } from "./PrettyFuncs";
+import { PrettyProfileIcon, PrettySmallArrowDown } from "./PrettyIcons";
 
 const PrettyRainbow: React.FC<{
   children: ReactNode;
@@ -107,11 +110,63 @@ const ScalePicture: React.FC<{
     </>
   );
 };
-// İçerisinde sadece büyük bir resim olacak resime tıklanınca bir şey olmayacak ama çevresine tıklanınca modal'ın kapanması gerekiyor
+
+const PrettyCustomSizeAvatar: React.FC<{
+  avatar: UserDto["avatar"];
+  size: number;
+  bordered?: boolean;
+}> = ({ avatar, size, bordered }) => {
+  return (
+    <div className="w-fit">
+      {MultiFuncs.ParamController([avatar?.contentType, avatar?.data]) ? (
+        <div
+          style={{ width: `${size}rem`, height: `${size}rem` }}
+          className={`flex relative rounded-sm bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] ${
+            bordered && "p-[0.05rem]"
+          }`}
+        >
+          <img
+            src={`data:${avatar?.contentType};base64,${avatar?.data}`}
+            alt=""
+            className="w-full object-cover rounded-sm"
+          />
+        </div>
+      ) : (
+        <div
+          style={{ width: `${size}rem`, height: `${size}rem` }}
+          className="flex bg-gradient-to-br from-[#ff8a05] via-[#ff5478] to-[#ff00c6] relative p-[0.05rem]"
+        >
+          <div className="w-full h-full flex items-center justify-center bg-soft-black">
+            <PrettyProfileIcon size={size * 8} fill={"white"} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const PrettyRotatingArrow: React.FC<{
+  state: boolean;
+  size?: number;
+  fill?: string;
+}> = ({ state, size, fill }) => {
+  return (
+    <div
+      className={`flex items-center ${
+        state ? "duration-300 -rotate-180" : "duration-300 rotate-0 "
+      }`}
+    >
+      <PrettySmallArrowDown size={size} fill={fill} />
+    </div>
+  );
+};
+
 export {
   PrettyRainbow,
   PrettyRainbowDiv,
   PrettyRainbowLink,
   PrettyTip,
   ScalePicture,
+  PrettyCustomSizeAvatar,
+  PrettyRotatingArrow,
 };

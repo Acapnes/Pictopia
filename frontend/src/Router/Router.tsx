@@ -1,10 +1,11 @@
-import React, { Suspense } from "react";
-import { Outlet, Route, Routes } from "react-router-dom";
-import RouteGuard from "../components/Helpers/RouteGuard";
+import React, { Suspense, useEffect, useState } from "react";
+import { Outlet, Route, Routes, useParams } from "react-router-dom";
+import { AccountAPI } from "../Api/User/AccountApi";
+import { UserDto } from "../Api/User/UserDtos/userDto";
+import RouteGuard from "./RouteGuard";
 import { Notfound, SuspenseVeiw } from "../components/Prettys/PrettyViews";
 import Header from "../Menus/Header";
 import Pictopia from "../Pictopia";
-import Details from "../Picture/Details/Details";
 import Pictures from "../Picture/Fullscreen/Pictures";
 import PictureEdit from "../Picture/Management/PictureEdit";
 import PictureReport from "../Picture/Management/PictureReport";
@@ -12,7 +13,11 @@ import UploadPic from "../Picture/Upload/UploadPic";
 import Login from "../User/Auth/Login";
 import Register from "../User/Auth/Register";
 import Profile from "../User/Moderation/Profile";
-import UserRouter from "./UserRouter";
+import User from "../User/User";
+import Home from "../User/UserMenus/Home";
+import PostedPictures from "../User/UserMenus/PostedPictures";
+import SavedPictures from "../User/UserMenus/SavedPictures";
+import Details from "../Details/Details";
 
 const Router: React.FC<{}> = () => {
   return (
@@ -59,3 +64,48 @@ const Router: React.FC<{}> = () => {
 };
 
 export default Router;
+
+const UserRouter: React.FC<{}> = () => {
+  const [userVisitCredentials, setUserVisitCredentials] = useState<UserDto>();
+  const params = useParams() as any;
+
+  const setUserCredentials = async () => {};
+
+  useEffect(() => {
+    (async () => {
+      setUserVisitCredentials(
+        await AccountAPI.VisitProfileFetchUser(params.id)
+      );
+    })();
+    setUserCredentials();
+  }, []);
+
+  return (
+    <Suspense fallback={<SuspenseVeiw />}>
+      <Routes>
+        <Route element={<User user={userVisitCredentials!} />}>
+          <Route index element={<Home user={userVisitCredentials!} />} />
+          <Route
+            path="posted"
+            element={
+              <PostedPictures user={userVisitCredentials!} params={params} />
+            }
+          />
+          <Route
+            path="comments"
+            element={
+              <PostedPictures user={userVisitCredentials!} params={params} />
+            }
+          />
+          <Route
+            path="followers"
+            element={
+              <SavedPictures user={userVisitCredentials!} params={params} />
+            }
+          />
+          <Route path="*" element={<Notfound />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  );
+};

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { UserAPI } from "../../Api/User/UserApi";
 import { UserDto } from "../../Api/User/UserDtos/userDto";
-import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
+import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyComponents";
 import {
   PrettySearchIcon,
   PrettySignIcon,

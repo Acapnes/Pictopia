@@ -10,6 +10,8 @@ module.exports = {
         "light-soft-black": "#282828",
         "extra-light-soft-black": "#363636",
         "2xl-extra-light-soft-black": "#424242",
+        "pretty-light-gray": "#e5e7eb",
+        "pretty-light-pink": "#f78dc5",
         "pretty-pink": "#f472b6",
         "pretty-rough-pink": "#e011b4",
         "pretty-yellow": "#FCBA28",

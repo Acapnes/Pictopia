@@ -1,12 +1,13 @@
 import { useAccountCategoryStore } from "./AccountCategoryStore";
 import { useAlertStore } from "./AlertState";
 import { usePictureCommentStore } from "./PictureCommentStore";
-import { usePaginationStore } from "./PaginationStore";
+import { usePictopiaStore } from "./PictopiaStore";
 import { useProfileStore } from "./ProfileStore";
 
 export {
   useAccountCategoryStore,
   useAlertStore,
   usePictureCommentStore,
-  usePaginationStore,
+  usePictopiaStore,
+  useProfileStore,
 };

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PicAPI } from "../../../Api/Pic/PicApi";
-import { PicDto } from "../../../Api/Pic/picDtos";
-import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
-import { UserAPI } from "../../../Api/User/UserApi";
-import { UserDto } from "../../../Api/User/UserDtos/userDto";
-import { PrettyCustomSizeAvatar } from "../../../components/Prettys/PrettyElements";
-import { PrettyCameraIcon } from "../../../components/Prettys/PrettyIcons";
+import { PicAPI } from "../../Api/Pic/PicApi";
+import { PicDto } from "../../Api/Pic/picDtos";
+import { CategoryDto } from "../../Api/User/Category/categoryDtos";
+import { UserAPI } from "../../Api/User/UserApi";
+import { UserDto } from "../../Api/User/UserDtos/userDto";
+import {
+  PrettyCustomSizeAvatar,
+  ScalePicture,
+} from "../../components/Prettys/PrettyComponents";
+import { PrettyCameraIcon } from "../../components/Prettys/PrettyIcons";
+import { CardOptions } from "./CardOptions";
 import Comments from "./Comments/Comments";
 import { SendComment } from "./Comments/SendComment";
-import { CardOptions } from "./CardOptions";
-import { ScalePicture } from "../../../components/Prettys/PrettyComponents";
 
 const DetailsPicture: React.FC<{}> = () => {
   const params = useParams() as any;
@@ -51,7 +53,11 @@ const DetailsPicture: React.FC<{}> = () => {
       />
       <CategoryShowList categoryArray={picture?.categories} />
       <div className="flex flex-col space-y-5 w-full md:w-[70%] h-full pt-3">
-        <CardOptions picture={picture} visitor={visitor} setModalState={setPictureScaleState} />
+        <CardOptions
+          picture={picture}
+          visitor={visitor}
+          setModalState={setPictureScaleState}
+        />
         <div className="flex flex-row space-x-4 ">
           <a href={`/user/${picture?.authorPic?.username}`}>
             <PrettyCustomSizeAvatar

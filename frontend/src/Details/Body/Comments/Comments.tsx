@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { CommentAPI } from "../../../../Api/Comment/CommentApi";
-import { CommentDto } from "../../../../Api/Comment/commentDtos";
-import { PicDto } from "../../../../Api/Pic/picDtos";
-import { UserDto } from "../../../../Api/User/UserDtos/userDto";
-import { ReturnFuncDto } from "../../../../Api/Utils/UtilsDtos";
-import { PrettyCustomSizeAvatar } from "../../../../components/Prettys/PrettyElements";
-import { PrettyTrashIcon } from "../../../../components/Prettys/PrettyIcons";
+import { CommentAPI } from "../../../Api/Comment/CommentApi";
+import { CommentDto } from "../../../Api/Comment/commentDtos";
+import { PicDto } from "../../../Api/Pic/picDtos";
+import { UserDto } from "../../../Api/User/UserDtos/userDto";
+import { ReturnFuncDto } from "../../../Api/Utils/UtilsDtos";
+import { PrettyCustomSizeAvatar } from "../../../components/Prettys/PrettyComponents";
+import { PrettyTrashIcon } from "../../../components/Prettys/PrettyIcons";
 import {
   useAlertStore,
   usePictureCommentStore,
-} from "../../../../components/Zustand";
+} from "../../../components/Zustand";
+
 import { SendReply } from "./SendComment";
 
 const Comments: React.FC<{
@@ -45,7 +46,7 @@ const Comments: React.FC<{
     <>
       {comments?.length > 0 && (
         <div className="w-full flex items-center justify-center overflow-auto scrollbar-hide text-sm">
-          <div className="w-[80%] flex flex-col space-y-4">
+          <div className="w-[80%] flex flex-col space-y-6">
             {comments?.map((_comment: CommentDto, _commentIndex: number) => (
               <div key={_commentIndex} className="flex flex-col space-y-2.5">
                 <div className="w-full h-full flex flex-row space-x-3">
@@ -120,40 +121,6 @@ const Comments: React.FC<{
 
 export default Comments;
 
-export { CommentAuthorEdit };
-
-const CommentAuthorEdit: React.FC<{
-  visitor: UserDto;
-  authorComment: UserDto;
-  destPicture: string;
-  commentId: string;
-}> = ({ visitor, authorComment, destPicture, commentId }) => {
-  const setToastState = useAlertStore((state: any) => state.setToastState);
-
-  return (
-    <>
-      {visitor?._id === authorComment?._id && (
-        <button
-          onClick={() => {
-            CommentAPI.deleteCommentOrReply(
-              window.localStorage.getItem("access_token")!,
-              {
-                _id: commentId,
-                destPicture: destPicture,
-              }
-            ).then(
-              async (RegisterResp: ReturnFuncDto) =>
-                await setToastState(RegisterResp.message)
-            );
-          }}
-        >
-          <PrettyTrashIcon size={12} fill="rgb(160, 160, 160)" />
-        </button>
-      )}
-    </>
-  );
-};
-
 const Replies: React.FC<{
   destPicture?: PicDto["_id"];
   comment: CommentDto;
@@ -176,9 +143,9 @@ const Replies: React.FC<{
   }, [sendReplyViewState, currentComments]);
 
   return (
-    <div className="w-full">
+    <>
       {replies && replies?.length > 0 && (
-        <div className="w-full flex flex-col space-y-2">
+        <div className="w-full flex flex-col space-y-2 mb-2 border-l-2 rounded-sm border-extra-light-soft-black pl-2">
           {replies?.map((reply: CommentDto, replyIndex: number) => (
             <div
               key={replyIndex}
@@ -222,6 +189,38 @@ const Replies: React.FC<{
           ))}
         </div>
       )}
-    </div>
+    </>
+  );
+};
+
+const CommentAuthorEdit: React.FC<{
+  visitor: UserDto;
+  authorComment: UserDto;
+  destPicture: string;
+  commentId: string;
+}> = ({ visitor, authorComment, destPicture, commentId }) => {
+  const setToastState = useAlertStore((state: any) => state.setToastState);
+
+  return (
+    <>
+      {visitor?._id === authorComment?._id && (
+        <button
+          onClick={() => {
+            CommentAPI.deleteCommentOrReply(
+              window.localStorage.getItem("access_token")!,
+              {
+                _id: commentId,
+                destPicture: destPicture,
+              }
+            ).then(
+              async (RegisterResp: ReturnFuncDto) =>
+                await setToastState(RegisterResp.message)
+            );
+          }}
+        >
+          <PrettyTrashIcon size={12} fill="rgb(160, 160, 160)" />
+        </button>
+      )}
+    </>
   );
 };

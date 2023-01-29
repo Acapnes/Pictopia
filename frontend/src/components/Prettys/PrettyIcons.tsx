@@ -36,6 +36,46 @@ export const PrettyEyeIcon: React.FC<{
   );
 };
 
+export const PrettyEmojiIcon: React.FC<{
+  fill?: string;
+  size?: number;
+}> = ({ fill, size }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 18}
+      height={size || 18}
+      fill={fill || "currentColor"}
+      className="bi bi-emoji-smile-fill"
+      viewBox="0 0 16 16"
+    >
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z" />
+    </svg>
+  );
+};
+
+export const PrettyRefreshIcon: React.FC<{
+  fill?: string;
+  size?: number;
+}> = ({ fill, size }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 18}
+      height={size || 18}
+      fill={fill || "currentColor"}
+      className="bi bi-arrow-clockwise"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fillRule="evenodd"
+        d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"
+      />
+      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+    </svg>
+  );
+};
+
 const PrettyOptionsIcon = (props: any) => {
   return (
     <svg

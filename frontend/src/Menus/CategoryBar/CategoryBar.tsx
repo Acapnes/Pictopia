@@ -78,7 +78,7 @@ export const FavoriteCategories: React.FC<{
           <a href={`/category/${category.title.toLocaleLowerCase()}`}>
             <img
               src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
-              className={`object-cover w-full min-w-[8rem] h-[3rem] rounded-sm ${
+              className={`object-cover w-full min-w-[10rem] h-[3rem] rounded-sm ${
                 category?.title.toLocaleLowerCase() === params.category &&
                 "pb-0.5"
               }`}

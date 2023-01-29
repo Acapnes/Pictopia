@@ -70,4 +70,5 @@ type Query {
   users: [User!]!
   comments: [Comment!]!
   categories: [Category!]!
+  getCategoryByTitle(title: String!): Category!
 }

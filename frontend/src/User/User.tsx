@@ -5,17 +5,18 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Link, Navigate, Outlet, useParams } from "react-router-dom";
-import { AccountAPI } from "../Api/User/AccountApi";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { ModerationAPI } from "../Api/User/ModerationApi";
 import { UserAPI } from "../Api/User/UserApi";
 import { UserDto } from "../Api/User/UserDtos/userDto";
-import { PrettyCustomSizeAvatar } from "../components/Prettys/PrettyElements";
+import { ReturnFuncDto } from "../Api/Utils/UtilsDtos";
+import { PrettyCustomSizeAvatar } from "../components/Prettys/PrettyComponents";
 import {
   PrettyCameraIcon,
   PrettyXIcon,
 } from "../components/Prettys/PrettyIcons";
 import { SuspenseVeiw } from "../components/Prettys/PrettyViews";
+import { useAlertStore } from "../components/Zustand";
 
 const User: React.FC<{ user: UserDto }> = ({ user }) => {
   return (
@@ -59,11 +60,51 @@ const UserBackground: React.FC<{ author: UserDto; children: ReactNode }> = ({
 };
 
 const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
+  const setToastState = useAlertStore((state: any) => state.setToastState);
+  const hiddenFileInput =
+    React.useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  const handleClick = async () => {
+    hiddenFileInput.current ? hiddenFileInput.current.click() : alert("Error!");
+  };
+
+  const changeAvatarFunc = async (avatar: any) => {
+    await ModerationAPI.changeUserAvatar(
+      avatar,
+      window.localStorage.getItem("access_token")!
+    ).then(
+      async (loginResp: ReturnFuncDto) => await setToastState(loginResp.message)
+    );
+  };
+
+  const handleChange = async (e: any) => {
+    const fileUploaded = await e.target.files[0];
+    await changeAvatarFunc(fileUploaded);
+  };
+
   return (
     <div className="h-full w-full absolute flex flex-col items-center top-0 left-0">
       <div className="h-full w-full md:w-[90%] px-5 py-14 flex flex-col space-y-3 justify-end">
         <div className="flex flex-row items-center space-x-4">
-          <PrettyCustomSizeAvatar avatar={author?.avatar} size={7} />
+          <div className="group relative bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] p-[0.05rem]">
+            <PrettyCustomSizeAvatar avatar={author?.avatar} size={7} />
+            <div className="z-20 absolute bottom-0 h-full w-full p-[0.05rem] pr-[0.1rem] group">
+              <button
+                onClick={() => handleClick()}
+                className="h-full w-full p-1 flex items-center justify-center bg-rough-soft-black bg-opacity-0 opacity-0
+               duration-300 group-hover:bg-opacity-75 group-hover:opacity-100"
+              >
+                <PrettyCameraIcon fill="white" size={24} />
+              </button>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                ref={hiddenFileInput}
+                onChange={handleChange}
+                accept="image/jpg, image/jpeg, image/png, image/webp, image/jfif, image/gif"
+              />
+            </div>
+          </div>
           <div className="flex flex-col space-y-2.5">
             <p className="text-2xl md:text-[2.75rem] font-extrabold text-gray-200">
               {author?.name}
@@ -88,25 +129,6 @@ const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
     </div>
   );
 };
-
-{
-  /* <div className="flex flex-row justify-between items-center space-x-[3rem] ">
-<div className="flex flex-wrap space-x-4">
-  {author?.userSocials?.map(
-    (social: UserDto["userSocials"][0], socialIndex: number) => (
-      <div key={socialIndex}>
-        <PrettySocialButton
-          showUrl={false}
-          socialUrl={social.url!}
-          platform={social.platform!}
-          socialIndex={social.index!}
-        ></PrettySocialButton>
-      </div>
-    )
-  )}
-</div>
-</div> */
-}
 
 const UserMenus: React.FC<{ author: UserDto }> = ({ author }) => {
   return (

@@ -2,10 +2,7 @@ import { UserDto } from "../../../../Api/User/UserDtos/userDto";
 import { useEffect, useState } from "react";
 import { ModerationAPI } from "../../../../Api/User/ModerationApi";
 import { PrettySocialButton } from "../../../../components/Prettys/PrettySocialButtons";
-import {
-  PrettyCheckIcon,
-  PrettySmallArrowDown,
-} from "../../../../components/Prettys/PrettyIcons";
+import { PrettyCheckIcon } from "../../../../components/Prettys/PrettyIcons";
 import { ReturnFuncDto } from "../../../../Api/Utils/UtilsDtos";
 import { useProfileStore } from "../../../../components/Zustand/ProfileStore";
 import { useAlertStore } from "../../../../components/Zustand";

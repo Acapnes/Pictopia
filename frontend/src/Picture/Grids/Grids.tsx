@@ -1,7 +1,7 @@
 import { PicDto } from "../../Api/Pic/picDtos";
 import React, { useEffect, useState } from "react";
-import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyElements";
 import { PicAPI } from "../../Api/Pic/PicApi";
+import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyComponents";
 
 const ActionlessGrid: React.FC<{}> = () => {
   const [respPics, setRespPics] = useState<PicDto[]>([]);

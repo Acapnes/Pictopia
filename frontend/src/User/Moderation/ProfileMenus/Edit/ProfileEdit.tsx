@@ -102,8 +102,7 @@ export default ProfileEdit;
 const ProfileAvatar: React.FC<{ avatar: UserDto["avatar"] }> = ({ avatar }) => {
   const setToastState = useAlertStore((state: any) => state.setToastState);
   const [imageURL, setImageURL] = useState<any>("null");
-  const hiddenFileInput =
-    React.useRef() as React.MutableRefObject<HTMLInputElement>;
+  const hiddenFileInput = React.useRef() as React.MutableRefObject<HTMLInputElement>;
   const [changeAvatar, setChangeAvatar] = useState<File>();
 
   const handleClick = async () => {

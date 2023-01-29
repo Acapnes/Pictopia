@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PicDto } from "../../../Api/Pic/picDtos";
 import { CategoryAPI } from "../../../Api/User/Category/CategoryApi";
 import { CategoryDto } from "../../../Api/User/Category/categoryDtos";
-import { PrettyRotatingArrow } from "../../../components/Prettys/PrettyElements";
+import { PrettyRotatingArrow } from "../../../components/Prettys/PrettyComponents";
 import {
   PrettyErrorIcon,
   PrettyHelpIcon,
@@ -88,7 +88,7 @@ const CategoryManagementList: React.FC<{
     <div className="flex flex-col">
       {showCategoryList &&
         (categoryArray.length > 0 ? (
-          <div className="w-full max-h-[10rem] overflow-auto scrollbar-hide flex flex-wrap items-center bg-extra-light-soft-black rounded-sm border-2 border-pretty-pink">
+          <div className="w-full max-h-[10rem] overflow-auto scrollbar-hide flex flex-wrap items-center rounded-sm">
             {categoryArray?.map(
               (category: CategoryDto, categoryIndex: number) => (
                 <div
@@ -108,7 +108,7 @@ const CategoryManagementList: React.FC<{
                 >
                   <img
                     src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
-                    className="object-cover h-full w-full opacity-30 rounded-sm"
+                    className="object-cover h-full w-full opacity-50 rounded-sm"
                     alt=""
                   />
                   <div className="absolute top-0 right-1/2 translate-x-1/2 translate-y-1/2">
@@ -121,7 +121,7 @@ const CategoryManagementList: React.FC<{
             )}
           </div>
         ) : (
-          <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 bg-light-soft-black rounded-sm">
+          <div className="w-full flex flex-row space-x-1.5 items-center justify-center py-3 rounded-sm">
             <PrettyErrorIcon size={16} fill={"white"} />
             <span className="text-gray-200 font-semibold">
               No Categories Found

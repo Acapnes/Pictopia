@@ -31,7 +31,7 @@ const PostedPictures: React.FC<{ user: UserDto; params: any }> = ({
 
   return (
     <>
-      <div className="flex flex-col items-center bg-soft-black bg-opacity-95 px-4 pb-4">
+      <div className="flex flex-col items-center bg-opacity-95 px-4 pb-4">
         <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 4 }} spacing={2}>
           {postedPictures.map((pic: PicDto, picIndex: number) => (
             <div
