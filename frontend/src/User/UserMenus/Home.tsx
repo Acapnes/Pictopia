@@ -16,9 +16,8 @@ const Home: React.FC<{ user: UserDto }> = ({ user }) => {
   }, []);
 
   return (
-    <div className="flex flex-col space-y-10">
-      <div className="flex flex-col space-y-5">
-        <p className="text-xl font-bold text-gray-200">Portfolio</p>
+    <div className="flex flex-row space-x-2">
+      <div className="w-full flex flex-col space-y-10">
         <div className="flex flex-row space-x-3 overflow-x-auto whitespace-nowrap">
           {postedPictures?.map((picture: PicDto, pictureIndex: number) => (
             <img
@@ -29,7 +28,8 @@ const Home: React.FC<{ user: UserDto }> = ({ user }) => {
             />
           ))}
         </div>
-      </div>
+      </div>1
+      <div className="w-[50%] bg-red-500">asds</div>
     </div>
   );
 };

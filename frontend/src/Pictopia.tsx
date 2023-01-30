@@ -9,6 +9,7 @@ import { SuspenseVeiw } from "./components/Prettys/PrettyViews";
 import { usePictopiaStore } from "./components/Zustand";
 import CategoryBar from "./Menus/CategoryBar/CategoryBar";
 import Header from "./Menus/Header";
+import PictureBasket from "./Menus/PictureBasket";
 import TrendGrid from "./Picture/Grids/TrendGrid";
 
 const PictopiaGrid = React.lazy(() => import("./Picture/Grids/PictopiaGrid"));
@@ -35,6 +36,7 @@ const Pictopia: React.FC<{}> = () => {
           <PictopiaManagementPanel />
           <PictopiaGrid />
         </Suspense>
+        <PictureBasket />
       </div>
     </div>
   );
@@ -66,13 +68,13 @@ const PictopiaManagementPanel: React.FC<{}> = () => {
   });
 
   return (
-    <div className="w-full flex flex-row space-x-4 px-3.5 pb-10 pt-2 items-center justify-between text-xs md:text-base">
+    <div className="w-full flex flex-row space-x-4 px-3.5 pb-4 pt-2 items-center justify-between text-xs md:text-base">
       <div className="w-full md:w-fit flex flex-row space-x-1 items-center">
         {params?.category ? (
           <div className="w-full md:w-fit relative group rounded-full bg-extra-light-soft-black">
             <img
               src={`data:${data?.getCategoryByTitle?.category_picture_file?.contentType};base64,${data?.getCategoryByTitle?.category_picture_file?.data}`}
-              className={`object-cover min-w-full md:min-w-[12rem] h-[2rem] rounded-lg ${
+              className={`object-cover min-w-full md:min-w-[12rem] h-[2.5rem] rounded-lg ${
                 data?.getCategoryByTitle?.title.toLocaleLowerCase() ===
                   params.category && "pb-0.5"
               }`}
