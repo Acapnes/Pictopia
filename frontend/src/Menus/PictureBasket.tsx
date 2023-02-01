@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { PicDto } from "../Api/Pic/picDtos";
-import { PrettyShareIcon } from "../components/Prettys/PrettyIcons";
+import {
+  PrettyBookMarksIcon,
+  PrettyDownloadIcon,
+  PrettyLinkIcon,
+  PrettyShareIcon,
+} from "../components/Prettys/PrettyIcons";
 import { usePictopiaStore } from "../components/Zustand";
 
 const PictureBasket: React.FC<{}> = () => {
@@ -10,22 +15,36 @@ const PictureBasket: React.FC<{}> = () => {
   );
 
   return (
-    <div className="min-w-screen w-full max-h-[75%] sticky bottom-0 z-30 bg-rough-soft-black bg-opacity-95 text-gray-200 text-sm pb-2">
+    <div className="min-w-screen w-full max-h-[75%] fixed bottom-0 z-30 text-gray-200 text-sm lg:px-12">
       <div
-        className={`w-full h-[3.5rem] duration-700 flex flex-col space-y-3 px-4 pb-4 pt-3 ${
+        className={`w-full h-[3.5rem] pb-1.5 duration-500 flex flex-col space-y-1 px-4 pt-3 bg-rough-soft-black rounded-t-md border-[2px] border-2xl-extra-light-soft-black border-b-0 bg-opacity-90 ${
           (basketState === 1 && "h-[16rem]") ||
           (basketState === 2 && "h-[34rem]")
         }`}
       >
-        <div className="flex flex-row justify-between px-1">
-          <div className="flex flex-row space-x-1 text-lg">
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-row space-x-1 items-center">
             <p>Your Basket</p>
             <p className="text-gray-400">-</p>
             <p>{pictureBasket?.length} Pictures</p>
           </div>
+          <div>
+            <p className="font-bold duration-500 opacity-0 hover:opacity-100 text-pretty-pink">
+              Added by Alper
+            </p>
+          </div>
           <div className="flex flex-row space-x-2">
-            <button className="flex items-center bg-light-soft-black px-4 rounded-sm ">
+            <button className="flex items-center duration-300 bg-light-soft-black hover:bg-pretty-yellow hover:bg-opacity-80 px-4 rounded-sm ">
+              <PrettyBookMarksIcon />
+            </button>
+            <button className="flex items-center duration-300 bg-light-soft-black hover:bg-pretty-pink hover:bg-opacity-80 px-4 rounded-sm ">
               <PrettyShareIcon />
+            </button>
+            <button className="flex items-center duration-300 bg-light-soft-black hover:bg-pretty-pink hover:bg-opacity-80 px-4 rounded-sm ">
+              <PrettyDownloadIcon />
+            </button>
+            <button className="flex items-center duration-300 bg-light-soft-black hover:bg-pretty-pink hover:bg-opacity-80 px-4 rounded-sm ">
+              <PrettyLinkIcon />
             </button>
             <button
               onClick={() => {
@@ -33,7 +52,7 @@ const PictureBasket: React.FC<{}> = () => {
                   setBasketState(basketState + 1);
                 else setBasketState(0);
               }}
-              className={`flex flex-col -space-y-4 bg-light-soft-black px-4 rounded-sm py-0.5`}
+              className={`flex flex-col items-center justify-center -space-y-4 bg-light-soft-black px-4 rounded-sm py-0.5`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

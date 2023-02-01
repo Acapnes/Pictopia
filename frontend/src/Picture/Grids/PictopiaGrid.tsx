@@ -1,87 +1,33 @@
-import { useEffect, useState } from "react";
-import { PicDto } from "../../Api/Pic/picDtos";
-import { PicAPI } from "../../Api/Pic/PicApi";
 import React from "react";
+import { PicDto } from "../../Api/Pic/picDtos";
 import { Masonry } from "@mui/lab";
-import { useParams } from "react-router-dom";
-import { GridMenu } from "./Grids";
 import { usePictopiaStore } from "../../components/Zustand";
 import { PrettyCustomSizeAvatar } from "../../components/Prettys/PrettyComponents";
-import { PrettySquareAddIcon } from "../../components/Prettys/PrettyIcons";
+import {
+  PrettyBookMarksIcon,
+  PrettyDashIcon,
+  PrettySquareAddIcon,
+} from "../../components/Prettys/PrettyIcons";
 
-const PictopiaGrid: React.FC<{}> = () => {
-  const [pictures, setPictures] = useState<PicDto[]>([]);
-  const [picturesLoading, setPicturesLoading] = useState<boolean>(false);
-  const params = useParams();
-
-  const pagination = usePictopiaStore((state: any) => state.pagination);
-
-  const fetchAndSetPics = async () => {
-    setPicturesLoading(true);
-    if (params?.category) {
-      setPictures([
-        ...pictures,
-        ...(await PicAPI.getPicsByCategory({
-          category: params?.category,
-          currentPage: pagination.currentPage,
-          postPerPage: pagination.postPerPage,
-        })),
-      ]);
-    } else if (params?.input) {
-      setPictures([
-        ...pictures,
-        ...(await PicAPI.getPicsBySeachInput({
-          input: params?.input,
-          currentPage: pagination.currentPage,
-          postPerPage: pagination.postPerPage,
-        })),
-      ]);
-    } else if (params?.tag) {
-      setPictures([
-        ...pictures,
-        ...(await PicAPI.getPicsBySeachInput({
-          input: `#${params!.tag}`,
-          currentPage: pagination.currentPage,
-          postPerPage: pagination.postPerPage,
-        })),
-      ]);
-    } else {
-      setPictures([
-        ...pictures,
-        ...(await PicAPI.getPicsByExplore({
-          currentPage: pagination.currentPage,
-          postPerPage: pagination.postPerPage,
-        })),
-      ]);
-    }
-    setPicturesLoading(false);
-  };
-
-  useEffect(() => {
-    !picturesLoading && fetchAndSetPics();
-  }, [pagination.currentPage]);
-
+const PictopiaGrid: React.FC<{ pictures: PicDto[] }> = ({ pictures }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      {picturesLoading && <LoadingAnimation />}
-      <div className="min-h-screen w-full flex flex-col items-center justify-center">
-        <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>
-          {pictures.map((pic: PicDto, picIndex: number) => (
-            <div
-              className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-[120%] hover:z-10 overflow-hidden"
-              key={picIndex}
-            >
-              <img
-                loading="lazy"
-                src={`data:${pic?.picture_file?.contentType};base64,${pic?.picture_file?.data}`}
-                alt=""
-                className="min-w-full rounded-sm min-h-[12rem]"
-              />
-              <PictopiaGridMenu picture={pic} />
-            </div>
-          ))}
-        </Masonry>
-      </div>
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>
+        {pictures.map((pic: PicDto, picIndex: number) => (
+          <div
+            className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-[120%] hover:z-10 overflow-hidden"
+            key={picIndex}
+          >
+            <img
+              loading="lazy"
+              src={`data:${pic?.picture_file?.contentType};base64,${pic?.picture_file?.data}`}
+              alt=""
+              className="min-w-full rounded-sm min-h-[12rem]"
+            />
+            <PictopiaGridMenu picture={pic} />
+          </div>
+        ))}
+      </Masonry>
     </div>
   );
 };
@@ -93,8 +39,34 @@ const PictopiaGridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
     (state: any) => state.setPictureBasket
   );
 
+  const pictureBasket = usePictopiaStore((state: any) => state.pictureBasket);
+
   return (
     <a href={`/detail/${picture?._id}`}>
+      <div className="absolute right-0 top-0 w-14  overflow-hidden inline-block bg-transparent">
+        <div
+          className={`relative h-20 bg-green-400 duration-300 -rotate-45 transform origin-top-left ${
+            pictureBasket.some(
+              (basketPicture: PicDto) => basketPicture._id === picture._id
+            )
+              ? "opacity-100"
+              : "opacity-0"
+          }`}
+        >
+          <div className="absolute bottom-1/3 left-1/5 rotate-45 p-1.5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              fill="currentColor"
+              className="bi bi-basket3-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.468 15.426.943 9h14.114l-1.525 6.426a.75.75 0 0 1-.729.574H3.197a.75.75 0 0 1-.73-.574z" />
+            </svg>
+          </div>
+        </div>
+      </div>
       <div
         className="absolute bottom-0 w-full h-full transition duration-500 ease-in-out bg-light-soft-black opacity-0 bg-opacity-0 group-hover:bg-opacity-50
         group-hover:opacity-90 group-hover:shadow-lg rounded-sm text-white"
@@ -114,7 +86,13 @@ const PictopiaGridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
                 }}
                 className="h-full bg-light-soft-black px-2 bg-opacity-70 rounded-sm duration-150 hover:bg-extra-rough-soft-black"
               >
-                <PrettySquareAddIcon fill="white" />
+                {pictureBasket.some(
+                  (basketPicture: PicDto) => basketPicture._id === picture._id
+                ) ? (
+                  <PrettyDashIcon fill="white" />
+                ) : (
+                  <PrettySquareAddIcon fill="white" />
+                )}
               </button>
             </div>
           </div>
@@ -137,22 +115,5 @@ const PictopiaGridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
         </div>
       </div>
     </a>
-  );
-};
-
-const LoadingAnimation: React.FC<{}> = () => {
-  return (
-    <div className="flex flex-row">
-      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_300ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-      </div>
-      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_400ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_500ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-        <div className="h-full w-full animate-[bounce_1.5s_infinite_600ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
-      </div>
-    </div>
   );
 };

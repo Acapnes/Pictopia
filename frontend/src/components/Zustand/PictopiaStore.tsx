@@ -1,21 +1,27 @@
+import { useParams } from "react-router-dom";
 import create from "zustand";
 import { PicDto } from "../../Api/Pic/picDtos";
 
 interface PictopiaState {
-  gridStyle: number;
+  pictures: PicDto[];
   pagination: {
     currentPage: number;
     postPerPage: number;
   };
+  gridStyle: number;
   pictureBasket: PicDto[];
 }
 export const usePictopiaStore = create<PictopiaState>((set) => ({
-  gridStyle: 5, // 1 -> with Details / increment 1 to 5
+  pictures: [] as PicDto[],
   pagination: {
     currentPage: 0,
     postPerPage: 20,
   },
+  gridStyle: 5, // 1 -> with Details / increment 1 to 5
   pictureBasket: [] as PicDto[],
+
+  setPictures: (_pictures: PicDto[]) =>
+    set((state) => ({ pictures: [...state.pictures, ..._pictures] })),
 
   setCurrentPage: () =>
     set((state) => ({

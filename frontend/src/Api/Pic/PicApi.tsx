@@ -32,9 +32,7 @@ export class PicAPI {
       .then((resp) => resp.data);
   }
 
-  public static async getPicsByCategory(
-    picPaginationDto: PaginationDto
-  ): Promise<PicDto[]> {
+  public static async getPicsByCategory(picPaginationDto: PaginationDto): Promise<PicDto[]> {
     if (window.localStorage.getItem("access_token")) {
       axios.defaults.headers.common[
         "Authorization"

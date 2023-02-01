@@ -1,6 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PicAPI } from "./Api/Pic/PicApi";
+import { PicDto } from "./Api/Pic/picDtos";
 import {
   PrettyRefreshIcon,
   PrettySquareAddIcon,
@@ -23,28 +25,77 @@ const Pictopia: React.FC<{}> = () => {
     }
   };
 
+  const [picturesLoading, setPicturesLoading] = useState<boolean>(false);
+  const params = useParams();
+
+  const pagination = usePictopiaStore((state: any) => state.pagination);
+  const setPictures = usePictopiaStore((state: any) => state.setPictures);
+  const pictures = usePictopiaStore<PicDto[]>((state: any) => state.pictures);
+
+  const fetchAndSetPics = async () => {
+    setPicturesLoading(true);
+    if (params?.category) {
+      setPictures(
+        await PicAPI.getPicsByCategory({
+          category: params?.category,
+          currentPage: pagination.currentPage,
+          postPerPage: pagination.postPerPage,
+        })
+      );
+    } else if (params?.input) {
+      setPictures(
+        await PicAPI.getPicsBySeachInput({
+          input: params?.input,
+          currentPage: pagination.currentPage,
+          postPerPage: pagination.postPerPage,
+        })
+      );
+    } else if (params?.tag) {
+      setPictures(
+        await PicAPI.getPicsBySeachInput({
+          input: `#${params!.tag}`,
+          currentPage: pagination.currentPage,
+          postPerPage: pagination.postPerPage,
+        })
+      );
+    } else {
+      setPictures(
+        await PicAPI.getPicsByExplore({
+          currentPage: pagination.currentPage,
+          postPerPage: pagination.postPerPage,
+        })
+      );
+    }
+    setPicturesLoading(false);
+  };
+
+  useEffect(() => {
+    !picturesLoading && fetchAndSetPics();
+  }, [pagination.currentPage]);
+
   return (
     <div
       onScroll={(e) => handleScroll(e)}
-      className="min-h-screen h-[0rem] max-h-full overflow-y-auto overflow-x-hidden bg-soft-black font-mono"
+      className="min-h-screen h-0 max-h-full flex flex-auto flex-col overflow-y-auto overflow-x-hidden bg-soft-black font-mono"
     >
-      <div className="flex flex-auto flex-col pb-4 bg-soft-black">
-        <Header />
-        <CategoryBar />
-        <TrendGrid />
-        <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
-          <PictopiaManagementPanel />
-          <PictopiaGrid />
-        </Suspense>
-        <PictureBasket />
-      </div>
+      <Header />
+      <CategoryBar />
+      <TrendGrid />
+      <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
+        <PictopiaManagementPanel refreshFunc={fetchAndSetPics} />
+        {picturesLoading && <LoadingAnimation />}
+        <PictopiaGrid pictures={pictures} />
+      </Suspense>
+      <PictureBasket />
     </div>
   );
 };
 
 export default Pictopia;
 
-const PictopiaManagementPanel: React.FC<{}> = () => {
+const PictopiaManagementPanel: React.FC<{
+  refreshFunc: Function;
+}> = ({ refreshFunc }) => {
   const params = useParams() as any;
 
   const GET_CATEGORY_PICTURE_FILE = gql`
@@ -91,7 +142,12 @@ const PictopiaManagementPanel: React.FC<{}> = () => {
             {params?.category ? params.category.toUpperCase() : "Explore"}
           </p>
         )}
-        <button className="mt-1 duration-300 hover:rotate-180 mb-[0.1rem]">
+        <button
+          onClick={async () => {
+            refreshFunc();
+          }}
+          className="mt-1 duration-300 hover:rotate-180 mb-[0.1rem]"
+        >
           <PrettyRefreshIcon fill="white" size={18} />
         </button>
       </div>
@@ -127,6 +183,23 @@ const PictopiaManagementPanel: React.FC<{}> = () => {
         <button className="border-[1px] rounded-sm px-1 border-gray-400">
           <PrettySquareAddIcon fill="white" size={18} />
         </button>
+      </div>
+    </div>
+  );
+};
+
+const LoadingAnimation: React.FC<{}> = () => {
+  return (
+    <div className="w-full flex flex-row items-center justify-center">
+      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_100ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_200ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_300ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+      </div>
+      <div className="w-[2rem] h-[2.5rem] flex flex-row my-5">
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_400ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_500ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
+        <div className="h-full w-full animate-[bounce_1.5s_infinite_600ms] bg-gradient-to-b from-pretty-yellow to-pretty-rough-pink"></div>
       </div>
     </div>
   );
