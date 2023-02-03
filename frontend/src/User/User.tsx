@@ -43,7 +43,7 @@ const UserBackground: React.FC<{ author: UserDto; children: ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="w-full h-full relative">
+    <div className="relative">
       <img
         src={`${
           author?.profile_background?.contentType &&
@@ -54,6 +54,7 @@ const UserBackground: React.FC<{ author: UserDto; children: ReactNode }> = ({
         alt=""
         className="w-full h-[35vh] object-cover opacity-50"
       />
+      <BackgroundHandler author={author} />
       {children}
     </div>
   );
@@ -114,16 +115,19 @@ const UserPanel: React.FC<{ author: UserDto }> = ({ author }) => {
             </p>
           </div>
         </div>
-        <div className="flex flex-row space-x-1.5">
-          <div className="flex flex-row space-x-1">
-            <p className="font-extrabold text-gray-300">175</p>
-            <p className="font-extrabold text-gray-300">Followers</p>
+        <div className="flex flex-row space-x-3 justify-between">
+          <div className="flex flex-row space-x-1.5">
+            <div className="flex flex-row space-x-1">
+              <p className="font-extrabold text-gray-300">175</p>
+              <p className="font-extrabold text-gray-300">Followers</p>
+            </div>
+            <p className="font-extrabold text-gray-300"> | </p>
+            <div className="flex flex-row space-x-1">
+              <p className="font-extrabold text-gray-300">23</p>
+              <p className="font-extrabold text-gray-300">Posted</p>
+            </div>
           </div>
-          <p className="font-extrabold text-gray-300"> | </p>
-          <div className="flex flex-row space-x-1">
-            <p className="font-extrabold text-gray-300">23</p>
-            <p className="font-extrabold text-gray-300">Posted</p>
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
@@ -137,20 +141,6 @@ const UserMenus: React.FC<{ author: UserDto }> = ({ author }) => {
         <div className="w-full bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] lg:p-0.5 lg:rounded-sm">
           <div className="w-full flex flex-col lg:flex-row justify-between px-[3rem] py-3.5 bg-soft-black lg:rounded-sm overflow-x-auto">
             <div className="w-full flex flex-row space-x-[5rem]">
-              <LinkComp to="saved">
-                <p>Home</p>
-              </LinkComp>
-              <LinkComp to="posted">
-                <p>Gallery</p>
-              </LinkComp>
-              <LinkComp to="comments">
-                <p>Favorites</p>
-              </LinkComp>
-              <LinkComp to="followers">
-                <p>Followers</p>
-              </LinkComp>
-            </div>
-            <div className="w-full flex flex-row lg:justify-end space-x-[5rem]">
               <LinkComp to="saved">
                 <p>Home</p>
               </LinkComp>
@@ -247,21 +237,14 @@ export const BackgroundHandler: React.FC<{
   return (
     <>
       {visitorCredentials?._id === author?._id && (
-        <>
-          <div className="flex flex-row space-x-1.5 items-center text-xs pt-2">
+        <div className="absolute w-full h-full top-0 flex items-center justify-center z-20 duration-500 opacity-0 hover:opacity-95">
+          <div className="flex flex-row space-x-1.5 items-center text-sm text-gray-200">
             <button
               onClick={handleClick}
-              className="flex flex-row space-x-1 items-center border-[2px] rounded-sm border-rough-soft-black border-opacity-75 py-0.5 px-1 bg-rough-soft-black"
+              className="flex flex-row space-x-1 items-center bor"
             >
-              <PrettyCameraIcon size={12} />
+              <PrettyCameraIcon size={16} />
               <p className="rounded-sm">Change Background</p>
-            </button>
-            <button
-              onClick={() => removeAvatarFunc()}
-              className="w-fit flex flex-row space-x-1 items-center border-[2px] rounded-sm border-rough-soft-black border-opacity-75 py-0.5 px-1 bg-rough-soft-black"
-            >
-              <PrettyXIcon size={10} />
-              <p className=" rounded-sm">Remove</p>
             </button>
           </div>
           <input
@@ -270,7 +253,7 @@ export const BackgroundHandler: React.FC<{
             ref={hiddenFileInput}
             onChange={handleChange}
           />
-        </>
+        </div>
       )}
     </>
   );

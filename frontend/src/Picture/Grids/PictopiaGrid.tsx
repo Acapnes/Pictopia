@@ -12,7 +12,7 @@ import {
 const PictopiaGrid: React.FC<{ pictures: PicDto[] }> = ({ pictures }) => {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={3}>
+      <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 5, xl: 5 }} spacing={2.5}>
         {pictures.map((pic: PicDto, picIndex: number) => (
           <div
             className="group relative h-fit w-full flex flex-col justify-center duration-300 hover:scale-[120%] hover:z-10 overflow-hidden"
@@ -39,21 +39,37 @@ const PictopiaGridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
     (state: any) => state.setPictureBasket
   );
 
-  const pictureBasket = usePictopiaStore((state: any) => state.pictureBasket);
+  const pictureBasket = usePictopiaStore<PicDto[]>(
+    (state: any) => state.pictureBasket
+  );
 
   return (
-    <a href={`/detail/${picture?._id}`}>
+    <a href={`/detail/${picture?._id}`} className="group hover:z-20">
       <div className="absolute right-0 top-0 w-14  overflow-hidden inline-block bg-transparent">
         <div
-          className={`relative h-20 bg-green-400 duration-300 -rotate-45 transform origin-top-left ${
+          onClick={(e) => {
+            if (
+              pictureBasket.some(
+                (basketPicture: PicDto) => basketPicture._id === picture._id
+              )
+            ) {
+              e.preventDefault();
+              const devidedArray = pictureBasket.filter(
+                (pictureInArray: PicDto) => pictureInArray?._id !== picture?._id
+              );
+              setPictureBasket(devidedArray);
+            }
+          }}
+          className={`relative h-20 bg-green-300 duration-300 -rotate-45 transform origin-top-left ${
             pictureBasket.some(
               (basketPicture: PicDto) => basketPicture._id === picture._id
             )
-              ? "opacity-100"
+              ? "opacity-100 group-hover:z-10 hover:bg-red-300"
               : "opacity-0"
           }`}
         >
           <div className="absolute bottom-1/3 left-1/5 rotate-45 p-1.5">
+            {/* <PrettyBookMarksIcon /> */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -79,21 +95,19 @@ const PictopiaGridMenu: React.FC<{ picture: PicDto }> = ({ picture }) => {
               </p>
             </div>
             <div className="flex items-center ">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPictureBasket(picture);
-                }}
-                className="h-full bg-light-soft-black px-2 bg-opacity-70 rounded-sm duration-150 hover:bg-extra-rough-soft-black"
-              >
-                {pictureBasket.some(
-                  (basketPicture: PicDto) => basketPicture._id === picture._id
-                ) ? (
-                  <PrettyDashIcon fill="white" />
-                ) : (
+              {pictureBasket.some(
+                (basketPicture: PicDto) => basketPicture._id === picture._id
+              ) ? null : (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setPictureBasket([...pictureBasket, picture]);
+                  }}
+                  className="h-full bg-light-soft-black px-2 bg-opacity-70 rounded-sm duration-150 hover:bg-extra-rough-soft-black"
+                >
                   <PrettySquareAddIcon fill="white" />
-                )}
-              </button>
+                </button>
+              )}
             </div>
           </div>
           <div className="flex flex-col px-2">

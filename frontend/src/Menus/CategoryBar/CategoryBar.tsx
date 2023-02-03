@@ -45,16 +45,14 @@ const CategoryBar: React.FC<{}> = () => {
   return (
     <>
       {true && (
-        <div className="bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6]">
-          <div className="w-full h-full min-h-[4.5rem] flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-3 px-4 py-2 text-white bg-rough-soft-black relative">
-            <Suspense fallback={<SuspenseVeiw />}>
-              <CustomizeCategories
-                favoriteCategories={favoriteCategories}
-                allCategories={allCategories}
-              />
-              <FavoriteCategories favoriteCategories={favoriteCategories} />
-            </Suspense>
-          </div>
+        <div className="w-full h-fit min-h-[4.5rem] flex flex-col items-center space-y-2 md:flex-row md:space-y-0 md:space-x-3 px-4 py-2 text-white relative">
+          <Suspense fallback={<SuspenseVeiw />}>
+            <CustomizeCategories
+              favoriteCategories={favoriteCategories}
+              allCategories={allCategories}
+            />
+            <FavoriteCategories favoriteCategories={favoriteCategories} />
+          </Suspense>
         </div>
       )}
     </>
@@ -69,26 +67,25 @@ export const FavoriteCategories: React.FC<{
   const params = useParams() as any;
 
   return (
-    <div className="h-full flex flex-row space-x-1.5 overflow-x-auto scrollbar-hide">
+    <div className="h-full max-h-[3.5rem] flex flex-row space-x-1.5 overflow-x-auto scrollbar-hide">
       {favoriteCategories?.map((category: CategoryDto, categoryIndex: any) => (
-        <div
+        <a
           key={categoryIndex}
-          className={`h-full flex bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm relative group `}
+          href={`/category/${category.title.toLocaleLowerCase()}`}
+          className={`bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] rounded-sm relative`}
         >
-          <a href={`/category/${category.title.toLocaleLowerCase()}`}>
-            <img
-              src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
-              className={`object-cover w-full min-w-[10rem] h-[3rem] rounded-sm ${
-                category?.title.toLocaleLowerCase() === params.category &&
-                "pb-0.5"
-              }`}
-              alt=""
-            />
-            <div className="absolute top-0 w-full h-full flex flex-row space-x-1 justify-center items-center rounded-sm duration-300 bg-light-soft-black hover:bg-rough-soft-black bg-opacity-30 hover:bg-opacity-50">
-              <p className="my-2 text-gray-200 font-bold">{category?.title}</p>
-            </div>
-          </a>
-        </div>
+          <img
+            src={`data:${category?.category_picture_file?.contentType};base64,${category?.category_picture_file?.data}`}
+            className={`object-cover w-full min-w-[8rem] h-full rounded-sm ${
+              category?.title.toLocaleLowerCase() === params.category &&
+              "pb-1"
+            }`}
+            alt=""
+          />
+          <div className="absolute top-0 w-full h-full flex flex-row space-x-1 justify-center items-center rounded-sm duration-300 bg-light-soft-black hover:bg-rough-soft-black bg-opacity-30 hover:bg-opacity-50">
+            <p className="text-gray-200 font-bold select-none">{category?.title}</p>
+          </div>
+        </a>
       ))}
     </div>
   );

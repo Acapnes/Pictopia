@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import create from "zustand";
 import { PicDto } from "../../Api/Pic/picDtos";
 
@@ -34,6 +33,6 @@ export const usePictopiaStore = create<PictopiaState>((set) => ({
   setGridStyle: (styleNumber: number) =>
     set(() => ({ gridStyle: styleNumber })),
 
-  setPictureBasket: (picture: PicDto) =>
-    set((state) => ({ pictureBasket: [...state.pictureBasket, picture] })),
+  setPictureBasket: (picture: PicDto[]) =>
+    set(() => ({ pictureBasket: picture })),
 }));

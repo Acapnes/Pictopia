@@ -78,15 +78,17 @@ const Pictopia: React.FC<{}> = () => {
       onScroll={(e) => handleScroll(e)}
       className="min-h-screen h-0 max-h-full flex flex-auto flex-col overflow-y-auto overflow-x-hidden bg-soft-black font-mono"
     >
-      <Header />
-      <CategoryBar />
+      <div className="z-20 sticky top-0">
+        <Header />
+        <PictureBasket />
+      </div>
       <TrendGrid />
+      <CategoryBar />
       <Suspense fallback={<SuspenseVeiw text="Pictopia" />}>
         <PictopiaManagementPanel refreshFunc={fetchAndSetPics} />
         {picturesLoading && <LoadingAnimation />}
         <PictopiaGrid pictures={pictures} />
       </Suspense>
-      <PictureBasket />
     </div>
   );
 };
