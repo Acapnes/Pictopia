@@ -141,7 +141,6 @@ const UserMenus: React.FC<{ author: UserDto }> = ({ author }) => {
         <div className="w-full bg-gradient-to-r from-[#ff8a05] via-[#ff5478] to-[#ff00c6] lg:p-0.5 lg:rounded-sm">
           <div className="w-full flex flex-col lg:flex-row justify-between px-[3rem] py-3.5 bg-soft-black lg:rounded-sm overflow-x-auto">
             <div className="w-full flex flex-row space-x-[5rem]">
-              
               <LinkComp to="saved">
                 <p>Home</p>
               </LinkComp>
