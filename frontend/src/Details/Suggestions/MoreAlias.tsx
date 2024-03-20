@@ -2,7 +2,6 @@ import { Masonry } from "@mui/lab";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { gql, useQuery } from "@apollo/client";
 import { PicDto } from "../../Api/Pic/picDtos";
 import { PicAPI } from "../../Api/Pic/PicApi";
 import { PrettySmallArrowDown } from "../../components/Prettys/PrettyIcons";
@@ -18,38 +17,6 @@ const MoreAlias: React.FC<{}> = () => {
     })();
   }, []);
 
-  const GET_PIC_BY_ID = gql`
-    query getPicById($id: String!) {
-      getPicById(id: $id) {
-        title
-        description
-        creationDate
-        hashTags
-        picture_file {
-          data
-          contentType
-        }
-        authorPic {
-          username
-          email
-        }
-        categories {
-          title
-          category_picture_file {
-            contentType
-            data
-          }
-        }
-      }
-    }
-  `;
-
-  const { data, loading, error } = useQuery(GET_PIC_BY_ID, {
-    variables: {
-      id: "63a821fab63fd358e71d4949",
-    },
-  });
-
   return (
     <>
       {alias?.length > 0 && (
@@ -58,11 +25,11 @@ const MoreAlias: React.FC<{}> = () => {
             <p className="whitespace-nowrap">More Like This</p>
             <div className="w-full flex flex-row space-x-1 items-center">
               <div className="w-full flex flex-wrap justify-end items-center overflow-hidden">
-                <img
+                {/* <img
                   src={`data:${data?.getPicById?.categories[0]?.category_picture_file?.contentType};base64,${data?.getPicById?.categories[0]?.category_picture_file?.data}`}
                   className="w-[75%] h-[2rem] object-cover opacity-40 rounded-sm"
                   alt=""
-                />
+                /> */}
               </div>
               <button>
                 <PrettySmallArrowDown />

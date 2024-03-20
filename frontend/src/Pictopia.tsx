@@ -1,4 +1,3 @@
-import { gql, useQuery } from "@apollo/client";
 import React, { Suspense, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { PicAPI } from "./Api/Pic/PicApi";
@@ -100,43 +99,23 @@ const PictopiaManagementPanel: React.FC<{
 }> = ({ refreshFunc }) => {
   const params = useParams() as any;
 
-  const GET_CATEGORY_PICTURE_FILE = gql`
-    query GetCategoryByTitle($title: String!) {
-      getCategoryByTitle(title: $title) {
-        title
-        category_picture_file {
-          data
-          contentType
-        }
-      }
-    }
-  `;
-
-  const { data, loading, error } = useQuery(GET_CATEGORY_PICTURE_FILE, {
-    variables: {
-      title:
-        params?.category?.charAt(0)?.toUpperCase() +
-        params?.category?.slice(1, params?.category?.length),
-    },
-  });
-
   return (
     <div className="w-full flex flex-row space-x-4 px-3.5 pb-4 pt-2 items-center justify-between text-xs md:text-base">
       <div className="w-full md:w-fit flex flex-row space-x-1 items-center">
         {params?.category ? (
           <div className="w-full md:w-fit relative group rounded-full bg-extra-light-soft-black">
-            <img
+            {/* <img
               src={`data:${data?.getCategoryByTitle?.category_picture_file?.contentType};base64,${data?.getCategoryByTitle?.category_picture_file?.data}`}
               className={`object-cover min-w-full md:min-w-[12rem] h-[2.5rem] rounded-lg ${
                 data?.getCategoryByTitle?.title.toLocaleLowerCase() ===
                   params.category && "pb-0.5"
               }`}
               alt="Category"
-            />
+            /> */}
             <div className="absolute top-0 w-full h-full flex flex-row space-x-1 justify-center items-center rounded-sm duration-300 bg-rough-soft-black bg-opacity-60">
-              <p className="my-2 text-gray-200 font-bold select-none">
+              {/* <p className="my-2 text-gray-200 font-bold select-none">
                 {data?.getCategoryByTitle?.title}
-              </p>
+              </p> */}
             </div>
           </div>
         ) : (
