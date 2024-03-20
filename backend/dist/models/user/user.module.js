@@ -23,7 +23,6 @@ const user_auth_controller_1 = require("./auth/user.auth.controller");
 const moderation_service_1 = require("./moderation/moderation.service");
 const user_moderation_controller_1 = require("./moderation/user.moderation.controller");
 const user_controller_1 = require("./user.controller");
-const user_resolver_1 = require("./user.resolver");
 const user_service_1 = require("./user.service");
 const comment_schema_1 = require("../../schemas/comment.schema");
 const user_comment_service_1 = require("./account/user.comment.service");
@@ -64,7 +63,6 @@ UserModule = __decorate([
             user_account_service_1.UserAccountService,
             avatar_service_1.AvatarService,
             management_service_1.ManagementService,
-            user_resolver_1.UserResolver,
             category_service_1.CategoryService,
             jwt_strategy_1.JwtStrategy,
         ],

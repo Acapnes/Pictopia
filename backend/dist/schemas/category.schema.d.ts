@@ -32,4 +32,4 @@ export declare class Category {
         contentType: string;
     };
 }
-export declare const CategorySchema: import("mongoose").Schema<Category, import("mongoose").Model<Category, any, any, any, any>, {}, {}, {}, {}, "type", Category>;
+export declare const CategorySchema: import("mongoose").Schema<Category, import("mongoose").Model<Category, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Category>;

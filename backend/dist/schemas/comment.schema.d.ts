@@ -10,4 +10,4 @@ export declare class Comment {
     likedUsers: [mongoose.Schema.Types.ObjectId];
     comment: string;
 }
-export declare const CommentSchema: mongoose.Schema<Comment, mongoose.Model<Comment, any, any, any, any>, {}, {}, {}, {}, "type", Comment>;
+export declare const CommentSchema: mongoose.Schema<Comment, mongoose.Model<Comment, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Comment>;

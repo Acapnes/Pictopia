@@ -12,7 +12,6 @@ import { PicAccountFetchService } from './account/pic.account.fetch.service';
 import { PicAccountService } from './account/pic.account.service';
 import { PicController } from './pic.controller';
 import { PicFetchService } from './pic.fetch.service';
-import { PicResolver } from './pic.resolver';
 import { PicService } from './pic.service';
 
 @Module({
@@ -33,7 +32,6 @@ import { PicService } from './pic.service';
     PicFetchService,
     PicAccountService,
     PicAccountFetchService,
-    PicResolver,
     CategoryService,
     UserService,
     JwtService,

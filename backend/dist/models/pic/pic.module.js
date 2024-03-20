@@ -21,7 +21,6 @@ const pic_account_fetch_service_1 = require("./account/pic.account.fetch.service
 const pic_account_service_1 = require("./account/pic.account.service");
 const pic_controller_1 = require("./pic.controller");
 const pic_fetch_service_1 = require("./pic.fetch.service");
-const pic_resolver_1 = require("./pic.resolver");
 const pic_service_1 = require("./pic.service");
 let PicModule = class PicModule {
     configure(consumer) { }
@@ -45,7 +44,6 @@ PicModule = __decorate([
             pic_fetch_service_1.PicFetchService,
             pic_account_service_1.PicAccountService,
             pic_account_fetch_service_1.PicAccountFetchService,
-            pic_resolver_1.PicResolver,
             category_service_1.CategoryService,
             user_service_1.UserService,
             jwt_1.JwtService,

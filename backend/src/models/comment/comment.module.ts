@@ -10,7 +10,6 @@ import { Pic, PicSchema } from 'src/schemas/pic.schema';
 import { PicService } from '../pic/pic.service';
 import { CommentController } from './comment.controller';
 import { CommentManagementService } from './comment.management.service';
-import { CommentResolver } from './comment.resolver';
 import { CommentService } from './comment.service';
 import { PicSelectionMiddleware } from './middleware/pic.selection.middleware';
 
@@ -22,7 +21,7 @@ import { PicSelectionMiddleware } from './middleware/pic.selection.middleware';
     ]),
   ],
   controllers: [CommentController],
-  providers: [CommentService,CommentManagementService, PicService, CommentResolver],
+  providers: [CommentService, CommentManagementService, PicService],
 })
 export class CommentModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

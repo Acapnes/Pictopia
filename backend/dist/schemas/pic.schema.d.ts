@@ -16,4 +16,4 @@ export declare class Pic {
     };
     categories: Category[];
 }
-export declare const PicSchema: mongoose.Schema<Pic, mongoose.Model<Pic, any, any, any, any>, {}, {}, {}, {}, "type", Pic>;
+export declare const PicSchema: mongoose.Schema<Pic, mongoose.Model<Pic, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Pic>;

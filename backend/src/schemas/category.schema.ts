@@ -1,4 +1,3 @@
-import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { PictureFile } from './altSchemas/utils/picture.file.schema';
@@ -6,20 +5,13 @@ import { PictureFile } from './altSchemas/utils/picture.file.schema';
 export type CategoryDocument = Category & Document;
 
 @Schema()
-@ObjectType()
 export class Category {
-  @Field({ nullable: true })
   @Prop({ required: true })
   title: string;
 
-  @Field({ nullable: false })
   @Prop({ required: true })
   creationDate: Date;
 
-  @Field(() => PictureFile, {
-    nullable: false,
-    defaultValue: { data: null, contentType: null },
-  })
   @Prop({
     type: Object,
     required: true,

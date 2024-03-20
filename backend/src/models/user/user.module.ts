@@ -14,7 +14,6 @@ import { UserAuthController } from './auth/user.auth.controller';
 import { ModerationService } from './moderation/moderation.service';
 import { UserModerationController } from './moderation/user.moderation.controller';
 import { UserController } from './user.controller';
-import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 import { Comment, CommentSchema } from 'src/schemas/comment.schema';
 import { UserCommentervice } from './account/user.comment.service';
@@ -52,7 +51,6 @@ import { UserAccountService } from './account/user.account.service';
     UserAccountService,
     AvatarService,
     ManagementService,
-    UserResolver,
     CategoryService,
     JwtStrategy,
   ],
