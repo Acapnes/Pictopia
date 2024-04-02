@@ -84,8 +84,8 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "userSocials", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_security_schema_1.SecuritySettings() }),
-    __metadata("design:type", user_security_schema_1.SecuritySettings)
+    (0, mongoose_1.Prop)({ type: Object, required: false, default: new user_security_schema_1.Security() }),
+    __metadata("design:type", user_security_schema_1.Security)
 ], User.prototype, "settings", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false, default: false }),

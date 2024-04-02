@@ -19,7 +19,7 @@ export class PicController {
   @Post()
   async getPicsByPagination(@Body() picPaginationDto: PaginationDto): Promise<Pic[]> {
     return this.picFetchService.picSearchByCategory(picPaginationDto);
-  }
+  } 
 
   @Post('/alias/:id')
   async getPicsAlias(@Param('id') picture_id): Promise<Pic[]> {

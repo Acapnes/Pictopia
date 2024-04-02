@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
-const category_dto_1 = require("../../dto/category/category.dto");
 const category_service_1 = require("./category.service");
+const category_dto_1 = require("../../dto/category/category.dto");
 let CategoryController = class CategoryController {
     constructor(categoryService) {
         this.categoryService = categoryService;

@@ -5,7 +5,6 @@ import { User, UserDocument } from 'src/schemas/user.schema';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from 'src/dto/user/user.dto';
 import { ReturnFuncDto } from 'src/dto/returns/return.func.dto';
-import { UserCredentialsDto } from 'src/dto/user/user.credentials.dto';
 
 @Injectable()
 export class UserService {

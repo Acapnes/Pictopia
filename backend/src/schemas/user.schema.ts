@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { DeepLearning } from './altSchemas/user/user.learn.schema';
-import { SecuritySettings } from './altSchemas/user/user.security.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
+import { DeepLearning } from './altSchemas/user/user.learn.schema';
+import { Security } from './altSchemas/user/user.security.schema';
 
 export type UserDocument = User & Document;
 
@@ -77,8 +77,8 @@ export class User {
     }
   ];
 
-  @Prop({ type: Object, required: false, default: new SecuritySettings() })
-  settings: SecuritySettings;
+  @Prop({ type: Object, required: false, default: new Security() })
+  settings: Security;
 
   @Prop({ required: false, default: false })
   confrimed: boolean;

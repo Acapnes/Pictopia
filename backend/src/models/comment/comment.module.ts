@@ -25,8 +25,8 @@ import { PicSelectionMiddleware } from './middleware/pic.selection.middleware';
 })
 export class CommentModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(PicSelectionMiddleware)
-      .forRoutes({ path: '/comments/*', method: RequestMethod.POST });
+    consumer;
+    // .apply(PicSelectionMiddleware)
+    // .forRoutes({ path: '/comments/*', method: RequestMethod.POST });
   }
 }

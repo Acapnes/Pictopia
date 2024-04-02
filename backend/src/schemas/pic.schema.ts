@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, Types } from 'mongoose';
-import { PictureFile } from './altSchemas/utils/picture.file.schema';
 import { Category } from './category.schema';
 import { User } from './user.schema';
 

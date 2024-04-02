@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 
-export type SecuritySettingsDocument = SecuritySettings & Document;
+export type SecuritySettingsDocument = Security & Document;
 
-export class SecuritySettings {
+export class Security {
   @Prop({ type: Boolean, default: false })
   privateAccount: boolean;
 
@@ -11,5 +11,5 @@ export class SecuritySettings {
   notification: boolean;
 }
 
-export const SecuritySettingsSchema =
-  SchemaFactory.createForClass(SecuritySettings);
+export const SecuritySchema =
+  SchemaFactory.createForClass(Security);

@@ -15,12 +15,9 @@ const pic_service_1 = require("../pic/pic.service");
 const comment_controller_1 = require("./comment.controller");
 const comment_management_service_1 = require("./comment.management.service");
 const comment_service_1 = require("./comment.service");
-const pic_selection_middleware_1 = require("./middleware/pic.selection.middleware");
 let CommentModule = class CommentModule {
     configure(consumer) {
-        consumer
-            .apply(pic_selection_middleware_1.PicSelectionMiddleware)
-            .forRoutes({ path: '/comments/*', method: common_1.RequestMethod.POST });
+        consumer;
     }
 };
 CommentModule = __decorate([

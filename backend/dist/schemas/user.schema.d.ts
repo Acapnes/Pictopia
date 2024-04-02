@@ -1,9 +1,9 @@
 /// <reference types="node" />
 import mongoose, { Document } from 'mongoose';
-import { DeepLearning } from './altSchemas/user/user.learn.schema';
-import { SecuritySettings } from './altSchemas/user/user.security.schema';
 import { Category } from './category.schema';
 import { Pic } from './pic.schema';
+import { DeepLearning } from './altSchemas/user/user.learn.schema';
+import { Security } from './altSchemas/user/user.security.schema';
 export declare type UserDocument = User & Document;
 export declare class User {
     name: string;
@@ -29,7 +29,7 @@ export declare class User {
             url: string;
         }
     ];
-    settings: SecuritySettings;
+    settings: Security;
     confrimed: boolean;
     bio: string;
     password: string;

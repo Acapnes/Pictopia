@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CategoryDto } from 'src/dto/category/category.dto';
 import { Category } from 'src/schemas/category.schema';
 import { CategoryService } from './category.service';
+import { CategoryDto } from 'src/dto/category/category.dto';
 
 @Controller('category')
 export class CategoryController {

@@ -1,6 +1,6 @@
-import { CategoryDto } from 'src/dto/category/category.dto';
 import { Category } from 'src/schemas/category.schema';
 import { CategoryService } from './category.service';
+import { CategoryDto } from 'src/dto/category/category.dto';
 export declare class CategoryController {
     private readonly categoryService;
     constructor(categoryService: CategoryService);
